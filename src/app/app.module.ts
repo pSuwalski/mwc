@@ -22,9 +22,10 @@ import { AppComponent } from './app.component';
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { HomeComponent } from './components/home/home.component';
+import { AddComponent } from './components/add/add.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, LoginPageComponent, MainPageComponent],
+  declarations: [AppComponent, HomeComponent, LoginPageComponent, MainPageComponent, AddComponent],
   imports: [
     // AngularFireAuthModule,
     // AngularFireModule.initializeApp(environment.firebase),

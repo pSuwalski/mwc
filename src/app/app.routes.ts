@@ -5,6 +5,8 @@ import { AppComponent } from './app.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { HomeComponent } from './components/home/home.component';
 import { AddComponent } from './components/add/add.component';
+import { DocumentsComponent } from './components/documents/documents.component';
+import { SearchresultComponent } from './components/searchresult/searchresult.component';
 
 
 
@@ -25,7 +27,14 @@ export const appRoutes: Routes = [
                 path: 'add',
                 component: AddComponent,
             },
-
+            {
+                path: 'documents',
+                component: DocumentsComponent,
+            },
+            {
+                path: 'searchresult',
+                component: SearchresultComponent,
+            },
             // { not implemented
             //     path: 'search',
             //     component: SearchComponent,

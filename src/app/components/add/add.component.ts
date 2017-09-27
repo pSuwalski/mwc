@@ -6,4 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./add.component.css']
 })
 export class AddComponent {
+  buttonclicked() {
+    console.log('clicked');
+  }
 }

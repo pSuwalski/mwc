@@ -1,3 +1,7 @@
+body {
+    padding: 20px;
+  }
+
 .redborder {
     border-style: solid;
     border-color: red;
@@ -5,10 +9,6 @@
 
 .blueborder {
     padding: 0px;
-}
-
-body {
-    padding: 20px;
 }
 
 .textbox {
@@ -38,4 +38,16 @@ body {
 
 #active {
     background-color: green;
+}
+
+#documentsmenu {
+    padding: 0 100px;
+}
+
+#row {
+    margin-left: auto; 
+    margin-right: auto;
+    width: 100%;
+    border-style: solid;
+    border-color: red;
 }

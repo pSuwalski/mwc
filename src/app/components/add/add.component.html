@@ -1,12 +1,113 @@
 <html>
-    <div class="md-button-container">
-        <button class="md-button" (click)="buttonclicked()">dodaj</button>
-        <button class="md-button" (click)="buttonclicked()">wyszukaj</button>
-        <button class="md-button" (click)="buttonclicked()">dokumenty</button>
-        <button class="md-button" (click)="buttonclicked()">raporty</button>
+
+<body>
+    <div>
+      <div class="col-md-3 blueborder">
+        <button id="active" type="button" class="md-button">Dodaj</button>
+      </div>
+      <div class="col-md-3 blueborder">
+        <button type="button" class="md-button" (click)="buttonclicked()">Wyszukaj</button>
+      </div>
+      <div class="col-md-3 blueborder">
+        <button type="button" class="md-button" (click)="buttonclicked()">Dokumenty</button>
+      </div>
+      <div class="col-md-3 blueborder">
+        <button type="button" class="md-button" (click)="buttonclicked()">Raporty</button>
+      </div>
     </div>
-    <div class="md-button-container">
-        <button class="md-button" (click)="buttonclicked()">manualnie</button>
-        <button class="md-button" (click)="buttonclicked()">importuj</button>
+    <div>
+      <div class="col-md-12 blueborder">
+        <div class="col-md-6 blueborder">
+          <button type="button" class="md-button" (click)="buttonclicked()">Dane Osobowe</button>
+        </div>
+      </div>
     </div>
+    <div>
+      <div class="col-md-6 blueborder">
+        <button type="button" class="md-button" (click)="buttonclicked()">Dane Kontaktowe</button>
+      </div>
+      <div class="col-md-6 blueborder">
+        <button type="button" class="md-button" (click)="buttonclicked()">Upowaznienia</button>
+      </div>
+    </div>
+    <div>
+      <div class="menu">
+        <div class="col-md-6 blueborder">
+          <button type="button" class="md-button" (click)="buttonclicked()">Podstawy Prawne</button>
+        </div>
+        <div class="col-md-6 blueborder">
+          <button type="button" class="md-button" (click)="buttonclicked()">Dzialki</button>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="menu">
+        <div class="col-md-6 blueborder">
+          <button type="button" class="md-button" (click)="buttonclicked()">skladki</button>
+        </div>
+        <div class="col-md-6 blueborder">
+          <button type="button" class="md-button" (click)="buttonclicked()">wykonane roboty</button>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="col-md-2 blueborder">
+        IMIE
+      </div>
+      <div class="col-md-2 blueborder">
+        NAZWISKO
+      </div>
+      <div class="col-md-2 blueborder">
+        KOD
+      </div>
+      <div class="col-md-2 blueborder">
+        MIASTO
+      </div>
+      <div class="col-md-2 blueborder">
+        ULICA
+      </div>
+      <div class="col-md-2 blueborder">
+        NR
+      </div>
+    </div>
+    <div>
+      <div class="col-md-2 blueborder">
+        <input class="textbox" type="text" placeholder="IMIE" name="imie">
+      </div>
+      <div class="col-md-2 blueborder">
+        <input class="textbox" type="text" placeholder="NAZWISKO" name="nazwisko">
+      </div>
+      <div class="col-md-2 blueborder">
+        <input class="textbox" type="text" placeholder="KOD" name="kod">
+      </div>
+      <div class="col-md-2 blueborder">
+        <input class="textbox" type="text" placeholder="MIASTO" name="miasto">
+      </div>
+      <div class="col-md-2 blueborder">
+        <input class="textbox" type="text" placeholder="ULICA" name="ulica">
+      </div>
+      <div class="col-md-2 blueborder">
+        <input class="textbox" type="text" placeholder="NR" name="nr">
+      </div>
+    </div>
+    <div class="col-md-12 blueborder">
+      <div class="col-md-4 blueborder">
+        NUMER PESEL/NIP
+      </div>
+    </div>
+    <div>
+      <div class="col-md-4 blueborder">
+        <input class="textbox" type="text" placeholder="NUMER PESEL/NIP" name="numer">
+      </div>
+    </div>
+  <div>
+    <div class="col-md-9 blueborder">
+    </div>
+    <div class="col-md-3 blueborder">
+      <button type="button" class="md-button" (click)="buttonclicked()">dodaj</button>
+    </div>
+  </div>
+
+</body>
+
 </html>

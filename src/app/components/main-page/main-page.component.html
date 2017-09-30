@@ -1,15 +1,12 @@
-<body>
-<md-toolbar color="primary" class="mat-elevation-z1"><span style="color: white">Melior <span style="font-weight: 100">®</span></span>
+<md-toolbar color="primary" class="toolbar mat-elevation-z1">
+  <span style="color: white">Melior <span style="font-weight: 100">®</span></span>
 </md-toolbar>
-<!--<div class="toolbar-spacer"></div>-->
-<router-outlet></router-outlet>
-
-<footer>
-    <md-toolbar color="primary" class="mat-elevation-z1">
-        <div layout="row" layout-align="center center" flex>
-            HISTORY INFO
-        </div>
-    </md-toolbar>
+<div class="router-outlet-container">
+  <div class="toolbar-spacer"></div>
+  <router-outlet></router-outlet>
+</div>
+<footer class="mat-elevation-z3">
+    <mwc-history></mwc-history>
 </footer>
-</body>
-<!-- <history> not implemented </history> -->
+
+

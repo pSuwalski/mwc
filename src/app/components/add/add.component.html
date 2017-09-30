@@ -1,113 +1,22 @@
-<html>
-
-<body>
-    <div>
-      <div class="col-md-3 blueborder">
-        <button id="active" type="button" class="md-button">Dodaj</button>
-      </div>
-      <div class="col-md-3 blueborder">
-        <button type="button" class="md-button" (click)="buttonclicked()">Wyszukaj</button>
-      </div>
-      <div class="col-md-3 blueborder">
-        <button type="button" class="md-button" (click)="buttonclicked()">Dokumenty</button>
-      </div>
-      <div class="col-md-3 blueborder">
-        <button type="button" class="md-button" (click)="buttonclicked()">Raporty</button>
-      </div>
-    </div>
-    <div>
-      <div class="col-md-12 blueborder">
-        <div class="col-md-6 blueborder">
-          <button type="button" class="md-button" (click)="buttonclicked()">Dane Osobowe</button>
+<mwc-navigation-toolbar></mwc-navigation-toolbar>
+<div class="card-container">
+  <div class="card mat-elevation-z1">
+    <md-tab-group>
+      <md-tab label="Dane Osobowe">
+        <div class="form-container">
+          <mwc-personal-data-form></mwc-personal-data-form>
         </div>
-      </div>
-    </div>
-    <div>
-      <div class="col-md-6 blueborder">
-        <button type="button" class="md-button" (click)="buttonclicked()">Dane Kontaktowe</button>
-      </div>
-      <div class="col-md-6 blueborder">
-        <button type="button" class="md-button" (click)="buttonclicked()">Upowaznienia</button>
-      </div>
-    </div>
-    <div>
-      <div class="menu">
-        <div class="col-md-6 blueborder">
-          <button type="button" class="md-button" (click)="buttonclicked()">Podstawy Prawne</button>
-        </div>
-        <div class="col-md-6 blueborder">
-          <button type="button" class="md-button" (click)="buttonclicked()">Dzialki</button>
-        </div>
-      </div>
-    </div>
-    <div>
-      <div class="menu">
-        <div class="col-md-6 blueborder">
-          <button type="button" class="md-button" (click)="buttonclicked()">skladki</button>
-        </div>
-        <div class="col-md-6 blueborder">
-          <button type="button" class="md-button" (click)="buttonclicked()">wykonane roboty</button>
-        </div>
-      </div>
-    </div>
-    <div>
-      <div class="col-md-2 blueborder">
-        IMIE
-      </div>
-      <div class="col-md-2 blueborder">
-        NAZWISKO
-      </div>
-      <div class="col-md-2 blueborder">
-        KOD
-      </div>
-      <div class="col-md-2 blueborder">
-        MIASTO
-      </div>
-      <div class="col-md-2 blueborder">
-        ULICA
-      </div>
-      <div class="col-md-2 blueborder">
-        NR
-      </div>
-    </div>
-    <div>
-      <div class="col-md-2 blueborder">
-        <input class="textbox" type="text" placeholder="IMIE" name="imie">
-      </div>
-      <div class="col-md-2 blueborder">
-        <input class="textbox" type="text" placeholder="NAZWISKO" name="nazwisko">
-      </div>
-      <div class="col-md-2 blueborder">
-        <input class="textbox" type="text" placeholder="KOD" name="kod">
-      </div>
-      <div class="col-md-2 blueborder">
-        <input class="textbox" type="text" placeholder="MIASTO" name="miasto">
-      </div>
-      <div class="col-md-2 blueborder">
-        <input class="textbox" type="text" placeholder="ULICA" name="ulica">
-      </div>
-      <div class="col-md-2 blueborder">
-        <input class="textbox" type="text" placeholder="NR" name="nr">
-      </div>
-    </div>
-    <div class="col-md-12 blueborder">
-      <div class="col-md-4 blueborder">
-        NUMER PESEL/NIP
-      </div>
-    </div>
-    <div>
-      <div class="col-md-4 blueborder">
-        <input class="textbox" type="text" placeholder="NUMER PESEL/NIP" name="numer">
-      </div>
-    </div>
-  <div>
-    <div class="col-md-9 blueborder">
-    </div>
-    <div class="col-md-3 blueborder">
-      <button type="button" class="md-button" (click)="buttonclicked()">dodaj</button>
+      </md-tab>
+      <md-tab label="Dane Kontaktowe"></md-tab>
+      <md-tab label="Upowaznienia"></md-tab>
+      <md-tab label="Podstawy Prawne"></md-tab>
+      <md-tab label="Dzialki"></md-tab>
+      <md-tab label="Skladki"></md-tab>
+      <md-tab label="Wykonane roboty"></md-tab>
+    </md-tab-group>
+    <div class="button-container">
+        <button type="button" class="add-button" md-raised-button (click)="buttonclicked()">Dalej</button>
+        <button type="button" class="add-button" md-raised-button color="accent" (click)="buttonclicked()">Dodaj</button>
     </div>
   </div>
-
-</body>
-
-</html>
+</div>

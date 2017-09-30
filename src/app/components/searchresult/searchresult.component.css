@@ -1,6 +1,17 @@
-.blueborder {
-    padding: 0px;
-    border-style: solid;
-    border-color: blue;
+.card-title {
+  float: left;
+  width: 100%;
+  border-bottom: solid 1px #EEE;
+  height: 48px;
+  padding-top: 2px;
 }
-
+.card-navigation {
+  padding-top: 10px;
+}
+.card-content {
+  float: left;
+  width: 100%;
+}
+.bordered {
+  border: solid 1px #EEE;
+}

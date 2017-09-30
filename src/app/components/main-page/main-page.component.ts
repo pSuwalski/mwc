@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'mwc-main-page',
@@ -6,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./main-page.component.css']
 })
 export class MainPageComponent {
+  constructor(
+    public router: Router
+  ) {
+  }
 
 }

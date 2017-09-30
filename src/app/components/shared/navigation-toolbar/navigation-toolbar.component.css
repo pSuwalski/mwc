@@ -1,0 +1,39 @@
+.toolbar {
+  position: fixed;
+  z-index: 100;
+  top: 64px;
+  width: 100%;
+}
+.toolbar-spacer {
+  height: 48px;
+  width:100%;
+  float:left;
+}
+.navigation-button {
+  height: 48px;
+  padding: 0 12px;
+  cursor: pointer;
+  box-sizing: border-box;
+  text-align: center;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  white-space: nowrap;
+  BACKGROUND: #475bcf;
+  position: relative;
+  text-transform: uppercase;
+  width: 25%;
+  COLOR: white;
+  float: left;
+}
+
+.active-link {
+  background: #ff4181;
+  transition-duration: 0.1s;
+}

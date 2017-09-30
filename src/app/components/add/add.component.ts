@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostBinding } from '@angular/core';
 
 @Component({
   selector: 'mwc-add',
@@ -6,6 +6,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./add.component.css']
 })
 export class AddComponent {
+
+
   buttonclicked() {
     console.log('clicked');
   }

@@ -1,60 +1,24 @@
-.body {
-    height: 100%;
+.toolbar {
+  position: fixed;
+  z-index: 100;
 }
-
-.login-page-container {
-    padding: 64px 0;
+.toolbar-spacer {
+  height: 64px;
 }
-
 .title {
-    text-align: center;
-    margin-bottom: 32px;
+  text-align: center;
+  margin-bottom: 32px;
 }
 
-.header {
-    text-align: center;
+.router-outlet-container {
+  height: 72%;
+  overflow: auto;
 }
 
-.icon-title {
-    font-size: 80px;
-    height: 80px;
-    width: 80px;
+footer {
+  height: 28%;
+  overflow: auto;
+  border-top: solid 1px #eee;
+  z-index: 3;
 }
 
-.login-form-card {
-    width: 380px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-md-form-field {
-    width: 100%;
-}
-
-button {
-    width: 100%;
-    margin-top: 32px;
-}
-
-.wrapper {
-    min-height: 100%;
-    height: auto !important;
-    height: 100%;
-    margin: 0 auto -4em;
-}
-.footer, .push {
-    height: 4em;
-} 
-
-.md-button {
-    padding: 0 6px 0 6px;
-    margin: 6px 8px 6px 8px;
-    min-width: 88px;
-    border-radius: 3px;
-    font-size: 14px;
-    text-align: center;
-    text-transform: uppercase;
-    text-decoration:none;
-    border: none;
-    outline: none;
-}

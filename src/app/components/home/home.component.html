@@ -1,27 +1,15 @@
-<html>
+<div class="home-container">
 
-<body>
-    <main>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 blueborder">
-                    <button type="button" class="md-button" (click)="buttonclicked()">Dodaj</button>
-                </div>
-                <div class="col-md-6 blueborder">
-                    <button type="button" class="md-button" (click)="buttonclicked()">Wyszukaj</button>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-md-6 blueborder">
-                    <button type="button" class="md-button" (click)="buttonclicked()">Dokumenty</button>
-                </div>
-                <div class="col-md-6 blueborder">
-                    <button type="button" class="md-button" (click)="buttonclicked()">Raporty</button>
-                </div>
-            </div>
-        </div>
-    </main>
-</body>
-
-</html>
+  <div class="col-md-6 no-padding navigation-button bordered on-the-right" style="border-top:none" (click)="navigate('add')">
+    <div class="label">Dodaj</div>
+  </div>
+  <div class="col-md-6 no-padding navigation-button bordered on-the-right" style="border-top:none" (click)="navigate('searchresult')">
+    <div class="label">Wyszukaj</div>
+  </div>
+  <div class="col-md-6 no-padding navigation-button bordered on-the-right in-the-bottom" style="border-bottom:none" (click)="navigate('documents')">
+    <div class="label">Dokumenty</div>
+  </div>
+  <div class="col-md-6 no-padding navigation-button bordered on-the-right in-the-bottom" style="border-bottom:none" (click)="navigate('raports')">
+    <div class="label">Raporty</div>
+  </div>
+</div>

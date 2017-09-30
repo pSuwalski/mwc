@@ -1,41 +1,12 @@
-.redborder {
-    border-style: solid;
-    border-color: red;
+button {
+  float: right;
+  margin-left: 12px;
+  min-width: 160px;
 }
-
-.blueborder {
-    padding: 0px;
+.form-container {
+  padding: 16px;
 }
-
-body {
-    padding: 20px;
-}
-
-.textbox {
-    height: 20px;
-}
-
-.md-button {
-    border-style: solid;
-    border-color: black;
-    width: 100%;
-/*    padding: 0 6px 0 6px;*/
-/*    margin: 6px 8px 6px 8px;*/
-   /* min-width: 88px;*/
-/*    border-radius: 3px;*/
-    font-size: 14px;
-    text-align: left;
-    text-transform: uppercase;
-    text-decoration:none;
-    border: none;
-    outline: none;
-}
-
-.md-button:hover {
-    color: white;
-    background: blue;
-}
-
-#active {
-    background-color: green;
+.button-container {
+  padding: 16px 48px;
+  float: right;
 }

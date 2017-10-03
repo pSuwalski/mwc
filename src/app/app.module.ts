@@ -30,9 +30,10 @@ import { LoginPageComponent } from './components/login-page/login-page.component
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { PersonalDataFormComponent } from './components/shared/personal-data-form/personal-data-form.component';
 import { SearchresultComponent } from './components/searchresult/searchresult.component';
+import { TemplateslistComponent } from './components/documents/templateslist/templateslist.component';
 
 @NgModule({
-  declarations: [AddComponent, AppComponent, DocumentsComponent, HistoryComponent, HomeComponent, LoginPageComponent, MainPageComponent, NavigationToolbarComponent, PersonalDataFormComponent, SearchresultComponent],
+  declarations: [AddComponent, AppComponent, DocumentsComponent, HistoryComponent, HomeComponent, LoginPageComponent, MainPageComponent, NavigationToolbarComponent, PersonalDataFormComponent, SearchresultComponent, TemplateslistComponent],
   imports: [
     // AngularFireAuthModule,
     // AngularFireModule.initializeApp(environment.firebase),

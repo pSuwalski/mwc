@@ -1,53 +1,39 @@
-body {
-    padding: 20px;
+button {
+  float: right;
+  margin-left: 12px;
+  min-width: 160px;
+}
+.form-container {
+  padding: 16px;
+}
+.button-container {
+  padding: 16px 48px;
+  float: right;
+}
+
+.card-container {
+    position: fixed;
+    z-index: 99;
+    top: 120px;
+    width: 100%;
+  }
+  
+  .relative {
+      position: relative;
   }
 
-.redborder {
-    border-style: solid;
-    border-color: red;
-}
+  .border {
+      border-style: solid;
+      border-color: blue;
+  }
 
-.blueborder {
-    padding: 0px;
-}
+  .scrollable-container {
+      width:100%; 
+      overflow:auto; 
+      position:relative; 
+      height: 60%;
+  }
 
-.textbox {
-    height: 20px;
-}
-
-.md-button {
-    border-style: solid;
-    border-color: black;
-    width: 100%;
-/*    padding: 0 6px 0 6px;*/
-/*    margin: 6px 8px 6px 8px;*/
-   /* min-width: 88px;*/
-/*    border-radius: 3px;*/
-    font-size: 14px;
-    text-align: left;
-    text-transform: uppercase;
-    text-decoration:none;
-    border: none;
-    outline: none;
-}
-
-.md-button:hover {
-    color: white;
-    background: blue;
-}
-
-#active {
-    background-color: green;
-}
-
-#documentsmenu {
-    padding: 0 100px;
-}
-
-#row {
-    margin-left: auto; 
-    margin-right: auto;
-    width: 100%;
-    border-style: solid;
-    border-color: red;
-}
+  .height {
+      height: 100%;
+  }

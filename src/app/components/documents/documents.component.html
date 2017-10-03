@@ -1,29 +1,16 @@
+<mwc-navigation-toolbar>
+</mwc-navigation-toolbar>
+<div class="height">
+  <div class="card-container">
+    <div class="card mat-elevation-z1">
+      <md-tab-group>
+        <md-tab label="Lista Szablonów"></md-tab>
+        <md-tab label="Generuj Masowo"></md-tab>
+        <md-tab label="Dodaj Szablon"></md-tab>
+      </md-tab-group>
+    </div>
+    <div class="scrollable-container">
+      <router-outlet></router-outlet>
+    </div>
 
-      <mwc-navigation-toolbar></mwc-navigation-toolbar>
-      <div id="documentsmenu">
-        <div class="col-md-4 blueborder">
-          <button id="active" id="dodaj" type="button" class="md-button" (click)="buttonclicked()">Lista szablonów</button>
-        </div>
-        <div class="col-md-4 blueborder">
-          <button type="button" class="md-button" (click)="buttonclicked()">Generuj masowo</button>
-        </div>
-        <div class="col-md-4 blueborder">
-          <button type="button" class="md-button" (click)="buttonclicked()">dodaj szablon</button>
-        </div>
-      </div>
-
-      <div style='overflow:auto; height:50%;' class="col-md-12 blueborder">
-        <ol>
-          <li><a routerLink="">Zawiadomienie</a></li>
-          <li><a routerLink="">Deklaracja</a></li>
-          <li><a routerLink="">Upowaznienie</a></li>
-          <li><a routerLink="">Wezwanie</a></li>
-          <li><a routerLink="">Wniosek o decyzje ST</a></li>
-          <li><a routerLink="">Dowod Wplaty</a></li>
-          <li><a routerLink="">Statut</a></li>
-          <li><a routerLink="">Poswiadczenie przyjecia regulaminu, statutu, informacji OPO, zgody</a></li>
-          <li><a routerLink="">Zgoda + informacja</a></li>
-          <li><a routerLink="">Regulamin</a></li>
-        </ol>
-      </div>
-
+  </div>

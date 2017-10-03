@@ -7,7 +7,7 @@ import { HomeComponent } from './components/home/home.component';
 import { AddComponent } from './components/add/add.component';
 import { DocumentsComponent } from './components/documents/documents.component';
 import { SearchresultComponent } from './components/searchresult/searchresult.component';
-
+import { TemplateslistComponent } from './components/documents/templateslist/templateslist.component';
 
 
 export const appRoutes: Routes = [
@@ -30,6 +30,12 @@ export const appRoutes: Routes = [
             {
                 path: 'documents',
                 component: DocumentsComponent,
+                children: [
+                    {
+                        path: 'templateslist',
+                        component: TemplateslistComponent
+                    }
+                ]
             },
             {
                 path: 'searchresult',

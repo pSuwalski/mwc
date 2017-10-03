@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit, HostBinding } from '@angular/core';
 
 @Component({
@@ -6,8 +7,10 @@ import { Component, OnInit, HostBinding } from '@angular/core';
   styleUrls: ['./documents.component.css']
 })
 export class DocumentsComponent implements OnInit {
-
-  constructor() { }
+  constructor (
+    public router: Router
+  ) {
+  }
 
   ngOnInit() {
   }

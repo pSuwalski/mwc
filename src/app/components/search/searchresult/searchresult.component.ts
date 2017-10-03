@@ -6,7 +6,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./searchresult.component.css']
 })
 export class SearchresultComponent implements OnInit {
-
   public users: Mwc[] = [
     { name: 'pitor', age: 1, addres: 'Biało' },
     { name: 'asd', age: 9, addres: 'asd' },

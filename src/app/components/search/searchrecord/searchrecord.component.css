@@ -1,19 +1,17 @@
-button {
-  float: right;
-  margin-left: 12px;
-  min-width: 160px;
-}
 .form-container {
   padding: 24px;
 }
-.button-container {
-  padding: 16px 48px;
-  float: right;
-}
-
 
 .material-icons.md-48 { font-size: 48px; }
 
 .bordered {
   border: solid 1px #EEE;
+}
+
+.columns-title{
+   text-transform: uppercase;
+ }
+
+.title:hover{
+  font-size: larger;
 }

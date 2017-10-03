@@ -6,21 +6,21 @@
         <input class="textbox" type="text" mdInput placeholder="Wyszukaj..." >
       </md-form-field>
       <div class="col-md-1">
-        <md-icon class="material-icons md-48" color="accent">search</md-icon>
+        <md-icon class="material-icons md-48" color="accent" (click)="search()">search</md-icon>
       </div>
     </div>
 
     <div class="col-md-12">
-      <div class="row bordered in-the-bottom on-the-right">
+      <div class="row bordered in-the-bottom on-the-right columns-title">
         <div class="card-field" style="float:left; width:100%">
-          <div class="col-md-1" (click)="sortById()">id</div>
-          <div class="col-md-2" (click)="sortByName()">imie</div>
-          <div class="col-md-2" (click)="sortBySurname()">nazwisko</div>
-          <div class="col-md-1" (click)="sortByPostcode()">kod pocztowy</div>
-          <div class="col-md-2" (click)="sortByCity()">miasto</div>
-          <div class="col-md-2" (click)="sortByStreet()">ulica</div>
-          <div class="col-md-1" (click)="sortByNumber()">numer domu</div>
-          <div class="col-md-1" (click)="sortByFlatNumber()">numer mieszkania</div>
+          <div class="col-md-1 title" (click)="sortById()">id</div>
+          <div class="col-md-2 title" (click)="sortByName()">imie</div>
+          <div class="col-md-2 title" (click)="sortBySurname()">nazwisko</div>
+          <div class="col-md-1 title" (click)="sortByPostcode()">kod pocztowy</div>
+          <div class="col-md-2 title" (click)="sortByCity()">miasto</div>
+          <div class="col-md-2 title" (click)="sortByStreet()">ulica</div>
+          <div class="col-md-1 title" (click)="sortByNumber()">numer domu</div>
+          <div class="col-md-1 title" (click)="sortByFlatNumber()">numer mieszkania</div>
         </div>
       </div>
       <div class="row bordered in-the-bottom on-the-right">

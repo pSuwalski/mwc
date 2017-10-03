@@ -4,13 +4,13 @@
   <div class="card-container">
     <div class="card mat-elevation-z1">
       <md-tab-group>
-        <md-tab label="Lista Szablonów"></md-tab>
+        <md-tab label="Lista Szablonów">
+          <div class="scrollable-container">
+          <mwc-templateslist></mwc-templateslist>
+        </div>
+        </md-tab>
         <md-tab label="Generuj Masowo"></md-tab>
         <md-tab label="Dodaj Szablon"></md-tab>
       </md-tab-group>
     </div>
-    <div class="scrollable-container">
-      <router-outlet></router-outlet>
-    </div>
-
   </div>

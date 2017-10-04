@@ -2,7 +2,7 @@
 <div class="card-container">
   <div class="card mat-elevation-z1">
     <div class="form-container">
-      <md-form-field class="col-md-11">
+      <md-form-field class="col-md-7 col-md-offset-2">
         <input class="textbox" type="text"  mdInput placeholder="Wyszukaj..." [(ngModel)]="searchString">
       </md-form-field>
       <div class="col-md-1">
@@ -12,30 +12,30 @@
     <!--<div>
       {{searchString}}
     </div>-->
-    <div class="col-md-12">
-      <div class="row bordered in-the-bottom on-the-right columns-title">
+    <div class="col-md-8 col-md-offset-2">
+      <div class="row bordered-solid in-the-bottom on-the-right columns-title">
         <div class="card-field" style="float:left; width:100%">
-          <div class="col-md-1 title" (click)="sortById()">id</div>
-          <div class="col-md-2 title" (click)="sortByName()">imie</div>
-          <div class="col-md-2 title" (click)="sortBySurname()">nazwisko</div>
-          <div class="col-md-1 title" (click)="sortByPostcode()">kod pocztowy</div>
-          <div class="col-md-2 title" (click)="sortByCity()">miasto</div>
-          <div class="col-md-2 title" (click)="sortByStreet()">ulica</div>
-          <div class="col-md-1 title" (click)="sortByNumber()">numer domu</div>
-          <div class="col-md-1 title" (click)="sortByFlatNumber()">numer mieszkania</div>
+          <div class="col-md-1 title" (click)="sortById()" style="width: 12.5%;">id</div>
+          <div class="col-md-1 title" (click)="sortByName() " style="width: 12.5%;">imie</div>
+          <div class="col-md-1 title" (click)="sortBySurname()" style="width: 12.5%;">nazwisko</div>
+          <div class="col-md-1 title" (click)="sortByPostcode()" style="width: 12.5%;">kod pocztowy</div>
+          <div class="col-md-1 title" (click)="sortByCity()" style="width: 12.5%;">miasto</div>
+          <div class="col-md-1 title" (click)="sortByStreet()" style="width: 12.5%;">ulica</div>
+          <div class="col-md-1 title" (click)="sortByNumber()" style="width: 12.5%;">numer domu</div>
+          <div class="col-md-1 title" (click)="sortByFlatNumber()" style="width: 12.5%;">numer mieszkania</div>
         </div>
       </div>
-      <div class="row bordered in-the-bottom on-the-right">
+      <div  *ngFor="let user of users">
+      <div class="row bordered in-the-bottom on-the-right result">
         <div class="card-field" style="float:left; width:100%">
-          <div  *ngFor="let user of users">
-            <div class="col-md-1">{{user.id}}</div>
-            <div class="col-md-2">{{user.name}}</div>
-            <div class="col-md-2">{{user.surname}}</div>
-            <div class="col-md-1">{{user.postcode}}</div>
-            <div class="col-md-2">{{user.city}}</div>
-            <div class="col-md-2">{{user.street}}</div>
-            <div class="col-md-1">{{user.number}}</div>
-            <div class="col-md-1">{{user.flatNumber}}</div>
+            <div class="col-md-1" style="width: 12.5%;">{{user.id}}</div>
+            <div class="col-md-1" style="width: 12.5%;">{{user.name}}</div>
+            <div class="col-md-1" style="width: 12.5%;">{{user.surname}}</div>
+            <div class="col-md-1" style="width: 12.5%;">{{user.postcode}}</div>
+            <div class="col-md-1" style="width: 12.5%;">{{user.city}}</div>
+            <div class="col-md-1" style="width: 12.5%;">{{user.street}}</div>
+            <div class="col-md-1" style="width: 12.5%;">{{user.number}}</div>
+            <div class="col-md-1" style="width: 12.5%;">{{user.flatNumber}}</div>
           </div>
         </div>
       </div>

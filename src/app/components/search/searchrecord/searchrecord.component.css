@@ -5,9 +5,17 @@
 .material-icons.md-48 { font-size: 48px; }
 
 .columns-title{
-   text-transform: uppercase;
+  text-transform: uppercase;
  }
 
 .title:hover{
   font-size: larger;
+}
+
+.result:hover{
+  background-color: #ff4181;
+}
+
+.bordered-solid {
+  border: solid 4px #EEE;
 }

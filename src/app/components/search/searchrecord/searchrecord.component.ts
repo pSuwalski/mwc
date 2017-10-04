@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {stringDistance} from "codelyzer/util/utils";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'mwc-searchrecord',
@@ -48,7 +49,10 @@ export class SearchrecordComponent implements OnInit {
 
   public searchString: string;
 
-  constructor() { }
+  constructor(
+    public router: Router
+  ) {
+  }
 
   ngOnInit() {
   }
@@ -111,6 +115,10 @@ export class SearchrecordComponent implements OnInit {
 
     /*console.log(this.searchString);
     console.log('clicked');*/
+  }
+
+  navigate(route: string) {
+  this.router.navigate([route]);
   }
 }
 

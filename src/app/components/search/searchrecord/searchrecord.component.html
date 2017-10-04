@@ -15,27 +15,27 @@
     <div class="col-md-8 col-md-offset-2">
       <div class="row bordered-solid in-the-bottom on-the-right columns-title">
         <div class="card-field" style="float:left; width:100%">
-          <div class="col-md-1 title" (click)="sortById()" style="width: 12.5%;">id</div>
-          <div class="col-md-1 title" (click)="sortByName() " style="width: 12.5%;">imie</div>
-          <div class="col-md-1 title" (click)="sortBySurname()" style="width: 12.5%;">nazwisko</div>
-          <div class="col-md-1 title" (click)="sortByPostcode()" style="width: 12.5%;">kod pocztowy</div>
-          <div class="col-md-1 title" (click)="sortByCity()" style="width: 12.5%;">miasto</div>
-          <div class="col-md-1 title" (click)="sortByStreet()" style="width: 12.5%;">ulica</div>
-          <div class="col-md-1 title" (click)="sortByNumber()" style="width: 12.5%;">numer domu</div>
-          <div class="col-md-1 title" (click)="sortByFlatNumber()" style="width: 12.5%;">numer mieszkania</div>
+          <div class="col-md-1 title change-col-width" (click)="sortById()" >id</div>
+          <div class="col-md-1 title change-col-width" (click)="sortByName() " >imie</div>
+          <div class="col-md-1 title change-col-width" (click)="sortBySurname()" >nazwisko</div>
+          <div class="col-md-1 title change-col-width" (click)="sortByPostcode()" >kod pocztowy</div>
+          <div class="col-md-1 title change-col-width" (click)="sortByCity()" >miasto</div>
+          <div class="col-md-1 title change-col-width" (click)="sortByStreet()" >ulica</div>
+          <div class="col-md-1 title change-col-width" (click)="sortByNumber()" >numer domu</div>
+          <div class="col-md-1 title change-col-width" (click)="sortByFlatNumber()" >numer mieszkania</div>
         </div>
       </div>
       <div  *ngFor="let user of users">
-      <div class="row bordered in-the-bottom on-the-right result">
+      <div class="row bordered in-the-bottom on-the-right result" (click)="navigate('search/searchresult')">
         <div class="card-field" style="float:left; width:100%">
-            <div class="col-md-1" style="width: 12.5%;">{{user.id}}</div>
-            <div class="col-md-1" style="width: 12.5%;">{{user.name}}</div>
-            <div class="col-md-1" style="width: 12.5%;">{{user.surname}}</div>
-            <div class="col-md-1" style="width: 12.5%;">{{user.postcode}}</div>
-            <div class="col-md-1" style="width: 12.5%;">{{user.city}}</div>
-            <div class="col-md-1" style="width: 12.5%;">{{user.street}}</div>
-            <div class="col-md-1" style="width: 12.5%;">{{user.number}}</div>
-            <div class="col-md-1" style="width: 12.5%;">{{user.flatNumber}}</div>
+            <div class="col-md-1 change-col-width" >{{user.id}}</div>
+            <div class="col-md-1 change-col-width" >{{user.name}}</div>
+            <div class="col-md-1 change-col-width" >{{user.surname}}</div>
+            <div class="col-md-1 change-col-width" >{{user.postcode}}</div>
+            <div class="col-md-1 change-col-width" >{{user.city}}</div>
+            <div class="col-md-1 change-col-width" >{{user.street}}</div>
+            <div class="col-md-1 change-col-width" >{{user.number}}</div>
+            <div class="col-md-1 change-col-width" >{{user.flatNumber}}</div>
           </div>
         </div>
       </div>

@@ -19,3 +19,7 @@
 .bordered-solid {
   border: solid 4px #EEE;
 }
+
+.change-col-width{
+  width: 12.5%;
+}

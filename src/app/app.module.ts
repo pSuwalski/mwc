@@ -32,6 +32,7 @@ import { PersonalDataFormComponent } from './components/shared/personal-data-for
 import { SearchComponent } from './components/search/search.component';
 import { SearchresultComponent } from './components/search/searchresult/searchresult.component';
 import { SearchrecordComponent } from './components/search/searchrecord/searchrecord.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AddComponent, AppComponent, DocumentsComponent, HistoryComponent, HomeComponent, LoginPageComponent, MainPageComponent, NavigationToolbarComponent, PersonalDataFormComponent, SearchComponent, SearchresultComponent, SearchrecordComponent],
@@ -49,7 +50,8 @@ import { SearchrecordComponent } from './components/search/searchrecord/searchre
     MdTabsModule,
     MdToolbarModule,
     NoopAnimationsModule,
-    RouterModule.forRoot(router.appRoutes)
+    RouterModule.forRoot(router.appRoutes),
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

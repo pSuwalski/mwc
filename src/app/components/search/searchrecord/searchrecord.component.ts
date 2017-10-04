@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {stringDistance} from "codelyzer/util/utils";
 
 @Component({
   selector: 'mwc-searchrecord',
@@ -45,6 +46,7 @@ export class SearchrecordComponent implements OnInit {
     { id: 34, name: 'snnsa', surname: 'peowalska', postcode: '73-235', city: 'Anhtonin', street: 'lukasrnskiego', number: 8, flatNumber: 43 },
   ];
 
+  public searchString: string;
 
   constructor() { }
 
@@ -53,7 +55,7 @@ export class SearchrecordComponent implements OnInit {
 
   sortById() {
     this.users.sort((a, b) => a.id - b.id);
-    console.log('clicked');
+    // console.log('clicked');
   }
 
  /* revertSortById(){
@@ -105,7 +107,10 @@ export class SearchrecordComponent implements OnInit {
   }
 
   search() {
-    console.log( 'searchClicked' );
+    /*this.searchString = (<HTMLInputElement>document.getElementById('inputText')).value;*/
+
+    /*console.log(this.searchString);
+    console.log('clicked');*/
   }
 }
 
@@ -120,6 +125,7 @@ export interface UserData{
   number: number;
   flatNumber: number;
 }
+
 
 
 

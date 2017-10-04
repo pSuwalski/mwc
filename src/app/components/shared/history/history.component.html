@@ -1,23 +1,22 @@
+<div style="BACKGROUND: #475bcf; height:40px; position: fixed; z-index: 100; padding: 10px; width: 100%;">
+  HISTORIA WYSZUKIWANIA
+</div>
 
-  <div style="BACKGROUND: #475bcf; height:40px; position: fixed; z-index: 100; padding: 10px; width: 100%;">
-    HISTORIA WYSZUKIWANIA
-  </div>
+<div style="BACKGROUND: #475bcf; z-index: 100; height: 50px; position: fixed; width:100%; padding: 10px; margin-top: 40px;">
+  <div class="col-md-1">Godzina</div>
+  <div class="col-md-2">Imię</div>
+  <div class="col-md-2">Nazwisko</div>
+  <div class="col-md-1">Kod pocztowy</div>
+  <div class="col-md-2">Miejscowość</div>
+  <div class="col-md-2">Ulica</div>
+  <div class="col-md-1">Numer</div>
+  <div class="col-md-1">Numer mieszkania</div>
+</div>
 
-    <div style="BACKGROUND: #475bcf; z-index: 100; height: 50px; position: fixed; width:100%; padding: 10px; margin-top: 40px;">
-      <div class="col-md-1">Godzina</div>
-      <div class="col-md-2">Imię</div>
-      <div class="col-md-2">Nazwisko</div>
-      <div class="col-md-1">Kod pocztowy</div>
-      <div class="col-md-2">Miejscowość</div>
-      <div class="col-md-2">Ulica</div>
-      <div class="col-md-1">Numer</div>
-      <div class="col-md-1">Numer mieszkania</div>
-    </div>
-
-  <div style="z-index: 99; margin-top: 90px;">
-    <div style="float:left; width:100%" *ngFor="let record of history_records">
-      <div class="row bordered in-the-bottom" style="">
-        <div class="card-field" style="float: left; width:100%">
+<div style="z-index: 99; margin-top: 90px;">
+  <div style="float:left; width:100%" *ngFor="let record of history_records">
+    <div class="row bordered in-the-bottom">
+      <div class="card-field result" style="float: left; width:100%">
         <div class="col-md-1">{{record.time}}</div>
         <div class="col-md-2">{{record.name}}</div>
         <div class="col-md-2">{{record.surname}}</div>
@@ -28,5 +27,5 @@
         <div class="col-md-1">{{record.flatNumber}}</div>
       </div>
     </div>
-    </div>
   </div>
+</div>

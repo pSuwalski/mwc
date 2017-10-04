@@ -1,3 +1,7 @@
 .history-container {
   background: white;
 }
+
+.result:hover {
+  background-color: #ff4181;
+}

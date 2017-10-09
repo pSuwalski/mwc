@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'mwc-searchresult',
@@ -6,27 +7,39 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./searchresult.component.css']
 })
 export class SearchresultComponent implements OnInit {
-  public users: Mwc[] = [
-    { name: 'pitor', age: 1, addres: 'Biało' },
-    { name: 'asd', age: 9, addres: 'asd' },
-    { name: 'pitxcvor', age: 2, addres: 'viia' }
-  ];
 
-  constructor() { }
+  notes: Note[] = [];
+
+  constructor(
+    public router: Router) {
+
+  }
 
   ngOnInit() {
   }
 
-  sortByName() {
-    this.users.sort((a, b) => a.age - b.age);
+  /*  sortByName() {
+      this.users.sort((a, b) => a.age - b.age);
+      }
+  */
+  navigate(route: string) {
+    this.router.navigate([route]);
   }
 
+  addNote(note: any) {
+    const today = new Date();
+    const dd = today.getDate();
+    const mm = today.getMonth() + 1; // January is 0!
+    const yyyy = today.getFullYear();
+    note.date = dd.toString() + '.' + mm.toString() + '.' + yyyy.toString();
+
+    this.notes.push({ 'date': note.date, 'content': note.note_content });
+  }
 
 }
 
 
-export interface Mwc {
-  name: string;
-  age: number;
-  addres: string;
+export interface Note {
+  date: string;
+  content: number;
 }

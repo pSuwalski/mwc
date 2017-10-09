@@ -1,0 +1,30 @@
+.card-title {
+  float: left;
+  width: 100%;
+  border-bottom: solid 1px #EEE;
+  height: 48px;
+  padding-top: 2px;
+}
+.card-navigation {
+  padding-top: 10px;
+}
+.card-content {
+  float: left;
+  width: 100%;
+  height: 100%;
+}
+.bordered {
+  border: solid 1px #EEE;
+}
+
+.on-the-right {
+  border-left: none;
+}
+
+.bottom-aligned {
+  position: absolute;
+  z-index: 99;
+  bottom: 0;
+  width: 100%;
+
+}

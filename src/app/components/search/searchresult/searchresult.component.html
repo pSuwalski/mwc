@@ -1,0 +1,98 @@
+<mwc-navigation-toolbar></mwc-navigation-toolbar>
+<div class="card-container" style="height: 100%; margin-bottom: 28%">
+  <div class="card mat-elevation-z1" style="height: 100%; margin-bottom: 28%">
+    <div class="card-title">
+      <div class="col-md-12 no-padding">
+        <div class="card-field  card-navigation" (click)="navigate('search')">
+          <md-icon>navigate_before</md-icon>
+        </div>
+        <div class="card-field">IMIE NAZWISKO</div>
+      </div>
+    </div>
+    <div class="card-content" style="height: 79%"> <!-- TODO: ask suwal-->
+      <div style="height: 100%"> 
+        <div class="col-md-3" style="height: 100%">
+          <div class="row bordered in-the-bottom" style="height: 25%">
+            <div class="card-field">
+              Adres zamieszkania
+            </div>
+          </div>
+          <div class="row bordered in-the-bottom" style="height: 25%">
+            <div class="card-field">
+              Dane Kontaktowe
+            </div>
+          </div>
+          <div class="row bordered in-the-bottom" style="height: 25%">
+            <div class="card-field">
+              Osoby Upowaznione
+            </div>
+          </div>
+          <div class="row bordered in-the-bottom" style="height: 25%">
+            <div class="card-field">
+              Działki
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6" style="height: 100%">
+          <div class="row bordered in-the-bottom on-the-right">
+            <div class="card-field" (click)="sortByName()">
+              Notatki
+            </div>
+          </div>
+          <div class="row bordered in-the-bottom on-the-right">
+            <div class="card-field">
+                <ul id="products-list">
+                    <li *ngFor="let note of notes"> 
+                      <p>{{note.date}}</p>
+                      <p>{{note.content}}</p>
+                    </li>
+                  </ul>
+            </div>
+          </div>
+          <div class="row bordered in-the-bottom on-the-right bottom-aligned">
+            <form #form="ngForm" (ngSubmit)="addNote(form.value)" style="height: 100%">
+              <div style="float: left; width: 75%; height: 100%">
+                <input type="text" placeholder="Notatka" name="note_content"[(ngModel)]="note_content" style="width: 100%">     
+              </div>
+              <div style="float: left; width: 25%; background-color: #ff4181; color: white">     
+              <button md-raised-button style="background-color: #ff4181; color: white; width: 100%">Dodaj notatkę</button>
+            </div>
+            </form>
+          </div>
+        </div>
+        <div class="col-md-3" style="height: 100%">
+          <div class="row bordered in-the-bottom on-the-right" style="height: 16%">
+            <div class="card-field">
+              Saldo
+            </div>
+          </div>
+          <div class="row bordered in-the-bottom on-the-right" style="height: 16%">
+            <div class="card-field">
+              Podstawa prawna
+            </div>
+          </div>
+          <div class="row bordered in-the-bottom on-the-right" style="height: 16%">
+            <div class="card-field">
+              Wykonane prace
+            </div>
+          </div>
+          <div class="row bordered in-the-bottom on-the-right" style="height: 16%">
+            <div class="card-field">
+              Generuj DOK
+            </div>
+          </div>
+          <div class="row bordered in-the-bottom on-the-right" style="height: 16%">
+            <div class="card-field">
+              Pokaz zapisany
+            </div>
+          </div>
+          <div class="row bordered in-the-bottom on-the-right" style="height: 20%">
+            <div class="card-field">
+              Dodaj DOK
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

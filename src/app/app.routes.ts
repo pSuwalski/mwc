@@ -6,9 +6,10 @@ import { MainPageComponent } from './components/main-page/main-page.component';
 import { HomeComponent } from './components/home/home.component';
 import { AddComponent } from './components/add/add.component';
 import { DocumentsComponent } from './components/documents/documents.component';
-import { SearchresultComponent } from './components/searchresult/searchresult.component';
+import { SearchComponent } from './components/search/search.component';
+import {SearchresultComponent} from './components/search/searchresult/searchresult.component';
+import {SearchrecordComponent} from './components/search/searchrecord/searchrecord.component';
 import { TemplateslistComponent } from './components/documents/templateslist/templateslist.component';
-
 
 export const appRoutes: Routes = [
     {
@@ -38,8 +39,18 @@ export const appRoutes: Routes = [
                 ]
             },
             {
-                path: 'searchresult',
-                component: SearchresultComponent,
+                path: 'search',
+                component: SearchComponent,
+                children: [
+                  {
+                    path: '',
+                    component: SearchrecordComponent,
+                  },
+                  {
+                    path: 'searchresult',
+                    component: SearchresultComponent,
+                  },
+                ]
             },
             // { not implemented
             //     path: 'search',

@@ -10,3 +10,7 @@ button {
   padding: 16px 48px;
   float: right;
 }
+
+.mat-tab-header {
+  position: fixed;
+}

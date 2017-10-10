@@ -43,3 +43,7 @@ button {
   .height {
       height: 100%;
   }
+
+.mat-tab-header {
+    position: fixed !important;
+  }

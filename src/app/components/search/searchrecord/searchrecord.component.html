@@ -13,7 +13,7 @@
       {{searchString}}
     </div>-->
     <div class="col-md-12">
-      <div class="row bordered-solid in-the-bottom on-the-right columns-title fixed">
+      <div class="row in-the-bottom on-the-right columns-title fixed">
         <div class="card-field" style="float:left; width:100%">
           <div class="col-md-1 title" (click)="sortById()" >id</div>
           <div class="col-md-2 title " (click)="sortByName() " >imie</div>
@@ -25,7 +25,8 @@
           <div class="col-md-1 title " (click)="sortByFlatNumber()" >numer mieszkania</div>
         </div>
       </div>
-      <div  *ngFor="let user of users">
+      <div class="result_container">
+      <div  *ngFor="let user of users" >
       <div class="row bordered in-the-bottom on-the-right result" (click)="navigate('search/searchresult')">
         <div class="card-field" style="float:left; width:100%">
             <div class="col-md-1 " >{{user.id}}</div>
@@ -38,6 +39,7 @@
             <div class="col-md-1 " >{{user.flatNumber}}</div>
           </div>
         </div>
+      </div>
       </div>
     </div>
 

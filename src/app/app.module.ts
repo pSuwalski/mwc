@@ -34,6 +34,8 @@ import { SearchresultComponent } from './components/search/searchresult/searchre
 import { SearchrecordComponent } from './components/search/searchrecord/searchrecord.component';
 import { TemplateslistComponent } from './components/documents/templateslist/templateslist.component';
 import { FormsModule } from '@angular/forms';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 
 @NgModule({
   declarations: [AddComponent, AppComponent, DocumentsComponent, HistoryComponent, HomeComponent,
@@ -55,6 +57,8 @@ import { FormsModule } from '@angular/forms';
     NoopAnimationsModule,
     RouterModule.forRoot(router.appRoutes),
     FormsModule,
+    AngularFireModule.initializeApp(environment.firebase, 'mwc'),
+    AngularFireAuthModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

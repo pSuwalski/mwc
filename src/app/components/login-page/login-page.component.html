@@ -12,15 +12,17 @@
             </md-card-title>
             <form>
                 <md-form-field>
-                    <input mdInput placeholder="Adres email" type="email">
+                    <input mdInput placeholder="Adres email" type="email" id="user">
                 </md-form-field>
                 <md-form-field>
-                    <input mdInput placeholder="Hasło" type="password">
+                    <input mdInput placeholder="Hasło" type="password" id="password">
                 </md-form-field>
             </form>
         </md-card-content>
         <md-card-content>
-            <a routerLink='/'><button md-raised-button color="primary">Zaloguj</button></a>
+            <!--<a routerLink='/'>-->
+                <button md-raised-button color="primary" (click)="login()">Zaloguj</button>
+            <!--</a>-->
         </md-card-content>
     </md-card>
 </div>

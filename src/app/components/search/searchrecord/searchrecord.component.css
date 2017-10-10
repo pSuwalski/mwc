@@ -14,12 +14,10 @@
 
 .result:hover{
   background-color: #ff4181;
+  color: white;
 }
 
 .bordered-solid {
   border: solid 4px #EEE;
 }
 
-.change-col-width{
-  width: 12.5%;
-}

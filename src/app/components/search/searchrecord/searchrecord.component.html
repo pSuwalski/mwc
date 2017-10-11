@@ -1,9 +1,9 @@
 <mwc-navigation-toolbar></mwc-navigation-toolbar>
-<div class="card-container">
+<div class="card-container" >
   <div class="card mat-elevation-z1">
     <div class="form-container fixed">
       <md-form-field class="col-md-11">
-        <input class="textbox" type="text"  mdInput placeholder="Wyszukaj..." [(ngModel)]="searchString">
+        <input class="textbox" type="text"  mdInput placeholder="Wyszukaj..." [(ngModel)]="searchString" (input)="MyFilter()" >
       </md-form-field>
       <div class="col-md-1">
         <md-icon class="material-icons md-48" color="accent" (click)="search()">search</md-icon>
@@ -26,7 +26,7 @@
         </div>
       </div>
       <div class="result_container">
-      <div  *ngFor="let user of users" >
+      <div  *ngFor="let user of users_filter">
       <div class="row bordered in-the-bottom on-the-right result" (click)="navigate('search/searchresult')">
         <div class="card-field" style="float:left; width:100%">
             <div class="col-md-1 " >{{user.id}}</div>

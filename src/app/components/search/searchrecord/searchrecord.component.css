@@ -32,6 +32,7 @@
 
 .result_container{
   margin-top: 144px;
+  min-height: 70%-144px;
 }
 
 .fixed{

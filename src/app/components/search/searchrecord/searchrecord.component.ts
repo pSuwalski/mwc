@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {MatHeaderRowDef} from '@angular/material';
-import {Sort} from '@angular/material';
 
 @Component({
   selector: 'mwc-searchrecord',
@@ -57,10 +55,12 @@ export class SearchrecordComponent implements OnInit {
   street_sorted = false;
   number_sorted = false;
   flat_number_sorted = false;
+  public users_filter: UserData[];
 
   constructor(
     public router: Router
   ) {
+    this.users_filter = this.users;
   }
 
   ngOnInit() {
@@ -195,8 +195,43 @@ export class SearchrecordComponent implements OnInit {
   this.router.navigate([route]);
   }
 
-
+  MyFilter(){
+    this.users_filter=[];
+    this.searchString = this.searchString.toLowerCase();
+    if(this.searchString.length != 0)
+    {
+      for(const user of this.users){
+        if(user.name.toLowerCase().indexOf(this.searchString) >= 0){
+          this.users_filter.push(user);
+        }
+        else if(user.surname.toLowerCase().indexOf(this.searchString) >= 0){
+          this.users_filter.push(user);
+        }
+        else if(user.city.toLowerCase().indexOf(this.searchString) >= 0){
+          this.users_filter.push(user);
+        }
+        else if(user.street.toLowerCase().indexOf(this.searchString) >= 0){
+          this.users_filter.push(user);
+        }
+        else if(user.postcode.toLowerCase().indexOf(this.searchString) >= 0){
+          this.users_filter.push(user);
+        }
+        else if(user.number.toString().toLowerCase().indexOf(this.searchString) >= 0){
+          this.users_filter.push(user);
+        }
+        else if(user.flatNumber.toString().toLowerCase().indexOf(this.searchString) >= 0){
+          this.users_filter.push(user);
+        }
+      }
+    }
+    else{
+      this.users_filter = this.users;
+    }
+  }
 }
+
+
+
 
 
 export interface UserData{

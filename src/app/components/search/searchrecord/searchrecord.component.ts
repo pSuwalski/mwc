@@ -184,12 +184,9 @@ export class SearchrecordComponent implements OnInit {
     }
   }
 
-  search() {
-    /*this.searchString = (<HTMLInputElement>document.getElementById('inputText')).value;*/
-
-    /*console.log(this.searchString);
-    console.log('clicked');*/
-  }
+  /*search() {
+    this.MyFilter();
+  } */
 
   navigate(route: string) {
   this.router.navigate([route]);

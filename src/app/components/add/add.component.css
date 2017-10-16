@@ -14,3 +14,7 @@ button {
 .mat-tab-header {
   position: fixed;
 }
+
+.accent {
+  color: white !important;
+}

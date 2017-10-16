@@ -10,7 +10,7 @@
 }
 
 .navigation-button:hover {
-  background: #ff4181;
+  background: #64DD17;
   color: white;
   transition-duration: 0.15s;
 }

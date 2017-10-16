@@ -10,12 +10,14 @@ import { Router } from '@angular/router';
 })
 export class LoginPageComponent {
 
-  private user: string;
+  public user: string;
   protected password: string;
   private firebase: FirebaseApp;
 
-  constructor(@Inject(FirebaseApp) firebaseApp: any,
-              public router: Router) {
+  constructor(
+    @Inject(FirebaseApp) firebaseApp: any,
+    public router: Router
+  ) {
     this.firebase = firebaseApp;
     // const email = 'test@gmail.com';
     // const password = 'testowehaslo';
@@ -27,12 +29,10 @@ export class LoginPageComponent {
     // });
   }
   login() {
-    this.user = (<HTMLInputElement>document.getElementById('user')).value;
-    this.password = (<HTMLInputElement>document.getElementById('password')).value;
     const self = this;
-    this.firebase.auth().signInWithEmailAndPassword(this.user, this.password).then( function() { 
+    this.firebase.auth().signInWithEmailAndPassword(this.user, this.password).then(function () {
       self.router.navigate(['/']);
-    }).catch(function(error) {
+    }).catch(function (error) {
       console.log('unsuccessful login');
       alert(error.message);
     });

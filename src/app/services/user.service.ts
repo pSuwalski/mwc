@@ -1,17 +1,22 @@
-// import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireAuth } from 'angularfire2/auth';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 
 
 
 @Injectable()
 export class UserService {
   constructor(
-//    private afa: AngularFireAuth
+    private afa: AngularFireAuth
   ) {
   }
 
-//   isUserLoggedIn() {
-//     return this.afa.authState;
-//   }
+  isUserLoggedIn(): Observable<any> {
+    return this.afa.authState;
+  }
+
+  logOut() {
+    this.afa.auth.signOut();
+  }
 
 }

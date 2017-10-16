@@ -10,12 +10,12 @@
             <md-card-title class="header">
                 <md-icon class="icon-title" color="accent">account_circle</md-icon>
             </md-card-title>
-            <form>
+            <form (ngSubmit)="login()">
                 <md-form-field>
-                    <input mdInput placeholder="Adres email" type="email" id="user">
+                    <input mdInput placeholder="Adres email" type="email" name="user" [(ngModel)]="user" id="user">
                 </md-form-field>
                 <md-form-field>
-                    <input mdInput placeholder="Hasło" type="password" id="password">
+                    <input mdInput placeholder="Hasło" type="password" name="password" [(ngModel)]="password" id="password">
                 </md-form-field>
             </form>
         </md-card-content>

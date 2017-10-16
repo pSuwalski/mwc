@@ -11,7 +11,8 @@ import {
   MdListModule,
   MdTableModule,
   MdTabsModule,
-  MdToolbarModule
+  MdToolbarModule,
+  MdRippleModule
 } from '@angular/material';
 
 import { RouterModule, Routes } from '@angular/router';
@@ -36,6 +37,8 @@ import { TemplateslistComponent } from './components/documents/templateslist/tem
 import { FormsModule } from '@angular/forms';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { UserResolver } from './resolvers/user-resolver';
+import { UserService } from './services/user.service';
 
 @NgModule({
   declarations: [AddComponent, AppComponent, DocumentsComponent, HistoryComponent, HomeComponent,
@@ -51,16 +54,17 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
     MdIconModule,
     MdInputModule,
     MdListModule,
+    MdRippleModule,
     MdTableModule,
     MdTabsModule,
     MdToolbarModule,
     NoopAnimationsModule,
     RouterModule.forRoot(router.appRoutes),
     FormsModule,
-    AngularFireModule.initializeApp(environment.firebase, 'mwc'),
+    AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
   ],
-  providers: [],
+  providers: [UserResolver, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

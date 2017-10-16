@@ -22,3 +22,6 @@ footer {
   z-index: 3;
 }
 
+md-toolbar button {
+  margin-left: auto;
+}

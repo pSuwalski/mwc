@@ -1,7 +1,7 @@
 <mwc-navigation-toolbar></mwc-navigation-toolbar>
 <div class="card-container">
   <div class="card mat-elevation-z1">
-    <md-tab-group>
+    <md-tab-group [(selectedIndex)]="index">
       <md-tab label="Dane Osobowe">
         <div class="form-container">
           <mwc-personal-data-form></mwc-personal-data-form>
@@ -15,8 +15,8 @@
       <md-tab label="Wykonane roboty"></md-tab>
     </md-tab-group>
     <div class="button-container">
-        <button type="button" class="add-button" md-raised-button (click)="buttonclicked()">Dalej</button>
-        <button type="button" class="add-button" md-raised-button color="accent" (click)="buttonclicked()">Dodaj</button>
+        <button type="button" class="add-button accent" md-raised-button color="accent" (click)="next()" >Dodaj</button>
+        <button type="button" *ngIf="index < 6" class="add-button" md-raised-button (click)="next()">Dalej</button>
     </div>
   </div>
 </div>

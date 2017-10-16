@@ -20,8 +20,8 @@
 }
 
 .result:hover{
-  background-color: #ff4181;
-  color: white;
+  background-color: rgba(102, 221, 23, 0.4);
+  /* color: white; */
   cursor: pointer;
 }
 
@@ -42,5 +42,8 @@
   width: 100%;
 }
 
+md-form-field {
+  width: 91.666666666%;
+}
 
 

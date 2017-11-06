@@ -42,6 +42,8 @@ import { AuthorizationsDataFormComponent } from './components/shared/authorizati
 import { LegalbasisDataFormComponent } from './components/shared/legalbasis-data-form/legalbasis-data-form.component';
 import { ParcelsDataFormComponent } from './components/shared/parcels-data-form/parcels-data-form.component';
 import { PaymentsDataFormComponent } from './components/shared/payments-data-form/payments-data-form.component';
+import { WorksdoneDataFormComponent } from './components/shared/worksdone-data-form/worksdone-data-form.component';
+import { CompanyDataFormComponent } from './components/shared/company-data-form/company-data-form.component';
 
 @NgModule({
   declarations: [AddComponent, AppComponent, DocumentsComponent, HistoryComponent, HomeComponent,
@@ -49,7 +51,9 @@ import { PaymentsDataFormComponent } from './components/shared/payments-data-for
     SearchComponent, SearchresultComponent, SearchrecordComponent, TemplateslistComponent,
     ContactDataFormComponent, AuthorizationsDataFormComponent, LegalbasisDataFormComponent,
     ParcelsDataFormComponent,
-    PaymentsDataFormComponent],
+    PaymentsDataFormComponent,
+    WorksdoneDataFormComponent,
+    CompanyDataFormComponent],
   imports: [
     // AngularFireAuthModule,
     // AngularFireModule.initializeApp(environment.firebase),

@@ -4,7 +4,7 @@
     <md-tab-group>
       <md-tab label="Dane Osobowe">
         <div class="form-container">
-          <mwc-personal-data-form></mwc-personal-data-form>
+          <mwc-company-data-form></mwc-company-data-form>
         </div>
       </md-tab>
       <md-tab label="Dane Kontaktowe">
@@ -32,7 +32,9 @@
           <mwc-payments-data-form></mwc-payments-data-form>
         </div>
       </md-tab>
-      <md-tab label="Wykonane roboty"></md-tab>
+      <md-tab label="Wykonane roboty">
+          <mwc-worksdone-data-form></mwc-worksdone-data-form>
+      </md-tab>
     </md-tab-group>
     <div class="button-container">
       <button type="button" class="add-button" md-raised-button (click)="buttonclicked()">Dalej</button>

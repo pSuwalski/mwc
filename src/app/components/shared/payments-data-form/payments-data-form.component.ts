@@ -6,9 +6,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./payments-data-form.component.css']
 })
 export class PaymentsDataFormComponent implements OnInit {
-
-  selectedPayment: number;
-
   payments: Payment[] = [
     {value: undefined, 'date': ''}
   ];
@@ -28,18 +25,3 @@ export interface Payment {
   date: string;
 }
 
-
-// export interface PaymentsHistory {
-//   payment: number;
-//   paymentDate: string;
-// }
-
-// export interface Payments {
-//   annualFee: number;
-//   paymentsHistory: { payment: number, paymentDate: string }[];
-//   feeLeft: number;
-//   interest: number;
-//   shippingFee: number;
-//   abrogated: number;
-//   sumFee: number;
-// }

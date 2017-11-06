@@ -1,0 +1,17 @@
+
+  md-form-field {
+    width: 100% !important;
+  }
+
+.header {
+    text-align: center;
+  }
+
+.mat-select {
+    padding-top: 9px !important;
+}
+
+.mat-select-trigger {
+    font-size: 14px !important;
+    /* it works when written in browser but not imported from here - ask piotrek */
+}

@@ -1,0 +1,67 @@
+<div class="col-md-12 header">
+  2017
+</div>
+
+<div class="col-md-6 header">
+  Dokonane płatności
+</div>
+
+<div class="col-md-6 header">
+  Podsumowanie
+</div>
+
+<div class="col-md-12">
+  <form #form="ngForm" (ngSubmit)="addPayment()" style="padding-left: 30px">
+    <div style="float: left; width: 10%; background-color: #ff4181; color: white">
+      <button md-raised-button style="background-color: #ff4181; color: white; width: 100%">Dodaj płatność</button>
+    </div>
+  </form>
+</div>
+
+<div class="col-md-6">
+    
+<div *ngFor="let payment of payments; let i = index">
+  <div class="col-md-12">
+    <div class="col-md-6">
+      <md-form-field>
+        <input class="textbox" type="text" mdInput placeholder="WPŁATA" name="{{'wplata_'+i}}" [value]="payment.value" [(ngModel)]="payments[i].value">
+      </md-form-field>
+    </div>
+    <div class="col-md-6">
+      <md-form-field>
+        <input class="textbox" type="text" mdInput placeholder="DATA WPŁATY" name="{{'data_wplaty_'+i}}" [value]="payment.date" [(ngModel)]="payments[i].date">
+      </md-form-field>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="col-md-6">
+  <div class="col-md-2">
+    <md-form-field>
+      <input class="textbox" type="text" mdInput placeholder="WYSOKOŚĆ NALICZONEJ OPŁATY" name="naliczonaOplata">
+    </md-form-field>
+  </div>
+  <div class="col-md-2">
+    <md-form-field>
+      <input class="textbox" type="text" mdInput placeholder="KAPITAŁ DO SPŁATY" name="pozostalyKapital">
+    </md-form-field>
+  </div>
+  <div class="col-md-2">
+    <md-form-field>
+      <input class="textbox" type="text" mdInput placeholder="ODSETKI USTAWOWE" name="odsetkiUstawowe">
+    </md-form-field>
+  </div>
+  <div class="col-md-2">
+    <md-form-field>
+      <input class="textbox" type="text" mdInput placeholder="UMOŻONO KWOTĘ" name="umozono">
+    </md-form-field>
+  </div>
+  <div class="col-md-2">
+    <md-form-field>
+      <input class="textbox" type="text" mdInput placeholder="DO SPŁATY" name="doSplaty">
+    </md-form-field>
+  </div>
+
+
+</div>

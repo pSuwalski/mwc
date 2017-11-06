@@ -1,0 +1,132 @@
+<div>
+  <div class="col-md-12 header">
+    URZĄDZENIA MELIORACYJNE ODDZIAŁUJĄCE NA DZIAŁKĘ
+  </div>
+</div>
+<div>
+  <div class="col-md-12">
+    <div class="col-md-2">
+      <md-form-field>
+        <input class="textbox" type="text" mdInput placeholder="NUMER DZIAŁKI" name="numerDzialki">
+      </md-form-field>
+    </div>
+    <div class="col-md-2">
+      <form>
+        <md-select placeholder="POWIERZCHNIA" [(ngModel)]="selectedPowierzchnia" name="rodzajPowierzchni">
+          <md-option *ngFor="let rodzaj of powierzchnia" [value]="rodzaj.value">
+            {{rodzaj.viewValue}}
+          </md-option>
+        </md-select>
+      </form>
+    </div>
+    <div class="col-md-2">
+      <md-form-field>
+        <input class="textbox" type="text" mdInput placeholder="HEKTARÓW" name="powierzchnia">
+      </md-form-field>
+    </div>
+    <div class="col-md-2">
+      <form>
+        <md-select placeholder="RÓW" [(ngModel)]="selectedRow" name="row">
+          <md-option *ngFor="let i of row" [value]="i.value">
+            {{i.viewValue}}
+          </md-option>
+        </md-select>
+      </form>
+    </div>
+    <div class="col-md-2">
+      <md-form-field>
+        <input class="textbox" type="text" mdInput placeholder="NUMERACJA ROKU (?)" name="numeracjaRoku">
+      </md-form-field>
+    </div>
+    <div class="col-md-2">
+      <form>
+        <md-select class="my" placeholder="DRENAŻ" [(ngModel)]="selectedDrenaz" name="drenaz">
+          <md-option *ngFor="let i of drenaz" [value]="i.value">
+            {{i.viewValue}}
+          </md-option>
+        </md-select>
+      </form>
+    </div>
+  </div>
+
+  <div class="col-md-12">
+    <div class="col-md-2">
+      <md-form-field>
+        <input class="textbox" type="text" mdInput placeholder="NUMERACJA" name="numeracjaRoku">
+      </md-form-field>
+    </div>
+    <div class="col-md-2">
+      <md-form-field>
+        <input class="textbox" type="text" mdInput placeholder="RODZAJ URZĄDZENIA" name="rodzajUrzadzenia">
+      </md-form-field>
+    </div>
+    <div class="col-md-2">
+      <md-form-field>
+        <input class="textbox" type="text" mdInput placeholder="OPIS URZĄDZENIA" name="opisUrzadzenia">
+      </md-form-field>
+    </div>
+  </div>
+</div>
+
+<div class="col-md-12 header">
+  CZŁONKOSTWO
+</div>
+
+<div class="col-md-12">
+  <div class="col-md-2">
+    <form>
+      <md-select placeholder="CZŁONKOSTWO" [(ngModel)]="selectedObjetaCzlonkostwem" name="objetaCzlonostwem">
+        <md-option *ngFor="let i of objetaCzlonkostwem" [value]="i.value">
+          {{i.viewValue}}
+        </md-option>
+      </md-select>
+    </form>
+  </div>
+  <div class="col-md-2">
+    <form>
+      <md-select placeholder="PODSTAWA PRAWNA" [(ngModel)]="selectedPodstawaPrawda" name="podstawaPrawna">
+        <md-option *ngFor="let i of podstawaPrawna" [value]="i.value">
+          {{i.viewValue}}
+        </md-option>
+      </md-select>
+    </form>
+  </div>
+  <div class="col-md-2">
+    <md-form-field>
+      <input class="textbox" type="text" mdInput placeholder="DATA PRZYSTĄPIENIA DO SW" name="dataPrzystapienia">
+    </md-form-field>
+  </div>
+  <div class="col-md-2">
+    <md-form-field>
+      <input class="textbox" type="text" mdInput placeholder="DATA WYPOWIEDZENIA" name="dataWypowiedzenia">
+    </md-form-field>
+  </div>
+</div>
+
+<div class="col-md-12 header">
+  DECYZJE
+</div>
+
+<div class="col-md-12">
+  <div>
+    <div class="col-md-2">
+      <form>
+        <md-select placeholder="DECYZJA STAROSTY" [(ngModel)]="selectedObjetaDecyzja" name="objetaCzlonostwem">
+          <md-option *ngFor="let i of objetaCzlonkostwem" [value]="i.value">
+            {{i.viewValue}}
+          </md-option>
+        </md-select>
+      </form>
+    </div>
+    <div class="col-md-2">
+      <md-form-field>
+        <input class="textbox" type="text" mdInput placeholder="NUMER DECYZJI" name="numerDecyzji">
+      </md-form-field>
+    </div>
+    <div class="col-md-2">
+      <md-form-field>
+        <input class="textbox" type="text" mdInput placeholder="DATA WYDANIA DECYZJI" name="dataWydaniaDecyzji">
+      </md-form-field>
+    </div>
+  </div>
+</div>

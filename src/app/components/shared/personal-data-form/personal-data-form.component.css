@@ -1,3 +1,7 @@
 md-form-field {
   width: 100% !important;
 }
+
+.header {
+  text-align: center;
+}

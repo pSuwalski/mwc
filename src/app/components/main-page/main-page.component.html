@@ -1,5 +1,6 @@
 <md-toolbar color="primary" class="toolbar mat-elevation-z1">
   <span style="color: white">Melior <span style="font-weight: 100">®</span></span>
+  <button md-button (click)="us.logOut(); router.navigate(['/login'])"><md-icon>power_settings_new</md-icon></button>
 </md-toolbar>
 <div class="router-outlet-container">
   <div class="toolbar-spacer"></div>

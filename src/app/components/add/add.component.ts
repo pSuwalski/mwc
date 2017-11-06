@@ -7,8 +7,10 @@ import { Component, HostBinding } from '@angular/core';
 })
 export class AddComponent {
 
+  public index = 0;
 
-  buttonclicked() {
-    console.log('clicked');
+
+  next() {
+    this.index += 1;
   }
 }

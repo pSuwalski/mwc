@@ -11,7 +11,8 @@ import {
   MdListModule,
   MdTableModule,
   MdTabsModule,
-  MdToolbarModule
+  MdToolbarModule,
+  MdRippleModule
 } from '@angular/material';
 
 import { RouterModule, Routes } from '@angular/router';
@@ -44,6 +45,8 @@ import { ParcelsDataFormComponent } from './components/shared/parcels-data-form/
 import { PaymentsDataFormComponent } from './components/shared/payments-data-form/payments-data-form.component';
 import { WorksdoneDataFormComponent } from './components/shared/worksdone-data-form/worksdone-data-form.component';
 import { CompanyDataFormComponent } from './components/shared/company-data-form/company-data-form.component';
+import { UserResolver } from './resolvers/user-resolver';
+import { UserService } from './services/user.service';
 
 @NgModule({
   declarations: [AddComponent, AppComponent, DocumentsComponent, HistoryComponent, HomeComponent,
@@ -64,17 +67,18 @@ import { CompanyDataFormComponent } from './components/shared/company-data-form/
     MdIconModule,
     MdInputModule,
     MdListModule,
+    MdRippleModule,
     MdTableModule,
     MdTabsModule,
     MdToolbarModule,
     NoopAnimationsModule,
     RouterModule.forRoot(router.appRoutes),
     FormsModule,
-    AngularFireModule.initializeApp(environment.firebase, 'mwc'),
+    AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     MdSelectModule,
   ],
-  providers: [],
+  providers: [UserResolver, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

@@ -35,15 +35,28 @@ import { SearchresultComponent } from './components/search/searchresult/searchre
 import { SearchrecordComponent } from './components/search/searchrecord/searchrecord.component';
 import { TemplateslistComponent } from './components/documents/templateslist/templateslist.component';
 import { FormsModule } from '@angular/forms';
+import { MdSelectModule } from '@angular/material';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { ContactDataFormComponent } from './components/shared/contact-data-form/contact-data-form.component';
+import { AuthorizationsDataFormComponent } from './components/shared/authorizations-data-form/authorizations-data-form.component';
+import { LegalbasisDataFormComponent } from './components/shared/legalbasis-data-form/legalbasis-data-form.component';
+import { ParcelsDataFormComponent } from './components/shared/parcels-data-form/parcels-data-form.component';
+import { PaymentsDataFormComponent } from './components/shared/payments-data-form/payments-data-form.component';
+import { WorksdoneDataFormComponent } from './components/shared/worksdone-data-form/worksdone-data-form.component';
+import { CompanyDataFormComponent } from './components/shared/company-data-form/company-data-form.component';
 import { UserResolver } from './resolvers/user-resolver';
 import { UserService } from './services/user.service';
 
 @NgModule({
   declarations: [AddComponent, AppComponent, DocumentsComponent, HistoryComponent, HomeComponent,
     LoginPageComponent, MainPageComponent, NavigationToolbarComponent, PersonalDataFormComponent,
-    SearchComponent, SearchresultComponent, SearchrecordComponent, TemplateslistComponent],
+    SearchComponent, SearchresultComponent, SearchrecordComponent, TemplateslistComponent,
+    ContactDataFormComponent, AuthorizationsDataFormComponent, LegalbasisDataFormComponent,
+    ParcelsDataFormComponent,
+    PaymentsDataFormComponent,
+    WorksdoneDataFormComponent,
+    CompanyDataFormComponent],
   imports: [
     // AngularFireAuthModule,
     // AngularFireModule.initializeApp(environment.firebase),
@@ -63,6 +76,7 @@ import { UserService } from './services/user.service';
     FormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
+    MdSelectModule,
   ],
   providers: [UserResolver, UserService],
   bootstrap: [AppComponent]

@@ -4,15 +4,37 @@
     <md-tab-group [(selectedIndex)]="index">
       <md-tab label="Dane Osobowe">
         <div class="form-container">
-          <mwc-personal-data-form></mwc-personal-data-form>
+          <mwc-company-data-form></mwc-company-data-form>
         </div>
       </md-tab>
-      <md-tab label="Dane Kontaktowe"></md-tab>
-      <md-tab label="Upowaznienia"></md-tab>
-      <md-tab label="Podstawy Prawne"></md-tab>
-      <md-tab label="Dzialki"></md-tab>
-      <md-tab label="Skladki"></md-tab>
-      <md-tab label="Wykonane roboty"></md-tab>
+      <md-tab label="Dane Kontaktowe">
+        <div class="form-container">
+          <mwc-contact-data-form></mwc-contact-data-form>
+        </div>
+      </md-tab>
+      <md-tab label="Upowaznienia">
+        <div class="form-container">
+          <mwc-authorizations-data-form></mwc-authorizations-data-form>
+        </div>
+      </md-tab>
+      <md-tab label="Podstawy Prawne">
+        <div class="form-container">
+          <mwc-legalbasis-data-form></mwc-legalbasis-data-form>
+        </div>
+      </md-tab>
+      <md-tab label="Dzialki">
+        <div class="form-container">
+          <mwc-parcels-data-form></mwc-parcels-data-form>
+        </div>
+      </md-tab>
+      <md-tab label="Skladki">
+        <div class="form-container">
+          <mwc-payments-data-form></mwc-payments-data-form>
+        </div>
+      </md-tab>
+      <md-tab label="Wykonane roboty">
+          <mwc-worksdone-data-form></mwc-worksdone-data-form>
+      </md-tab>
     </md-tab-group>
     <div class="button-container">
         <button type="button" class="add-button accent" md-raised-button color="accent" (click)="next()" >Dodaj</button>

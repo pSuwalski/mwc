@@ -10,11 +10,16 @@ import { SearchComponent } from './components/search/search.component';
 import { SearchresultComponent } from './components/search/searchresult/searchresult.component';
 import { SearchrecordComponent } from './components/search/searchrecord/searchrecord.component';
 import { TemplateslistComponent } from './components/documents/templateslist/templateslist.component';
+import { RegisterPageComponent } from './components/register-page/register-page.component';
 
 export const appRoutes: Routes = [
   {
     path: 'login',
     component: LoginPageComponent,
+  },
+  {
+    path: 'register',
+    component: RegisterPageComponent,
   },
   {
     path: '',

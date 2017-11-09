@@ -34,7 +34,7 @@ import { SearchComponent } from './components/search/search.component';
 import { SearchresultComponent } from './components/search/searchresult/searchresult.component';
 import { SearchrecordComponent } from './components/search/searchrecord/searchrecord.component';
 import { TemplateslistComponent } from './components/documents/templateslist/templateslist.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MdSelectModule } from '@angular/material';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -47,6 +47,12 @@ import { WorksdoneDataFormComponent } from './components/shared/worksdone-data-f
 import { CompanyDataFormComponent } from './components/shared/company-data-form/company-data-form.component';
 import { UserResolver } from './resolvers/user-resolver';
 import { UserService } from './services/user.service';
+import { GraphQlService } from './services/graphQl.service';
+import { HttpModule } from '@angular/http';
+import { RegisterPageComponent } from './components/register-page/register-page.component';
+
+
+
 
 @NgModule({
   declarations: [AddComponent, AppComponent, DocumentsComponent, HistoryComponent, HomeComponent,
@@ -55,12 +61,15 @@ import { UserService } from './services/user.service';
     ContactDataFormComponent, AuthorizationsDataFormComponent, LegalbasisDataFormComponent,
     ParcelsDataFormComponent,
     PaymentsDataFormComponent,
+    RegisterPageComponent,
     WorksdoneDataFormComponent,
     CompanyDataFormComponent],
   imports: [
     // AngularFireAuthModule,
     // AngularFireModule.initializeApp(environment.firebase),
     BrowserModule,
+    FormsModule,
+    HttpModule,
     MdButtonModule,
     MdCardModule,
     MdCheckboxModule,
@@ -72,13 +81,14 @@ import { UserService } from './services/user.service';
     MdTabsModule,
     MdToolbarModule,
     NoopAnimationsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(router.appRoutes),
     FormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     MdSelectModule,
   ],
-  providers: [UserResolver, UserService],
+  providers: [GraphQlService, UserResolver, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

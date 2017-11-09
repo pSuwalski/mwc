@@ -1,0 +1,78 @@
+<md-toolbar color="primary" class="mat-elevation-z1">
+  <span style="color: white">Melior
+    <span style="font-weight: 100">®</span>
+  </span>
+</md-toolbar>
+<div class="toolbar-spacer"></div>
+<div class="containter login-page-container">
+  <md-card-title class="title" *ngIf="!appliedIndicator">
+    Załóż konto swojej społki
+  </md-card-title>
+  <md-card class="login-form-card" *ngIf="!appliedIndicator">
+    <md-card-content>
+      <md-card-title class="header">
+        <md-icon class="icon-title" color="accent">account_circle</md-icon>
+      </md-card-title>
+      <form [formGroup]="joinApplicationForm" (ngSubmit)="apply()">
+        <div class="col-md-6">
+          <md-card-title class="title">
+            Dane spółki
+          </md-card-title>
+          <md-form-field>
+            <input mdInput placeholder="Nazwa spólki*" type="text" formControlName="companyName" [(ngModel)]="joinApplication.company.name">
+          </md-form-field>
+          <md-form-field>
+            <input mdInput placeholder="Adress email spólki*" type="text" formControlName="companyEmail" [(ngModel)]="joinApplication.company.email">
+          </md-form-field>
+          <md-form-field>
+            <input mdInput placeholder="Numer telefonu" type="text" formControlName="companyPhone" [(ngModel)]="joinApplication.company.phone">
+          </md-form-field>
+          <md-form-field>
+            <input mdInput placeholder="Adres (ulica i numer)*" type="text" formControlName="address" [(ngModel)]="joinApplication.company.address.streetAndNumber"
+              id="user">
+          </md-form-field>
+          <md-form-field>
+            <input mdInput placeholder="Lokal" type="text" formControlName="apartment" [(ngModel)]="joinApplication.company.address.apartment">
+          </md-form-field>
+          <md-form-field>
+            <input mdInput placeholder="Miasto*" type="text" formControlName="city" [(ngModel)]="joinApplication.company.address.city">
+          </md-form-field>
+          <md-form-field>
+            <input mdInput placeholder="Kod pocztowy*" type="text" formControlName="postCode" [(ngModel)]="joinApplication.company.address.postCode">
+          </md-form-field>
+          <md-form-field>
+            <input mdInput placeholder="NIP*" type="text" formControlName="nip" [(ngModel)]="joinApplication.company.nip">
+          </md-form-field>
+        </div>
+        <div class="col-md-6">
+          <md-card-title class="title">
+            Dane Użytkownika
+          </md-card-title>
+          <md-form-field>
+            <input mdInput placeholder="Nazwa użytkownika*" type="text" formControlName="name" [(ngModel)]="joinApplication.user.name">
+          </md-form-field>
+          <md-form-field>
+            <input mdInput placeholder="Adres email*" type="text" formControlName="email" [(ngModel)]="joinApplication.user.email">
+          </md-form-field>
+          <md-form-field>
+            <input mdInput placeholder="Numer telefonu*" type="text" formControlName="phone" [(ngModel)]="joinApplication.user.phone"
+              id="user">
+          </md-form-field>
+          <md-form-field>
+            <input mdInput placeholder="Hasło*" type="text" formControlName="password" type="password" [(ngModel)]="joinApplication.password"
+              id="user">
+          </md-form-field>
+        </div>
+      </form>
+    </md-card-content>
+    <md-card-content>
+      <!--<a routerLink='/'>-->
+      <button md-raised-button color="primary" [disabled]="!joinApplicationForm.valid" (click)="apply()">Rejestruj</button>
+      <!--</a>-->
+    </md-card-content>
+  </md-card>
+  <md-card-title class="title" *ngIf="appliedIndicator === 'success'">
+    Rejestracja zakończona powodzeniem
+  </md-card-title>
+  <button *ngIf="appliedIndicator === 'success'" md-raised-button color="primary" (click)="router.navigate(['/'])">Wróć do strony głównej</button>
+</div>

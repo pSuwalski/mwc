@@ -50,6 +50,7 @@ import { UserService } from './services/user.service';
 import { GraphQlService } from './services/graphQl.service';
 import { HttpModule } from '@angular/http';
 import { RegisterPageComponent } from './components/register-page/register-page.component';
+import { DatabaseService } from './services/database.service';
 
 
 
@@ -65,8 +66,8 @@ import { RegisterPageComponent } from './components/register-page/register-page.
     WorksdoneDataFormComponent,
     CompanyDataFormComponent],
   imports: [
-    // AngularFireAuthModule,
-    // AngularFireModule.initializeApp(environment.firebase),
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
     BrowserModule,
     FormsModule,
     HttpModule,
@@ -84,11 +85,9 @@ import { RegisterPageComponent } from './components/register-page/register-page.
     ReactiveFormsModule,
     RouterModule.forRoot(router.appRoutes),
     FormsModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFireAuthModule,
     MdSelectModule,
   ],
-  providers: [GraphQlService, UserResolver, UserService],
+  providers: [GraphQlService, DatabaseService, UserResolver, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

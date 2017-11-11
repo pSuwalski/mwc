@@ -15,9 +15,10 @@ import { sanitizeNip } from '../../models/company';
 })
 export class RegisterPageComponent implements OnInit {
 
-  public joinApplication: JoinApplication = createEmptyJoinApplication();
-  public appliedIndicator: 'succes' | 'defeat';
+  joinApplication: JoinApplication = createEmptyJoinApplication();
+  appliedIndicator: 'succes' | 'defeat';
   joinApplicationForm: FormGroup;
+  
   constructor(
     private fb: FormBuilder,
     public router: Router,

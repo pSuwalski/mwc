@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'mwc-contact-data-form',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./contact-data-form.component.css']
 })
 export class ContactDataFormComponent implements OnInit {
+
+  @Input() dataForm: any;
 
   constructor() { }
 

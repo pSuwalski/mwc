@@ -24,10 +24,19 @@ export class AddComponent {
     email: undefined, phoneNumber: undefined, validFrom: undefined, validTill: undefined
   };
 
+  legalBasicsDataForm: UserLegalBasicsData[] = [
+    {
+      number: undefined, date: undefined, paymentI: undefined, paymentIPercent: undefined, paymentII: undefined,
+      paymentIIPercent: undefined, paymentIII: undefined, paymentIIIPercent: undefined, paymentIV: undefined,
+      paymentIVPercent: undefined, paymentMoreOneHour: undefined, paymentLessOneHour: undefined
+    }
+  ];
+
   model: Model = {
     personalDataForm: this.personalDataForm,
     contactDataForm: this.contactDataForm,
     authDataForm: this.authDataForm,
+    legalBasicsDataForm: this.legalBasicsDataForm,
   };
 
   public index = 0;
@@ -76,9 +85,26 @@ export interface UserAuthData {
   validTill: string;
 }
 
+export interface UserLegalBasicsData {
+  number: number;
+  date: string;
+  paymentI: string;
+  paymentIPercent: number;
+  paymentII: string;
+  paymentIIPercent: number;
+  paymentIII: string;
+  paymentIIIPercent: number;
+  paymentIV: string;
+  paymentIVPercent: number;
+  paymentMoreOneHour: number;
+  paymentLessOneHour: number;
+}
+
+
 export class Model {
   personalDataForm: UserPersonalData;
   contactDataForm: UserContactData;
   authDataForm: UserAuthData;
+  legalBasicsDataForm: UserLegalBasicsData[];
 }
 

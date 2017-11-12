@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'mwc-legalbasis-data-form',
@@ -6,13 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./legalbasis-data-form.component.css']
 })
 export class LegalbasisDataFormComponent implements OnInit {
-  legalBasics: legalBasis[] = [
-    {
-      number: undefined, date: undefined, paymentI: undefined, paymentIPercent: undefined, paymentII: undefined,
-      paymentIIPercent: undefined, paymentIII: undefined, paymentIIIPercent: undefined, paymentIV: undefined,
-      paymentIVPercent: undefined, paymentMoreOneHour: undefined, paymentLessOneHour: undefined
-    }
-  ];
+  @Input() legalBasicsDataForm: UserLegalBasicsData[];
 
   constructor() { }
 
@@ -20,7 +14,7 @@ export class LegalbasisDataFormComponent implements OnInit {
   }
 
   addLegalBasis() {
-    this.legalBasics.push({
+    this.legalBasicsDataForm.push({
       number: undefined, date: undefined, paymentI: undefined, paymentIPercent: undefined, paymentII: undefined,
       paymentIIPercent: undefined, paymentIII: undefined, paymentIIIPercent: undefined, paymentIV: undefined,
       paymentIVPercent: undefined, paymentMoreOneHour: undefined, paymentLessOneHour: undefined
@@ -28,11 +22,11 @@ export class LegalbasisDataFormComponent implements OnInit {
   }
 
   printBasis() {
-    console.log(this.legalBasics);
+    console.log(this.legalBasicsDataForm);
   }
 }
 
-export interface legalBasis {
+export interface UserLegalBasicsData {
   number: number;
   date: string;
   paymentI: string;

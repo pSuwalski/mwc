@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'mwc-parcels-data-form',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./parcels-data-form.component.css']
 })
 export class ParcelsDataFormComponent implements OnInit {
+  @Input() parcelDataForm: UserParcelData;
+
   selectedPowierzchnia: string;
   powierzchnia = [
     {value: 'zmeliorowana', viewValue: 'Zmeliorowana'},
@@ -13,21 +15,21 @@ export class ParcelsDataFormComponent implements OnInit {
     {value: 'calkowita', viewValue: 'Całkowita'},
     {value: 'odnoszaca_korzysci', viewValue: 'Odnosząca korzyści'},
   ];
-  selectedRow: string;
+  selectedRow: boolean;
   row = [
-    {value: 'tak', viewValue: 'Tak'},
-    {value: 'nie', viewValue: 'Nie'},
+    {value: true, viewValue: 'Tak'},
+    {value: false, viewValue: 'Nie'},
   ];
-  selectedDrenaz: string;
+  selectedDrenaz: boolean;
   drenaz = [
-    {value: 'tak', viewValue: 'Tak'},
-    {value: 'nie', viewValue: 'Nie'},
+    {value: true, viewValue: 'Tak'},
+    {value: false, viewValue: 'Nie'},
   ];
 
-  selectedObjetaCzlonkostwem: string;
+  selectedObjetaCzlonkostwem: boolean;
   objetaCzlonkostwem = [
-    {value: 'tak', viewValue: 'Tak'},
-    {value: 'nie', viewValue: 'Nie'},
+    {value: true, viewValue: 'Tak'},
+    {value: false, viewValue: 'Nie'},
   ];
 
   selectedPodstawaPrawna: string;
@@ -36,16 +38,32 @@ export class ParcelsDataFormComponent implements OnInit {
     {value: 'nastepstwoPrawne', viewValue: 'Następstwo Prawne'},
   ];
 
-  selectedObjetaDecyzja: string;
+  selectedObjetaDecyzja: boolean;
   objetaDecyzja = [
-    {value: 'tak', viewValue: 'Tak'},
-    {value: 'nie', viewValue: 'Nie'},
+    {value: true, viewValue: 'Tak'},
+    {value: false, viewValue: 'Nie'},
   ];
   constructor() { }
 
   ngOnInit() {
   }
+}
 
-
-
+export interface UserParcelData {
+  number: number;
+  areaType: string;
+  areaSurface: number;
+  trench: boolean;
+  yearNumber: number;
+  drainage: boolean;
+  numbering: number;
+  applianceType: string;
+  applianceDescription: string;
+  membership: boolean;
+  legalBasis: string;
+  SwMembershipStartDate: string;
+  SwMembershipTerminationDate: string;
+  foremanDecision: boolean;
+  decisionNumber: number;
+  decisionDate: string;
 }

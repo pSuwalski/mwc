@@ -32,11 +32,19 @@ export class AddComponent {
     }
   ];
 
+  parcelDataForm: UserParcelData = {
+    applianceDescription: undefined, applianceType: undefined, areaSurface: undefined, areaType: undefined,
+    drainage: undefined, number: undefined, numbering: undefined, trench: undefined, yearNumber: undefined,
+    decisionDate: undefined, decisionNumber: undefined, foremanDecision: undefined, legalBasis: undefined,
+    membership: undefined, SwMembershipStartDate: undefined, SwMembershipTerminationDate: undefined
+  };
+
   model: Model = {
     personalDataForm: this.personalDataForm,
     contactDataForm: this.contactDataForm,
     authDataForm: this.authDataForm,
     legalBasicsDataForm: this.legalBasicsDataForm,
+    parcelDataForm: this.parcelDataForm,
   };
 
   public index = 0;
@@ -100,11 +108,30 @@ export interface UserLegalBasicsData {
   paymentLessOneHour: number;
 }
 
+export interface UserParcelData {
+  number: number;
+  areaType: string;
+  areaSurface: number;
+  trench: boolean;
+  yearNumber: number;
+  drainage: boolean;
+  numbering: number;
+  applianceType: string;
+  applianceDescription: string;
+  membership: boolean;
+  legalBasis: string;
+  SwMembershipStartDate: string;
+  SwMembershipTerminationDate: string;
+  foremanDecision: boolean;
+  decisionNumber: number;
+  decisionDate: string;
+}
 
 export class Model {
   personalDataForm: UserPersonalData;
   contactDataForm: UserContactData;
   authDataForm: UserAuthData;
   legalBasicsDataForm: UserLegalBasicsData[];
+  parcelDataForm: UserParcelData;
 }
 

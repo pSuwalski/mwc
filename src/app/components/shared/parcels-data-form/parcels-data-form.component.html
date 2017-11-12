@@ -7,12 +7,12 @@
   <div class="col-md-12">
     <div class="col-md-2">
       <md-form-field>
-        <input class="textbox" type="text" mdInput placeholder="NUMER DZIAŁKI" name="numerDzialki">
+        <input class="textbox" type="text" mdInput placeholder="NUMER DZIAŁKI" [(ngModel)]="parcelDataForm.number" name="numerDzialki">
       </md-form-field>
     </div>
     <div class="col-md-2">
       <form>
-        <md-select placeholder="POWIERZCHNIA" [(ngModel)]="selectedPowierzchnia" name="rodzajPowierzchni">
+        <md-select placeholder="POWIERZCHNIA" [(ngModel)]="parcelDataForm.areaType" name="rodzajPowierzchni">
           <md-option *ngFor="let rodzaj of powierzchnia" [value]="rodzaj.value">
             {{rodzaj.viewValue}}
           </md-option>
@@ -21,12 +21,12 @@
     </div>
     <div class="col-md-2">
       <md-form-field>
-        <input class="textbox" type="text" mdInput placeholder="HEKTARÓW" name="powierzchnia">
+        <input class="textbox" type="text" mdInput placeholder="HEKTARÓW" [(ngModel)]="parcelDataForm.areaSurface" name="powierzchnia">
       </md-form-field>
     </div>
     <div class="col-md-2">
       <form>
-        <md-select placeholder="RÓW" [(ngModel)]="selectedRow" name="row">
+        <md-select placeholder="RÓW" [(ngModel)]="parcelDataForm.trench" name="row">
           <md-option *ngFor="let i of row" [value]="i.value">
             {{i.viewValue}}
           </md-option>
@@ -35,12 +35,12 @@
     </div>
     <div class="col-md-2">
       <md-form-field>
-        <input class="textbox" type="text" mdInput placeholder="NUMERACJA ROKU (?)" name="numeracjaRoku">
+        <input class="textbox" type="text" mdInput placeholder="NUMERACJA ROKU (?)" [(ngModel)]="parcelDataForm.yearNumber" name="numeracjaRoku">
       </md-form-field>
     </div>
     <div class="col-md-2">
       <form>
-        <md-select class="my" placeholder="DRENAŻ" [(ngModel)]="selectedDrenaz" name="drenaz">
+        <md-select class="my" placeholder="DRENAŻ" [(ngModel)]="parcelDataForm.drainage" name="drenaz">
           <md-option *ngFor="let i of drenaz" [value]="i.value">
             {{i.viewValue}}
           </md-option>
@@ -52,17 +52,17 @@
   <div class="col-md-12">
     <div class="col-md-2">
       <md-form-field>
-        <input class="textbox" type="text" mdInput placeholder="NUMERACJA" name="numeracjaRoku">
+        <input class="textbox" type="text" mdInput placeholder="NUMERACJA" [(ngModel)]="parcelDataForm.numbering" name="numeracjaRoku">
       </md-form-field>
     </div>
     <div class="col-md-2">
       <md-form-field>
-        <input class="textbox" type="text" mdInput placeholder="RODZAJ URZĄDZENIA" name="rodzajUrzadzenia">
+        <input class="textbox" type="text" mdInput placeholder="RODZAJ URZĄDZENIA" [(ngModel)]="parcelDataForm.applianceType" name="rodzajUrzadzenia">
       </md-form-field>
     </div>
     <div class="col-md-2">
       <md-form-field>
-        <input class="textbox" type="text" mdInput placeholder="OPIS URZĄDZENIA" name="opisUrzadzenia">
+        <input class="textbox" type="text" mdInput placeholder="OPIS URZĄDZENIA" [(ngModel)]="parcelDataForm.applianceDescription" name="opisUrzadzenia">
       </md-form-field>
     </div>
   </div>
@@ -71,11 +71,10 @@
 <div class="col-md-12 header">
   CZŁONKOSTWO
 </div>
-
 <div class="col-md-12">
   <div class="col-md-2">
     <form>
-      <md-select placeholder="CZŁONKOSTWO" [(ngModel)]="selectedObjetaCzlonkostwem" name="objetaCzlonostwem">
+      <md-select placeholder="CZŁONKOSTWO" [(ngModel)]="parcelDataForm.membership" name="objetaCzlonostwem">
         <md-option *ngFor="let i of objetaCzlonkostwem" [value]="i.value">
           {{i.viewValue}}
         </md-option>
@@ -84,7 +83,7 @@
   </div>
   <div class="col-md-2">
     <form>
-      <md-select placeholder="PODSTAWA PRAWNA" [(ngModel)]="selectedPodstawaPrawda" name="podstawaPrawna">
+      <md-select placeholder="PODSTAWA PRAWNA" [(ngModel)]="parcelDataForm.legalBasis" name="podstawaPrawna">
         <md-option *ngFor="let i of podstawaPrawna" [value]="i.value">
           {{i.viewValue}}
         </md-option>
@@ -93,12 +92,12 @@
   </div>
   <div class="col-md-2">
     <md-form-field>
-      <input class="textbox" type="text" mdInput placeholder="DATA PRZYSTĄPIENIA DO SW" name="dataPrzystapienia">
+      <input class="textbox" type="text" mdInput placeholder="DATA PRZYSTĄPIENIA DO SW" [(ngModel)]="parcelDataForm.SwMembershipStartDate" name="dataPrzystapienia">
     </md-form-field>
   </div>
   <div class="col-md-2">
     <md-form-field>
-      <input class="textbox" type="text" mdInput placeholder="DATA WYPOWIEDZENIA" name="dataWypowiedzenia">
+      <input class="textbox" type="text" mdInput placeholder="DATA WYPOWIEDZENIA" [(ngModel)]="parcelDataForm.SwMembershipTerminationDate" name="dataWypowiedzenia">
     </md-form-field>
   </div>
 </div>
@@ -111,7 +110,7 @@
   <div>
     <div class="col-md-2">
       <form>
-        <md-select placeholder="DECYZJA STAROSTY" [(ngModel)]="selectedObjetaDecyzja" name="objetaCzlonostwem">
+        <md-select placeholder="DECYZJA STAROSTY" [(ngModel)]="parcelDataForm.foremanDecision" name="objetaCzlonostwem">
           <md-option *ngFor="let i of objetaCzlonkostwem" [value]="i.value">
             {{i.viewValue}}
           </md-option>
@@ -120,12 +119,12 @@
     </div>
     <div class="col-md-2">
       <md-form-field>
-        <input class="textbox" type="text" mdInput placeholder="NUMER DECYZJI" name="numerDecyzji">
+        <input class="textbox" type="text" mdInput placeholder="NUMER DECYZJI" [(ngModel)]="parcelDataForm.decisionNumber" name="numerDecyzji">
       </md-form-field>
     </div>
     <div class="col-md-2">
       <md-form-field>
-        <input class="textbox" type="text" mdInput placeholder="DATA WYDANIA DECYZJI" name="dataWydaniaDecyzji">
+        <input class="textbox" type="text" mdInput placeholder="DATA WYDANIA DECYZJI" [(ngModel)]="parcelDataForm.decisionDate" name="dataWydaniaDecyzji">
       </md-form-field>
     </div>
   </div>

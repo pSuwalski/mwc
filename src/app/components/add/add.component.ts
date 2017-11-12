@@ -19,9 +19,15 @@ export class AddComponent {
     email: undefined, deskPhoneNumber: undefined, cellPhoneNumber: undefined
   };
 
+  authDataForm: UserAuthData = {
+    nameSurname: undefined, pesel: undefined, authScope: undefined, correspondenceAddress: undefined,
+    email: undefined, phoneNumber: undefined, validFrom: undefined, validTill: undefined
+  };
+
   model: Model = {
     personalDataForm: this.personalDataForm,
     contactDataForm: this.contactDataForm,
+    authDataForm: this.authDataForm,
   };
 
   public index = 0;
@@ -59,8 +65,20 @@ export interface UserContactData {
   cellPhoneNumber: number;
 }
 
+export interface UserAuthData {
+  nameSurname: string;
+  pesel: number;
+  phoneNumber: number;
+  email: string;
+  correspondenceAddress: string;
+  authScope: string;
+  validFrom: string;
+  validTill: string;
+}
+
 export class Model {
   personalDataForm: UserPersonalData;
   contactDataForm: UserContactData;
+  authDataForm: UserAuthData;
 }
 

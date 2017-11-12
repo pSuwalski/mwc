@@ -6,12 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./contact-data-form.component.css']
 })
 export class ContactDataFormComponent implements OnInit {
-
-  @Input() contactDataForm: UserContactData = {
-    postalCode: undefined, city: undefined, street: undefined, number: undefined,
-    email: undefined, deskPhoneNumber: undefined, cellPhoneNumber: undefined
-  };
-
+  @Input() contactDataForm: UserContactData;
 
   constructor() { }
 

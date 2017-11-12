@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { User } from '../../../models/user';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'mwc-authorizations-data-form',
@@ -7,9 +8,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AuthorizationsDataFormComponent implements OnInit {
 
+  @Input() authDataForm: UserAuthData;
+
   constructor() { }
 
   ngOnInit() {
   }
 
+}
+
+export interface UserAuthData {
+  nameSurname: string;
+  pesel: number;
+  phoneNumber: number;
+  email: string;
+  correspondenceAddress: string;
+  authScope: string;
+  validFrom: string;
+  validTill: string;
 }

@@ -8,19 +8,12 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class PersonalDataFormComponent implements OnInit {
 
-  @Input() personalDataForm: UserPersonalData = {
-    evidenceNumber: undefined, name: undefined, surname: undefined, pesel: undefined,
-    postalCode: undefined, city: undefined, street: undefined, number: undefined,
-  };
+  @Input() personalDataForm: UserPersonalData;
 
   constructor() {
   }
 
   ngOnInit() {
-  }
-
-  clicked () {
-    console.log(this.personalDataForm);
   }
 }
 

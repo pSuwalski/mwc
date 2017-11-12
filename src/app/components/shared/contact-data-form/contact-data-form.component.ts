@@ -7,11 +7,25 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ContactDataFormComponent implements OnInit {
 
-  @Input() dataForm: any;
+  @Input() contactDataForm: UserContactData = {
+    postalCode: undefined, city: undefined, street: undefined, number: undefined,
+    email: undefined, deskPhoneNumber: undefined, cellPhoneNumber: undefined
+  };
+
 
   constructor() { }
 
   ngOnInit() {
   }
 
+}
+
+export interface UserContactData {
+  postalCode: number;
+  city: string;
+  street: string;
+  number: number;
+  email: string;
+  deskPhoneNumber: number;
+  cellPhoneNumber: number;
 }

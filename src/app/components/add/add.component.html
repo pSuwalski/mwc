@@ -4,12 +4,12 @@
     <md-tab-group [(selectedIndex)]="index">
       <md-tab label="Dane Osobowe">
         <div class="form-container">
-          <mwc-company-data-form></mwc-company-data-form>
+          <mwc-personal-data-form [personalDataForm]="model.personalDataForm"></mwc-personal-data-form>
         </div>
       </md-tab>
       <md-tab label="Dane Kontaktowe">
         <div class="form-container">
-          <mwc-contact-data-form [dataForm]="model.dataForm"></mwc-contact-data-form>
+          <mwc-contact-data-form [contactDataForm]="model.contactDataForm"></mwc-contact-data-form>
         </div>
       </md-tab>
       <md-tab label="Upowaznienia">
@@ -37,7 +37,8 @@
       </md-tab>
     </md-tab-group>
     <div class="button-container">
-        <button type="button" class="add-button accent" md-raised-button color="accent" (click)="next()" >Dodaj</button>
+      <!-- <button type="button" class="add-button accent" md-raised-button color="accent" (click)="next()" >Dodaj</button> -->
+      <button type="button" class="add-button accent" md-raised-button color="accent" (click)="clicked()" >Dodaj</button>
         <button type="button" *ngIf="index < 6" class="add-button" md-raised-button (click)="next()">Dalej</button>
     </div>
   </div>

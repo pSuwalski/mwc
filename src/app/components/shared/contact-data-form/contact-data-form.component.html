@@ -1,41 +1,40 @@
 <div class="header">
   ADRES DO KORESPONDENCJI
 </div>
-
 <div>
   <div class="col-md-2">
     <md-form-field>
-      <input class="textbox" type="text" mdInput placeholder="KOD POCZTOWY" [(ngModel)]="dataForm.code" name="kod">
+      <input class="textbox" type="text" mdInput placeholder="KOD POCZTOWY" name="kod" [(ngModel)]="contactDataForm.postalCode">
     </md-form-field>
   </div>
   <div class="col-md-1">
     <md-form-field>
-      <input class="textbox" type="text" mdInput placeholder="MIASTO" name="miasto">
+      <input class="textbox" type="text" mdInput placeholder="MIASTO" name="miasto" [(ngModel)]="contactDataForm.city">
     </md-form-field>
   </div>
   <div class="col-md-2">
     <md-form-field>
-      <input class="textbox" type="text" mdInput placeholder="ULICA" name="ulica">
+      <input class="textbox" type="text" mdInput placeholder="ULICA" name="ulica" [(ngModel)]="contactDataForm.street">
     </md-form-field>
   </div>
   <div class="col-md-1">
     <md-form-field>
-      <input class="textbox" type="text" mdInput placeholder="NR" name="nr">
+      <input class="textbox" type="text" mdInput placeholder="NR" name="nr" [(ngModel)]="contactDataForm.number">
     </md-form-field>
   </div>
   <div class="col-md-2">
     <md-form-field>
-      <input class="textbox" type="text" mdInput placeholder="E-MAIL" name="email">
+      <input class="textbox" type="text" mdInput placeholder="E-MAIL" name="email" [(ngModel)]="contactDataForm.email">
     </md-form-field>
   </div>
   <div class="col-md-2">
     <md-form-field>
-      <input class="textbox" type="text" mdInput placeholder="TELEFON STACJONARNY" name="stacjonarny">
+      <input class="textbox" type="text" mdInput placeholder="TELEFON STACJONARNY" name="stacjonarny" [(ngModel)]="contactDataForm.deskPhoneNumber">
     </md-form-field>
   </div>
   <div class="col-md-2">
     <md-form-field>
-      <input class="textbox" type="text" mdInput placeholder="TELEFON KOMÓRKOWY" name="komórkowy">
+      <input class="textbox" type="text" mdInput placeholder="TELEFON KOMÓRKOWY" name="komórkowy" [(ngModel)]="contactDataForm.cellPhoneNumber">
     </md-form-field>
   </div>
 </div>

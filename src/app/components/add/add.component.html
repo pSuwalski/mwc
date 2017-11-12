@@ -4,32 +4,32 @@
     <md-tab-group [(selectedIndex)]="index">
       <md-tab label="Dane Osobowe">
         <div class="form-container">
-          <mwc-personal-data-form [personalDataForm]="model.personalDataForm"></mwc-personal-data-form>
+          <mwc-personal-data-form [personalDataForm]="userData.personalDataForm"></mwc-personal-data-form>
         </div>
       </md-tab>
       <md-tab label="Dane Kontaktowe">
         <div class="form-container">
-          <mwc-contact-data-form [contactDataForm]="model.contactDataForm"></mwc-contact-data-form>
+          <mwc-contact-data-form [contactDataForm]="userData.contactDataForm"></mwc-contact-data-form>
         </div>
       </md-tab>
       <md-tab label="Upowaznienia">
         <div class="form-container">
-          <mwc-authorizations-data-form [authDataForm]="model.authDataForm"></mwc-authorizations-data-form>
+          <mwc-authorizations-data-form [authDataForm]="userData.authDataForm"></mwc-authorizations-data-form>
         </div>
       </md-tab>
       <md-tab label="Podstawy Prawne">
         <div class="form-container">
-          <mwc-legalbasis-data-form [legalBasicsDataForm]="model.legalBasicsDataForm"></mwc-legalbasis-data-form>
+          <mwc-legalbasis-data-form [legalBasicsDataForm]="userData.legalBasicsDataForm"></mwc-legalbasis-data-form>
         </div>
       </md-tab>
       <md-tab label="Dzialki">
         <div class="form-container">
-          <mwc-parcels-data-form [parcelDataForm]="model.parcelDataForm"></mwc-parcels-data-form>
+          <mwc-parcels-data-form [parcelDataForm]="userData.parcelDataForm"></mwc-parcels-data-form>
         </div>
       </md-tab>
       <md-tab label="Skladki">
         <div class="form-container">
-          <mwc-payments-data-form></mwc-payments-data-form>
+          <mwc-payments-data-form [paymentsDataForm]="userData.paymentsDataForm"></mwc-payments-data-form>
         </div>
       </md-tab>
       <md-tab label="Wykonane roboty">

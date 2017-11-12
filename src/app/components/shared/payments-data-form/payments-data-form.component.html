@@ -19,47 +19,50 @@
 </div>
 
 <div class="col-md-6">
-    
-<div *ngFor="let payment of payments; let i = index">
-  <div class="col-md-12">
-    <div class="col-md-6">
-      <md-form-field>
-        <input class="textbox" type="text" mdInput placeholder="WPŁATA" name="{{'wplata_'+i}}" [value]="payment.value" [(ngModel)]="payments[i].value">
-      </md-form-field>
-    </div>
-    <div class="col-md-6">
-      <md-form-field>
-        <input class="textbox" type="text" mdInput placeholder="DATA WPŁATY" name="{{'data_wplaty_'+i}}" [value]="payment.date" [(ngModel)]="payments[i].date">
-      </md-form-field>
+  <div *ngFor="let payment of paymentsDataForm.payments; let i = index">
+    <div class="col-md-12">
+      <div class="col-md-6">
+        <md-form-field>
+          <input class="textbox" type="text" mdInput placeholder="WPŁATA" name="{{'wplata_'+i}}" [value]="payment.value" [(ngModel)]="payments[i].value">
+        </md-form-field>
+      </div>
+      <div class="col-md-6">
+        <md-form-field>
+          <input class="textbox" type="text" mdInput placeholder="DATA WPŁATY" name="{{'data_wplaty_'+i}}" [value]="payment.date" [(ngModel)]="payments[i].date">
+        </md-form-field>
+      </div>
     </div>
   </div>
 </div>
-</div>
-
 <div class="col-md-6">
   <div class="col-md-2">
     <md-form-field>
-      <input class="textbox" type="text" mdInput placeholder="WYSOKOŚĆ NALICZONEJ OPŁATY" name="naliczonaOplata">
+      <input class="textbox" type="text" mdInput placeholder="WYSOKOŚĆ NALICZONEJ OPŁATY" name="naliczonaOplata" [(ngModel)]="paymentsDataForm.fullAmount">
     </md-form-field>
   </div>
   <div class="col-md-2">
     <md-form-field>
-      <input class="textbox" type="text" mdInput placeholder="KAPITAŁ DO SPŁATY" name="pozostalyKapital">
+      <input class="textbox" type="text" mdInput placeholder="KAPITAŁ DO SPŁATY" name="pozostalyKapital" [(ngModel)]="paymentsDataForm.capital">
     </md-form-field>
   </div>
   <div class="col-md-2">
     <md-form-field>
-      <input class="textbox" type="text" mdInput placeholder="ODSETKI USTAWOWE" name="odsetkiUstawowe">
+      <input class="textbox" type="text" mdInput placeholder="ODSETKI USTAWOWE" name="odsetkiUstawowe" [(ngModel)]="paymentsDataForm.interest">
+    </md-form-field>
+  </div>
+  <div class="col-md-2">
+      <md-form-field>
+        <input class="textbox" type="text" mdInput placeholder="KOSZTY WYSYŁKI" name="kosztyWysylki" [(ngModel)]="paymentsDataForm.shipmentCost">
+      </md-form-field>
+    </div>
+  <div class="col-md-2">
+    <md-form-field>
+      <input class="textbox" type="text" mdInput placeholder="UMOŻONO KWOTĘ" name="umozono" [(ngModel)]="paymentsDataForm.discontinued">
     </md-form-field>
   </div>
   <div class="col-md-2">
     <md-form-field>
-      <input class="textbox" type="text" mdInput placeholder="UMOŻONO KWOTĘ" name="umozono">
-    </md-form-field>
-  </div>
-  <div class="col-md-2">
-    <md-form-field>
-      <input class="textbox" type="text" mdInput placeholder="DO SPŁATY" name="doSplaty">
+      <input class="textbox" type="text" mdInput placeholder="DO SPŁATY" name="doSplaty" [(ngModel)]="paymentsDataForm.left">
     </md-form-field>
   </div>
 

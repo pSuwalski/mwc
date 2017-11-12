@@ -39,18 +39,24 @@ export class AddComponent {
     membership: undefined, SwMembershipStartDate: undefined, SwMembershipTerminationDate: undefined
   };
 
-  model: Model = {
+  paymentsDataForm: UserPaymentsData = {
+    capital: undefined, discontinued: undefined, fullAmount: undefined, interest: undefined, left: undefined,
+    payments: undefined, shipmentCost: undefined
+  };
+
+  userData: UserData = {
     personalDataForm: this.personalDataForm,
     contactDataForm: this.contactDataForm,
     authDataForm: this.authDataForm,
     legalBasicsDataForm: this.legalBasicsDataForm,
     parcelDataForm: this.parcelDataForm,
+    paymentsDataForm: this.paymentsDataForm,
   };
 
   public index = 0;
 
   clicked() {
-    console.log(this.model);
+    console.log(this.userData);
   }
 
   next() {
@@ -127,11 +133,27 @@ export interface UserParcelData {
   decisionDate: string;
 }
 
-export class Model {
+export interface Payment {
+  value: number;
+  date: string;
+}
+
+export interface UserPaymentsData {
+  payments: Payment[];
+  fullAmount: number;
+  capital: number;
+  interest: number;
+  shipmentCost: number;
+  discontinued: number;
+  left: number;
+}
+
+export class UserData {
   personalDataForm: UserPersonalData;
   contactDataForm: UserContactData;
   authDataForm: UserAuthData;
   legalBasicsDataForm: UserLegalBasicsData[];
   parcelDataForm: UserParcelData;
+  paymentsDataForm: UserPaymentsData;
 }
 

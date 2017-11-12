@@ -11,62 +11,72 @@
 <div class="col-md-12">
   <div *ngFor="let basis of legalBasics; let i = index">
     <div class="col-md-12">
-      <div class="col-md-1">
+      <div class="col-md-2">
         <md-form-field>
           <input class="textbox" type="text" mdInput placeholder="NUMER UCHWAŁY" name="{{'numerUchwaly_'+i}}" [(ngModel)]="legalBasics[i].number">
         </md-form-field>
       </div>
       <div class="col-md-1">
+      </div>
+      <div class="col-md-2">
         <md-form-field>
           <input class="textbox" type="text" mdInput placeholder="DATA PODJĘCIA" name="{{'dataPodjecia_'+i}}" [(ngModel)]="legalBasics[i].date">
         </md-form-field>
       </div>
-      <div class="col-md-1">
+    </div>
+    <div class="col-md-12">
+      <div class="col-md-3">
         <md-form-field>
           <input class="textbox" type="text" mdInput placeholder="USTALONA DATA PŁATNOŚCI I" name="{{'platnoscI_'+i}}" [(ngModel)]="legalBasics[i].paymentI">
         </md-form-field>
       </div>
-      <div class="col-md-1">
+      <div class="col-md-3">
         <md-form-field>
           <input class="textbox" type="text" mdInput placeholder="% WYMAGANEJ WPŁATY" name="{{'procentPlatnosci_'+i}}" [(ngModel)]="legalBasics[i].paymentIPercent">
         </md-form-field>
       </div>
-      <div class="col-md-1">
+      <div class="col-md-3">
         <md-form-field>
           <input class="textbox" type="text" mdInput placeholder="USTALONA DATA PŁATNOŚCI II" name="{{'platnoscII_'+i}}" [(ngModel)]="legalBasics[i].paymentII">
         </md-form-field>
       </div>
-      <div class="col-md-1">
+      <div class="col-md-3">
         <md-form-field>
           <input class="textbox" type="text" mdInput placeholder="% WYMAGANEJ WPŁATY" name="{{'procentPlatnosci_'+i}}" [(ngModel)]="legalBasics[i].paymentIIPercent">
         </md-form-field>
       </div>
-      <div class="col-md-1">
+    </div>
+    <div class="col-md-12">
+      <div class="col-md-3">
         <md-form-field>
           <input class="textbox" type="text" mdInput placeholder="USTALONA DATA PŁATNOŚCI III" name="{{'platnoscIII_'+i}}" [(ngModel)]="legalBasics[i].paymentIII">
         </md-form-field>
       </div>
-      <div class="col-md-1">
+      <div class="col-md-3">
         <md-form-field>
           <input class="textbox" type="text" mdInput placeholder="% WYMAGANEJ WPŁATY" name="{{'procentPlatnosci_'+i}}" [(ngModel)]="legalBasics[i].paymentIIIPercent">
         </md-form-field>
       </div>
-      <div class="col-md-1">
+      <div class="col-md-3">
         <md-form-field>
           <input class="textbox" type="text" mdInput placeholder="USTALONA DATA PŁATNOŚCI IV" name="{{'platnoscI_'+i}}" [(ngModel)]="legalBasics[i].paymentIV">
         </md-form-field>
       </div>
-      <div class="col-md-1">
+      <div class="col-md-3">
         <md-form-field>
           <input class="textbox" type="text" mdInput placeholder="% WYMAGANEJ WPŁATY" name="{{'procentPlatnosci_'+i}}" [(ngModel)]="legalBasics[i].paymentIVPercent">
         </md-form-field>
       </div>
-      <div class="col-md-1">
+    </div>
+    <div class="col-md-12">
+      <div class="col-md-2">
         <md-form-field>
           <input class="textbox" type="text" mdInput placeholder="OPŁATA POWYŻEJ 1 H" name="{{'powyzejGodziny_'+i}}" [(ngModel)]="legalBasics[i].paymentMoreOneHour">
         </md-form-field>
       </div>
       <div class="col-md-1">
+      </div>
+      <div class="col-md-2">
         <md-form-field>
           <input class="textbox" type="text" mdInput placeholder="OPŁATA PONIŻEJ 1 H" name="{{'ponizejGodziny_'+i}}" [(ngModel)]="legalBasics[i].paymentLessOneHour">
         </md-form-field>

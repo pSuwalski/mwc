@@ -44,6 +44,11 @@ export class AddComponent {
     payments: undefined, shipmentCost: undefined
   };
 
+  worksdoneDataForm: UserWorksdoneData = {
+    startedFromDate: undefined, finishedDate: undefined, protocolNumber: undefined, type: undefined,
+    additionalDesc: undefined, totalCost: undefined,
+  };
+
   userData: UserData = {
     personalDataForm: this.personalDataForm,
     contactDataForm: this.contactDataForm,
@@ -51,6 +56,7 @@ export class AddComponent {
     legalBasicsDataForm: this.legalBasicsDataForm,
     parcelDataForm: this.parcelDataForm,
     paymentsDataForm: this.paymentsDataForm,
+    worksdoneDataForm: this.worksdoneDataForm,
   };
 
   public index = 0;
@@ -148,6 +154,15 @@ export interface UserPaymentsData {
   left: number;
 }
 
+export interface UserWorksdoneData {
+  startedFromDate: string;
+  finishedDate: string;
+  protocolNumber: number;
+  type: string;
+  additionalDesc: string;
+  totalCost: number;
+}
+
 export class UserData {
   personalDataForm: UserPersonalData;
   contactDataForm: UserContactData;
@@ -155,5 +170,6 @@ export class UserData {
   legalBasicsDataForm: UserLegalBasicsData[];
   parcelDataForm: UserParcelData;
   paymentsDataForm: UserPaymentsData;
+  worksdoneDataForm: UserWorksdoneData;
 }
 

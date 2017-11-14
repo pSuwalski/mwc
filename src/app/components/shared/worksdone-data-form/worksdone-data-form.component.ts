@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'mwc-worksdone-data-form',
@@ -7,9 +7,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WorksdoneDataFormComponent implements OnInit {
 
+  @Input() worksdoneDataForm: UserWorksdoneData;
   constructor() { }
 
   ngOnInit() {
   }
 
+}
+
+export interface UserWorksdoneData {
+  startedFromDate: string;
+  finishedDate: string;
+  protocolNumber: number;
+  type: string;
+  additionalDesc: string;
+  totalCost: number;
 }

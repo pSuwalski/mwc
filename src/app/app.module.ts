@@ -51,6 +51,7 @@ import { GraphQlService } from './services/graphQl.service';
 import { HttpModule } from '@angular/http';
 import { RegisterPageComponent } from './components/register-page/register-page.component';
 import { DatabaseService } from './services/database.service';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 
 
 
@@ -68,6 +69,7 @@ import { DatabaseService } from './services/database.service';
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
+    AngularFirestoreModule,
     BrowserModule,
     FormsModule,
     HttpModule,

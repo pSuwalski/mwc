@@ -7,14 +7,21 @@ button {
   padding: 24px;
 }
 .button-container {
-  padding: 16px 48px;
+  padding: 16px 0px 32px 0px;
   float: right;
+  width: 100%;
+  margin-top: -12px;
 }
-
 .mat-tab-header {
   position: fixed;
 }
-
 .accent {
   color: white !important;
+}
+button {
+  float: left;
+  margin: 0;
+}
+mwc-parcels-data-form {
+  display: block;
 }

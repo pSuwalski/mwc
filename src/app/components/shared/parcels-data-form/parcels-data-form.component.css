@@ -4,8 +4,12 @@
   }
 
 .header {
-    text-align: center;
-  }
+  color: rgba(0, 0, 0, 0.57);
+  font-size: 18px;
+  line-height: 40px;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
 
 .mat-select {
     padding-top: 9px !important;
@@ -15,3 +19,21 @@
     font-size: 14px !important;
     /* it works when written in browser but not imported from here - ask piotrek */
 }
+
+.sections-last-row {
+  margin-bottom: 16px;
+}
+
+button {
+  width: 20%;
+  color: white !important;
+}
+
+.button-container {
+  padding: 8px 0;
+}
+
+.form-row {
+  margin-bottom: 24px;
+}
+

@@ -1,45 +1,44 @@
-<mwc-navigation-toolbar></mwc-navigation-toolbar>
+<!-- add-leesee.component.html powinien się zaczynać tak -->
 <div class="card-container">
   <div class="card mat-elevation-z1">
-    <md-tab-group [(selectedIndex)]="index">
-      <md-tab label="Dane Osobowe">
-        <div class="form-container">
-          <mwc-personal-data-form [personalDataForm]="userData.personalDataForm"></mwc-personal-data-form>
-        </div>
-      </md-tab>
-      <md-tab label="Dane Kontaktowe">
-        <div class="form-container">
-          <mwc-contact-data-form [contactDataForm]="userData.contactDataForm"></mwc-contact-data-form>
-        </div>
-      </md-tab>
-      <md-tab label="Upowaznienia">
-        <div class="form-container">
-          <mwc-authorizations-data-form [authDataForm]="userData.authDataForm"></mwc-authorizations-data-form>
-        </div>
-      </md-tab>
-      <md-tab label="Podstawy Prawne">
-        <div class="form-container">
-          <mwc-legalbasis-data-form [legalBasicsDataForm]="userData.legalBasicsDataForm"></mwc-legalbasis-data-form>
-        </div>
-      </md-tab>
-      <md-tab label="Dzialki">
-        <div class="form-container">
-          <mwc-parcels-data-form [parcelDataForm]="userData.parcelDataForm"></mwc-parcels-data-form>
-        </div>
-      </md-tab>
-      <md-tab label="Skladki">
-        <div class="form-container">
-          <mwc-payments-data-form [paymentsDataForm]="userData.paymentsDataForm"></mwc-payments-data-form>
-        </div>
-      </md-tab>
-      <md-tab label="Wykonane roboty">
-          <mwc-worksdone-data-form></mwc-worksdone-data-form>
-      </md-tab>
-    </md-tab-group>
-    <div class="button-container">
-      <!-- <button type="button" class="add-button accent" md-raised-button color="accent" (click)="next()" >Dodaj</button> -->
-      <button type="button" class="add-button accent" md-raised-button color="accent" (click)="clicked()" >Dodaj</button>
-        <button type="button" *ngIf="index < 6" class="add-button" md-raised-button (click)="next()">Dalej</button>
+    <div class="form-container">
+      <mwc-personal-data-form [personalDataForm]="leesee.personalData"></mwc-personal-data-form>
+      <mwc-contact-data-form [contactDataForm]="leesee.contactData"></mwc-contact-data-form>
+      <mwc-authorizations-data-form [authDataForm]="leesee.authData"></mwc-authorizations-data-form>
+      <!-- Formularz z podpięciem istniejących działek Podpięcie do istniejących działek -->
+      <div class="button-container">
+        <button type="button" class="add-button accent" md-raised-button color="accent" (click)="add()">Dodaj</button>
+      </div>
     </div>
   </div>
 </div>
+<!-- add-leesee.component.html i kończyć się tu -->
+
+
+
+<!-- add-resolution.component.html powinien się zaczynać tak -->
+<div class="card-container">
+  <div class="card mat-elevation-z1">
+    <div class="form-container">
+      <mwc-legalbasis-data-form [legalBasicsDataForm]="legalBasicsDataForm"></mwc-legalbasis-data-form>
+      <div class="button-container">
+        <button type="button" class="add-button accent" md-raised-button color="accent" (click)="add()">Dodaj</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- add-resolution.component.html i kończyć się tu -->
+
+
+<!-- add-worksdone.component.html powinien się zaczynać tak -->
+<div class="card-container">
+  <div class="card mat-elevation-z1">
+    <div class="form-container">
+      <mwc-worksdone-data-form></mwc-worksdone-data-form>
+      <div class="button-container">
+        <button type="button" class="add-button accent" md-raised-button color="accent" (click)="add()">Dodaj</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- add-worksdone.component.html i kończyć się tu -->

@@ -1,28 +1,46 @@
-import { AngularFirestore } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Injectable } from '@angular/core';
+import { Parcel } from '../models/parcel';
+
+import 'rxjs/add/operator/do';
 
 
 
 @Injectable()
 export class DatabaseService {
+
+  parcelsRef(companyId: string) {
+    return this.db.collection('companies').doc(companyId).collection('percels');
+  }
+  parcelRef(companyId: string, percelId: string) {
+    return this.db.collection('companies').doc(companyId).collection('percels').doc(percelId);
+  }
+
   constructor(
     private db: AngularFirestore
   ) {
   }
 
-  addData(data: any, path: string): Promise<any> {
-    const id: string = this.db.createId();
-    if (!this.checkIfExists) {
-      return this.db.doc(`${path}/${id}`).set(data);
+  async addPercel(percel: Parcel, companyId: string): Promise<any> {
+    if (! await this.checkIfExists(this.parcelRef(companyId, percel.number.toString()))) {
+      return this.db
+        .doc(`companies/${companyId}`)
+        .collection('percels')
+        .doc(percel.number.toString())
+        .set(percel);
     } else {
-      return Promise.resolve(false);
+      return Promise.resolve('error');
     }
   }
 
-  async checkIfExists(path: string) {
-    const dataRef = await this.db.doc(path).ref.get();
+  // TODO dodawanie dzierzawcy addLessee -> this.db.doc(`companies/${companyId}`).collection('percels') i tak dalej
+
+  async checkIfExists(document: AngularFirestoreDocument<any> ) {
+    const dataRef = await document.ref.get();
     return dataRef.exists;
   }
+
+
 
 
 }

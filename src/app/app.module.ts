@@ -12,7 +12,8 @@ import {
   MdTableModule,
   MdTabsModule,
   MdToolbarModule,
-  MdRippleModule
+  MdRippleModule,
+  MdMenuModule
 } from '@angular/material';
 
 import { RouterModule, Routes } from '@angular/router';
@@ -22,6 +23,7 @@ import * as router from './app.routes';
 
 
 import { AddComponent } from './components/add/add.component';
+import { AddParcelComponent } from './components/add-parcel/add-parcel.component';
 import { AppComponent } from './app.component';
 import { DocumentsComponent } from './components/documents/documents.component';
 import { HistoryComponent } from './components/shared/history/history.component';
@@ -52,13 +54,17 @@ import { HttpModule } from '@angular/http';
 import { RegisterPageComponent } from './components/register-page/register-page.component';
 import { DatabaseService } from './services/database.service';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
+import { ParcelService } from './services/parcel.service';
+import { SearchParcelComponent } from './components/search-parcel/search-parcel.component';
 
 
 
 @NgModule({
-  declarations: [AddComponent, AppComponent, DocumentsComponent, HistoryComponent, HomeComponent,
+  declarations: [AddComponent, AddParcelComponent, AdminPanelComponent, AppComponent,
+    DocumentsComponent, HistoryComponent, HomeComponent,
     LoginPageComponent, MainPageComponent, NavigationToolbarComponent, PersonalDataFormComponent,
-    SearchComponent, SearchresultComponent, SearchrecordComponent, TemplateslistComponent,
+    SearchComponent, SearchParcelComponent, SearchresultComponent, SearchrecordComponent, TemplateslistComponent,
     ContactDataFormComponent, AuthorizationsDataFormComponent, LegalbasisDataFormComponent,
     ParcelsDataFormComponent,
     PaymentsDataFormComponent,
@@ -78,6 +84,7 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
     MdIconModule,
     MdInputModule,
     MdListModule,
+    MdMenuModule,
     MdRippleModule,
     MdTableModule,
     MdTabsModule,
@@ -88,7 +95,7 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
     FormsModule,
     MdSelectModule,
   ],
-  providers: [GraphQlService, DatabaseService, UserResolver, UserService],
+  providers: [GraphQlService, DatabaseService, UserResolver, UserService, ParcelService],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

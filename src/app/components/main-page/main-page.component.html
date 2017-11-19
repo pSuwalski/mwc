@@ -1,13 +1,76 @@
 <md-toolbar color="primary" class="toolbar mat-elevation-z1">
-  <span style="color: white">Melior <span style="font-weight: 100">®</span></span>
-  <button md-button (click)="us.logOut(); router.navigate(['/login'])"><md-icon>power_settings_new</md-icon></button>
+  <span style="color: white">
+    <md-icon>home</md-icon>
+    Melior
+    <span style="font-weight: 100">®</span>
+  </span>
+  <div class="navigation">
+    <button md-button class="nav-button" [mdMenuTriggerFor]="addMenu">Dodaj</button>
+    <button md-button class="nav-button" [mdMenuTriggerFor]="searchMenu">Przeglądaj</button>
+    <button md-button class="nav-button">Dokumenty</button>
+    <button md-button class="nav-button">Raporty</button>
+    <button md-button [mdMenuTriggerFor]="accountMenu">
+      <md-icon>person</md-icon>
+    </button>
+  </div>
+  <md-menu #addMenu="mdMenu" x-position="after" y-position="below">
+    <button md-menu-item (click)="router.navigate(['/add/region'])">
+      Region
+    </button>
+    <button md-menu-item (click)="router.navigate(['/add/parcel'])">
+      Działka
+    </button>
+    <button md-menu-item (click)="router.navigate(['/add/leesee']) ">
+      Dzierazawca
+    </button>
+    <button md-menu-item (click)="router.navigate(['/add/resolution']) ">
+      Uchwała
+    </button>
+    <button md-menu-item (click)="router.navigate(['/add/works'])">
+      Wykonane roboty
+    </button>
+  </md-menu>
+  <md-menu #searchMenu="mdMenu" x-position="after" y-position="below">
+    <button md-menu-item (click)="router.navigate(['/search/region'])">
+      Regiony
+    </button>
+    <button md-menu-item (click)="router.navigate(['/search/parcel'])">
+      Działki
+    </button>
+    <button md-menu-item (click)="router.navigate(['/search/leesee']) ">
+      Dzierazawców
+    </button>
+    <button md-menu-item (click)="router.navigate(['/search/resolution']) ">
+      Uchwały
+    </button>
+    <button md-menu-item (click)="router.navigate(['/search/works'])">
+      Wykonane roboty
+    </button>
+  </md-menu>
+  <md-menu #accountMenu="mdMenu" x-position="after" y-position="below">
+    <div class="account-container">
+      <div class="col-md-2">
+        <md-icon class="account-icon">account_circle</md-icon>
+      </div>
+      <div class="col-md-10 info">
+        <h1>{{ (us.currentUser | async)?.name }}</h1>
+        <h2>{{ (us.currentUser | async)?.email }}</h2>
+        <h2>{{ (us.currentUser | async)?.companyName }}</h2>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+    <button class="admin-panel" *ngIf="(us.currentUser | async)?.role === 'admin'" md-menu-item (click)="router.navigate(['/admin-panel']);us.logOut(); ">
+      <span>Panel Admina</span>
+    </button>
+    <button class="logout" md-menu-item (click)="router.navigate(['/login']);us.logOut(); ">
+      <span>Wyloguj</span>
+    </button>
+  </md-menu>
 </md-toolbar>
 <div class="router-outlet-container">
   <div class="toolbar-spacer"></div>
   <router-outlet></router-outlet>
 </div>
 <footer class="mat-elevation-z3">
-    <mwc-history></mwc-history>
+  <mwc-history></mwc-history>
 </footer>
-
-

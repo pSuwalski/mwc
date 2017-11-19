@@ -1,28 +1,35 @@
-<md-toolbar color="primary" class="mat-elevation-z1"><span style="color: white">Melior <span style="font-weight: 100">®</span></span>
+<md-toolbar color="primary" class="mat-elevation-z1">
+  <span style="color: white">Melior
+    <span style="font-weight: 100">®</span>
+  </span>
+  <button md-button>Rejestracja</button>
 </md-toolbar>
 <div class="toolbar-spacer"></div>
 <div class="containter login-page-container">
-    <md-card-title class="title">
-        Zaloguj się do systemu
-    </md-card-title>
-    <md-card class="login-form-card">
-        <md-card-content>
-            <md-card-title class="header">
-                <md-icon class="icon-title" color="accent">account_circle</md-icon>
-            </md-card-title>
-            <form (ngSubmit)="login()">
-                <md-form-field>
-                    <input mdInput placeholder="Adres email" type="email" name="user" [(ngModel)]="user" id="user">
-                </md-form-field>
-                <md-form-field>
-                    <input mdInput placeholder="Hasło" type="password" name="password" [(ngModel)]="password" id="password">
-                </md-form-field>
-            </form>
-        </md-card-content>
-        <md-card-content>
-            <!--<a routerLink='/'>-->
-                <button md-raised-button color="primary" (click)="login()">Zaloguj</button>
-            <!--</a>-->
-        </md-card-content>
-    </md-card>
+  <md-card-title class="title">
+    Zaloguj się do systemu
+  </md-card-title>
+  <md-card class="login-form-card">
+    <md-card-content>
+      <md-card-title class="header">
+        <md-icon class="icon-title" color="accent">account_circle</md-icon>
+      </md-card-title>
+      <form (ngSubmit)="login()">
+        <md-form-field>
+          <input mdInput placeholder="Adres email" type="email" name="user" [(ngModel)]="user" id="user">
+        </md-form-field>
+        <md-form-field class="last-field">
+          <input mdInput placeholder="Hasło" type="password" name="password" [(ngModel)]="password" id="password">
+        </md-form-field>
+        <a class="reset">resetuj hasło</a>
+      </form>
+    </md-card-content>
+    <md-card-content>
+      <!--<a routerLink='/'>-->
+      <button md-raised-button color="primary" clas="login" (click)="login()">Zaloguj</button>
+      Nie posiadasz konta ? <a routerLink="/register">zarejstruj się</a>
+    </md-card-content>
+
+  </md-card>
+
 </div>

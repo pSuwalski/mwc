@@ -11,6 +11,9 @@ import { SearchresultComponent } from './components/search/searchresult/searchre
 import { SearchrecordComponent } from './components/search/searchrecord/searchrecord.component';
 import { TemplateslistComponent } from './components/documents/templateslist/templateslist.component';
 import { RegisterPageComponent } from './components/register-page/register-page.component';
+import { AddParcelComponent } from './components/add-parcel/add-parcel.component';
+import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
+import { SearchParcelComponent } from './components/search-parcel/search-parcel.component';
 
 export const appRoutes: Routes = [
   {
@@ -30,8 +33,12 @@ export const appRoutes: Routes = [
         component: HomeComponent,
       },
       {
-        path: 'add',
-        component: AddComponent,
+        path: 'admin-panel',
+        component: AdminPanelComponent,
+      },
+      {
+        path: 'add/parcel',
+        component: AddParcelComponent,
       },
       {
         path: 'documents',
@@ -48,8 +55,8 @@ export const appRoutes: Routes = [
         component: SearchComponent,
         children: [
           {
-            path: '',
-            component: SearchrecordComponent,
+            path: 'parcel',
+            component: SearchParcelComponent,
           },
           {
             path: 'searchresult',

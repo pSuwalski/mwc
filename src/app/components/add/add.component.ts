@@ -1,28 +1,22 @@
 import { calcBindingFlags } from '@angular/core/src/view/util';
 import { Component, HostBinding } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
+import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
+
 
 @Component({
   selector: 'mwc-add',
   templateUrl: './add.component.html',
   styleUrls: ['./add.component.css']
 })
-export class AddComponent {
+export class AddComponent implements OnDestroy {
 
-  personalDataForm: UserPersonalData = {
-    evidenceNumber: undefined, name: undefined, surname: undefined, pesel: undefined,
-    postalCode: undefined, city: undefined, street: undefined, number: undefined,
-    krs: undefined, nip: undefined, regon: undefined
-  };
+  recordType: string;
+  subscriptions: Subscription[] = [];
 
-  contactDataForm: UserContactData = {
-    postalCode: undefined, city: undefined, street: undefined, number: undefined,
-    email: undefined, deskPhoneNumber: undefined, cellPhoneNumber: undefined
-  };
 
-  authDataForm: UserAuthData = {
-    nameSurname: undefined, pesel: undefined, authScope: undefined, correspondenceAddress: undefined,
-    email: undefined, phoneNumber: undefined, validFrom: undefined, validTill: undefined
-  };
+  leesee = new Leesee();
 
   legalBasicsDataForm: UserLegalBasicsData[] = [
     {
@@ -32,72 +26,31 @@ export class AddComponent {
     }
   ];
 
-  parcelDataForm: UserParcelData = {
-    applianceDescription: undefined, applianceType: undefined, areaSurface: undefined, areaType: undefined,
-    drainage: undefined, number: undefined, numbering: undefined, trench: undefined, yearNumber: undefined,
-    decisionDate: undefined, decisionNumber: undefined, foremanDecision: undefined, legalBasis: undefined,
-    membership: undefined, SwMembershipStartDate: undefined, SwMembershipTerminationDate: undefined
-  };
-
   paymentsDataForm: UserPaymentsData = {
     capital: undefined, discontinued: undefined, fullAmount: undefined, interest: undefined, left: undefined,
     payments: undefined, shipmentCost: undefined
   };
 
-  userData: UserData = {
-    personalDataForm: this.personalDataForm,
-    contactDataForm: this.contactDataForm,
-    authDataForm: this.authDataForm,
-    legalBasicsDataForm: this.legalBasicsDataForm,
-    parcelDataForm: this.parcelDataForm,
-    paymentsDataForm: this.paymentsDataForm,
-  };
 
-  public index = 0;
+  index = 0;
 
-  clicked() {
-    console.log(this.userData);
+  constructor(
+    private ac: ActivatedRoute
+  ) {
+    this.ac.params.subscribe((p) => {
+      this.recordType = p['record_type'];
+    });
   }
 
   next() {
     this.index += 1;
   }
+
+  ngOnDestroy() {
+    this.subscriptions.forEach((s) => s.unsubscribe());
+  }
 }
 
-export interface UserPersonalData {
-  evidenceNumber: number;
-  name: string;
-  surname: string;
-  pesel: number;
-  postalCode: string;
-  city: string;
-  street: string;
-  number: number;
-  krs: number;
-  nip: number;
-  regon: number;
-}
-
-export interface UserContactData {
-  postalCode: number;
-  city: string;
-  street: string;
-  number: number;
-  email: string;
-  deskPhoneNumber: number;
-  cellPhoneNumber: number;
-}
-
-export interface UserAuthData {
-  nameSurname: string;
-  pesel: number;
-  phoneNumber: number;
-  email: string;
-  correspondenceAddress: string;
-  authScope: string;
-  validFrom: string;
-  validTill: string;
-}
 
 export interface UserLegalBasicsData {
   number: number;
@@ -114,24 +67,7 @@ export interface UserLegalBasicsData {
   paymentLessOneHour: number;
 }
 
-export interface UserParcelData {
-  number: number;
-  areaType: string;
-  areaSurface: number;
-  trench: boolean;
-  yearNumber: number;
-  drainage: boolean;
-  numbering: number;
-  applianceType: string;
-  applianceDescription: string;
-  membership: boolean;
-  legalBasis: string;
-  SwMembershipStartDate: string;
-  SwMembershipTerminationDate: string;
-  foremanDecision: boolean;
-  decisionNumber: number;
-  decisionDate: string;
-}
+
 
 export interface Payment {
   value: number;
@@ -148,12 +84,43 @@ export interface UserPaymentsData {
   left: number;
 }
 
-export class UserData {
-  personalDataForm: UserPersonalData;
-  contactDataForm: UserContactData;
-  authDataForm: UserAuthData;
-  legalBasicsDataForm: UserLegalBasicsData[];
-  parcelDataForm: UserParcelData;
-  paymentsDataForm: UserPaymentsData;
+export class Leesee {
+  personalData: PersonalData;
+  contactData: ContactData;
+  authData: AuthData;
 }
 
+export interface PersonalData {
+  evidenceNumber: number;
+  name: string;
+  surname: string;
+  pesel: number;
+  postalCode: string;
+  city: string;
+  street: string;
+  number: number;
+  krs: number;
+  nip: number;
+  regon: number;
+}
+
+export interface ContactData {
+  postalCode: number;
+  city: string;
+  street: string;
+  number: number;
+  email: string;
+  deskPhoneNumber: number;
+  cellPhoneNumber: number;
+}
+
+export interface AuthData {
+  nameSurname: string;
+  pesel: number;
+  phoneNumber: number;
+  email: string;
+  correspondenceAddress: string;
+  authScope: string;
+  validFrom: string;
+  validTill: string;
+}

@@ -2,24 +2,19 @@
   <span style="color: white">Melior
     <span style="font-weight: 100">®</span>
   </span>
+  <button md-button>Logowanie</button>
 </md-toolbar>
 <div class="toolbar-spacer"></div>
 <div class="containter login-page-container">
-  <md-card-title class="title" *ngIf="!appliedIndicator">
-    Załóż konto swojej społki
-  </md-card-title>
   <md-card class="login-form-card" *ngIf="!appliedIndicator">
     <md-card-content>
-      <md-card-title class="header">
-        <md-icon class="icon-title" color="accent">account_circle</md-icon>
-      </md-card-title>
       <form [formGroup]="joinApplicationForm" (ngSubmit)="apply()">
         <div class="col-md-6">
           <md-card-title class="title">
             Dane spółki
           </md-card-title>
           <md-form-field>
-            <input mdInput placeholder="Nazwa spólki*" type="text" formControlName="companyName" [(ngModel)]="joinApplication.company.name">
+            <input mdInput placeholder="Nazwa spółki*" type="text" formControlName="companyName" [(ngModel)]="joinApplication.company.name">
           </md-form-field>
           <md-form-field>
             <input mdInput placeholder="Adress email spólki*" type="text" formControlName="companyEmail" [(ngModel)]="joinApplication.company.email">
@@ -67,12 +62,13 @@
     </md-card-content>
     <md-card-content>
       <!--<a routerLink='/'>-->
-      <button md-raised-button color="primary" [disabled]="!joinApplicationForm.valid" (click)="apply()">Rejestruj</button>
+      <button md-raised-button color="primary" [disabled]="!joinApplicationForm.valid || appliedIndicator" (click)="apply()">Rejestruj</button>
       <!--</a>-->
     </md-card-content>
   </md-card>
-  <md-card-title class="title" *ngIf="appliedIndicator === 'success'">
+  <md-card-title class="title success-title" *ngIf="appliedIndicator === 'success'">
+    <md-icon class="icon-title icon" color="accent">check_circle</md-icon>
     Rejestracja zakończona powodzeniem
   </md-card-title>
-  <button *ngIf="appliedIndicator === 'success'" md-raised-button color="primary" (click)="router.navigate(['/'])">Wróć do strony głównej</button>
+  <button *ngIf="appliedIndicator === 'success'" class="success-button" md-raised-button color="primary" (click)="router.navigate(['/'])">Wróć do strony głównej</button>
 </div>

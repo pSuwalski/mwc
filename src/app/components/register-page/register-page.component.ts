@@ -16,9 +16,9 @@ import { sanitizeNip } from '../../models/company';
 export class RegisterPageComponent implements OnInit {
 
   joinApplication: JoinApplication = createEmptyJoinApplication();
-  appliedIndicator: 'succes' | 'defeat';
+  appliedIndicator: 'success' | 'defeat';
   joinApplicationForm: FormGroup;
-  
+
   constructor(
     private fb: FormBuilder,
     public router: Router,
@@ -37,7 +37,7 @@ export class RegisterPageComponent implements OnInit {
     this.joinApplication.company.nip = sanitizeNip(this.joinApplication.company.nip);
     this.joinApplication.user.companyId = this.joinApplication.company.nip;
     this.us.applyJoinApplication(this.joinApplication)
-      .then(() => this.appliedIndicator = 'succes')
+      .then((e) => this.appliedIndicator = 'success')
       .catch(() => this.appliedIndicator = 'defeat');
   }
 

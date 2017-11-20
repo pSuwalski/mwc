@@ -31,7 +31,7 @@ export class UserService {
     this.currentUser = this.observeFirebaseUserId()
       // .distinctUntilChanged((a, b) => !b)
       .switchMap(async (uid) => (await af.collection('users').doc(uid).ref.get()).data())
-      .do(console.log);
+  .do(/*console.log*/);
   }
 
   applyJoinApplication(joinApplication: JoinApplication): Promise<any> {

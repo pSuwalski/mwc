@@ -1,5 +1,6 @@
 import { AuthData, PersonalData, ContactData, Leesee } from '../../models/leesee';
 import { Component, OnInit } from '@angular/core';
+import { LeeseeService } from '../../services/leesee.service';
 
 @Component({
   selector: 'mwc-add-leesee',
@@ -8,6 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddLeeseeComponent implements OnInit {
 
+  addedSuccessfully: string;
   leeseePersonal: PersonalData = {
     city: null, evidenceNumber: null, krs: null, name: null, nip: null, number: null, pesel: null,
     postalCode: null, regon: null, street: null, surname: null
@@ -29,9 +31,21 @@ export class AddLeeseeComponent implements OnInit {
     authData: this.leeseeAuth
   };
 
-  constructor() { }
+  constructor(
+    private db: LeeseeService ) { }
 
   ngOnInit() {
+  }
+
+  add() {
+    // this.progressBar = true;
+    this.db.addLeesee(this.leesee)
+      .then((res) => {
+        // this.progressBar = false;
+        this.addedSuccessfully = res;
+      })
+      .catch((e) => console.log(e));
+      // console.log(this.leesee);
   }
 
 }

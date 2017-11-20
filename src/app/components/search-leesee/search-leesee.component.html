@@ -1,3 +1,34 @@
-<p>
-  search-leesee works!
-</p>
+<div class="card-container">
+  <div class="card mat-elevation-z1">
+    <div class="form-container fixed">
+      <md-form-field class="col-md-11">
+        <input class="textbox" type="text" mdInput placeholder="Wyszukaj..." [(ngModel)]="searchString" (input)="MyFilter()">
+      </md-form-field>
+      <div class="col-md-1">
+        <md-icon class="material-icons md-48" color="accent" (click)="search()">search</md-icon>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="row in-the-bottom on-the-right columns-title fixed">
+        <div class="card-field" style="float:left; width:100%">
+          <div class="col-md-2 header" (click)="sortByTrench()">Numer ewidencyjny</div>
+          <div class="col-md-2 header" (click)="sortByNumber()">Imię</div>
+          <div class="col-md-2 header" (click)="sortByAreaType() ">Nazwisko</div>
+          <div class="col-md-2 header" (click)="sortByAreaSurface()">Pesel</div>
+        </div>
+      </div>
+      <div class="result_container">
+        <div *ngFor="let l of leesees">
+          <div class="row bordered in-the-bottom on-the-right result" (click)="navigate('search/searchresult')">
+            <div class="card-field" style="float:left; width:100%">
+              <div class="col-md-2 ">{{l.personalData.evidenceNumber}}</div>
+              <div class="col-md-2 ">{{l.personalData.name}}</div>
+              <div class="col-md-2 ">{{l.personalData.surname}}</div>
+              <div class="col-md-1 ">{{l.personalData.pesel}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

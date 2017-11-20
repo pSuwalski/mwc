@@ -1,3 +1,5 @@
+import { LeeseeService } from './services/leesee.service';
+import { Leesee } from './models/leesee';
 import { environment } from '../environments/environment';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -104,7 +106,7 @@ import { SearchLeeseeComponent } from './components/search-leesee/search-leesee.
     FormsModule,
     MdSelectModule,
   ],
-  providers: [GraphQlService, DatabaseService, UserResolver, UserService, ParcelService],
+  providers: [GraphQlService, DatabaseService, UserResolver, UserService, ParcelService, LeeseeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

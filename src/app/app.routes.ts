@@ -17,6 +17,7 @@ import { SearchParcelComponent } from './components/search-parcel/search-parcel.
 import { AddLeeseeComponent } from './components/add-leesee/add-leesee.component';
 import { AddResolutionComponent } from './components/add-resolution/add-resolution.component';
 import { AddWorksdoneComponent } from './components/add-worksdone/add-worksdone.component';
+import { SearchLeeseeComponent } from './components/search-leesee/search-leesee.component';
 
 export const appRoutes: Routes = [
   {
@@ -72,6 +73,10 @@ export const appRoutes: Routes = [
           {
             path: 'parcel',
             component: SearchParcelComponent,
+          },
+          {
+            path: 'leesee',
+            component: SearchLeeseeComponent,
           },
           {
             path: 'searchresult',

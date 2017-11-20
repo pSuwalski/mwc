@@ -15,6 +15,7 @@ import { AddParcelComponent } from './components/add-parcel/add-parcel.component
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 import { SearchParcelComponent } from './components/search-parcel/search-parcel.component';
 import { AddLeeseeComponent } from './components/add-leesee/add-leesee.component';
+import { AddResolutionComponent } from './components/add-resolution/add-resolution.component';
 
 export const appRoutes: Routes = [
   {
@@ -44,6 +45,10 @@ export const appRoutes: Routes = [
       {
         path: 'add/leesee',
         component: AddLeeseeComponent,
+      },
+      {
+        path: 'add/resolution',
+        component: AddResolutionComponent,
       },
       {
         path: 'documents',

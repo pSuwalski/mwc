@@ -1,19 +1,21 @@
 import { Component, OnInit, Input } from '@angular/core';
-
+import { ResolutionData } from '../../../models/resolution';
 @Component({
   selector: 'mwc-legalbasis-data-form',
   templateUrl: './legalbasis-data-form.component.html',
   styleUrls: ['./legalbasis-data-form.component.css']
 })
 export class LegalbasisDataFormComponent implements OnInit {
-  @Input() legalBasicsDataForm: UserLegalBasicsData[];
+  @Input() legalBasicsDataForm: ResolutionData[];
 
-  constructor() { }
+  constructor() {
+   }
 
   ngOnInit() {
   }
 
   addLegalBasis() {
+    console.log(this);
     this.legalBasicsDataForm.push({
       number: undefined, date: undefined, paymentI: undefined, paymentIPercent: undefined, paymentII: undefined,
       paymentIIPercent: undefined, paymentIII: undefined, paymentIIIPercent: undefined, paymentIV: undefined,

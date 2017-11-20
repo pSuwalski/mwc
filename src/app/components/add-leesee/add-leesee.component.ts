@@ -1,5 +1,4 @@
-import { AuthData, PersonalData } from '../add/add.component';
-import { ContactData, Leesee } from '../../models/leesee';
+import { AuthData, PersonalData, ContactData, Leesee } from '../../models/leesee';
 import { Component, OnInit } from '@angular/core';
 
 @Component({

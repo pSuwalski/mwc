@@ -58,6 +58,7 @@ import { AdminPanelComponent } from './components/admin-panel/admin-panel.compon
 import { ParcelService } from './services/parcel.service';
 import { SearchParcelComponent } from './components/search-parcel/search-parcel.component';
 import { AddLeeseeComponent } from './components/add-leesee/add-leesee.component';
+import { AddResolutionComponent } from './components/add-resolution/add-resolution.component';
 
 
 
@@ -73,6 +74,7 @@ import { AddLeeseeComponent } from './components/add-leesee/add-leesee.component
     WorksdoneDataFormComponent,
     CompanyDataFormComponent,
     AddLeeseeComponent,
+    AddResolutionComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),

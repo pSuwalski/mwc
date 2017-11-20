@@ -1,52 +1,60 @@
 <div>
-  <div class="col-md-2">
+  <div class="row">
+    <div class="col-md-2">
+      <md-form-field>
+        <input class="textbox" type="text" mdInput placeholder="NUMER EWIDENCYJNY" name="numer_ewidencyjny" [(ngModel)]="personalDataForm.evidenceNumber">
+      </md-form-field>
+    </div>
   </div>
-  <div class="col-md-4 header">
-    Dane personalne
+  <div>
+    <div class="row">
+      <div class="header col-md-3">
+        Dane personalne
+      </div>
+    </div>
   </div>
-  <div class="col-md-6 header">
-    Adres zamieszkania
+  <div class="row">
+    <div class="col-md-1">
+      <md-form-field>
+        <input class="textbox" type="text" mdInput placeholder="IMIE" name="imie" [(ngModel)]="personalDataForm.name">
+      </md-form-field>
+    </div>
+    <div class="col-md-1">
+      <md-form-field>
+        <input class="textbox" type="text" mdInput placeholder="NAZWISKO" name="nazwisko" [(ngModel)]="personalDataForm.surname">
+      </md-form-field>
+    </div>
+    <div class="col-md-2">
+      <md-form-field>
+        <input class="textbox" type="text" mdInput placeholder="NUMER PESEL/NIP" name="numer" [(ngModel)]="personalDataForm.pesel">
+      </md-form-field>
+    </div>
   </div>
-</div>
-<div>
-  <div class="col-md-2">
-    <md-form-field>
-      <input class="textbox" type="text" mdInput placeholder="NUMER EWIDENCYJNY" name="numer_ewidencyjny" [(ngModel)]="personalDataForm.evidenceNumber">
-    </md-form-field>
+  <div class="row">
+    <div class="header col-md-3">
+      Adres zamieszkania
+    </div>
   </div>
-  <div class="col-md-1">
-    <md-form-field>
-      <input class="textbox" type="text" mdInput placeholder="IMIE" name="imie" [(ngModel)]="personalDataForm.name">
-    </md-form-field>
-  </div>
-  <div class="col-md-1">
-    <md-form-field>
-      <input class="textbox" type="text" mdInput placeholder="NAZWISKO" name="nazwisko" [(ngModel)]="personalDataForm.surname">
-    </md-form-field>
-  </div>
-  <div class="col-md-2">
-    <md-form-field>
-      <input class="textbox" type="text" mdInput placeholder="NUMER PESEL/NIP" name="numer" [(ngModel)]="personalDataForm.pesel">
-    </md-form-field>
-  </div>
-  <div class="col-md-2">
-    <md-form-field>
-      <input class="textbox" type="text" mdInput placeholder="KOD POCZTOWY" name="kod" [(ngModel)]="personalDataForm.postalCode">
-    </md-form-field>
-  </div>
-  <div class="col-md-1">
-    <md-form-field>
-      <input class="textbox" type="text" mdInput placeholder="MIASTO" name="miasto" [(ngModel)]="personalDataForm.city">
-    </md-form-field>
-  </div>
-  <div class="col-md-2">
-    <md-form-field>
-      <input class="textbox" type="text" mdInput placeholder="ULICA" name="ulica" [(ngModel)]="personalDataForm.street">
-    </md-form-field>
-  </div>
-  <div class="col-md-1">
-    <md-form-field>
-      <input class="textbox" type="text" mdInput placeholder="NR" name="nr" [(ngModel)]="personalDataForm.number">
-    </md-form-field>
+  <div class="row">
+    <div class="col-md-2">
+      <md-form-field>
+        <input class="textbox" type="text" mdInput placeholder="KOD POCZTOWY" name="kod" [(ngModel)]="personalDataForm.postalCode">
+      </md-form-field>
+    </div>
+    <div class="col-md-1">
+      <md-form-field>
+        <input class="textbox" type="text" mdInput placeholder="MIASTO" name="miasto" [(ngModel)]="personalDataForm.city">
+      </md-form-field>
+    </div>
+    <div class="col-md-2">
+      <md-form-field>
+        <input class="textbox" type="text" mdInput placeholder="ULICA" name="ulica" [(ngModel)]="personalDataForm.street">
+      </md-form-field>
+    </div>
+    <div class="col-md-1">
+      <md-form-field>
+        <input class="textbox" type="text" mdInput placeholder="NR" name="nr" [(ngModel)]="personalDataForm.number">
+      </md-form-field>
+    </div>
   </div>
 </div>

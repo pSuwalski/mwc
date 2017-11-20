@@ -18,6 +18,13 @@ export class SearchParcelComponent implements OnDestroy {
   parcels: Parcel[] = [];
   subsriptions: Subscription[] = [];
 
+  public searchString: string;
+  numberSorted = false;
+  areaTypeSorted = false;
+  areaSurfaceSorted = false;
+  trenchSorted = false;
+  public parcelFilter: Parcel[];
+
   constructor(
     private ps: ParcelService,
     private us: UserService
@@ -25,9 +32,12 @@ export class SearchParcelComponent implements OnDestroy {
     this.subsriptions.push(
       this.us.currentUser.subscribe((cu) => {
         this.currentUser = cu;
-        this.ps.getCompanyParcels(cu.companyId).then((prs: Parcel[]) => this.parcels = prs);
+        this.ps.getCompanyParcels(cu.companyId).then((prs: Parcel[]) => {this.parcels = prs; this.parcelFilter = this.parcels; });
       })
     );
+
+    this.parcelFilter = this.parcels;
+    console.log(this.parcelFilter);
   }
 
   loadMore() {
@@ -38,5 +48,79 @@ export class SearchParcelComponent implements OnDestroy {
     this.subsriptions.forEach((s) => s.unsubscribe());
   }
 
+  sortByNumber() {
+    if (this.numberSorted === false) {
+      this.parcels.sort((a, b) => a.number - b.number);
+      this.numberSorted = true;
+    } else {
+      this.parcels.sort((a, b) => b.number - a.number);
+      this.numberSorted = false;
+    }
+  }
 
+  sortByAreaType() {
+    if (this.areaTypeSorted === false) {
+      this.parcels.sort((a, b) => {
+        if (a.areaType < b.areaType) { return -1; }
+        if (a.areaType > b.areaType) { return 1; }
+        return 0;
+      });
+      this.areaTypeSorted = true;
+    } else {
+      this.parcels.sort((a, b) => {
+        if (a.areaType > b.areaType) { return -1; }
+        if (a.areaType < b.areaType) { return 1; }
+        return 0;
+      });
+      this.areaTypeSorted = false;
+    }
+  }
+
+  sortByAreaSurface() {
+    if (this.areaSurfaceSorted === false) {
+      this.parcels.sort((a, b) => a.areaSurface - b.areaSurface);
+      this.areaSurfaceSorted = true;
+    } else {
+      this.parcels.sort((a, b) => b.areaSurface - a.areaSurface);
+      this.areaSurfaceSorted = false;
+    }
+  }
+
+  sortByTrench() {
+    if (this.trenchSorted === false) {
+      this.parcels.sort((a, b) => {
+        if (a.trench < b.trench) { return -1; }
+        if (a.trench > b.trench) { return 1; }
+        return 0;
+      });
+      this.trenchSorted = true;
+    } else {
+      this.parcels.sort((a, b) => {
+        if (a.trench > b.trench) { return -1; }
+        if (a.trench < b.trench) { return 1; }
+        return 0;
+      });
+      this.trenchSorted = false;
+    }
+  }
+
+  MyFilter() {
+    this.parcelFilter = [];
+    this.searchString = this.searchString.toLowerCase();
+    if (this.searchString.length !== 0) {
+      for (const parcel of this.parcels) {
+        if (parcel.areaType.toLowerCase().indexOf(this.searchString) >= 0) {
+          this.parcelFilter.push(parcel);
+        } else if (String(parcel.number).toLowerCase().indexOf(this.searchString) >= 0) {
+          this.parcelFilter.push(parcel);
+        } else if (String(parcel.areaSurface).toLowerCase().indexOf(this.searchString) >= 0) {
+          this.parcelFilter.push(parcel);
+        } else if (String(parcel.trench).toLowerCase().indexOf(this.searchString) >= 0) {
+          this.parcelFilter.push(parcel);
+        }
+      }
+    } else {
+      this.parcelFilter = this.parcels;
+    }
+  }
 }

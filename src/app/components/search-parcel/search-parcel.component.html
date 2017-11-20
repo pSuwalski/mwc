@@ -1,4 +1,4 @@
-<div *ngFor="let p of parcels">
+<!-- <div *ngFor="let p of parcels">
   <div class="col-md-3">{{p.number}}</div>
   <div class="col-md-3">{{p.areaType}}</div>
   <div class="col-md-3">{{p.areaSurface}}</div>
@@ -6,4 +6,42 @@
 </div>
 <div *ngIf="ps.moreToBeLoaded">
   Pokaz więcej
+</div> -->
+
+<div class="card-container" >
+  <div class="card mat-elevation-z1">
+    <div class="form-container fixed">
+      <md-form-field class="col-md-11">
+        <input class="textbox" type="text"  mdInput placeholder="Wyszukaj..." [(ngModel)]="searchString" (input)="MyFilter()" >
+      </md-form-field>
+      <div class="col-md-1">
+        <md-icon class="material-icons md-48" color="accent" (click)="search()">search</md-icon>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="row in-the-bottom on-the-right columns-title fixed">
+        <div class="card-field" style="float:left; width:100%">
+          <div class="col-md-2 header" (click)="sortByNumber()" >numer działki</div>
+          <div class="col-md-2 header" (click)="sortByAreaType() " >typ powierzchni</div>
+          <div class="col-md-2 header" (click)="sortByAreaSurface()" >powierzchnia [ha]</div>
+          <div class="col-md-1 header" (click)="sortByTrench()" >rów</div>
+        </div>
+      </div>
+      <div class="result_container">
+      <div  *ngFor="let p of parcelFilter">
+      <div class="row bordered in-the-bottom on-the-right result" (click)="navigate('search/searchresult')">
+        <div class="card-field" style="float:left; width:100%">
+            <div class="col-md-2 " >{{p.number}}</div>
+            <div class="col-md-2 " >{{p.areaType}}</div>
+            <div class="col-md-2 " >{{p.areaSurface}}</div>
+            <div class="col-md-1 " >{{p.trench}}</div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+
+  </div>
+
+
 </div>

@@ -1,0 +1,21 @@
+button {
+    float: right;
+    margin-left: 12px;
+    min-width: 160px;
+  }
+  .form-container {
+    padding: 24px;
+  }
+  .button-container {
+    padding: 16px 48px;
+    float: right;
+  }
+  
+  .mat-tab-header {
+    position: fixed;
+  }
+  
+  .accent {
+    color: white !important;
+  }
+  

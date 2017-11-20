@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Works } from '../../../models/works';
 
 @Component({
   selector: 'mwc-worksdone-data-form',
@@ -7,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WorksdoneDataFormComponent implements OnInit {
 
+  @Input() worksdoneDataForm: Works;
   constructor() { }
 
   ngOnInit() {

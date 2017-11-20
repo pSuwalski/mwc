@@ -1,32 +1,32 @@
 <div>
   <div class="col-md-2">
     <md-form-field>
-      <input class="textbox" type="text" mdInput placeholder="ROZPOCZĘTO PRACE" name="rozpoczetoPrace">
+      <input class="textbox" type="text" mdInput placeholder="ROZPOCZĘTO PRACE" name="rozpoczetoPrace" [(ngModel)]="worksdoneDataForm.startedFromDate">
     </md-form-field>
   </div>
   <div class="col-md-2">
     <md-form-field>
-      <input class="textbox" type="text" mdInput placeholder="ZAKOŃCZONO PRACĘ" name="zakonczonoPrace">
+      <input class="textbox" type="text" mdInput placeholder="ZAKOŃCZONO PRACĘ" name="zakonczonoPrace" [(ngModel)]="worksdoneDataForm.finishedDate">
     </md-form-field>
   </div>
   <div class="col-md-2">
     <md-form-field>
-      <input class="textbox" type="text" mdInput placeholder="PROTOKÓŁ NUMER" name="protokolNumer">
+      <input class="textbox" type="text" mdInput placeholder="PROTOKÓŁ NUMER" name="protokolNumer" [(ngModel)]="worksdoneDataForm.protocolNumber">
     </md-form-field>
   </div>
   <div class="col-md-6">
     <md-form-field>
-      <input class="textbox" type="text" mdInput placeholder="RODZAJ WYKONANYCH PRAC" name="rodzajPrac">
+      <input class="textbox" type="text" mdInput placeholder="RODZAJ WYKONANYCH PRAC" name="rodzajPrac" [(ngModel)]="worksdoneDataForm.type">
     </md-form-field>
   </div>
   <div class="col-md-12">
     <md-form-field>
-      <input class="textbox" type="text" mdInput placeholder="DODATKOWY OPIS" name="dodatkowyOpis">
+      <input class="textbox" type="text" mdInput placeholder="DODATKOWY OPIS" name="dodatkowyOpis" [(ngModel)]="worksdoneDataForm.additionalDesc">
     </md-form-field>
   </div>
   <div class="col-md-2">
     <md-form-field>
-      <input class="textbox" type="text" mdInput placeholder="CAŁKOWITY KOSZT" name="calkowityKoszt">
+      <input class="textbox" type="text" mdInput placeholder="CAŁKOWITY KOSZT" name="calkowityKoszt" [(ngModel)]="worksdoneDataForm.totalCost">
     </md-form-field>
   </div>
 </div>

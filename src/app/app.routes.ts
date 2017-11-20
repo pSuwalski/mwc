@@ -16,6 +16,7 @@ import { AdminPanelComponent } from './components/admin-panel/admin-panel.compon
 import { SearchParcelComponent } from './components/search-parcel/search-parcel.component';
 import { AddLeeseeComponent } from './components/add-leesee/add-leesee.component';
 import { AddResolutionComponent } from './components/add-resolution/add-resolution.component';
+import { AddWorksdoneComponent } from './components/add-worksdone/add-worksdone.component';
 
 export const appRoutes: Routes = [
   {
@@ -49,6 +50,10 @@ export const appRoutes: Routes = [
       {
         path: 'add/resolution',
         component: AddResolutionComponent,
+      },
+      {
+        path: 'add/works',
+        component: AddWorksdoneComponent,
       },
       {
         path: 'documents',

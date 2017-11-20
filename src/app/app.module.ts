@@ -59,6 +59,7 @@ import { ParcelService } from './services/parcel.service';
 import { SearchParcelComponent } from './components/search-parcel/search-parcel.component';
 import { AddLeeseeComponent } from './components/add-leesee/add-leesee.component';
 import { AddResolutionComponent } from './components/add-resolution/add-resolution.component';
+import { AddWorksdoneComponent } from './components/add-worksdone/add-worksdone.component';
 
 
 
@@ -75,6 +76,7 @@ import { AddResolutionComponent } from './components/add-resolution/add-resoluti
     CompanyDataFormComponent,
     AddLeeseeComponent,
     AddResolutionComponent,
+    AddWorksdoneComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),

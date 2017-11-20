@@ -1,0 +1,15 @@
+<!-- add-leesee.component.html powinien się zaczynać tak -->
+<div class="card-container">
+  <div class="card mat-elevation-z1">
+    <div class="form-container">
+      <mwc-personal-data-form [personalDataForm]="leesee.personalData"></mwc-personal-data-form>
+      <mwc-contact-data-form [contactDataForm]="leesee.contactData"></mwc-contact-data-form>
+      <mwc-authorizations-data-form [authDataForm]="leesee.authData"></mwc-authorizations-data-form>
+      <!-- Formularz z podpięciem istniejących działek Podpięcie do istniejących działek -->
+      <div class="button-container col-md-12">
+        <button type="button" class="add-button accent" md-raised-button color="accent" (click)="add()">Dodaj</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- add-leesee.component.html i kończyć się tu -->

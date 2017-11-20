@@ -14,6 +14,7 @@ import { RegisterPageComponent } from './components/register-page/register-page.
 import { AddParcelComponent } from './components/add-parcel/add-parcel.component';
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 import { SearchParcelComponent } from './components/search-parcel/search-parcel.component';
+import { AddLeeseeComponent } from './components/add-leesee/add-leesee.component';
 
 export const appRoutes: Routes = [
   {
@@ -39,6 +40,10 @@ export const appRoutes: Routes = [
       {
         path: 'add/parcel',
         component: AddParcelComponent,
+      },
+      {
+        path: 'add/leesee',
+        component: AddLeeseeComponent,
       },
       {
         path: 'documents',

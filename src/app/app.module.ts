@@ -57,6 +57,7 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 import { ParcelService } from './services/parcel.service';
 import { SearchParcelComponent } from './components/search-parcel/search-parcel.component';
+import { AddLeeseeComponent } from './components/add-leesee/add-leesee.component';
 
 
 
@@ -70,7 +71,9 @@ import { SearchParcelComponent } from './components/search-parcel/search-parcel.
     PaymentsDataFormComponent,
     RegisterPageComponent,
     WorksdoneDataFormComponent,
-    CompanyDataFormComponent],
+    CompanyDataFormComponent,
+    AddLeeseeComponent,
+  ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,

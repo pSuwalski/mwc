@@ -1,3 +1,4 @@
+import { SectionService } from './services/section.service';
 import { ResolutionsService } from './services/resolutions.service';
 import { LeeseeService } from './services/leesee.service';
 import { Leesee } from './models/leesee';
@@ -65,6 +66,9 @@ import { AddResolutionComponent } from './components/add-resolution/add-resoluti
 import { AddWorksdoneComponent } from './components/add-worksdone/add-worksdone.component';
 import { SearchLeeseeComponent } from './components/search-leesee/search-leesee.component';
 import { SearchResolutionComponent } from './components/search-resolution/search-resolution.component';
+import { AddSectionComponent } from './components/add-section/add-section.component';
+import { SectionDataFormComponent } from './components/shared/section-data-form/section-data-form.component';
+import { SearchSectionComponent } from './components/search-section/search-section.component';
 
 
 
@@ -84,6 +88,9 @@ import { SearchResolutionComponent } from './components/search-resolution/search
     AddWorksdoneComponent,
     SearchLeeseeComponent,
     SearchResolutionComponent,
+    AddSectionComponent,
+    SectionDataFormComponent,
+    SearchSectionComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
@@ -109,7 +116,7 @@ import { SearchResolutionComponent } from './components/search-resolution/search
     FormsModule,
     MdSelectModule,
   ],
-  providers: [GraphQlService, DatabaseService, UserResolver, UserService, ParcelService, LeeseeService, ResolutionsService],
+  providers: [GraphQlService, DatabaseService, UserResolver, UserService, ParcelService, LeeseeService, ResolutionsService, SectionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

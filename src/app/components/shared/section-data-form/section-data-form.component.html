@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="header col-md-3">
+    Sekcje
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-3">
+    <md-form-field>
+      <input class="textbox" type="text" mdInput placeholder="NUMER EWIDENCYJNY SEKCJI" name="evidenceNumber" [(ngModel)]="sectionDataForm.evidenceNumber">
+    </md-form-field>
+  </div>
+  <div class="col-md-2">
+    <md-form-field>
+      <input class="textbox" type="text" mdInput placeholder="NAZWA SEKCJI" name="name" [(ngModel)]="sectionDataForm.name">
+    </md-form-field>
+  </div>
+  <div class="col-md-2">
+    <form>
+      <md-select placeholder="RODZAJ SEKCJI" [(ngModel)]="sectionDataForm.areaType" name="rodzajPowierzchni">
+        <md-option *ngFor="let area of areaType" [value]="area.value">
+          {{area.viewValue}}
+        </md-option>
+      </md-select>
+    </form>
+  </div>
+</div>

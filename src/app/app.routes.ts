@@ -19,6 +19,8 @@ import { AddResolutionComponent } from './components/add-resolution/add-resoluti
 import { AddWorksdoneComponent } from './components/add-worksdone/add-worksdone.component';
 import { SearchLeeseeComponent } from './components/search-leesee/search-leesee.component';
 import { SearchResolutionComponent } from './components/search-resolution/search-resolution.component';
+import { AddSectionComponent } from './components/add-section/add-section.component';
+import { SearchSectionComponent } from './components/search-section/search-section.component';
 
 export const appRoutes: Routes = [
   {
@@ -40,6 +42,10 @@ export const appRoutes: Routes = [
       {
         path: 'admin-panel',
         component: AdminPanelComponent,
+      },
+      {
+        path: 'add/section',
+        component: AddSectionComponent,
       },
       {
         path: 'add/parcel',
@@ -86,6 +92,10 @@ export const appRoutes: Routes = [
           {
             path: 'searchresult',
             component: SearchresultComponent,
+          },
+          {
+            path: 'section',
+            component: SearchSectionComponent,
           },
         ]
       },

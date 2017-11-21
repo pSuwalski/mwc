@@ -1,0 +1,11 @@
+md-form-field {
+    width: 100% !important;
+  }
+  
+  .header {
+    color: rgba(0, 0, 0, 0.57);
+    font-size: 18px;
+    line-height: 40px;
+    margin-bottom: 6px;
+    font-weight: 600;
+  }

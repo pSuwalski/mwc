@@ -17,11 +17,13 @@ export class LeeseeService {
     private db: AngularFirestore
   ) { }
 
-  async addLeesee(leesee: Leesee): Promise<any> {
-    if (! await this.checkIfExists(`leesee/${leesee.personalData.evidenceNumber}`)) {
+  async addLeesee(leesee: Leesee, companyId: string): Promise<any> {
+    if (! await this.checkIfExists(`companies/${companyId}/percels/${leesee.personalData.evidenceNumber.toString()}`)) {
       return this.db
-        .collection('leesee')
-        .doc(String(leesee.personalData.evidenceNumber))
+        .collection('companies')
+        .doc(companyId)
+        .collection('leesees')
+        .doc(leesee.personalData.evidenceNumber.toString())
         .set(leesee);
     } else {
       return Promise.resolve(false);
@@ -33,9 +35,9 @@ export class LeeseeService {
     return dataRef.exists;
   }
 
-  async getLeesees(): Promise<Leesee[]> {
+  async getCompanyLeesees(companyId: string): Promise<Leesee[]> {
     this.loadedFromBegining = 0;
-    const parcelsRef = await this.leeseesRef().ref.limit(this.limit).get();
+    const parcelsRef = await this.leeseesRef(companyId).ref.limit(this.limit).get();
     if (!parcelsRef.empty) {
       this.moreToBeLoadedIndicator = parcelsRef.docs.length === 30;
       this.loadedFromBegining = parcelsRef.docs.length;
@@ -45,11 +47,10 @@ export class LeeseeService {
     }
   }
 
-  leeseeRef(evidenceNumber: string) {
-    return this.db.collection('leesee').doc(evidenceNumber);
+  leeseeRef(companyId: string, leeseeId: string) {
+    return this.db.collection('companies').doc(companyId).collection('percels').doc(leeseeId);
   }
-  leeseesRef() {
-    return this.db.collection('leesee');
+  leeseesRef(companyId: string) {
+    return this.db.collection('companies').doc(companyId).collection('leesees');
   }
-
 }

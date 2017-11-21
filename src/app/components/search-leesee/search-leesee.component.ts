@@ -25,7 +25,8 @@ export class SearchLeeseeComponent implements OnDestroy {
     this.subsriptions.push(
       this.us.currentUser.subscribe((cu) => {
         this.currentUser = cu;
-        this.ps.getLeesees().then((prs: Leesee[]) => {this.leesees = prs; console.log(prs); /*this.parcelFilter = this.parcels;*/ });
+        this.ps.getCompanyLeesees(this.currentUser.companyId).then((lse: Leesee[]) => {
+          this.leesees = lse; console.log(lse); /*this.parcelFilter = this.parcels;*/ });
       })
     );
    }

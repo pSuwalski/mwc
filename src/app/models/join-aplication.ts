@@ -24,7 +24,11 @@ export function createEmptyJoinApplication(): JoinApplication {
       streetAndNumber: null,
       postCode: null,
       city: null
-    }
+    },
+    lastPayment: null,
+    leesees: null,
+    parcels: null,
+    resolutions: null
   };
   return {
     user,

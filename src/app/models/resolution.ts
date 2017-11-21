@@ -1,4 +1,4 @@
-export interface ResolutionData {
+export interface Resolution {
     number: number;
     date: string;
     paymentI: string;

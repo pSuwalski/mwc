@@ -1,4 +1,7 @@
 import { Address } from "./address";
+import { Leesee } from './leesee';
+import { Parcel } from './parcel';
+import { Resolution } from './resolution';
 
 export interface Company {
   name: string;
@@ -7,6 +10,9 @@ export interface Company {
   phone: string;
   address: Address;
   lastPayment?: number;
+  parcels: Parcel[];
+  leesees: Leesee[];
+  resolutions: Resolution[];
 }
 
 

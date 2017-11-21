@@ -1,12 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ResolutionData } from '../../../models/resolution';
+import { Resolution } from '../../../models/resolution';
 @Component({
   selector: 'mwc-legalbasis-data-form',
   templateUrl: './legalbasis-data-form.component.html',
   styleUrls: ['./legalbasis-data-form.component.css']
 })
 export class LegalbasisDataFormComponent implements OnInit {
-  @Input() legalBasicsDataForm: ResolutionData[];
+  @Input() legalBasicsDataForm: Resolution[];
 
   constructor() {
    }

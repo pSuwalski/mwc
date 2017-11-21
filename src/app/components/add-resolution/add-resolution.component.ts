@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ResolutionData } from '../../models/resolution';
+import { Resolution } from '../../models/resolution';
 
 @Component({
   selector: 'mwc-add-resolution',
@@ -8,7 +8,7 @@ import { ResolutionData } from '../../models/resolution';
 })
 export class AddResolutionComponent implements OnInit {
 
-  resolution: ResolutionData[] = [
+  resolution: Resolution[] = [
     {
       number: null, date: null, paymentI: null, paymentIPercent: null, paymentII: null,
       paymentIIPercent: null, paymentIII: null, paymentIIIPercent: null, paymentIV: null,

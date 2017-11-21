@@ -20,7 +20,12 @@ export class AddParcelComponent implements OnDestroy {
   progressBar: boolean;
   subscriptions: Subscription[] = [];
 
-  parcel: Parcel = { number: null, areaType: null, areaSurface: null, trench: null, yearNumber: null, drainage: null, numbering: null, applianceType: null, applianceDescription: null, membership: null, legalBasis: null, SwMembershipStartDate: null, SwMembershipTerminationDate: null, foremanDecision: null, decisionNumber: null, decisionDate: null };
+  parcel: Parcel = {
+    number: null, areaType: null, areaSurface: null, trench: null, yearNumber: null,
+    drainage: null, numbering: null, applianceType: null, applianceDescription: null, membership: null,
+    legalBasis: null, SwMembershipStartDate: null, SwMembershipTerminationDate: null, foremanDecision: null,
+    decisionNumber: null, decisionDate: null
+  };
 
   constructor(
     private db: DatabaseService,

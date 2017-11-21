@@ -18,6 +18,7 @@ import { AddLeeseeComponent } from './components/add-leesee/add-leesee.component
 import { AddResolutionComponent } from './components/add-resolution/add-resolution.component';
 import { AddWorksdoneComponent } from './components/add-worksdone/add-worksdone.component';
 import { SearchLeeseeComponent } from './components/search-leesee/search-leesee.component';
+import { SearchResolutionComponent } from './components/search-resolution/search-resolution.component';
 
 export const appRoutes: Routes = [
   {
@@ -77,6 +78,10 @@ export const appRoutes: Routes = [
           {
             path: 'leesee',
             component: SearchLeeseeComponent,
+          },
+          {
+            path: 'resolution',
+            component: SearchResolutionComponent,
           },
           {
             path: 'searchresult',

@@ -6,21 +6,20 @@ import { Resolution } from '../../../models/resolution';
   styleUrls: ['./legalbasis-data-form.component.css']
 })
 export class LegalbasisDataFormComponent implements OnInit {
-  @Input() legalBasicsDataForm: Resolution[];
+  @Input() legalBasicsDataForm: Resolution;
+
+  selectedYear: string;
+  years = [
+    { value: 2017, viewValue: '2017' },
+    { value: 2016, viewValue: '2016' },
+    { value: 2015, viewValue: '2015' },
+    { value: 2014, viewValue: '2014' },
+  ];
 
   constructor() {
    }
 
   ngOnInit() {
-  }
-
-  addLegalBasis() {
-    console.log(this);
-    this.legalBasicsDataForm.push({
-      number: undefined, date: undefined, paymentI: undefined, paymentIPercent: undefined, paymentII: undefined,
-      paymentIIPercent: undefined, paymentIII: undefined, paymentIIIPercent: undefined, paymentIV: undefined,
-      paymentIVPercent: undefined, paymentMoreOneHour: undefined, paymentLessOneHour: undefined
-    });
   }
 
   printBasis() {

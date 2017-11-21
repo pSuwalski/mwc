@@ -1,0 +1,47 @@
+<div class="card-container" >
+    <div class="card mat-elevation-z1">
+      <div class="form-container fixed">
+        <md-form-field class="col-md-11">
+          <input class="textbox" type="text"  mdInput placeholder="Wyszukaj..." [(ngModel)]="searchString" (input)="MyFilter()" >
+        </md-form-field>
+        <div class="col-md-1">
+          <md-icon class="material-icons md-48" color="accent" (click)="search()">search</md-icon>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="row in-the-bottom on-the-right columns-title fixed">
+          <div class="card-field" style="float:left; width:100%">
+            <div class="col-md-2 header" (click)="sortByNumber()" >Rok</div>
+            <div class="col-md-2 header" (click)="sortByAreaType() " >Numer uchwały</div>
+            <div class="col-md-2 header" (click)="sortByAreaSurface()" >Data uchwały</div>
+            <div class="col-md-4 header" (click)="sortByTrench()" >Data pierwszej płatności</div>
+          </div>
+        </div>
+        <div class="result_container">
+        <div  *ngFor="let r of resolutions">
+        <div class="row bordered in-the-bottom on-the-right result" (click)="navigate('search/searchresult')">
+          <div class="card-field" style="float:left; width:100%">
+              <div class="col-md-2 " >{{r.year}}</div>
+              <div class="col-md-2 " >{{r.number}}</div>
+              <div class="col-md-2 " >{{r.date}}</div>
+              <div class="col-md-1 " >{{r.paymentI}}</div>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- year: number;
+  number: number;
+  date: string;
+  paymentI: string;
+  paymentIPercent: number;
+  paymentII: string;
+  paymentIIPercent: number;
+  paymentIII: string;
+  paymentIIIPercent: number;
+  paymentIV: string;
+  paymentIVPercent: number;
+  paymentMoreOneHour: number;
+  paymentLessOneHour: number; -->

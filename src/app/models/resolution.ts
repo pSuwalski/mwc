@@ -1,4 +1,5 @@
 export interface Resolution {
+    year: number;
     number: number;
     date: string;
     paymentI: string;

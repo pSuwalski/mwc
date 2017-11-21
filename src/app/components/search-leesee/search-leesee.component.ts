@@ -19,13 +19,13 @@ export class SearchLeeseeComponent implements OnDestroy {
   subsriptions: Subscription[] = [];
 
   constructor(
-    private ps: LeeseeService,
+    private ls: LeeseeService,
     private us: UserService
   ) {
     this.subsriptions.push(
       this.us.currentUser.subscribe((cu) => {
         this.currentUser = cu;
-        this.ps.getCompanyLeesees(this.currentUser.companyId).then((lse: Leesee[]) => {
+        this.ls.getCompanyLeesees(this.currentUser.companyId).then((lse: Leesee[]) => {
           this.leesees = lse; console.log(lse); /*this.parcelFilter = this.parcels;*/ });
       })
     );

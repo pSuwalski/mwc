@@ -10,12 +10,33 @@ button {
     padding: 16px 48px;
     float: right;
   }
-  
+
   .mat-tab-header {
     position: fixed;
   }
-  
+
   .accent {
     color: white !important;
   }
-  
+
+  .header {
+    color: rgba(0, 0, 0, 0.57);
+    font-size: 18px;
+    line-height: 40px;
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+
+  .auth-button-container {
+    float: left;
+  }
+
+  .auth-button-container button {
+    margin-left: 0;
+    margin-right: 12px;
+  }
+
+  mwc-authorizations-data-form  {
+    margin-bottom: 16px;
+    display: block;
+  }

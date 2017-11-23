@@ -1,5 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { Parcel } from '../../../models/parcel';
+import { UserService } from '../../../services/user.service';
+import { SectionService } from '../../../services/section.service';
+import { Section } from '../../../models/section';
 
 
 @Component({
@@ -8,6 +11,7 @@ import { Parcel } from '../../../models/parcel';
   styleUrls: ['./parcels-data-form.component.css']
 })
 export class ParcelsDataFormComponent {
+  sections: Section[] = [];
   @Input() parcel: Parcel;
   progressBarIndicator: boolean;
 
@@ -47,7 +51,23 @@ export class ParcelsDataFormComponent {
     { value: false, viewValue: 'Nie' },
   ];
   constructor(
+    private ss: SectionService,
+    private us: UserService
   ) {
+    this.us.currentUser.flatMap((cu) => this.ss.getCompanySections(cu.companyId)).subscribe((sections) => { console.log(sections); this.sections = sections; });
+  }
+
+  addDecision() {
+    this.parcel.foremanDecisions.push(
+      {
+        decisionNumber: null,
+        decisionDate: null
+      }
+    );
+  }
+
+  removeDecision() {
+    this.parcel.foremanDecisions.pop();
   }
 
 

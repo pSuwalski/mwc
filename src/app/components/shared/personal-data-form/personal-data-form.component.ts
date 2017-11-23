@@ -1,5 +1,6 @@
 import { ObjectUnsubscribedError } from 'rxjs/Rx';
 import { Component, OnInit, Input } from '@angular/core';
+import { PersonalData } from '../../../models/leesee';
 
 @Component({
   selector: 'mwc-personal-data-form',
@@ -8,22 +9,25 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class PersonalDataFormComponent implements OnInit {
 
-  @Input() personalDataForm: UserPersonalData;
+  @Input() personalDataForm: PersonalData;
 
   constructor() {
+  }
+
+  clearForm() {
+    if (this.personalDataForm.type === 'company') {
+      this.personalDataForm.surname = null;
+      this.personalDataForm.pesel = null;
+      this.personalDataForm.name = null;
+    } else {
+      this.personalDataForm.krs = null;
+      this.personalDataForm.nip = null;
+      this.personalDataForm.name = null;
+      this.personalDataForm.regon = null;
+    }
   }
 
   ngOnInit() {
   }
 }
 
-export interface UserPersonalData {
-  evidenceNumber: number;
-  name: string;
-  surname: string;
-  pesel: number;
-  postalCode: string;
-  city: string;
-  street: string;
-  number: number;
-}

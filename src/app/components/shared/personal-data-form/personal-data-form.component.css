@@ -9,3 +9,7 @@ md-form-field {
   margin-bottom: 6px;
   font-weight: 600;
 }
+
+md-select {
+  margin-top: -7px;
+}

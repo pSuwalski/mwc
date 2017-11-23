@@ -5,6 +5,16 @@
         <input class="textbox" type="text" mdInput placeholder="NUMER EWIDENCYJNY" name="numer_ewidencyjny" [(ngModel)]="personalDataForm.evidenceNumber">
       </md-form-field>
     </div>
+    <div class="col-md-4">
+        <md-select (change)="clearForm()" [(ngModel)]="personalDataForm.type" placeholder="TYP DZIERŻAWCY">
+          <md-option value="person">
+            Osoba Fizyczna
+          </md-option>
+          <md-option value="company">
+            Firma
+          </md-option>
+        </md-select>
+    </div>
   </div>
   <div>
     <div class="row">
@@ -14,19 +24,39 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-md-1">
+    <div class="col-md-1" *ngIf="personalDataForm.type === 'person'">
       <md-form-field>
         <input class="textbox" type="text" mdInput placeholder="IMIE" name="imie" [(ngModel)]="personalDataForm.name">
       </md-form-field>
     </div>
-    <div class="col-md-1">
+    <div class="col-md-1" *ngIf="personalDataForm.type === 'person'">
       <md-form-field>
         <input class="textbox" type="text" mdInput placeholder="NAZWISKO" name="nazwisko" [(ngModel)]="personalDataForm.surname">
       </md-form-field>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-2"  *ngIf="personalDataForm.type === 'person'">
       <md-form-field>
-        <input class="textbox" type="text" mdInput placeholder="NUMER PESEL/NIP" name="numer" [(ngModel)]="personalDataForm.pesel">
+        <input class="textbox" type="text" mdInput placeholder="NUMER PESEL" name="numer" [(ngModel)]="personalDataForm.pesel">
+      </md-form-field>
+    </div>
+    <div class="col-md-2" *ngIf="personalDataForm.type === 'company'">
+      <md-form-field>
+        <input class="textbox" type="text" mdInput placeholder="Nazwa" name="imie" [(ngModel)]="personalDataForm.name">
+      </md-form-field>
+    </div>
+    <div class="col-md-2" *ngIf="personalDataForm.type === 'company'">
+      <md-form-field>
+        <input class="textbox" type="text" mdInput placeholder="NIP" name="numer" [(ngModel)]="personalDataForm.nip">
+      </md-form-field>
+    </div>
+    <div class="col-md-2" *ngIf="personalDataForm.type === 'company'">
+      <md-form-field>
+        <input class="textbox" type="text" mdInput placeholder="KRS" name="numer" [(ngModel)]="personalDataForm.regon">
+      </md-form-field>
+    </div>
+    <div class="col-md-2" *ngIf="personalDataForm.type === 'company'">
+      <md-form-field>
+        <input class="textbox" type="text" mdInput placeholder="REGON" name="numer" [(ngModel)]="personalDataForm.krs">
       </md-form-field>
     </div>
   </div>

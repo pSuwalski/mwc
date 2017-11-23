@@ -15,7 +15,7 @@ export class AddLeeseeComponent implements OnInit {
   addedSuccessfully: string;
   leeseePersonal: PersonalData = {
     city: null, evidenceNumber: null, krs: null, name: null, nip: null, number: null, pesel: null,
-    postalCode: null, regon: null, street: null, surname: null
+    postalCode: null, regon: null, street: null, surname: null, type: 'person'
   };
 
   leeseeContact: ContactData = {
@@ -23,10 +23,7 @@ export class AddLeeseeComponent implements OnInit {
     postalCode: null, street: null
   };
 
-  leeseeAuth: AuthData = {
-    authScope: null, correspondenceAddress: null, email: null, nameSurname: null, pesel: null,
-    phoneNumber: null, validFrom: null, validTill: null
-  };
+  leeseeAuth: AuthData[] = [];
 
   leesee: Leesee = {
     personalData: this.leeseePersonal,
@@ -39,7 +36,7 @@ export class AddLeeseeComponent implements OnInit {
   constructor(
     private db: LeeseeService,
     private us: UserService
-   ) {
+  ) {
     this.subscriptions.push(
       this.us.currentUser.subscribe((cu) => this.currentUser = cu)
     );
@@ -56,7 +53,20 @@ export class AddLeeseeComponent implements OnInit {
         this.addedSuccessfully = res;
       })
       .catch((e) => console.log(e));
-      // console.log(this.leesee);
+    // console.log(this.leesee);
+  }
+
+  addAuth() {
+    this.leeseeAuth.push(
+      {
+        authScope: null, correspondenceAddress: null, email: null, nameSurname: null, pesel: null,
+        phoneNumber: null, validFrom: null, validTill: null
+      }
+    );
+  }
+
+  removeAuth() {
+    this.leeseeAuth.pop();
   }
 
 }

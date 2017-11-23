@@ -7,12 +7,19 @@
 </div>
 <div class="form-row">
   <div class="row section-last-row">
+    <div class="col-md-3">
+      <md-select [(ngModel)]="parcel.sectionId" placeholder="Region">
+        <md-option *ngFor="let s of sections" [value]="s.evidenceNumber">
+          {{ s.name }}
+        </md-option>
+      </md-select>
+    </div>
     <div class="col-md-2">
       <md-form-field>
         <input class="textbox" type="text" mdInput placeholder="NUMER DZIAŁKI" [(ngModel)]="parcel.number" name="numerDzialki">
       </md-form-field>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-3">
       <form>
         <md-select placeholder="POWIERZCHNIA" [(ngModel)]="parcel.areaType" name="rodzajPowierzchni">
           <md-option *ngFor="let rodzaj of powierzchnia" [value]="rodzaj.value">
@@ -22,11 +29,22 @@
       </form>
     </div>
     <div class="col-md-2">
-      <md-form-field>
-        <input class="textbox" type="text" mdInput placeholder="HEKTARÓW" [(ngModel)]="parcel.areaSurface" name="powierzchnia">
-      </md-form-field>
+        <md-form-field>
+          <input class="textbox" type="text" mdInput placeholder="HEKTARÓW" [(ngModel)]="parcel.areaSurface" name="powierzchnia">
+        </md-form-field>
+      </div>
+  </div>
+</div>
+<div>
+  <div class="row">
+    <div class="col-md-12 header">
+      Rów melioryzacyjny
     </div>
-    <div class="col-md-2">
+  </div>
+</div>
+<div class="form-row">
+  <div class="row section-last-row">
+    <div class="col-md-3">
       <form>
         <md-select placeholder="RÓW" [(ngModel)]="parcel.trench" name="row">
           <md-option *ngFor="let i of row" [value]="i.value">
@@ -35,12 +53,12 @@
         </md-select>
       </form>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-3" *ngIf="parcel.trench">
       <md-form-field>
-        <input class="textbox" type="text" mdInput placeholder="NUMERACJA ROKU (?)" [(ngModel)]="parcel.yearNumber" name="numeracjaRoku">
+        <input class="textbox" type="text" mdInput placeholder="NUMERACJA ROWU" [(ngModel)]="parcel.yearNumber" name="numeracjaRoku">
       </md-form-field>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-3" *ngIf="parcel.trench">
       <form>
         <md-select class="my" placeholder="DRENAŻ" [(ngModel)]="parcel.drainage" name="drenaz">
           <md-option *ngFor="let i of drenaz" [value]="i.value">
@@ -58,7 +76,7 @@
     </div>
   </div>
 </div>
-<div  class="form-row">
+<div class="form-row">
   <div class="row sections-last-row">
     <div class="col-md-2">
       <md-form-field>
@@ -83,61 +101,62 @@
 </div>
 <div class="row sections-last-row">
   <div class="col-md-2">
-    <form>
-      <md-select placeholder="CZŁONKOSTWO" [(ngModel)]="parcel.membership" name="objetaCzlonostwem">
-        <md-option *ngFor="let i of objetaCzlonkostwem" [value]="i.value">
-          {{i.viewValue}}
-        </md-option>
-      </md-select>
-    </form>
+    <md-select placeholder="CZŁONKOSTWO" [(ngModel)]="parcel.membership" name="objetaCzlonostwem">
+      <md-option *ngFor="let i of objetaCzlonkostwem" [value]="i.value">
+        {{i.viewValue}}
+      </md-option>
+    </md-select>
   </div>
-  <div class="col-md-2">
-    <form>
-      <md-select placeholder="PODSTAWA PRAWNA" [(ngModel)]="parcel.legalBasis" name="podstawaPrawna">
-        <md-option *ngFor="let i of podstawaPrawna" [value]="i.value">
-          {{i.viewValue}}
-        </md-option>
-      </md-select>
-    </form>
+  <div class="col-md-2" *ngIf="parcel.membership">
+    <md-select [disabled]="!parcel.membership" placeholder="CZŁONKOSTWO AKTYWNE" [(ngModel)]="parcel.membershipActive" name="objetaCzlonostwem">
+      <md-option [value]="true">
+        tak
+      </md-option>
+      <md-option [value]="false">
+        nie
+      </md-option>
+    </md-select>
   </div>
-  <div class="col-md-2">
+  <div class="col-md-2" *ngIf="parcel.membership">
+    <md-select [disabled]="!parcel.membership" placeholder="PODSTAWA PRAWNA" [(ngModel)]="parcel.legalBasis" name="podstawaPrawna">
+      <md-option *ngFor="let i of podstawaPrawna" [value]="i.value">
+        {{i.viewValue}}
+      </md-option>
+    </md-select>
+  </div>
+  <div class="col-md-2" *ngIf="parcel.membership">
     <md-form-field>
-      <input class="textbox" type="text" mdInput placeholder="DATA PRZYSTĄPIENIA DO SW" [(ngModel)]="parcel.SwMembershipStartDate"
+      <input [disabled]="!parcel.membership" class="textbox" type="text" mdInput placeholder="DATA PRZYSTĄPIENIA DO SW" [(ngModel)]="parcel.SwMembershipStartDate"
         name="dataPrzystapienia">
     </md-form-field>
   </div>
-  <div class="col-md-2">
+  <div class="col-md-2" *ngIf="parcel.membership">
     <md-form-field>
-      <input class="textbox" type="text" mdInput placeholder="DATA WYPOWIEDZENIA" [(ngModel)]="parcel.SwMembershipTerminationDate"
-        name="dataWypowiedzenia">
+      <input [disabled]="parcel.membershipActive || !parcel.membership" class="textbox" type="text" mdInput placeholder="DATA WYPOWIEDZENIA"
+        [(ngModel)]="parcel.SwMembershipTerminationDate" name="dataWypowiedzenia">
     </md-form-field>
   </div>
 </div>
 
-<div class="row">
-  <div class="col-md-12 header">Decyzje</div>
-</div>
+<div *ngIf="!parcel.membership || !parcel.membershipActive">
+  <div class="row">
+    <div class="col-md-12 header">Decyzje</div>
+  </div>
 
-<div class="row sections-last-row">
-  <div>
-    <div class="col-md-2">
-      <form>
-        <md-select placeholder="DECYZJA STAROSTY" [(ngModel)]="parcel.foremanDecision" name="objetaCzlonostwem">
-          <md-option *ngFor="let i of objetaCzlonkostwem" [value]="i.value">
-            {{i.viewValue}}
-          </md-option>
-        </md-select>
-      </form>
-    </div>
-    <div class="col-md-2">
-      <md-form-field>
-        <input class="textbox" type="text" mdInput placeholder="NUMER DECYZJI" [(ngModel)]="parcel.decisionNumber" name="numerDecyzji">
-      </md-form-field>
-    </div>
-    <div class="col-md-2">
-      <md-form-field>
-        <input class="textbox" type="text" mdInput placeholder="DATA WYDANIA DECYZJI" [(ngModel)]="parcel.decisionDate" name="dataWydaniaDecyzji">
-      </md-form-field>
+  <div class="row sections-last-row" *ngFor="let decision of parcel.foremanDecisions">
+    <div>
+      <div class="col-md-2">
+        <md-form-field>
+          <input class="textbox" type="text" mdInput placeholder="NUMER DECYZJI" [(ngModel)]="decision.decisionNumber" name="numerDecyzji">
+        </md-form-field>
+      </div>
+      <div class="col-md-2">
+        <md-form-field>
+          <input class="textbox" type="text" mdInput placeholder="DATA WYDANIA DECYZJI" [(ngModel)]="decision.decisionDate" name="dataWydaniaDecyzji">
+        </md-form-field>
+      </div>
     </div>
   </div>
+  <button md-raised-button color="primary" [disabled]="parcel.foremanDecisions?.length < 1" (click)="removeDecision()">Usuń decyzję</button>
+  <button md-raised-button color="primary" (click)="addDecision()">Dodaj kolejną decyzję</button>
 </div>

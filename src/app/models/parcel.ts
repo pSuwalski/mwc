@@ -1,6 +1,7 @@
 import * as _ from 'lodash';
 
 export interface Parcel {
+  sectionId: string;
   number: number;
   areaType: string;
   areaSurface: number;
@@ -11,11 +12,14 @@ export interface Parcel {
   applianceType: string;
   applianceDescription: string;
   membership: boolean;
+  membershipActive: boolean;
   legalBasis: string;
   SwMembershipStartDate: string;
   SwMembershipTerminationDate: string;
-  foremanDecision: boolean;
+  foremanDecisions: ForemanDecision[];
+}
+
+export interface ForemanDecision {
   decisionNumber: number;
   decisionDate: string;
 }
-

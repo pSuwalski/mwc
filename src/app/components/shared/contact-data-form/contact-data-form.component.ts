@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { ContactData } from '../../../models/leesee';
 
 @Component({
   selector: 'mwc-contact-data-form',
@@ -6,21 +7,11 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./contact-data-form.component.css']
 })
 export class ContactDataFormComponent implements OnInit {
-  @Input() contactDataForm: UserContactData;
+  @Input() contactDataForm: ContactData;
 
   constructor() { }
 
   ngOnInit() {
   }
 
-}
-
-export interface UserContactData {
-  postalCode: number;
-  city: string;
-  street: string;
-  number: number;
-  email: string;
-  deskPhoneNumber: number;
-  cellPhoneNumber: number;
 }

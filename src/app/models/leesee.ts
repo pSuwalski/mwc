@@ -1,21 +1,22 @@
 export class Leesee {
   personalData: PersonalData;
   contactData: ContactData;
-  authData: AuthData;
+  authData: AuthData[];
 }
 
 export interface PersonalData {
+  type: 'person' | 'company';
   evidenceNumber: number;
   name: string;
-  surname: string;
-  pesel: number;
+  surname?: string;
+  pesel?: number;
   postalCode: string;
   city: string;
   street: string;
   number: number;
-  krs: number;
-  nip: number;
-  regon: number;
+  krs?: number;
+  nip?: number;
+  regon?: number;
 }
 
 export interface ContactData {

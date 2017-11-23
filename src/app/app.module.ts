@@ -26,7 +26,6 @@ import * as router from './app.routes';
 // import { AngularFireAuthModule } from 'angularfire2/auth';
 
 
-import { AddComponent } from './components/add/add.component';
 import { AddParcelComponent } from './components/add-parcel/add-parcel.component';
 import { AppComponent } from './app.component';
 import { DocumentsComponent } from './components/documents/documents.component';
@@ -73,7 +72,7 @@ import { SearchSectionComponent } from './components/search-section/search-secti
 
 
 @NgModule({
-  declarations: [AddComponent, AddParcelComponent, AdminPanelComponent, AppComponent,
+  declarations: [AddParcelComponent, AdminPanelComponent, AppComponent,
     DocumentsComponent, HistoryComponent, HomeComponent,
     LoginPageComponent, MainPageComponent, NavigationToolbarComponent, PersonalDataFormComponent,
     SearchComponent, SearchParcelComponent, SearchresultComponent, SearchrecordComponent, TemplateslistComponent,

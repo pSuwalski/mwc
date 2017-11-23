@@ -8,6 +8,8 @@ import { UserService } from '../../services/user.service';
 import { DatabaseService } from '../../services/database.service';
 import { User } from '../../models/user';
 
+import 'rxjs/add/operator/mergeMap';
+
 @Component({
   selector: 'mwc-add-parcel',
   templateUrl: './add-parcel.component.html',
@@ -21,10 +23,13 @@ export class AddParcelComponent implements OnDestroy {
   subscriptions: Subscription[] = [];
 
   parcel: Parcel = {
-    number: null, areaType: null, areaSurface: null, trench: null, yearNumber: null,
-    drainage: null, numbering: null, applianceType: null, applianceDescription: null, membership: null,
-    legalBasis: null, SwMembershipStartDate: null, SwMembershipTerminationDate: null, foremanDecision: null,
-    decisionNumber: null, decisionDate: null
+    sectionId: null, number: null, areaType: null, areaSurface: null, trench: false, yearNumber: null,
+    drainage: null, numbering: null, applianceType: null, applianceDescription: null, membership: true, membershipActive: true,
+    legalBasis: null, SwMembershipStartDate: null, SwMembershipTerminationDate: null,
+    foremanDecisions: [{
+      decisionNumber: null,
+      decisionDate: null
+    }]
   };
 
   constructor(

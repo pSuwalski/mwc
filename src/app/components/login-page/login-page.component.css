@@ -53,3 +53,18 @@ a:hover {
   text-decoration: underline;
   transition-duration: 0.15s;
 }
+
+.nav-button {
+  font-size: 18px;
+  font-weight: 400;
+  margin: 0;
+  height: 64px;
+  border-radius: 0;
+  width: 140px;
+  margin-right: -5px;
+  float: right;
+}
+
+a {
+  margin-left: auto;
+}

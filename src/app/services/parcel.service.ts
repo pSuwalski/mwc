@@ -1,6 +1,7 @@
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Injectable } from '@angular/core';
 import { Parcel } from '../models/parcel';
+import * as _ from 'lodash';
 
 import 'rxjs/add/operator/do';
 
@@ -21,29 +22,29 @@ export class ParcelService {
   ) {
   }
 
-  async addPercel(percel: Parcel, companyId: string): Promise<any> {
-    if (! await this.checkIfExists(`companies/${companyId}/percels/${percel.number.toString()}`)) {
+  async addPercel(percel: Parcel, unionId: string): Promise<any> {
+    const id = this.db.createId();
+    if (! await this.checkIfExists(`unions/${unionId}/percels/${id}`)) {
       return this.db
-        .collection('companies')
-        .doc(companyId)
+        .collection('unions')
+        .doc(`${unionId}`)
         .collection('percels')
-        .doc(percel.number.toString())
-        .set(percel);
+        .doc(id)
+        .set(_.assign(percel, { id }));
     } else {
       return Promise.resolve(false);
     }
   }
 
-  // TODO dodawanie dzierzawcy addLessee -> this.db.doc(`companies/${companyId}`).collection('percels') i tak dalej
 
   async checkIfExists(path: string) {
     const dataRef = await this.db.doc(path).ref.get();
     return dataRef.exists;
   }
 
-  async getCompanyParcels(companyId: string): Promise<Parcel[]> {
+  async getCompanyParcels(unionId: string): Promise<Parcel[]> {
     this.loadedFromBegining = 0;
-    const parcelsRef = await this.parcelsRef(companyId).ref.limit(this.limit).get();
+    const parcelsRef = await this.parcelsRef(unionId).ref.limit(this.limit).get();
     if (!parcelsRef.empty) {
       this.moreToBeLoadedIndicator = parcelsRef.docs.length === 30;
       this.loadedFromBegining = parcelsRef.docs.length;
@@ -53,9 +54,9 @@ export class ParcelService {
     }
   }
 
-  async loadMoreCompanyParcels(companyId: string) {
+  async loadMoreCompanyParcels(unionId: string) {
     if (this.moreToBeLoadedIndicator) {
-      const parcelsRef = await this.parcelsRef(companyId).ref.startAfter(this.loadedFromBegining).limit(this.limit).get();
+      const parcelsRef = await this.parcelsRef(unionId).ref.startAfter(this.loadedFromBegining).limit(this.limit).get();
       if (!parcelsRef.empty) {
         this.moreToBeLoadedIndicator = parcelsRef.docs.length === 30;
         this.loadedFromBegining = this.loadedFromBegining + parcelsRef.docs.length;
@@ -66,11 +67,11 @@ export class ParcelService {
     }
   }
 
-  parcelsRef(companyId: string) {
-    return this.db.collection('companies').doc(companyId).collection('percels');
+  parcelsRef(unionId: string) {
+    return this.db.collection('unions').doc(unionId).collection('percels');
   }
-  parcelRef(companyId: string, percelId: string) {
-    return this.db.collection('companies').doc(companyId).collection('percels').doc(percelId);
+  parcelRef(unionId: string, companyId: string, percelId: string) {
+    return this.db.collection('unions').doc(unionId).collection('percels').doc(percelId);
   }
 
 

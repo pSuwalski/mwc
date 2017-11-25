@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Resolution } from '../../../models/resolution';
+import { Resolution, emptyPayment } from '../../../models/resolution';
 @Component({
   selector: 'mwc-legalbasis-data-form',
   templateUrl: './legalbasis-data-form.component.html',
@@ -17,9 +17,25 @@ export class LegalbasisDataFormComponent implements OnInit {
   ];
 
   constructor() {
-   }
+  }
 
   ngOnInit() {
+  }
+
+  paymentCountChange() {
+    setTimeout(() => {
+      const difference = this.legalBasicsDataForm.payments.length - this.legalBasicsDataForm.paymentCount;
+      console.log(difference);
+      for (let i = 0; i < Math.abs(difference); i++) {
+        if (difference < 0) {
+          console.log('push');
+          this.legalBasicsDataForm.payments.push(emptyPayment);
+        } else if (difference > 0) {
+          console.log('pop');
+          this.legalBasicsDataForm.payments.pop();
+        }
+      }
+    }, 1);
   }
 
   printBasis() {

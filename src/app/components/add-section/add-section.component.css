@@ -10,12 +10,23 @@ button {
     padding: 16px 48px;
     float: right;
   }
-  
+
   .mat-tab-header {
     position: fixed;
   }
-  
+
   .accent {
     color: white !important;
   }
-  
+
+  .header {
+    color: rgba(0, 0, 0, 0.57);
+    font-size: 18px;
+    line-height: 40px;
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+
+  md-select {
+    margin-bottom: 24px;
+  }

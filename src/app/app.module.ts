@@ -1,7 +1,7 @@
 import { SectionService } from './services/section.service';
 import { ResolutionsService } from './services/resolutions.service';
-import { LeeseeService } from './services/leesee.service';
-import { Leesee } from './models/leesee';
+import { OwnerService } from './services/owner.service';
+import { Owner } from './models/owner';
 import { environment } from '../environments/environment';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -43,6 +43,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MdSelectModule } from '@angular/material';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { HistoricSaldoFormComponent } from './components/shared/historic-saldo-form/historic-saldo-form.component';
 import { ContactDataFormComponent } from './components/shared/contact-data-form/contact-data-form.component';
 import { AuthorizationsDataFormComponent } from './components/shared/authorizations-data-form/authorizations-data-form.component';
 import { LegalbasisDataFormComponent } from './components/shared/legalbasis-data-form/legalbasis-data-form.component';
@@ -60,10 +61,10 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 import { ParcelService } from './services/parcel.service';
 import { SearchParcelComponent } from './components/search-parcel/search-parcel.component';
-import { AddLeeseeComponent } from './components/add-leesee/add-leesee.component';
+import { AddOwnerComponent } from './components/add-owner/add-owner.component';
 import { AddResolutionComponent } from './components/add-resolution/add-resolution.component';
 import { AddWorksdoneComponent } from './components/add-worksdone/add-worksdone.component';
-import { SearchLeeseeComponent } from './components/search-leesee/search-leesee.component';
+import { SearchOwnerComponent } from './components/search-owner/search-owner.component';
 import { SearchResolutionComponent } from './components/search-resolution/search-resolution.component';
 import { AddSectionComponent } from './components/add-section/add-section.component';
 import { SectionDataFormComponent } from './components/shared/section-data-form/section-data-form.component';
@@ -73,7 +74,7 @@ import { SearchSectionComponent } from './components/search-section/search-secti
 
 @NgModule({
   declarations: [AddParcelComponent, AdminPanelComponent, AppComponent,
-    DocumentsComponent, HistoryComponent, HomeComponent,
+    DocumentsComponent, HistoricSaldoFormComponent, HistoryComponent, HomeComponent,
     LoginPageComponent, MainPageComponent, NavigationToolbarComponent, PersonalDataFormComponent,
     SearchComponent, SearchParcelComponent, SearchresultComponent, SearchrecordComponent, TemplateslistComponent,
     ContactDataFormComponent, AuthorizationsDataFormComponent, LegalbasisDataFormComponent,
@@ -82,10 +83,10 @@ import { SearchSectionComponent } from './components/search-section/search-secti
     RegisterPageComponent,
     WorksdoneDataFormComponent,
     CompanyDataFormComponent,
-    AddLeeseeComponent,
+    AddOwnerComponent,
     AddResolutionComponent,
     AddWorksdoneComponent,
-    SearchLeeseeComponent,
+    SearchOwnerComponent,
     SearchResolutionComponent,
     AddSectionComponent,
     SectionDataFormComponent,
@@ -115,7 +116,7 @@ import { SearchSectionComponent } from './components/search-section/search-secti
     FormsModule,
     MdSelectModule,
   ],
-  providers: [GraphQlService, DatabaseService, UserResolver, UserService, ParcelService, LeeseeService, ResolutionsService, SectionService],
+  providers: [GraphQlService, DatabaseService, UserResolver, UserService, ParcelService, OwnerService, ResolutionsService, SectionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

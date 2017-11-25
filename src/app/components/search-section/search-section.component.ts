@@ -15,8 +15,10 @@ import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 })
 export class SearchSectionComponent implements OnDestroy {
 
+
   currentUser: User;
   sections: Section[] = [];
+  selectedCompanyId: string;
   subsriptions: Subscription[] = [];
 
   constructor(
@@ -26,8 +28,12 @@ export class SearchSectionComponent implements OnDestroy {
     this.subsriptions.push(
       this.us.currentUser.subscribe((cu) => {
         this.currentUser = cu;
-        this.ss.getCompanySections(this.currentUser.companyId).then((sct: Section[]) => {
-          this.sections = sct; /*this.parcelFilter = this.parcels;*/ });
+        if (cu.companies[0]) {
+          this.selectedCompanyId = cu.companies[0].id;
+          this.ss.getCompanySections(this.currentUser.unionId, this.selectedCompanyId).then((sct: Section[]) => {
+            this.sections = sct; /*this.parcelFilter = this.parcels;*/
+          });
+        }
       })
     );
   }

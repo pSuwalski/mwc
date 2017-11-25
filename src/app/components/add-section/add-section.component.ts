@@ -1,4 +1,4 @@
-import { Section } from '../../models/section';
+import { Section, emptySection } from '../../models/section';
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { SectionService } from '../../services/section.service';
@@ -19,22 +19,20 @@ export class AddSectionComponent implements OnDestroy {
   progressBar: boolean;
   subscriptions: Subscription[] = [];
 
-  section: Section = {
-    areaType: null, evidenceNumber: null, name: null, parcels: null
-  };
+  section: Section = emptySection;
 
   constructor(
     private db: SectionService,
     private us: UserService
   ) {
     this.subscriptions.push(
-      this.us.currentUser.subscribe((cu) => this.currentUser = cu)
+      this.us.currentUser.subscribe((cu) => this.currentUser = cu )
     );
   }
 
   add() {
     this.progressBar = true;
-    this.db.addSection(this.section, this.currentUser.companyId)
+    this.db.addSection(this.section, this.currentUser.unionId)
       .then((res) => {
         this.progressBar = false;
         this.addedSuccessfully = res;

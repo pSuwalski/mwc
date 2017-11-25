@@ -7,8 +7,8 @@
 </div>
 <div class="form-row">
   <div class="row section-last-row">
-    <div class="col-md-3">
-      <md-select [(ngModel)]="parcel.sectionId" placeholder="Region">
+    <div class="col-md-2">
+      <md-select [(ngModel)]="parcel.sectionId" placeholder="SEKCJA">
         <md-option *ngFor="let s of sections" [value]="s.evidenceNumber">
           {{ s.name }}
         </md-option>
@@ -19,7 +19,12 @@
         <input class="textbox" type="text" mdInput placeholder="NUMER DZIAŁKI" [(ngModel)]="parcel.number" name="numerDzialki">
       </md-form-field>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
+      <md-form-field>
+        <input class="textbox" type="text" mdInput placeholder="MIEJSCOWOŚĆ" [(ngModel)]="parcel.cityId" name="numerDzialki">
+      </md-form-field>
+    </div>
+    <div class="col-md-2">
       <form>
         <md-select placeholder="POWIERZCHNIA" [(ngModel)]="parcel.areaType" name="rodzajPowierzchni">
           <md-option *ngFor="let rodzaj of powierzchnia" [value]="rodzaj.value">
@@ -29,46 +34,48 @@
       </form>
     </div>
     <div class="col-md-2">
-        <md-form-field>
-          <input class="textbox" type="text" mdInput placeholder="HEKTARÓW" [(ngModel)]="parcel.areaSurface" name="powierzchnia">
-        </md-form-field>
-      </div>
+      <md-form-field>
+        <input class="textbox" type="text" mdInput placeholder="HEKTARÓW" [(ngModel)]="parcel.areaSurface" name="powierzchnia">
+      </md-form-field>
+    </div>
   </div>
 </div>
 <div>
   <div class="row">
     <div class="col-md-12 header">
-      Rów melioryzacyjny
+      Rówy melioryzacyjne
     </div>
   </div>
 </div>
 <div class="form-row">
-  <div class="row section-last-row">
+  <div class="row section-last-row" *ngFor="let t of parcel.trenches">
     <div class="col-md-3">
-      <form>
-        <md-select placeholder="RÓW" [(ngModel)]="parcel.trench" name="row">
-          <md-option *ngFor="let i of row" [value]="i.value">
-            {{i.viewValue}}
-          </md-option>
-        </md-select>
-      </form>
-    </div>
-    <div class="col-md-3" *ngIf="parcel.trench">
       <md-form-field>
-        <input class="textbox" type="text" mdInput placeholder="NUMERACJA ROWU" [(ngModel)]="parcel.yearNumber" name="numeracjaRoku">
+        <input class="textbox" type="text" mdInput placeholder="NUMERACJA ROWU" [(ngModel)]="t.number" name="numeracjaRoku">
       </md-form-field>
-    </div>
-    <div class="col-md-3" *ngIf="parcel.trench">
-      <form>
-        <md-select class="my" placeholder="DRENAŻ" [(ngModel)]="parcel.drainage" name="drenaz">
-          <md-option *ngFor="let i of drenaz" [value]="i.value">
-            {{i.viewValue}}
-          </md-option>
-        </md-select>
-      </form>
     </div>
   </div>
 </div>
+<button md-raised-button color="primary" [disabled]="parcel.trenches.length < 1" (click)="removeTrench()">Usuń Rów</button>
+<button md-raised-button color="primary" (click)="addTrench()">Dodaj rów</button>
+<div>
+  <div class="row">
+    <div class="col-md-12 header">
+      Drenaze
+    </div>
+  </div>
+</div>
+<div class="form-row">
+  <div class="row section-last-row" *ngFor="let d of parcel.drainages">
+    <div class="col-md-3">
+      <md-form-field>
+        <input class="textbox" type="text" mdInput placeholder="NUMERACJA DRENAŻU" [(ngModel)]="d.number" name="numeracjaRoku">
+      </md-form-field>
+    </div>
+  </div>
+</div>
+<button md-raised-button color="primary" [disabled]="parcel.drainages.length < 1" (click)="removeDrainage()">Usuń drenaż</button>
+<button md-raised-button color="primary" (click)="addDrainage()">Dodaj drenaż</button>
 <div>
   <div class="row">
     <div class="col-md-12 header">
@@ -76,26 +83,27 @@
     </div>
   </div>
 </div>
-<div class="form-row">
+<div class="form-row" *ngFor="let a of parcel.appliances">
   <div class="row sections-last-row">
     <div class="col-md-2">
       <md-form-field>
-        <input class="textbox" type="text" mdInput placeholder="NUMERACJA" [(ngModel)]="parcel.numbering" name="numeracjaRoku">
+        <input class="textbox" type="text" mdInput placeholder="NUMERACJA" [(ngModel)]="a.numbering" name="numeracjaRoku">
       </md-form-field>
     </div>
     <div class="col-md-2">
       <md-form-field>
-        <input class="textbox" type="text" mdInput placeholder="RODZAJ URZĄDZENIA" [(ngModel)]="parcel.applianceType" name="rodzajUrzadzenia">
+        <input class="textbox" type="text" mdInput placeholder="RODZAJ URZĄDZENIA" [(ngModel)]="a.applianceType" name="rodzajUrzadzenia">
       </md-form-field>
     </div>
     <div class="col-md-2">
       <md-form-field>
-        <input class="textbox" type="text" mdInput placeholder="OPIS URZĄDZENIA" [(ngModel)]="parcel.applianceDescription" name="opisUrzadzenia">
+        <input class="textbox" type="text" mdInput placeholder="OPIS URZĄDZENIA" [(ngModel)]="a.applianceDescription" name="opisUrzadzenia">
       </md-form-field>
     </div>
   </div>
 </div>
-
+<button md-raised-button color="primary" [disabled]="parcel.appliances.length < 1" (click)="removeAppliance()">Usuń urządzenie</button>
+<button md-raised-button color="primary" (click)="addAppliance()">Dodaj urządzenie</button>
 <div class="row">
   <div class="col-md-12 header">Członkostwo</div>
 </div>

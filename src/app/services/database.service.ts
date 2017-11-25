@@ -10,10 +10,10 @@ import 'rxjs/add/operator/do';
 export class DatabaseService {
 
   parcelsRef(companyId: string) {
-    return this.db.collection('companies').doc(companyId).collection('percels');
+    return this.db.collection('unions').doc(companyId).collection('percels');
   }
   parcelRef(companyId: string, percelId: string) {
-    return this.db.collection('companies').doc(companyId).collection('percels').doc(percelId);
+    return this.db.collection('unions').doc(companyId).collection('percels').doc(percelId);
   }
 
   constructor(
@@ -21,10 +21,10 @@ export class DatabaseService {
   ) {
   }
 
-  async addPercel(percel: Parcel, companyId: string): Promise<any> {
+  async addPercel(percel: Parcel, unionId: string, companyId: string): Promise<any> {
     if (! await this.checkIfExists(this.parcelRef(companyId, percel.number.toString()))) {
       return this.db
-        .doc(`companies/${companyId}`)
+        .doc(`unions/${unionId}/comapnies/${companyId}`)
         .collection('percels')
         .doc(percel.number.toString())
         .set(percel);

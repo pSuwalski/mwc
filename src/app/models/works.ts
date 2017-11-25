@@ -6,4 +6,5 @@ export interface Works {
     type: string;
     additionalDesc: string;
     totalCost: number;
+    id: string;
   }

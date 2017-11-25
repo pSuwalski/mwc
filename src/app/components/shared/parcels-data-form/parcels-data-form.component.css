@@ -27,6 +27,7 @@
 button {
   width: 20%;
   color: white !important;
+  margin-bottom: 24px;
 }
 
 .button-container {
@@ -40,3 +41,4 @@ button {
 button {
   margin-right: 12px;
 }
+

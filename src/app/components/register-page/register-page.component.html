@@ -2,41 +2,43 @@
   <span style="color: white">Melior
     <span style="font-weight: 100">®</span>
   </span>
-  <button md-button>Logowanie</button>
+  <a routerLink="/login">
+    <button md-button class="nav-button">Logowanie</button>
+  </a>
 </md-toolbar>
 <div class="toolbar-spacer"></div>
 <div class="containter login-page-container">
   <md-card class="login-form-card" *ngIf="!appliedIndicator">
     <md-card-content>
-      <form [formGroup]="joinApplicationForm" (ngSubmit)="apply()">
+      <form [formGroup]="joinApplicationForm">
         <div class="col-md-6">
           <md-card-title class="title">
-            Dane spółki
+            Dane Związku
           </md-card-title>
           <md-form-field>
-            <input mdInput placeholder="Nazwa spółki*" type="text" formControlName="companyName" [(ngModel)]="joinApplication.company.name">
+            <input mdInput placeholder="Nazwa spółki*" type="text" formControlName="unionName" [(ngModel)]="joinApplication.union.name">
           </md-form-field>
           <md-form-field>
-            <input mdInput placeholder="Adress email spólki*" type="text" formControlName="companyEmail" [(ngModel)]="joinApplication.company.email">
+            <input mdInput placeholder="Adress email spólki*" type="text" formControlName="unionEmail" [(ngModel)]="joinApplication.union.email">
           </md-form-field>
           <md-form-field>
-            <input mdInput placeholder="Numer telefonu" type="text" formControlName="companyPhone" [(ngModel)]="joinApplication.company.phone">
+            <input mdInput placeholder="Numer telefonu" type="text" formControlName="unionPhone" [(ngModel)]="joinApplication.union.phone">
           </md-form-field>
           <md-form-field>
-            <input mdInput placeholder="Adres (ulica i numer)*" type="text" formControlName="address" [(ngModel)]="joinApplication.company.address.streetAndNumber"
+            <input mdInput placeholder="Adres (ulica i numer)*" type="text" formControlName="address" [(ngModel)]="joinApplication.union.address.streetAndNumber"
               id="user">
           </md-form-field>
           <md-form-field>
-            <input mdInput placeholder="Lokal" type="text" formControlName="apartment" [(ngModel)]="joinApplication.company.address.apartment">
+            <input mdInput placeholder="Lokal" type="text" formControlName="apartment" [(ngModel)]="joinApplication.union.address.apartment">
           </md-form-field>
           <md-form-field>
-            <input mdInput placeholder="Miasto*" type="text" formControlName="city" [(ngModel)]="joinApplication.company.address.city">
+            <input mdInput placeholder="Miasto*" type="text" formControlName="city" [(ngModel)]="joinApplication.union.address.city">
           </md-form-field>
           <md-form-field>
-            <input mdInput placeholder="Kod pocztowy*" type="text" formControlName="postCode" [(ngModel)]="joinApplication.company.address.postCode">
+            <input mdInput placeholder="Kod pocztowy*" type="text" formControlName="postCode" [(ngModel)]="joinApplication.union.address.postCode">
           </md-form-field>
           <md-form-field>
-            <input mdInput placeholder="NIP*" type="text" formControlName="nip" [(ngModel)]="joinApplication.company.nip">
+            <input mdInput placeholder="NIP*" type="text" formControlName="nip" [(ngModel)]="joinApplication.union.nip">
           </md-form-field>
         </div>
         <div class="col-md-6">
@@ -59,6 +61,43 @@
           </md-form-field>
         </div>
       </form>
+      <div class="clearfix"></div>
+      <div *ngFor="let cf of companyForms; let i = index;" class="col-md-6">
+        <form [formGroup]="cf">
+          <md-card-title class="title">
+            Dane {{ i + 1 }} zrzeszonej Spólki
+          </md-card-title>
+          <md-form-field>
+            <input mdInput placeholder="Nazwa spółki*" type="text" formControlName="name">
+          </md-form-field>
+          <md-form-field>
+            <input mdInput placeholder="Adress email spólki*" type="text" formControlName="email">
+          </md-form-field>
+          <md-form-field>
+            <input mdInput placeholder="Numer telefonu" type="text" formControlName="phone">
+          </md-form-field>
+          <md-form-field>
+            <input mdInput placeholder="Adres (ulica i numer)*" type="text" formControlName="streetAndNumber">
+          </md-form-field>
+          <md-form-field>
+            <input mdInput placeholder="Lokal" type="text" formControlName="apartment">
+          </md-form-field>
+          <md-form-field>
+            <input mdInput placeholder="Miasto*" type="text" formControlName="city">
+          </md-form-field>
+          <md-form-field>
+            <input mdInput placeholder="Kod pocztowy*" type="text" formControlName="postCode">
+          </md-form-field>
+          <md-form-field>
+            <input mdInput placeholder="NIP*" type="text" formControlName="nip">
+          </md-form-field>
+        </form>
+        <button class="remove-company-button" md-raised-button color="primary" *ngIf="i !== 0 || companyForms.length > 1" (click)="removeCompany(i)">Usuń spółkę</button>
+      </div>
+
+      <div class="col-md-6">
+        <button class="add-company-button" md-raised-button color="primary" (click)="addCompany()">Dodaj kolejną spółkę do związku</button>
+      </div>
     </md-card-content>
     <md-card-content>
       <!--<a routerLink='/'>-->

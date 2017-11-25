@@ -1,6 +1,6 @@
 import { ObjectUnsubscribedError } from 'rxjs/Rx';
 import { Component, OnInit, Input } from '@angular/core';
-import { PersonalData } from '../../../models/leesee';
+import { PersonalData } from '../../../models/owner';
 
 @Component({
   selector: 'mwc-personal-data-form',

@@ -13,10 +13,10 @@ import { RegisterPageComponent } from './components/register-page/register-page.
 import { AddParcelComponent } from './components/add-parcel/add-parcel.component';
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 import { SearchParcelComponent } from './components/search-parcel/search-parcel.component';
-import { AddLeeseeComponent } from './components/add-leesee/add-leesee.component';
+import { AddOwnerComponent } from './components/add-owner/add-owner.component';
 import { AddResolutionComponent } from './components/add-resolution/add-resolution.component';
 import { AddWorksdoneComponent } from './components/add-worksdone/add-worksdone.component';
-import { SearchLeeseeComponent } from './components/search-leesee/search-leesee.component';
+import { SearchOwnerComponent } from './components/search-owner/search-owner.component';
 import { SearchResolutionComponent } from './components/search-resolution/search-resolution.component';
 import { AddSectionComponent } from './components/add-section/add-section.component';
 import { SearchSectionComponent } from './components/search-section/search-section.component';
@@ -51,8 +51,8 @@ export const appRoutes: Routes = [
         component: AddParcelComponent,
       },
       {
-        path: 'add/leesee',
-        component: AddLeeseeComponent,
+        path: 'add/owner',
+        component: AddOwnerComponent,
       },
       {
         path: 'add/resolution',
@@ -82,7 +82,7 @@ export const appRoutes: Routes = [
           },
           {
             path: 'leesee',
-            component: SearchLeeseeComponent,
+            component: SearchOwnerComponent,
           },
           {
             path: 'resolution',

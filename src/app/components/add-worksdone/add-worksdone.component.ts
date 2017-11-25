@@ -10,7 +10,7 @@ export class AddWorksdoneComponent implements OnInit {
 
   works: Works = {
     additionalDesc: null, finishedDate: null, protocolNumber: null, startedFromDate: null,
-    totalCost: null, type: null
+    totalCost: null, type: null, id: null
   };
 
   constructor() { }

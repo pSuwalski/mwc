@@ -49,3 +49,27 @@ button {
   margin-top: 0px;
   left: calc(50% - 115px);
 }
+
+.add-company-button {
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+
+.remove-company-button {
+  margin-bottom: 24px;
+}
+
+.nav-button {
+  font-size: 18px;
+  font-weight: 400;
+  margin: 0;
+  height: 64px;
+  border-radius: 0;
+  width: 140px;
+  margin-right: -5px;
+  float: right;
+}
+
+a {
+  margin-left: auto;
+}

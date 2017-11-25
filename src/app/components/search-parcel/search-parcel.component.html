@@ -5,7 +5,7 @@
         <input class="textbox" type="text"  mdInput placeholder="Wyszukaj..." [(ngModel)]="searchString" (input)="MyFilter()" >
       </md-form-field>
       <div class="col-md-1">
-        <md-icon class="material-icons md-48" color="accent" (click)="search()">search</md-icon>
+        <md-icon class="material-icons md-48" color="accent">search</md-icon>
       </div>
     </div>
     <div class="col-md-12">
@@ -14,7 +14,7 @@
           <div class="col-md-2 header" (click)="sortByNumber()" >numer działki</div>
           <div class="col-md-2 header" (click)="sortByAreaType() " >typ powierzchni</div>
           <div class="col-md-2 header" (click)="sortByAreaSurface()" >powierzchnia [ha]</div>
-          <div class="col-md-1 header" (click)="sortByTrench()" >rów</div>
+          <!-- <div class="col-md-1 header" (click)="sortByTrench()" >rów</div> -->
         </div>
       </div>
       <div class="result_container">
@@ -24,7 +24,7 @@
             <div class="col-md-2 " >{{p.number}}</div>
             <div class="col-md-2 " >{{p.areaType}}</div>
             <div class="col-md-2 " >{{p.areaSurface}}</div>
-            <div class="col-md-1 " >{{p.trench}}</div>
+            <!-- <div class="col-md-1 " >{{p.trench}}</div> -->
           </div>
         </div>
       </div>

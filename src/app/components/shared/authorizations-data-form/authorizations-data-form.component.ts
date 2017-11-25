@@ -1,6 +1,6 @@
 import { User } from '../../../models/user';
 import { Component, OnInit, Input } from '@angular/core';
-import { AuthData } from '../../../models/leesee';
+import { AuthData } from '../../../models/owner';
 
 @Component({
   selector: 'mwc-authorizations-data-form',

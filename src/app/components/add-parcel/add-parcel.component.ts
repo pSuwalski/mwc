@@ -3,7 +3,7 @@ import { calcBindingFlags } from '@angular/core/src/view/util';
 import { Component, HostBinding } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
-import { Parcel } from '../../models/parcel';
+import { Parcel, emptyParcel } from '../../models/parcel';
 import { UserService } from '../../services/user.service';
 import { DatabaseService } from '../../services/database.service';
 import { User } from '../../models/user';
@@ -22,29 +22,25 @@ export class AddParcelComponent implements OnDestroy {
   progressBar: boolean;
   subscriptions: Subscription[] = [];
 
-  parcel: Parcel = {
-    sectionId: null, number: null, areaType: null, areaSurface: null, trench: false, yearNumber: null,
-    drainage: null, numbering: null, applianceType: null, applianceDescription: null, membership: true, membershipActive: true,
-    legalBasis: null, SwMembershipStartDate: null, SwMembershipTerminationDate: null,
-    foremanDecisions: [{
-      decisionNumber: null,
-      decisionDate: null
-    }]
-  };
+  parcel: Parcel = emptyParcel;
 
   constructor(
     private db: DatabaseService,
     private us: UserService
   ) {
+    this.progressBar = true;
     this.subscriptions.push(
-      this.us.currentUser.subscribe((cu) => this.currentUser = cu)
+      this.us.currentUser.subscribe((cu) => {
+         this.currentUser = cu;
+         this.progressBar = false;
+      })
     );
   }
 
 
   add() {
     this.progressBar = true;
-    this.db.addPercel(this.parcel, this.currentUser.companyId)
+    this.db.addPercel(this.parcel, this.currentUser.unionId, this.parcel.companyId)
       .then((res) => {
         this.progressBar = false;
         this.addedSuccessfully = res;

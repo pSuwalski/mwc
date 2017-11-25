@@ -15,16 +15,16 @@
   </div>
   <md-menu #addMenu="mdMenu" x-position="after" y-position="below">
     <button md-menu-item (click)="router.navigate(['/add/section'])">
-      Region
+      Sekcję
     </button>
     <button md-menu-item (click)="router.navigate(['/add/parcel'])">
-      Działka
+      Działkę
     </button>
-    <button md-menu-item (click)="router.navigate(['/add/leesee']) ">
-      Dzierazawca
+    <button md-menu-item (click)="router.navigate(['/add/owner']) ">
+      Właściciela
     </button>
     <button md-menu-item (click)="router.navigate(['/add/resolution']) ">
-      Uchwała
+      Uchwałę
     </button>
     <button md-menu-item (click)="router.navigate(['/add/works'])">
       Wykonane roboty
@@ -32,13 +32,13 @@
   </md-menu>
   <md-menu #searchMenu="mdMenu" x-position="after" y-position="below">
     <button md-menu-item (click)="router.navigate(['/search/section'])">
-      Regiony
+      Sekcje
     </button>
     <button md-menu-item (click)="router.navigate(['/search/parcel'])">
       Działki
     </button>
     <button md-menu-item (click)="router.navigate(['/search/leesee']) ">
-      Dzierazawców
+      Właścicieli
     </button>
     <button md-menu-item (click)="router.navigate(['/search/resolution']) ">
       Uchwały
@@ -55,7 +55,7 @@
       <div class="col-md-10 info">
         <h1>{{ (us.currentUser | async)?.name }}</h1>
         <h2>{{ (us.currentUser | async)?.email }}</h2>
-        <h2>{{ (us.currentUser | async)?.companyName }}</h2>
+        <h2>{{ (us.currentUser | async)?.unionName }}</h2>
       </div>
       <div class="clearfix"></div>
     </div>

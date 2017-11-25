@@ -1,10 +1,10 @@
 import { User } from './user';
-import { Company } from './company';
+import { Union } from './company';
 
 export interface JoinApplication {
   user: User;
   password: string;
-  company: Company;
+  union: Union;
 }
 
 export function createEmptyJoinApplication(): JoinApplication {
@@ -12,10 +12,10 @@ export function createEmptyJoinApplication(): JoinApplication {
     name: null,
     phone: null,
     email: null,
-    companyName: null,
-    companyId: null
+    unionName: null,
+    unionId: null
   };
-  const company: Company = {
+  const union: Union = {
     name: null,
     nip: null,
     email: null,
@@ -25,17 +25,16 @@ export function createEmptyJoinApplication(): JoinApplication {
       postCode: null,
       city: null
     },
-    lastPayment: null,
-    leesees: null,
-    parcels: null,
-    resolutions: null
+    companies: [],
   };
   return {
     user,
-    company,
+    union,
     password: null
   };
 }
+
+
 
 export function acceptJoinApplication() { }
 

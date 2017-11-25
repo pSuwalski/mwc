@@ -1,6 +1,6 @@
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Rx';
 import { JoinApplication } from '../models/join-aplication';
 import { GraphQlService } from './graphQl.service';
 
@@ -13,6 +13,7 @@ import { ConnectableObservable } from 'rxjs/observable/ConnectableObservable';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { multicast } from 'rxjs/operator/multicast';
+import { FirestoreUnion, Union, Company } from '../models/company';
 
 
 
@@ -21,7 +22,7 @@ import { multicast } from 'rxjs/operator/multicast';
 @Injectable()
 export class UserService {
 
-  currentUser: Observable<User>;
+  currentUser: ConnectableObservable<User>;
 
   constructor(
     private afa: AngularFireAuth,
@@ -31,13 +32,26 @@ export class UserService {
     this.currentUser = this.observeFirebaseUserId()
       // .distinctUntilChanged((a, b) => !b)
       .switchMap(async (uid) => (await af.collection('users').doc(uid).ref.get()).data())
-  .do(/*console.log*/);
+      .switchMap(async (user: User) => {
+        const union = (await af.collection('unions').doc(user.unionId).ref.get()).data() as Union;
+        const companies = [];
+        const companiesRef = (await af.collection('unions').doc(user.unionId).collection('comapnies').ref.get());
+        companiesRef.docs.forEach((doc) => {
+          if (doc.exists) {
+            companies.push(doc.data() as Company);
+          }
+        });
+        user.companies = companies;
+        return user;
+      })
+      .multicast(new ReplaySubject<User>(1));
+      this.currentUser.connect();
   }
 
   applyJoinApplication(joinApplication: JoinApplication): Promise<any> {
     const query = `mutation applyJoinApplication($user: InputUser!,
-      $company: InputCompany!, $password: String!){
-      applyJoinApplication(user: $user, company: $company, password: $password) }`;
+      $union: InputUnion!, $password: String!){
+      applyJoinApplication(user: $user, union: $union, password: $password) }`;
     return this.gqs.createQuery(query, JSON.stringify(joinApplication)).toPromise();
   }
 
@@ -45,7 +59,7 @@ export class UserService {
     const applicationsRef = await this.af.collection('joinApplications').ref.get();
     if (!applicationsRef.empty) {
       return applicationsRef.docs.map((ja) => ja.data() as JoinApplication);
-    }else {
+    } else {
       return [];
     }
   }

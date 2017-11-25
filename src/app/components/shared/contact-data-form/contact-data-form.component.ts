@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ContactData } from '../../../models/leesee';
+import { ContactData } from '../../../models/owner';
 
 @Component({
   selector: 'mwc-contact-data-form',

@@ -1,8 +1,10 @@
 import { Component, Input } from '@angular/core';
-import { Parcel } from '../../../models/parcel';
+import { Parcel, emptyAppliance, emptyForemanDecision, emptyNumbered } from '../../../models/parcel';
 import { UserService } from '../../../services/user.service';
 import { SectionService } from '../../../services/section.service';
 import { Section } from '../../../models/section';
+import { OnChanges } from '@angular/core/src/metadata/lifecycle_hooks';
+import { User } from '../../../models/user';
 
 
 @Component({
@@ -10,9 +12,12 @@ import { Section } from '../../../models/section';
   templateUrl: './parcels-data-form.component.html',
   styleUrls: ['./parcels-data-form.component.css']
 })
-export class ParcelsDataFormComponent {
+export class ParcelsDataFormComponent implements OnChanges {
+
+  currentUser: User;
   sections: Section[] = [];
   @Input() parcel: Parcel;
+  @Input() companyId: string;
   progressBarIndicator: boolean;
 
   selectedPowierzchnia: string;
@@ -54,20 +59,57 @@ export class ParcelsDataFormComponent {
     private ss: SectionService,
     private us: UserService
   ) {
-    this.us.currentUser.flatMap((cu) => this.ss.getCompanySections(cu.companyId)).subscribe((sections) => { console.log(sections); this.sections = sections; });
+
+    this.us.currentUser.subscribe((u) => {
+      this.currentUser = u;
+      this.ss.getCompanySections(this.currentUser.unionId, this.companyId).then((ss) => this.sections = ss);
+    }
+    );
+  }
+
+  ngOnChanges() {
+    this.sections = [];
+    this.ss.getCompanySections(this.currentUser.unionId, this.companyId).then((ss) => this.sections = ss);
+  }
+
+  addAppliance() {
+    this.parcel.appliances.push(
+      emptyAppliance
+    );
   }
 
   addDecision() {
     this.parcel.foremanDecisions.push(
-      {
-        decisionNumber: null,
-        decisionDate: null
-      }
+      emptyForemanDecision
+    );
+  }
+
+  addDrainage() {
+    this.parcel.drainages.push(
+      emptyNumbered
+    );
+  }
+
+  addTrench() {
+    this.parcel.trenches.push(
+      emptyNumbered
     );
   }
 
   removeDecision() {
     this.parcel.foremanDecisions.pop();
+  }
+
+  removeDrainage() {
+    this.parcel.drainages.pop();
+  }
+
+  removeAppliance() {
+    this.parcel.appliances.pop();
+  }
+
+  removeTrench() {
+    this.parcel.trenches.pop();
   }
 
 

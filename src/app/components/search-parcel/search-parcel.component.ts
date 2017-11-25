@@ -17,6 +17,7 @@ export class SearchParcelComponent implements OnDestroy {
   currentUser: User;
   parcels: Parcel[] = [];
   subsriptions: Subscription[] = [];
+  selectedCompanyId: string;
 
   public searchString: string;
   numberSorted = false;
@@ -32,7 +33,10 @@ export class SearchParcelComponent implements OnDestroy {
     this.subsriptions.push(
       this.us.currentUser.subscribe((cu) => {
         this.currentUser = cu;
-        this.ps.getCompanyParcels(cu.companyId).then((prs: Parcel[]) => {this.parcels = prs; this.parcelFilter = this.parcels; });
+        if (cu.companies[0]) {
+          this.ps.getCompanyParcels(cu.unionId)
+            .then((prs: Parcel[]) => { this.parcels = prs; this.parcelFilter = this.parcels; });
+        }
       })
     );
 
@@ -41,7 +45,7 @@ export class SearchParcelComponent implements OnDestroy {
   }
 
   loadMore() {
-    this.ps.loadMoreCompanyParcels(this.currentUser.companyId).then((prs: Parcel[]) => this.parcels.concat(prs));
+    this.ps.loadMoreCompanyParcels(this.currentUser.unionId).then((prs: Parcel[]) => this.parcels.concat(prs));
   }
 
   ngOnDestroy() {
@@ -86,23 +90,23 @@ export class SearchParcelComponent implements OnDestroy {
     }
   }
 
-  sortByTrench() {
-    if (this.trenchSorted === false) {
-      this.parcels.sort((a, b) => {
-        if (a.trench < b.trench) { return -1; }
-        if (a.trench > b.trench) { return 1; }
-        return 0;
-      });
-      this.trenchSorted = true;
-    } else {
-      this.parcels.sort((a, b) => {
-        if (a.trench > b.trench) { return -1; }
-        if (a.trench < b.trench) { return 1; }
-        return 0;
-      });
-      this.trenchSorted = false;
-    }
-  }
+  // sortByTrench() {
+  //   if (this.trenchSorted === false) {
+  //     this.parcels.sort((a, b) => {
+  //       if (a.trench < b.trench) { return -1; }
+  //       if (a.trench > b.trench) { return 1; }
+  //       return 0;
+  //     });
+  //     this.trenchSorted = true;
+  //   } else {
+  //     this.parcels.sort((a, b) => {
+  //       if (a.trench > b.trench) { return -1; }
+  //       if (a.trench < b.trench) { return 1; }
+  //       return 0;
+  //     });
+  //     this.trenchSorted = false;
+  //   }
+  // }
 
   MyFilter() {
     this.parcelFilter = [];
@@ -115,9 +119,10 @@ export class SearchParcelComponent implements OnDestroy {
           this.parcelFilter.push(parcel);
         } else if (String(parcel.areaSurface).toLowerCase().indexOf(this.searchString) >= 0) {
           this.parcelFilter.push(parcel);
-        } else if (String(parcel.trench).toLowerCase().indexOf(this.searchString) >= 0) {
-          this.parcelFilter.push(parcel);
         }
+        // else if (String(parcel.trench).toLowerCase().indexOf(this.searchString) >= 0) {
+          // this.parcelFilter.push(parcel);
+        // }
       }
     } else {
       this.parcelFilter = this.parcels;

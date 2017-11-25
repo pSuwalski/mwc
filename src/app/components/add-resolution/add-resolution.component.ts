@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Resolution } from '../../models/resolution';
+import { Resolution, emptyResolution } from '../../models/resolution';
 import { UserService } from '../../services/user.service';
 import { ResolutionsService } from '../../services/resolutions.service';
 import { User } from '../../models/user';
@@ -18,11 +18,7 @@ export class AddResolutionComponent implements OnDestroy {
   progressBar: boolean;
   subscriptions: Subscription[] = [];
 
-  resolution: Resolution = {
-      year: null, number: null, date: null, paymentI: null, paymentIPercent: null, paymentII: null,
-      paymentIIPercent: null, paymentIII: null, paymentIIIPercent: null, paymentIV: null,
-      paymentIVPercent: null, paymentMoreOneHour: null, paymentLessOneHour: null
-  };
+  resolution: Resolution = emptyResolution;
 
   constructor(
     private db: ResolutionsService,
@@ -35,7 +31,7 @@ export class AddResolutionComponent implements OnDestroy {
 
   add() {
     this.progressBar = true;
-    this.db.addResolution(this.resolution, this.currentUser.companyId)
+    this.db.addResolution(this.resolution, this.currentUser.unionId)
       .then((res) => {
         this.progressBar = false;
         this.addedSuccessfully = res;

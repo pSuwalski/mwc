@@ -37,7 +37,10 @@ export class SectionService {
 
   async getCompanySections(unionId: string, companyId: string): Promise<Section[]> {
     this.loadedFromBegining = 0;
-    const parcelsRef = await this.sectionsRef(unionId, companyId).ref.limit(this.limit).get();
+    const parcelsRef = await this.sectionsRef(unionId).ref
+      .where('companyId', '==', companyId)
+      .limit(this.limit)
+      .get();
     if (!parcelsRef.empty) {
       this.moreToBeLoadedIndicator = parcelsRef.docs.length === 30;
       this.loadedFromBegining = parcelsRef.docs.length;
@@ -49,7 +52,11 @@ export class SectionService {
 
   async loadMoreCompanySections(unionId: string, companyId: string) {
     if (this.moreToBeLoadedIndicator) {
-      const parcelsRef = await this.sectionsRef(unionId, companyId).ref.startAfter(this.loadedFromBegining).limit(this.limit).get();
+      const parcelsRef = await this.sectionsRef(unionId).ref
+        .where('companyId', '==', companyId)
+        .startAfter(this.loadedFromBegining)
+        .limit(this.limit)
+        .get();
       if (!parcelsRef.empty) {
         this.moreToBeLoadedIndicator = parcelsRef.docs.length === 30;
         this.loadedFromBegining = this.loadedFromBegining + parcelsRef.docs.length;
@@ -60,7 +67,7 @@ export class SectionService {
     }
   }
 
-  sectionsRef(unionId: string, companyId: string) {
+  sectionsRef(unionId: string) {
     return this.db.collection('unions').doc(unionId).collection('sections');
   }
   sectionRef(unionId: string, companyId: string, sectionId: string) {

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { DatabaseService } from '../../services/database.service';
 import { JoinApplication } from '../../models/join-aplication';
 import { AngularFirestore } from 'angularfire2/firestore';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'mwc-home',
@@ -14,11 +15,18 @@ export class AdminPanelComponent {
   joinApplications: JoinApplication[];
 
   constructor(
-    private db: AngularFirestore
+    private us: UserService
   ) {
-    this.db.collection('joinApplications').ref.get().then((data) => {
-      data.forEach((a) => console.log(a));
+    this.us.getJoinApplications().then((jas) => {
+      this.joinApplications = jas;
     });
+  }
+
+  accept(ja: JoinApplication) {
+    this.us.rejectJoinAppliction(ja.union.nip);
+  }
+  reject(ja: JoinApplication) {
+    this.us.rejectJoinAppliction(ja.union.nip);
   }
 
 

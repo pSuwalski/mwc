@@ -11,3 +11,7 @@
     margin-bottom: 6px;
     font-weight: 600;
   }
+
+  .no-padding {
+    padding: 0;
+  }

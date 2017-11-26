@@ -1,0 +1,28 @@
+.success-title {
+  display: block;
+  padding-top: 24px;
+}
+
+.success-button {
+  width: 230px;
+  margin-top: 0px;
+  left: calc(50% - 115px);
+}
+.title {
+  text-align: center;
+  margin-bottom: 32px;
+}
+.icon-title {
+  font-size: 96px;
+  height: 96px;
+  width: 96px;
+}
+.icon {
+  display: block;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 36px;
+}
+error {
+  color: #d32;
+}

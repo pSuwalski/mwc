@@ -1,13 +1,14 @@
 export interface Resolution {
-    companyId: string;
-    year: number;
-    number: number;
-    date: string;
-    paymentCount: number;
-    payments: Payment[];
-    paymentMoreOneHour: number;
-    paymentLessOneHour: number;
-    id: string;
+  companyId: string;
+  sectionId: string;
+  year: number;
+  number: number;
+  date: string;
+  paymentCount: number;
+  payments: Payment[];
+  paymentMoreOneHour: number;
+  paymentLessOneHour: number;
+  id: string;
 }
 
 export interface Payment {
@@ -15,13 +16,17 @@ export interface Payment {
   paymentPercent: number;
 }
 
-export const emptyPayment = {
-  paymentDate: null,
-  paymentPercent: null
-};
+export function emptyPayment() {
+  return {
+    paymentDate: null,
+    paymentPercent: null
+  };
+}
 
-export const emptyResolution: Resolution = {
-  companyId: null, year: null, number: null, date: null,
-  paymentCount: null, payments: [], paymentMoreOneHour: null,
-  paymentLessOneHour: null, id: null
-};
+export function emptyResolution(): Resolution {
+  return {
+    companyId: null, sectionId: null, year: null, number: null, date: null,
+    paymentCount: null, payments: [], paymentMoreOneHour: null,
+    paymentLessOneHour: null, id: null
+  };
+}

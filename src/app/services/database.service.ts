@@ -25,8 +25,8 @@ export class DatabaseService {
     if (! await this.checkIfExists(this.parcelRef(companyId, percel.number.toString()))) {
       return this.db
         .doc(`unions/${unionId}/comapnies/${companyId}`)
-        .collection('percels')
-        .doc(percel.number.toString())
+        .collection('parcels')
+        .doc(percel.number.toString() + '-' + percel.cityId)
         .set(percel);
     } else {
       return Promise.resolve('error');

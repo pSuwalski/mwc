@@ -17,12 +17,13 @@ import 'rxjs/add/operator/mergeMap';
 })
 export class AddParcelComponent implements OnDestroy {
 
-  addedSuccessfully: string;
+  addingResult: string;
+  companyId: string;
   currentUser: User;
   progressBar: boolean;
   subscriptions: Subscription[] = [];
 
-  parcel: Parcel = emptyParcel;
+  parcel: Parcel = emptyParcel();
 
   constructor(
     private db: DatabaseService,
@@ -31,8 +32,8 @@ export class AddParcelComponent implements OnDestroy {
     this.progressBar = true;
     this.subscriptions.push(
       this.us.currentUser.subscribe((cu) => {
-         this.currentUser = cu;
-         this.progressBar = false;
+        this.currentUser = cu;
+        this.progressBar = false;
       })
     );
   }
@@ -43,9 +44,17 @@ export class AddParcelComponent implements OnDestroy {
     this.db.addPercel(this.parcel, this.currentUser.unionId, this.parcel.companyId)
       .then((res) => {
         this.progressBar = false;
-        this.addedSuccessfully = res;
+        this.addingResult = 'success';
+        this.parcel = emptyParcel();
+        this.companyId = null;
       })
       .catch((e) => console.log(e));
+  }
+
+  changeCompanyId() {
+    setTimeout(() =>
+      this.companyId = this.parcel.companyId
+      , 2);
   }
 
   ngOnDestroy() {

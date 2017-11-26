@@ -14,11 +14,12 @@ import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 export class AddResolutionComponent implements OnDestroy {
 
   addedSuccessfully: string;
+  companyId: string;
   currentUser: User;
   progressBar: boolean;
   subscriptions: Subscription[] = [];
 
-  resolution: Resolution = emptyResolution;
+  resolution: Resolution = emptyResolution();
 
   constructor(
     private db: ResolutionsService,
@@ -37,6 +38,12 @@ export class AddResolutionComponent implements OnDestroy {
         this.addedSuccessfully = res;
       })
       .catch((e) => console.log(e));
+  }
+
+  changeCompanyId() {
+    setTimeout(() =>
+      this.companyId = this.resolution.companyId
+      , 2);
   }
 
   ngOnDestroy() {

@@ -1,22 +1,23 @@
-<md-progress-bar *ngIf="progressBar"></md-progress-bar>
-<div class="card-container" *ngIf="!addedSuccessfully || addedSuccessfully === 'error'">
+<md-progress-bar *ngIf="progressBar" mode="indeterminate"></md-progress-bar>
+<div class="card-container">
   <div class="card mat-elevation-z1">
-    <div class="form-container">
+    <div class="form-container" *ngIf="!addingResult || addingResult === 'error'">
       <div class="header">
         Wybierz spółkę
       </div>
-      <md-select placeholder="Spółka" [(ngModel)]="parcel.companyId">
+      <md-select placeholder="Spółka" (ngModelChange)="changeCompanyId()" [(ngModel)]="parcel.companyId">
         <md-option *ngFor="let c of currentUser?.companies" [value]="c.id">
           {{c.name}}
         </md-option>
       </md-select>
-      <mwc-parcels-data-form *ngIf="parcel.companyId" [parcel]="parcel"></mwc-parcels-data-form>
+      <mwc-parcels-data-form *ngIf="parcel.companyId" [parcel]="parcel" [companyId]="companyId"></mwc-parcels-data-form>
       <div class="button-container col-md-12">
         <button type="button" class="add-button accent" md-raised-button color="accent" (click)="add()">Dodaj</button>
       </div>
     </div>
+    <div *ngIf="addingResult === 'success'" class="info">
+      <mwc-info [link]="'add/parcel'" [text]="'Dodano pomyślnie'" [buttonText]="'Dodaj kolejną'" [success]="true" (click)="addingResult = null"></mwc-info>
+    </div>
   </div>
-  <div *ngIf="addedSuccessfully === 'success'">
-    Dodano pomyślnie, dodaj następne lub idź do strony głównej
-  </div>
+
 </div>

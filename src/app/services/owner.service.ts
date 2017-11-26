@@ -79,12 +79,12 @@ export class OwnerService {
 
 
   parse(dbLeesee: any): Owner {
-    const personalData: PersonalData = this.parseFromInterface(dbLeesee, emptyOwnerPersonal);
-    const contactData = this.parseFromInterface(dbLeesee, emptyOwnerContact);
+    const personalData: PersonalData = this.parseFromInterface(dbLeesee, emptyOwnerPersonal());
+    const contactData = this.parseFromInterface(dbLeesee, emptyOwnerContact());
     const authData = [];
-    const historicSaldo = this.parseFromInterface(dbLeesee.historicSaldo, emptySaldo);
+    const historicSaldo = this.parseFromInterface(dbLeesee.historicSaldo, emptySaldo());
     if (dbLeesee.authData) {
-      dbLeesee.authData.forEach((ad) => authData.push(this.parseFromInterface(ad, emptyOwnerAuth)));
+      dbLeesee.authData.forEach((ad) => authData.push(this.parseFromInterface(ad, emptyOwnerAuth())));
     }
     return { personalData, contactData, authData, id: dbLeesee.id, historicSaldo };
   }

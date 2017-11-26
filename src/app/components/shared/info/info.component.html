@@ -1,0 +1,6 @@
+<md-card-title class="title success-title" >
+  <md-icon class="icon-title icon" *ngIf="success" color="accent">check_circle</md-icon>
+  <!-- <md-icon class="icon-title icon error" *ngIf="!success">error</md-icon> -->
+  {{text}}
+</md-card-title>
+<button class="success-button" md-raised-button color="primary" (click)="router.navigate([link]); click.emit('')">{{buttonText}}</button>

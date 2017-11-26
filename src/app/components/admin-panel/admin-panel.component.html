@@ -1,3 +1,41 @@
-<div>
-
+<div class="card-container">
+  <div class="card mat-elevation-z1">
+    <div class="form-container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="col-md-3 header">
+            Wnioski o dołączenie do serwisu
+          </div>
+        </div>
+      </div>
+      <div class="row" *ngFor="let ja of joinApplications">
+        <div class="col-md-12">
+          <div class="col-md-2">Nazwa związku:</div>
+          <div class="col-md-6">{{ja.union.name}}</div>
+        </div>
+        <div class="col-md-12">
+          <div class="col-md-2">Nip:</div>
+          <div class="col-md-6">{{ja.union.nip}}</div>
+        </div>
+        <div class="col-md-12">
+          <div class="col-md-2">Address:</div>
+          <div class="col-md-6">{{ja.union.address.streetAndNumber}} {{ja.union.address.apartment}}, {{ja.union.address.city}}</div>
+        </div>
+        <div class="col-md-12">
+          <div class="col-md-2">Numer telefonu:</div>
+          <div class="col-md-6">{{ja.union.phone}}</div>
+        </div>
+        <div class="col-md-12">
+          <div class="col-md-2">Email:</div>
+          <div class="col-md-6">{{ja.union.email}}</div>
+        </div>
+        <div class="col-md-12">
+          <div class="col-md-2">Spółki:</div>
+        </div>
+        <div class="col-md-12" *ngFor="let c of ja.union.companies">
+          <div class="col-md-12">{{c.name}} ({{c.nip}})</div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

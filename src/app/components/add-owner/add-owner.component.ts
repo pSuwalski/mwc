@@ -16,11 +16,11 @@ export class AddOwnerComponent implements OnInit, OnDestroy {
   addedSuccessfully: string;
 
   owner: Owner = {
-    personalData: emptyOwnerPersonal,
-    contactData: emptyOwnerContact,
+    personalData: emptyOwnerPersonal(),
+    contactData: emptyOwnerContact(),
     authData: [],
     id: null,
-    historicSaldo: emptySaldo
+    historicSaldo: emptySaldo()
   };
 
   subscriptions: Subscription[] = [];

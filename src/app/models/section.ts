@@ -19,6 +19,8 @@ enum areaType {
   inne = 'inne'
 }
 
-export const emptySection: Section = {
-  companyId: null, areaType: null, evidenceNumber: null, name: null, parcels: null
-};
+export function emptySection(): Section {
+  return {
+    companyId: null, areaType: null, evidenceNumber: null, name: null, parcels: null
+  };
+}

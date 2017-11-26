@@ -59,11 +59,13 @@ export function sanitizeNip(nip: string): string {
   }
 }
 
-export const emptyCompany = {
-  id: null,
-  name: null,
-  nip: null,
-  email: null,
-  phone: null,
-  address: null
-};
+export function emptyCompany() {
+  return {
+    id: null,
+    name: null,
+    nip: null,
+    email: null,
+    phone: null,
+    address: null
+  };
+}

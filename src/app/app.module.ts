@@ -13,6 +13,7 @@ import {
   MdIconModule,
   MdInputModule,
   MdListModule,
+  MdProgressBarModule,
   MdTableModule,
   MdTabsModule,
   MdToolbarModule,
@@ -43,6 +44,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MdSelectModule } from '@angular/material';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { InfoComponent } from './components/shared/info/info.component';
 import { HistoricSaldoFormComponent } from './components/shared/historic-saldo-form/historic-saldo-form.component';
 import { ContactDataFormComponent } from './components/shared/contact-data-form/contact-data-form.component';
 import { AuthorizationsDataFormComponent } from './components/shared/authorizations-data-form/authorizations-data-form.component';
@@ -74,7 +76,7 @@ import { SearchSectionComponent } from './components/search-section/search-secti
 
 @NgModule({
   declarations: [AddParcelComponent, AdminPanelComponent, AppComponent,
-    DocumentsComponent, HistoricSaldoFormComponent, HistoryComponent, HomeComponent,
+    DocumentsComponent, HistoricSaldoFormComponent, HistoryComponent, HomeComponent, InfoComponent,
     LoginPageComponent, MainPageComponent, NavigationToolbarComponent, PersonalDataFormComponent,
     SearchComponent, SearchParcelComponent, SearchresultComponent, SearchrecordComponent, TemplateslistComponent,
     ContactDataFormComponent, AuthorizationsDataFormComponent, LegalbasisDataFormComponent,
@@ -106,6 +108,7 @@ import { SearchSectionComponent } from './components/search-section/search-secti
     MdInputModule,
     MdListModule,
     MdMenuModule,
+    MdProgressBarModule,
     MdRippleModule,
     MdTableModule,
     MdTabsModule,

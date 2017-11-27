@@ -1,31 +1,39 @@
+<md-progress-bar *ngIf="progressBar" mode="indeterminate"></md-progress-bar>
 <div class="form-row">
   <div class="row section-last-row">
-    <div class="col-md-2">
+    <div class="col-md-3">
       <md-select placeholder="SPÓŁKA" [(ngModel)]="parcelData.companyId">
         <md-option *ngFor="let c of currentUser?.companies" [value]="c.id" (click)="selectCompany(c.id)">
           {{ c.name }}
         </md-option>
       </md-select>
     </div>
-    <div class="col-md-2">
-      <md-form-field class="example-full-width">
-        <input mdInput placeholder="DZIAŁKA" aria-label="State" [mdAutocomplete]="auto" [formControl]="parcelCtrl">
-        <md-autocomplete #auto="mdAutocomplete">
-          <md-option *ngFor="let p of filteredParcels | async" (click)="selectParcel(p)">
-            {{ p.id + ' ' + p.cityId }}
-          </md-option>
-        </md-autocomplete>
-      </md-form-field>
-      <md-select placeholder="DZIAŁKA" [disabled]="!selectedParcels || selectedParcels.length < 1" [(ngModel)]="parcelData.id">
-        <md-option *ngFor="let p of selectedParcels" [value]="p.id">
-          {{ p.number + ' ' + p.cityId }}
+    <div class="col-md-3" *ngIf="parcelData.companyId && !(selectedSections?.length < 1)">
+      <md-select placeholder="SEKCJA" [(ngModel)]="parcelData.sectionId">
+        <md-option *ngFor="let s of selectedSections" [value]="s.id" (click)="selectSection(s.id)">
+          {{ s.name }}
         </md-option>
       </md-select>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-3 info-container" *ngIf="parcelData.companyId && selectedSections?.length < 1 && !progressBar">
+      <span class="info">Brak sekcji w wybranej spółce</span>
+    </div>
+    <div class="col-md-3" *ngIf="parcelData.sectionId && !(selectedParcels?.length < 1) ">
+      <md-form-field class="example-full-width" [mdMenuTriggerFor]="parcelMenu">
+        <input mdInput placeholder="DZIAŁKA" aria-label="State" #parcelInput [formControl]="parcelCtrl">
+      </md-form-field>
+      <md-menu #parcelMenu="mdMenu" [class.transparent]="(filteredParcels | async)?.length > 0">
+        <button md-menu-item *ngFor="let p of filteredParcels | async" (click)="selectParcel(p)">
+          {{ p.number + ' ' + p.cityId }}
+        </button>
+      </md-menu>
+    </div>
+    <div class="col-md-3 info-container" *ngIf="parcelData.sectionId && selectedParcels?.length < 1 && !progressBar">
+      <span class="info">Brak działek w wybranej sekcji</span>
+    </div>
+    <div class="col-md-2" *ngIf="parcelData.id">
       <md-form-field>
-        <input class="textbox" type="text" mdInput placeholder="PROCENT UDZIAŁÓW" [disabled]="!selectedParcels || selectedParcels.length < 1"
-          [(ngModel)]="parcelData.percent" name="numerDzialki">
+        <input class="textbox" type="text" mdInput placeholder="PROCENT UDZIAŁÓW" [(ngModel)]="parcelData.percent" name="numerDzialki">
       </md-form-field>
     </div>
   </div>

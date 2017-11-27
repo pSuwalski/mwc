@@ -36,7 +36,7 @@ button {
     margin-right: 12px;
   }
 
-  mwc-authorizations-data-form  {
+  mwc-authorizations-data-form, mwc-owner-parcel-form  {
     margin-bottom: 16px;
     display: block;
   }

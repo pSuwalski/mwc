@@ -4,17 +4,7 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-md-2">
-    <md-form-field>
-      <input class="textbox" type="text" mdInput placeholder="KOD POCZTOWY" name="kod" [(ngModel)]="contactDataForm.postalCode">
-    </md-form-field>
-  </div>
-  <div class="col-md-1">
-    <md-form-field>
-      <input class="textbox" type="text" mdInput placeholder="MIASTO" name="miasto" [(ngModel)]="contactDataForm.city">
-    </md-form-field>
-  </div>
-  <div class="col-md-2">
+  <div class="col-md-3">
     <md-form-field>
       <input class="textbox" type="text" mdInput placeholder="ULICA" name="ulica" [(ngModel)]="contactDataForm.street">
     </md-form-field>
@@ -25,6 +15,18 @@
     </md-form-field>
   </div>
   <div class="col-md-2">
+    <md-form-field>
+      <input class="textbox" type="text" mdInput placeholder="KOD POCZTOWY" name="kod" [(ngModel)]="contactDataForm.postalCode">
+    </md-form-field>
+  </div>
+  <div class="col-md-3">
+    <md-form-field>
+      <input class="textbox" type="text" mdInput placeholder="MIASTO" name="miasto" [(ngModel)]="contactDataForm.city">
+    </md-form-field>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-3">
     <md-form-field>
       <input class="textbox" type="text" mdInput placeholder="E-MAIL" name="email" [(ngModel)]="contactDataForm.email">
     </md-form-field>

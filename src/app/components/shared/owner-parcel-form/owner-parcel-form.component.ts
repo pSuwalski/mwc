@@ -7,6 +7,8 @@ import * as _ from 'lodash';
 import { ParcelService } from '../../../services/parcel.service';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
+import { SectionService } from '../../../services/section.service';
+import { Section } from '../../../models/section';
 
 
 @Component({
@@ -17,27 +19,32 @@ import { Observable } from 'rxjs/Observable';
 export class OwnerParcelFormComponent implements OnInit {
   filteredParcels: Observable<Parcel[]>;
   parcelCtrl: FormControl;
+  progressBar = true;
 
   @Input() parcelData: ParcelData;
   currentUser: User;
   selectedParcels: Parcel[] = [];
+  selectedSections: Section[] = [];
 
 
   constructor(
     private ps: ParcelService,
+    private ss: SectionService,
     private us: UserService
   ) {
     this.us.currentUser.subscribe((cu) => {
       this.currentUser = cu;
+      this.progressBar = false;
     });
     this.parcelCtrl = new FormControl();
     this.filteredParcels = this.parcelCtrl.valueChanges
-      .startWith(null)
-      .map(p => p ? this.filterParcels(p) : this.selectedParcels.slice());
+      .startWith('a')
+      .map(p => p ? this.filterParcels(p) : this.selectedParcels);
   }
 
 
   filterParcels(name: string) {
+    console.log(name);
     return this.selectedParcels.filter(parcel =>
       parcel.id.toLowerCase().indexOf(name.toLowerCase()) !== -1 ||
       parcel.cityId.toLowerCase().indexOf(name.toLowerCase()) !== -1
@@ -49,13 +56,29 @@ export class OwnerParcelFormComponent implements OnInit {
   }
 
   selectCompany(id: string) {
-    this.ps.getCompanyParcels(this.currentUser.unionId, id, false).then((parcels) => {
+    this.parcelData.id = null;
+    this.parcelData.sectionId = null;
+    this.parcelData.companyId = id;
+    this.progressBar = true;
+    this.ss.getCompanySections(this.currentUser.unionId, id).then((sections) => {
+      this.selectedSections = sections;
+      this.progressBar = false;
+    });
+  }
+
+  selectSection(id: string) {
+    this.parcelData.id = null;
+    this.parcelData.sectionId = id;
+    this.progressBar = true;
+    this.ps.getSectionParcels(this.currentUser.unionId, this.parcelData.companyId, id, false).then((parcels) => {
       this.selectedParcels = parcels;
+      this.progressBar = false;
     });
   }
 
   selectParcel(parcel: Parcel) {
     this.parcelData.id = parcel.id;
+    this.parcelCtrl.setValue(parcel.number + ' ' + parcel.cityId);
   }
 
 

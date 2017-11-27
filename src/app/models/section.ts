@@ -6,6 +6,7 @@ export interface Section {
   name: string;
   areaType: areaType;
   parcels: Parcel[];
+  id: string;
 }
 
 enum areaType {
@@ -21,6 +22,6 @@ enum areaType {
 
 export function emptySection(): Section {
   return {
-    companyId: null, areaType: null, evidenceNumber: null, name: null, parcels: null
+    companyId: null, areaType: null, evidenceNumber: null, name: null, parcels: null, id: null
   };
 }

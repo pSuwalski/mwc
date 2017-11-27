@@ -15,6 +15,7 @@ export class ParcelService {
   loadedFromBegining = 0;
   moreToBeLoadedIndicator = true;
   cachedMultipleCompanyParcels: { [id: string]: Parcel[] } = {};
+  cachedMultipleCompanySectionParcels: { [companyId: string]: { [sectionId: string]: Parcel[] } } = {};
 
 
   constructor(
@@ -37,6 +38,24 @@ export class ParcelService {
   async checkIfExists(path: string) {
     const dataRef = await this.db.doc(path).ref.get();
     return dataRef.exists;
+  }
+
+  async getSectionParcels(unionId: string, companyId: string, sectionId: string, limit?: boolean): Promise<Parcel[]> {
+    if (!this.cachedMultipleCompanySectionParcels[companyId] || !this.cachedMultipleCompanySectionParcels[companyId][sectionId]) {
+      const parcelsRef = await this.parcelsRef(unionId).ref
+        .where('companyId', '==', companyId)
+        .where('sectionId', '==', sectionId)
+        .limit(limit ? this.limit : 100000)
+        .get();
+      if (!parcelsRef.empty) {
+        this.cachedMultipleCompanySectionParcels[companyId] = { [sectionId]: parcelsRef.docs.map((p) => p.data() as Parcel) };
+        return this.cachedMultipleCompanySectionParcels[companyId][sectionId];
+      } else {
+        return [];
+      }
+    } else {
+      return this.cachedMultipleCompanySectionParcels[companyId][sectionId];
+    }
   }
 
   async getCompanyParcels(unionId: string, companyId: string, limit?: boolean): Promise<Parcel[]> {

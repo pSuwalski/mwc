@@ -10,6 +10,7 @@ export class SectionService {
   loadedFromBegining = 0;
   moreToBeLoadedIndicator = true;
   sections: Section[];
+  cachedCompanySections: { [id: string]: Section[] } = {};
 
   constructor(
     private db: AngularFirestore
@@ -19,12 +20,13 @@ export class SectionService {
   async addSection(section: Section, unionId: string): Promise<any> {
     const id = this.db.createId();
     if (! await this.checkIfExists(`unions/${unionId}/sections/${id}`)) {
+      section.id = id;
       return this.db
         .collection('unions')
         .doc(unionId)
         .collection('sections')
         .doc(id)
-        .set(_.assign(section, { id }));
+        .set(section);
     } else {
       return Promise.resolve(false);
     }
@@ -36,17 +38,19 @@ export class SectionService {
   }
 
   async getCompanySections(unionId: string, companyId: string): Promise<Section[]> {
-    this.loadedFromBegining = 0;
-    const parcelsRef = await this.sectionsRef(unionId).ref
-      .where('companyId', '==', companyId)
-      .limit(this.limit)
-      .get();
-    if (!parcelsRef.empty) {
-      this.moreToBeLoadedIndicator = parcelsRef.docs.length === 30;
-      this.loadedFromBegining = parcelsRef.docs.length;
-      return parcelsRef.docs.map((p) => p.data() as Section);
+    if (!this.cachedCompanySections[companyId]) {
+      const parcelsRef = await this.sectionsRef(unionId).ref
+        .where('companyId', '==', companyId)
+        .limit(this.limit)
+        .get();
+      if (!parcelsRef.empty) {
+        this.cachedCompanySections[companyId] = parcelsRef.docs.map((p) => p.data() as Section);
+        return this.cachedCompanySections[companyId];
+      } else {
+        return [];
+      }
     } else {
-      return [];
+      return this.cachedCompanySections[companyId];
     }
   }
 

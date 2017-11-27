@@ -86,6 +86,7 @@ export interface ParcelData {
   id: string;
   percent: number;
   companyId?: string;
+  sectionId?: string;
 }
 
 export function emptyParcelData(): ParcelData {

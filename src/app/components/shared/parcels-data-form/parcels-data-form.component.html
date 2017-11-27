@@ -10,7 +10,7 @@
     <div class="row section-last-row">
       <div class="col-md-2">
         <md-select [(ngModel)]="parcel.sectionId" placeholder="SEKCJA">
-          <md-option *ngFor="let s of sections" [value]="s.evidenceNumber">
+          <md-option *ngFor="let s of sections" [value]="s.id">
             {{ s.name }}
           </md-option>
         </md-select>

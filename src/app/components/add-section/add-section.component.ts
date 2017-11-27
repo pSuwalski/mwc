@@ -19,7 +19,7 @@ export class AddSectionComponent implements OnDestroy {
   progressBar: boolean;
   subscriptions: Subscription[] = [];
 
-  section: Section = emptySection;
+  section: Section = emptySection();
 
   constructor(
     private db: SectionService,

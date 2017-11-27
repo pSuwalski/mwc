@@ -13,7 +13,7 @@ import 'rxjs/add/operator/do';
 @Injectable()
 export class OwnerService {
 
-  editedLeesee: Owner;
+  editedOwner: Owner;
   limit = 30;
   loadedFromBegining = 0;
   moreToBeLoadedIndicator = true;
@@ -23,19 +23,18 @@ export class OwnerService {
     private db: AngularFirestore
   ) { }
 
-  async addOwner(leesee: Owner, unionId: string): Promise<any> {
+  async addOwner(owner: Owner, unionId: string): Promise<any> {
     const id = this.db.createId();
-    if (! await this.checkIfExists(`unions/${unionId}/percels/${id}`)) {
-      console.log(hf.createDbObject(leesee));
-      return this.db
-        .collection('unions')
-        .doc(unionId)
-        .collection('leesees')
-        .doc(leesee.personalData.evidenceNumber.toString())
-        .set(hf.createDbObject(_.assign(leesee, { id })));
-    } else {
-      return Promise.resolve(false);
-    }
+    const dbOwner = _.assign({ id }, owner.contactData, owner.personalData, {
+      historicSaldo: owner.historicSaldo, authData: owner.authData, parcelsData: owner.parcelsData
+    });
+    return this.db
+      .collection('unions')
+      .doc(unionId)
+      .collection('owners')
+      .doc(id)
+      .set(dbOwner);
+
   }
 
   async checkIfExists(path: string) {
@@ -78,15 +77,15 @@ export class OwnerService {
   }
 
 
-  parse(dbLeesee: any): Owner {
-    const personalData: PersonalData = this.parseFromInterface(dbLeesee, emptyOwnerPersonal());
-    const contactData = this.parseFromInterface(dbLeesee, emptyOwnerContact());
+  parse(dbOwner: any): Owner {
+    const personalData: PersonalData = this.parseFromInterface(dbOwner, emptyOwnerPersonal());
+    const contactData = this.parseFromInterface(dbOwner, emptyOwnerContact());
     const authData = [];
-    const historicSaldo = this.parseFromInterface(dbLeesee.historicSaldo, emptySaldo());
-    if (dbLeesee.authData) {
-      dbLeesee.authData.forEach((ad) => authData.push(this.parseFromInterface(ad, emptyOwnerAuth())));
+    const historicSaldo = this.parseFromInterface(dbOwner.historicSaldo, emptySaldo());
+    if (dbOwner.authData) {
+      dbOwner.authData.forEach((ad) => authData.push(this.parseFromInterface(ad, emptyOwnerAuth())));
     }
-    return { personalData, contactData, authData, id: dbLeesee.id, historicSaldo };
+    return { personalData, contactData, authData, id: dbOwner.id, historicSaldo };
   }
 
   parseFromInterface<T>(parsed: any, emptyParsedType: T): T {
@@ -96,20 +95,10 @@ export class OwnerService {
   }
 
 
-  // leeseeRef(companyId: string, leeseeId: string) {
-  //   return this.db.collection('companies').doc(companyId).collection('percels').doc(leeseeId);
-  // }
-
   ownerRef(unionId: string) {
-    return this.db.collection('unions').doc(unionId).collection('leesees');
+    return this.db.collection('unions').doc(unionId).collection('owners');
   }
 }
 
-export const emptyLeesee: Owner = {
-  personalData: null,
-  contactData: null,
-  authData: null,
-  id: null,
-  historicSaldo: null
-};
+
 

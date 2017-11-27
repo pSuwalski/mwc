@@ -14,7 +14,7 @@ export class ParcelService {
   limit = 30;
   loadedFromBegining = 0;
   moreToBeLoadedIndicator = true;
-  parcels: Parcel[];
+  cachedMultipleCompanyParcels: { [id: string]: Parcel[] } = {};
 
 
   constructor(
@@ -22,18 +22,15 @@ export class ParcelService {
   ) {
   }
 
-  async addPercel(percel: Parcel, unionId: string): Promise<any> {
+  async addParcel(parcel: Parcel, unionId: string): Promise<any> {
     const id = this.db.createId();
-    if (! await this.checkIfExists(`unions/${unionId}/percels/${id}`)) {
-      return this.db
-        .collection('unions')
-        .doc(`${unionId}`)
-        .collection('percels')
-        .doc(id)
-        .set(_.assign(percel, { id }));
-    } else {
-      return Promise.resolve(false);
-    }
+    return this.db
+      .collection('unions')
+      .doc(`${unionId}`)
+      .collection('parcels')
+      .doc(id)
+      .set(_.assign(parcel, { id }));
+
   }
 
 
@@ -42,9 +39,27 @@ export class ParcelService {
     return dataRef.exists;
   }
 
-  async getCompanyParcels(unionId: string): Promise<Parcel[]> {
+  async getCompanyParcels(unionId: string, companyId: string, limit?: boolean): Promise<Parcel[]> {
     this.loadedFromBegining = 0;
-    const parcelsRef = await this.parcelsRef(unionId).ref.limit(this.limit).get();
+    if (!this.cachedMultipleCompanyParcels[companyId]) {
+      const parcelsRef = await this.parcelsRef(unionId).ref.where('companyId', '==', companyId).limit(limit ? this.limit : 100000).get();
+      if (!parcelsRef.empty) {
+        this.moreToBeLoadedIndicator = limit ? parcelsRef.docs.length === 30 : false;
+        this.loadedFromBegining = parcelsRef.docs.length;
+        this.cachedMultipleCompanyParcels[companyId] = parcelsRef.docs.map((p) => p.data() as Parcel);
+        return this.cachedMultipleCompanyParcels[companyId];
+      } else {
+        return [];
+      }
+    } else {
+      return this.cachedMultipleCompanyParcels[companyId];
+    }
+  }
+
+
+  async getUnionParcels(unionId: string, limit?: boolean): Promise<Parcel[]> {
+    this.loadedFromBegining = 0;
+    const parcelsRef = await this.parcelsRef(unionId).ref.limit(limit ? this.limit : 100000).get();
     if (!parcelsRef.empty) {
       this.moreToBeLoadedIndicator = parcelsRef.docs.length === 30;
       this.loadedFromBegining = parcelsRef.docs.length;
@@ -54,7 +69,7 @@ export class ParcelService {
     }
   }
 
-  async loadMoreCompanyParcels(unionId: string) {
+  async loadMoreUnionParcels(unionId: string) {
     if (this.moreToBeLoadedIndicator) {
       const parcelsRef = await this.parcelsRef(unionId).ref.startAfter(this.loadedFromBegining).limit(this.limit).get();
       if (!parcelsRef.empty) {
@@ -68,10 +83,10 @@ export class ParcelService {
   }
 
   parcelsRef(unionId: string) {
-    return this.db.collection('unions').doc(unionId).collection('percels');
+    return this.db.collection('unions').doc(unionId).collection('parcels');
   }
-  parcelRef(unionId: string, companyId: string, percelId: string) {
-    return this.db.collection('unions').doc(unionId).collection('percels').doc(percelId);
+  parcelRef(unionId: string, companyId: string, parcelId: string) {
+    return this.db.collection('unions').doc(unionId).collection('parcels').doc(parcelId);
   }
 
 

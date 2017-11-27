@@ -34,7 +34,7 @@ export class SearchParcelComponent implements OnDestroy {
       this.us.currentUser.subscribe((cu) => {
         this.currentUser = cu;
         if (cu.companies[0]) {
-          this.ps.getCompanyParcels(cu.unionId)
+          this.ps.getUnionParcels(cu.unionId)
             .then((prs: Parcel[]) => { this.parcels = prs; this.parcelFilter = this.parcels; });
         }
       })
@@ -45,7 +45,7 @@ export class SearchParcelComponent implements OnDestroy {
   }
 
   loadMore() {
-    this.ps.loadMoreCompanyParcels(this.currentUser.unionId).then((prs: Parcel[]) => this.parcels.concat(prs));
+    this.ps.loadMoreUnionParcels(this.currentUser.unionId).then((prs: Parcel[]) => this.parcels.concat(prs));
   }
 
   ngOnDestroy() {

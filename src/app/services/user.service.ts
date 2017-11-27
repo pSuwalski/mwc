@@ -37,7 +37,7 @@ export class UserService {
       .switchMap(async (user: User) => {
         const union = (await af.collection('unions').doc(user.unionId).ref.get()).data() as Union;
         const companies = [];
-        const companiesRef = (await af.collection('unions').doc(user.unionId).collection('comapnies').ref.get());
+        const companiesRef = (await af.collection('unions').doc(user.unionId).collection('companies').ref.get());
         companiesRef.docs.forEach((doc) => {
           if (doc.exists) {
             companies.push(doc.data() as Company);

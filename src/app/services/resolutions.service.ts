@@ -17,17 +17,13 @@ export class ResolutionsService {
   }
 
   async addResolution(resolution: Resolution, unionId: string): Promise<any> {
-    if (! await this.checkIfExists(`unions/${unionId}/percels/${resolution.number.toString()}`)) {
-      const id = this.db.createId();
-      return this.db
-        .collection('unions')
-        .doc(unionId)
-        .collection('resolutions')
-        .doc(id)
-        .set(_.assign(resolution, { id }));
-    } else {
-      return Promise.resolve(false);
-    }
+    const id = this.db.createId();
+    return this.db
+      .collection('unions')
+      .doc(unionId)
+      .collection('resolutions')
+      .doc(id)
+      .set(_.assign(resolution, { id }));
   }
 
   async checkIfExists(path: string) {

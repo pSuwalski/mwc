@@ -5,7 +5,7 @@ export class Owner {
   id: string;
   historicSaldo: Saldo;
   saldo?: Saldo;
-  parcelsData?: ParcelData;
+  parcelsData?:  ParcelData[];
 }
 
 export interface PersonalData {
@@ -83,8 +83,14 @@ export function emptySaldo(): Saldo {
 }
 
 export interface ParcelData {
-  parcels: {
-    [companyId: string]: string[]
-  };
+  id: string;
+  percent: number;
+  companyId?: string;
 }
 
+export function emptyParcelData(): ParcelData {
+  return {
+    id: null,
+    percent: null
+  };
+}

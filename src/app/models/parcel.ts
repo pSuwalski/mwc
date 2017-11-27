@@ -64,9 +64,6 @@ export function emptyParcel(): Parcel {
     sectionId: null, number: null, areaType: null, areaSurface: null, trenches: [],
     drainages: [], appliances: [], membership: true, membershipActive: true,
     legalBasis: null, SwMembershipStartDate: null, SwMembershipTerminationDate: null,
-    foremanDecisions: [{
-      decisionNumber: null,
-      decisionDate: null
-    }], id: null
+    foremanDecisions: [], id: null
   };
 }

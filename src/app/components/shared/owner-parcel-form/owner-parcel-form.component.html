@@ -1,0 +1,31 @@
+<div class="form-row">
+  <div class="row section-last-row">
+    <div class="col-md-2">
+      <md-select placeholder="SPÓŁKA" [(ngModel)]="parcelData.companyId">
+        <md-option *ngFor="let c of currentUser?.companies" [value]="c.id" (click)="selectCompany(c.id)">
+          {{ c.name }}
+        </md-option>
+      </md-select>
+    </div>
+    <div class="col-md-2">
+      <md-form-field class="example-full-width">
+        <input mdInput placeholder="DZIAŁKA" aria-label="State" [mdAutocomplete]="auto" [formControl]="parcelCtrl">
+        <md-autocomplete #auto="mdAutocomplete">
+          <md-option *ngFor="let p of filteredParcels | async" (click)="selectParcel(p)">
+            {{ p.id + ' ' + p.cityId }}
+          </md-option>
+        </md-autocomplete>
+      </md-form-field>
+      <md-select placeholder="DZIAŁKA" [disabled]="!selectedParcels || selectedParcels.length < 1" [(ngModel)]="parcelData.id">
+        <md-option *ngFor="let p of selectedParcels" [value]="p.id">
+          {{ p.number + ' ' + p.cityId }}
+        </md-option>
+      </md-select>
+    </div>
+    <div class="col-md-2">
+      <md-form-field>
+        <input class="textbox" type="text" mdInput placeholder="PROCENT UDZIAŁÓW" [disabled]="!selectedParcels || selectedParcels.length < 1"
+          [(ngModel)]="parcelData.percent" name="numerDzialki">
+      </md-form-field>
+    </div>
+  </div>

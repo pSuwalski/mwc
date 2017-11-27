@@ -9,6 +9,7 @@ import { DatabaseService } from '../../services/database.service';
 import { User } from '../../models/user';
 
 import 'rxjs/add/operator/mergeMap';
+import { ParcelService } from '../../services/parcel.service';
 
 @Component({
   selector: 'mwc-add-parcel',
@@ -26,7 +27,7 @@ export class AddParcelComponent implements OnDestroy {
   parcel: Parcel = emptyParcel();
 
   constructor(
-    private db: DatabaseService,
+    private ps: ParcelService,
     private us: UserService
   ) {
     this.progressBar = true;
@@ -41,7 +42,7 @@ export class AddParcelComponent implements OnDestroy {
 
   add() {
     this.progressBar = true;
-    this.db.addPercel(this.parcel, this.currentUser.unionId, this.parcel.companyId)
+    this.ps.addParcel(this.parcel, this.currentUser.unionId)
       .then((res) => {
         this.progressBar = false;
         this.addingResult = 'success';

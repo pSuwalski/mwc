@@ -17,6 +17,17 @@
       <div>
         <mwc-historic-saldo-form [historicSaldo]="owner.historicSaldo"></mwc-historic-saldo-form>
       </div>
+      <div>
+        <div class="header">
+          Działki
+        </div>
+        <mwc-owner-parcel-form *ngFor="let pd of owner.parcelsData" [parcelData]="pd"></mwc-owner-parcel-form>
+        <div class="auth-button-container">
+          <button type="button" class="add-button accent" md-raised-button color="primary" (click)="addParcel()">Dodaj Działkę</button>
+          <button type="button" class="add-button accent" md-raised-button color="primary" [disabled]="owner?.parcelsData?.length < 1"
+            (click)="removeParcel()">Wykasuj Działkę</button>
+        </div>
+      </div>
       <!-- Formularz z podpięciem istniejących działek Podpięcie do istniejących działek -->
       <div class="button-container col-md-12">
         <button type="button" class="add-button accent" md-raised-button color="accent" (click)="add()">Dodaj</button>

@@ -7,6 +7,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
+  MdAutocompleteModule,
   MdButtonModule,
   MdCardModule,
   MdCheckboxModule,
@@ -47,6 +48,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { InfoComponent } from './components/shared/info/info.component';
 import { HistoricSaldoFormComponent } from './components/shared/historic-saldo-form/historic-saldo-form.component';
 import { ContactDataFormComponent } from './components/shared/contact-data-form/contact-data-form.component';
+import { OwnerParcelFormComponent } from './components/shared/owner-parcel-form/owner-parcel-form.component';
 import { AuthorizationsDataFormComponent } from './components/shared/authorizations-data-form/authorizations-data-form.component';
 import { LegalbasisDataFormComponent } from './components/shared/legalbasis-data-form/legalbasis-data-form.component';
 import { ParcelsDataFormComponent } from './components/shared/parcels-data-form/parcels-data-form.component';
@@ -77,8 +79,8 @@ import { SearchSectionComponent } from './components/search-section/search-secti
 @NgModule({
   declarations: [AddParcelComponent, AdminPanelComponent, AppComponent,
     DocumentsComponent, HistoricSaldoFormComponent, HistoryComponent, HomeComponent, InfoComponent,
-    LoginPageComponent, MainPageComponent, NavigationToolbarComponent, PersonalDataFormComponent,
-    SearchComponent, SearchParcelComponent, SearchresultComponent, SearchrecordComponent, TemplateslistComponent,
+    LoginPageComponent, MainPageComponent, NavigationToolbarComponent, OwnerParcelFormComponent,
+    PersonalDataFormComponent, SearchComponent, SearchParcelComponent, SearchresultComponent, SearchrecordComponent, TemplateslistComponent,
     ContactDataFormComponent, AuthorizationsDataFormComponent, LegalbasisDataFormComponent,
     ParcelsDataFormComponent,
     PaymentsDataFormComponent,
@@ -101,6 +103,7 @@ import { SearchSectionComponent } from './components/search-section/search-secti
     BrowserModule,
     FormsModule,
     HttpModule,
+    MdAutocompleteModule,
     MdButtonModule,
     MdCardModule,
     MdCheckboxModule,

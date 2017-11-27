@@ -1,10 +1,11 @@
-import { AuthData, PersonalData, ContactData, Owner, emptyOwnerPersonal, emptyOwnerContact, emptySaldo } from '../../models/owner';
+import { AuthData, PersonalData, ContactData, Owner, emptyOwnerPersonal, emptyOwnerContact, emptySaldo, emptyParcelData, ParcelData } from '../../models/owner';
 import { Component, OnInit } from '@angular/core';
 import { OwnerService } from '../../services/owner.service';
 import { UserService } from '../../services/user.service';
 import { Subscription } from 'rxjs/Subscription';
 import { User } from '../../models/user';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'mwc-add-owner',
@@ -20,7 +21,8 @@ export class AddOwnerComponent implements OnInit, OnDestroy {
     contactData: emptyOwnerContact(),
     authData: [],
     id: null,
-    historicSaldo: emptySaldo()
+    historicSaldo: emptySaldo(),
+    parcelsData: []
   };
 
   subscriptions: Subscription[] = [];
@@ -38,14 +40,11 @@ export class AddOwnerComponent implements OnInit, OnDestroy {
   }
 
   add() {
-    // this.progressBar = true;
     this.db.addOwner(this.owner, this.currentUser.unionId)
       .then((res) => {
-        // this.progressBar = false;
         this.addedSuccessfully = res;
       })
       .catch((e) => console.log(e));
-    // console.log(this.leesee);
   }
 
   addAuth() {
@@ -57,8 +56,16 @@ export class AddOwnerComponent implements OnInit, OnDestroy {
     );
   }
 
+  addParcel() {
+    this.owner.parcelsData.push(emptyParcelData());
+  }
+
   removeAuth() {
     this.owner.authData.pop();
+  }
+
+  removeParcel() {
+    this.owner.parcelsData.pop();
   }
 
   ngOnDestroy() {

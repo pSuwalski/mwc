@@ -1,4 +1,4 @@
-import { Address } from "./address";
+import { Address } from './address';
 import { Owner } from './owner';
 import { Parcel } from './parcel';
 import { Resolution } from './resolution';

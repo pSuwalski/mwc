@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-import { Tree } from '@angular/router/src/utils/tree';
+
 
 export interface Parcel {
   companyId: string;
@@ -41,8 +41,8 @@ export function emptyAppliance(): Appliance {
     numbering: null,
     applianceType: null,
     applianceDescription: null,
-  }
-};
+  };
+}
 
 export interface ForemanDecision {
   decisionNumber: number;

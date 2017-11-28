@@ -84,7 +84,7 @@ export function emptySaldo(): Saldo {
 
 export interface ParcelData {
   id: string;
-  percent: number;
+  percent?: number;
   companyId?: string;
   sectionId?: string;
 }
@@ -93,5 +93,11 @@ export function emptyParcelData(): ParcelData {
   return {
     id: null,
     percent: null
+  };
+}
+
+export function emptyWorksParcelData(): ParcelData {
+  return {
+    id: null
   };
 }

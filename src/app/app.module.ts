@@ -11,9 +11,11 @@ import {
   MdButtonModule,
   MdCardModule,
   MdCheckboxModule,
+  MdDatepickerModule,
   MdIconModule,
   MdInputModule,
   MdListModule,
+  MdNativeDateModule,
   MdProgressBarModule,
   MdTableModule,
   MdTabsModule,
@@ -58,6 +60,7 @@ import { CompanyDataFormComponent } from './components/shared/company-data-form/
 import { UserResolver } from './resolvers/user-resolver';
 import { UserService } from './services/user.service';
 import { GraphQlService } from './services/graphQl.service';
+import { WorksService } from './services/works.service';
 import { HttpModule } from '@angular/http';
 import { RegisterPageComponent } from './components/register-page/register-page.component';
 import { DatabaseService } from './services/database.service';
@@ -106,11 +109,13 @@ import { SearchSectionComponent } from './components/search-section/search-secti
     MdAutocompleteModule,
     MdButtonModule,
     MdCardModule,
+    MdDatepickerModule,
     MdCheckboxModule,
     MdIconModule,
     MdInputModule,
     MdListModule,
     MdMenuModule,
+    MdNativeDateModule,
     MdProgressBarModule,
     MdRippleModule,
     MdTableModule,
@@ -122,7 +127,7 @@ import { SearchSectionComponent } from './components/search-section/search-secti
     FormsModule,
     MdSelectModule,
   ],
-  providers: [GraphQlService, DatabaseService, UserResolver, UserService, ParcelService, OwnerService, ResolutionsService, SectionService],
+  providers: [GraphQlService, DatabaseService, UserResolver, UserService, ParcelService, OwnerService, ResolutionsService, SectionService, WorksService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

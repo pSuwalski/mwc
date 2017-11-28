@@ -44,7 +44,6 @@ export class OwnerParcelFormComponent implements OnInit {
 
 
   filterParcels(name: string) {
-    console.log(name);
     return this.selectedParcels.filter(parcel =>
       parcel.id.toLowerCase().indexOf(name.toLowerCase()) !== -1 ||
       parcel.cityId.toLowerCase().indexOf(name.toLowerCase()) !== -1
@@ -52,7 +51,13 @@ export class OwnerParcelFormComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.parcelData.percent = 100;
+    if (this.isParcelData()) {
+      this.parcelData.percent = 100;
+    }
+  }
+
+  isParcelData() {
+    return this.parcelData.percent !== undefined;
   }
 
   selectCompany(id: string) {

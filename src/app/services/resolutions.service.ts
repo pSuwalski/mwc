@@ -1,6 +1,6 @@
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Injectable } from '@angular/core';
-import { Resolution } from '../models/resolution';
+import { Resolution, emptyResolution } from '../models/resolution';
 import * as _ from 'lodash';
 
 @Injectable()
@@ -54,6 +54,31 @@ export class ResolutionsService {
         return [];
       }
     }
+  }
+
+  async SearchResolutionByNumber(unionId: string, searchString: string): Promise<Resolution[]> {
+    this.loadedFromBegining = 0;
+    const resolutionNumberRef = await this.resolutionsRef(unionId).ref.
+      where('number', '==', searchString)
+      .limit(this.limit * 10).get();
+    const output: Resolution[] = [];
+    if (!resolutionNumberRef.empty) {
+      this.moreToBeLoadedIndicator = resolutionNumberRef.docs.length === 30;
+      this.loadedFromBegining = resolutionNumberRef.docs.length;
+      resolutionNumberRef.docs.forEach((p) => output.push(this.parse(p.data())));
+    }
+    return output;
+  }
+
+  parse(dbResolution: any): Resolution {
+    const resolutionData: Resolution = this.parseFromInterface(dbResolution, emptyResolution());
+    return resolutionData;
+  }
+
+  parseFromInterface<T>(parsed: any, emptyParsedType: T): T {
+    return _.reduce(_.keys(emptyParsedType), (object, key) => {
+      return _.assign(object, { [key]: parsed[key] });
+    }, {});
   }
 
   resolutionsRef(unionId: string) {

@@ -31,16 +31,17 @@ export const appRoutes: Routes = [
     component: RegisterPageComponent,
   },
   {
+    path: 'admin-panel',
+    component: AdminPanelComponent,
+    canActivate: [UserResolver]
+  },
+  {
     path: '',
     component: MainPageComponent,
     children: [
       {
         path: '',
         component: HomeComponent,
-      },
-      {
-        path: 'admin-panel',
-        component: AdminPanelComponent,
       },
       {
         path: 'add/section',
@@ -103,7 +104,7 @@ export const appRoutes: Routes = [
       //     component: SearchComponent,
       // }
     ],
-    canActivate: [UserResolver] //  # will be usefull when implementing Auth
+    canActivate: [UserResolver]
   },
   {
     path: '**',

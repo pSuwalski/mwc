@@ -1,5 +1,37 @@
+<md-toolbar color="primary" class="toolbar mat-elevation-z1">
+  <a routerLink="/">
+    <span style="color: white">
+      Melior
+      <span style="font-weight: 100">®</span>
+    </span>
+  </a>
+  <div class="navigation">
+    <button md-button [mdMenuTriggerFor]="accountMenu">
+      <md-icon>person</md-icon>
+    </button>
+  </div>
+  <md-menu #accountMenu="mdMenu" x-position="after" y-position="below">
+    <div class="account-container">
+      <div class="col-md-2">
+        <md-icon class="account-icon">account_circle</md-icon>
+      </div>
+      <div class="col-md-10 info">
+        <h1>{{ (us.currentUser | async)?.name }}</h1>
+        <h2>{{ (us.currentUser | async)?.email }}</h2>
+        <h2>{{ (us.currentUser | async)?.unionName }}</h2>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+    <button class="admin-panel" *ngIf="(us.currentUser | async)?.role === 'admin'" md-menu-item (click)="router.navigate(['/admin-panel']);us.logOut(); ">
+      <span>Panel Admina</span>
+    </button>
+    <button class="logout" md-menu-item (click)="router.navigate(['/login']);us.logOut(); ">
+      <span>Wyloguj</span>
+    </button>
+  </md-menu>
+</md-toolbar>
 <div class="card-container">
-  <div class="card mat-elevation-z1">
+  <div>
     <div class="form-container">
       <div class="row">
         <div class="col-md-12">
@@ -8,34 +40,77 @@
           </div>
         </div>
       </div>
-      <div class="row" *ngFor="let ja of joinApplications">
+      <div class="join-applications">
         <div class="col-md-12">
-          <div class="col-md-2">Nazwa związku:</div>
-          <div class="col-md-6">{{ja.union.name}}</div>
+          <md-accordion class="example-headers-align">
+            <md-expansion-panel *ngFor="let ja of joinApplications">
+              <md-expansion-panel-header>
+                <md-panel-title>
+                  {{date.now() | date}}
+                </md-panel-title>
+                <md-panel-description>
+                  {{ja.union.name}}
+                </md-panel-description>
+              </md-expansion-panel-header>
+              <div class="col-md-12">
+                <div class="col-md-2 row-title">Nip:</div>
+                <div class="col-md-10">{{ja.union.nip}}</div>
+              </div>
+              <div class="col-md-12">
+                <div class="col-md-2 row-title">Address:</div>
+                <div class="col-md-10">{{ja.union.address.streetAndNumber}} {{ja.union.address.apartment}}, {{ja.union.address.city}}</div>
+              </div>
+              <div class="col-md-12">
+                <div class="col-md-2 row-title">Numer telefonu:</div>
+                <div class="col-md-10">{{ja.union.phone}}</div>
+              </div>
+              <div class="col-md-12">
+                <div class="col-md-2 row-title">Email:</div>
+                <div class="col-md-10">{{ja.union.email}}</div>
+              </div>
+              <div class="col-md-12">
+                <div class="col-md-2 row-title">Spółki:</div>
+                <div class="col-md-10">
+                  <span *ngFor="let c of ja.union.companies">{{c.name}}</span>
+                </div>
+              </div>
+              <div class="clearfix"></div>
+              <md-action-row>
+                <button md-button color="warn" (click)="reject(ja)">Odrzuć</button>
+                <button md-button color="primary" (click)="accept(ja)">Akceptuj</button>
+              </md-action-row>
+            </md-expansion-panel>
+          </md-accordion>
         </div>
-        <div class="col-md-12">
-          <div class="col-md-2">Nip:</div>
-          <div class="col-md-6">{{ja.union.nip}}</div>
-        </div>
-        <div class="col-md-12">
-          <div class="col-md-2">Address:</div>
-          <div class="col-md-6">{{ja.union.address.streetAndNumber}} {{ja.union.address.apartment}}, {{ja.union.address.city}}</div>
-        </div>
-        <div class="col-md-12">
-          <div class="col-md-2">Numer telefonu:</div>
-          <div class="col-md-6">{{ja.union.phone}}</div>
-        </div>
-        <div class="col-md-12">
-          <div class="col-md-2">Email:</div>
-          <div class="col-md-6">{{ja.union.email}}</div>
-        </div>
-        <div class="col-md-12">
-          <div class="col-md-2">Spółki:</div>
-        </div>
-        <div class="col-md-12" *ngFor="let c of ja.union.companies">
-          <div class="col-md-12">{{c.name}} ({{c.nip}})</div>
-        </div>
+        <div class="clearfix"></div>
       </div>
     </div>
   </div>
 </div>
+
+<!-- <div class="col-md-12">
+    <div class="col-md-2">Nazwa związku:</div>
+    <div class="col-md-6">{{ja.union.name}}</div>
+  </div>
+  <div class="col-md-12">
+    <div class="col-md-2">Nip:</div>
+    <div class="col-md-6">{{ja.union.nip}}</div>
+  </div>
+  <div class="col-md-12">
+    <div class="col-md-2">Address:</div>
+    <div class="col-md-6">{{ja.union.address.streetAndNumber}} {{ja.union.address.apartment}}, {{ja.union.address.city}}</div>
+  </div>
+  <div class="col-md-12">
+    <div class="col-md-2">Numer telefonu:</div>
+    <div class="col-md-6">{{ja.union.phone}}</div>
+  </div>
+  <div class="col-md-12">
+    <div class="col-md-2">Email:</div>
+    <div class="col-md-6">{{ja.union.email}}</div>
+  </div>
+  <div class="col-md-12">
+    <div class="col-md-2">Spółki:</div>
+  </div>
+  <div class="col-md-12" *ngFor="let c of ja.union.companies">
+    <div class="col-md-12">{{c.name}} ({{c.nip}})</div>
+  </div> -->

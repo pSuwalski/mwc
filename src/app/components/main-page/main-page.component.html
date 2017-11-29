@@ -1,9 +1,10 @@
 <md-toolbar color="primary" class="toolbar mat-elevation-z1">
-  <span style="color: white">
-    <md-icon>home</md-icon>
-    Melior
-    <span style="font-weight: 100">®</span>
-  </span>
+  <a routerLink="/">
+    <span style="color: white">
+      Melior
+      <span style="font-weight: 100">®</span>
+    </span>
+  </a>
   <div class="navigation">
     <button md-button class="nav-button" [mdMenuTriggerFor]="addMenu">Dodaj</button>
     <button md-button class="nav-button" [mdMenuTriggerFor]="searchMenu">Przeglądaj</button>
@@ -49,10 +50,10 @@
   </md-menu>
   <md-menu #accountMenu="mdMenu" x-position="after" y-position="below">
     <div class="account-container">
-      <div class="col-md-2">
+      <div class="col-md-3">
         <md-icon class="account-icon">account_circle</md-icon>
       </div>
-      <div class="col-md-10 info">
+      <div class="col-md-9 info">
         <h1>{{ (us.currentUser | async)?.name }}</h1>
         <h2>{{ (us.currentUser | async)?.email }}</h2>
         <h2>{{ (us.currentUser | async)?.unionName }}</h2>

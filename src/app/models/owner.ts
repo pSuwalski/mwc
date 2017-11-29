@@ -95,9 +95,3 @@ export function emptyParcelData(): ParcelData {
     percent: null
   };
 }
-
-export function emptyWorksParcelData(): ParcelData {
-  return {
-    id: null
-  };
-}

@@ -5,3 +5,64 @@
   margin-bottom: 6px;
   font-weight: 600;
 }
+
+.form-container {
+  padding: 24px;
+}
+
+md-expansion-panel .col-md-12, md-expansion-panel .col-md-10,  md-expansion-panel .col-md-2 {
+  padding: 0;
+  font-size: 14px;
+  margin: 2px 0;
+}
+
+.row-title {
+  color: rgba(0, 0, 0, 0.57);
+}
+
+.join-applications {
+  margin-bottom: 32px;
+}
+
+.navigation {
+  margin-left: auto;
+}
+
+
+.account-icon {
+  font-size: 68px;
+  width: 81px;
+  height: 68px;
+  margin-top: -2px;
+  color: rgba(0,0,0,0.57);
+}
+
+.account-container {
+  min-width: 280px;
+  padding: 12px 16px 16px;
+  padding-bottom: 4px;
+}
+
+.col-md-9, .col-md-3 {
+  padding: 0;
+}
+
+h1 {
+  margin: 0;
+  font-size: 18px;
+}
+
+h2 {
+  font-size: 12px;
+  margin: 0px;
+  margin-top: 0px;
+}
+
+.info {
+  padding-left: 12px!important;
+}
+
+.logout, .admin-panel {
+  width: 100%;
+  text-align: right;
+}

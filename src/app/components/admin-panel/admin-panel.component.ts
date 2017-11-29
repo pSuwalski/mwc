@@ -12,13 +12,17 @@ import { UserService } from '../../services/user.service';
 })
 export class AdminPanelComponent {
 
+  date = Date;
+
   joinApplications: JoinApplication[];
 
   constructor(
-    private us: UserService
+    public router: Router,
+    public us: UserService
   ) {
     this.us.getJoinApplications().then((jas) => {
       this.joinApplications = jas;
+      this.joinApplications = this.joinApplications.concat(this.joinApplications).concat(this.joinApplications.concat(this.joinApplications));
     });
   }
 

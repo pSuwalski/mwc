@@ -45,11 +45,11 @@ export class ResolutionsService {
 
   async loadMoreCompanyParcels(unionId: string) {
     if (this.moreToBeLoadedIndicator) {
-      const parcelsRef = await this.resolutionsRef(unionId).ref.startAfter(this.loadedFromBegining).limit(this.limit).get();
-      if (!parcelsRef.empty) {
-        this.moreToBeLoadedIndicator = parcelsRef.docs.length === 30;
-        this.loadedFromBegining = this.loadedFromBegining + parcelsRef.docs.length;
-        return parcelsRef.docs.map((p) => p.data() as Resolution);
+      const resolutionsRef = await this.resolutionsRef(unionId).ref.startAfter(this.loadedFromBegining).limit(this.limit).get();
+      if (!resolutionsRef.empty) {
+        this.moreToBeLoadedIndicator = resolutionsRef.docs.length === 30;
+        this.loadedFromBegining = this.loadedFromBegining + resolutionsRef.docs.length;
+        return resolutionsRef.docs.map((p) => p.data() as Resolution);
       } else {
         return [];
       }
@@ -57,10 +57,15 @@ export class ResolutionsService {
   }
 
   async SearchResolutionByNumber(unionId: string, searchString: string): Promise<Resolution[]> {
-    this.loadedFromBegining = 0;
-    const resolutionNumberRef = await this.resolutionsRef(unionId).ref.
-      where('number', '==', searchString)
-      .limit(this.limit * 10).get();
+    let resolutionNumberRef;
+    if (!searchString) {
+      resolutionNumberRef = await this.resolutionsRef(unionId).ref.get();
+    } else {
+      this.loadedFromBegining = 0;
+      resolutionNumberRef = await this.resolutionsRef(unionId).ref.
+        where('number', '==', searchString)
+        .limit(this.limit * 10).get();
+    }
     const output: Resolution[] = [];
     if (!resolutionNumberRef.empty) {
       this.moreToBeLoadedIndicator = resolutionNumberRef.docs.length === 30;

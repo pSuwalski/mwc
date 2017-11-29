@@ -38,6 +38,11 @@ export class SectionService {
   }
 
   async getCompanySections(unionId: string, companyId: string): Promise<Section[]> {
+    // TODO: PiechotM reconsider
+    if ( null == companyId || undefined === companyId ) {
+      return;
+    }
+
     if (!this.cachedCompanySections[companyId]) {
       const parcelsRef = await this.sectionsRef(unionId).ref
         .where('companyId', '==', companyId)

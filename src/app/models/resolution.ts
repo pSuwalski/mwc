@@ -1,6 +1,7 @@
 export interface Resolution {
   companyId: string;
   sectionId: string;
+  parcelId: string;
   year: number;
   number: number;
   date: string;
@@ -27,6 +28,6 @@ export function emptyResolution(): Resolution {
   return {
     companyId: null, sectionId: null, year: null, number: null, date: null,
     paymentCount: null, payments: [], paymentMoreOneHour: null,
-    paymentLessOneHour: null, id: null
+    paymentLessOneHour: null, id: null, parcelId: null,
   };
 }

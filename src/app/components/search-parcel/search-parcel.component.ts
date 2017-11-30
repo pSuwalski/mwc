@@ -109,23 +109,27 @@ export class SearchParcelComponent implements OnDestroy {
   // }
 
   MyFilter() {
-    this.parcelFilter = [];
-    this.searchString = this.searchString.toLowerCase();
-    if (this.searchString.length !== 0) {
-      for (const parcel of this.parcels) {
-        if (parcel.areaType.toLowerCase().indexOf(this.searchString) >= 0) {
-          this.parcelFilter.push(parcel);
-        } else if (String(parcel.number).toLowerCase().indexOf(this.searchString) >= 0) {
-          this.parcelFilter.push(parcel);
-        } else if (String(parcel.areaSurface).toLowerCase().indexOf(this.searchString) >= 0) {
-          this.parcelFilter.push(parcel);
-        }
-        // else if (String(parcel.trench).toLowerCase().indexOf(this.searchString) >= 0) {
-          // this.parcelFilter.push(parcel);
-        // }
-      }
-    } else {
-      this.parcelFilter = this.parcels;
-    }
+    this.ps.SearchParcelByNumber(this.currentUser.unionId, this.searchString).then((own: Parcel[]) => {
+      this.parcels = own;
+      console.log(this.parcels);
+    });
+    // this.parcelFilter = [];
+    // this.searchString = this.searchString.toLowerCase();
+    // if (this.searchString.length !== 0) {
+    //   for (const parcel of this.parcels) {
+    //     if (parcel.areaType.toLowerCase().indexOf(this.searchString) >= 0) {
+    //       this.parcelFilter.push(parcel);
+    //     } else if (String(parcel.number).toLowerCase().indexOf(this.searchString) >= 0) {
+    //       this.parcelFilter.push(parcel);
+    //     } else if (String(parcel.areaSurface).toLowerCase().indexOf(this.searchString) >= 0) {
+    //       this.parcelFilter.push(parcel);
+    //     }
+    //     // else if (String(parcel.trench).toLowerCase().indexOf(this.searchString) >= 0) {
+    //       // this.parcelFilter.push(parcel);
+    //     // }
+    //   }
+    // } else {
+    //   this.parcelFilter = this.parcels;
+    // }
   }
 }

@@ -20,6 +20,7 @@ export class SearchSectionComponent implements OnDestroy {
   sections: Section[] = [];
   selectedCompanyId: string;
   subsriptions: Subscription[] = [];
+  searchString: string;
 
   constructor(
     private ss: SectionService,
@@ -36,6 +37,12 @@ export class SearchSectionComponent implements OnDestroy {
         }
       })
     );
+  }
+
+    searchSections() {
+    this.ss.SearchCompanySectionsByName(this.currentUser.unionId, this.searchString).then((sct: Section[]) => {
+      this.sections = sct;
+    });
   }
 
   ngOnDestroy() {

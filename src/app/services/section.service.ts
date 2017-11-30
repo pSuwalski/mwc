@@ -1,6 +1,6 @@
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Injectable } from '@angular/core';
-import { Section } from '../models/section';
+import { Section, emptySection } from '../models/section';
 import * as _ from 'lodash';
 
 @Injectable()
@@ -39,7 +39,7 @@ export class SectionService {
 
   async getCompanySections(unionId: string, companyId: string): Promise<Section[]> {
     // TODO: PiechotM reconsider
-    if ( null == companyId || undefined === companyId ) {
+    if (null == companyId || undefined === companyId) {
       return;
     }
 
@@ -74,6 +74,41 @@ export class SectionService {
         return [];
       }
     }
+  }
+
+  async SearchCompanySectionsByName(unionId: string, name: string): Promise<Section[]> {
+    this.loadedFromBegining = 0;
+    let sectionNameRef;
+    if (!name) {
+      sectionNameRef = await this.sectionsRef(unionId).ref.get();
+    } else {
+      let str: string;
+      str = String.fromCharCode(380);
+      console.log(str);
+      str = String.fromCharCode(1000);
+      console.log(str);
+      sectionNameRef = await this.sectionsRef(unionId).ref.
+        where('name', '>=', name).where('name', '<=', name + String.fromCharCode(1000))
+        .limit(this.limit * 10).get();
+    }
+    const output: Section[] = [];
+    if (!sectionNameRef.empty) {
+      this.moreToBeLoadedIndicator = sectionNameRef.docs.length === 30;
+      this.loadedFromBegining = sectionNameRef.docs.length;
+      sectionNameRef.docs.forEach((p) => output.push(this.parse(p.data())));
+    }
+    return output;
+  }
+
+  parse(dbResolution: any): Section {
+    const resolutionData: Section = this.parseFromInterface(dbResolution, emptySection());
+    return resolutionData;
+  }
+
+  parseFromInterface<T>(parsed: any, emptyParsedType: T): T {
+    return _.reduce(_.keys(emptyParsedType), (object, key) => {
+      return _.assign(object, { [key]: parsed[key] });
+    }, {});
   }
 
   sectionsRef(unionId: string) {

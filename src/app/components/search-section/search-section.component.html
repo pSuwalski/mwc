@@ -2,7 +2,7 @@
     <div class="card mat-elevation-z1">
       <div class="form-container fixed">
         <md-form-field class="col-md-11">
-          <input class="textbox" type="text"  mdInput placeholder="Wyszukaj..." [(ngModel)]="searchString" (input)="MyFilter()" >
+          <input class="textbox" type="text"  mdInput placeholder="Wyszukaj..." [(ngModel)]="searchString" (input)="searchSections()" >
         </md-form-field>
         <div class="col-md-1">
           <md-icon class="material-icons md-48" color="accent" (click)="search()">search</md-icon>

@@ -69,10 +69,10 @@ export class OwnerService {
   async SearchCompanyOwnersByName(unionId: string, nameSurname: string): Promise<Owner[]> {
     this.loadedFromBegining = 0;
     const ownerSurnameRef = await this.ownerRef(unionId).ref.
-      where('surname', '>=', nameSurname).where('surname', '<=', nameSurname + 'z')
+      where('surname', '>=', nameSurname).where('surname', '<=', nameSurname + String.fromCharCode(1000))
       .limit(this.limit * 10).get();
     const ownerNameRef = await this.ownerRef(unionId).ref
-      .where('name', '>=', nameSurname).where('name', '<=', nameSurname + 'z')
+      .where('name', '>=', nameSurname).where('name', '<=', nameSurname + String.fromCharCode(1000))
       .limit(this.limit * 10).get();
     const output: Owner[] = [];
     const outputtemp: Owner[] = [];
@@ -121,10 +121,10 @@ export class OwnerService {
   async SearchCompanyOwnersByAddress(unionId: string, address: string): Promise<Owner[]> {
     this.loadedFromBegining = 0;
     const ownerCityRef = await this.ownerRef(unionId).ref.
-      where('city', '>=', address).where('city', '<=', address + 'z')
+      where('city', '>=', address).where('city', '<=', address + String.fromCharCode(1000))
       .limit(this.limit * 10).get();
     const leeseesStreetRef = await this.ownerRef(unionId).ref
-      .where('street', '>=', address).where('street', '<=', address + 'z')
+      .where('street', '>=', address).where('street', '<=', address + String.fromCharCode(1000))
       .limit(this.limit * 10).get();
     const output: Owner[] = [];
     const outputtemp: Owner[] = [];

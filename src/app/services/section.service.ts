@@ -49,6 +49,21 @@ export class SectionService {
     }
   }
 
+  async replaceSection(section: Section, unionId: string): Promise<any> {
+    // const id = this.db.createId();
+    if (await this.checkIfExists(`unions/${unionId}/sections/${section.id}`)) {
+      // section.id = id;
+      return this.db
+        .collection('unions')
+        .doc(unionId)
+        .collection('sections')
+        .doc(section.id)
+        .set(section);
+    } else {
+      return Promise.resolve(false);
+    }
+  }
+
   async checkIfExists(path: string) {
     const dataRef = await this.db.doc(path).ref.get();
     return dataRef.exists;

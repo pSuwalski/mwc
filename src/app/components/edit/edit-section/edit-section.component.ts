@@ -1,4 +1,3 @@
-import { Company } from '../../../models/company';
 import { Component, OnInit } from '@angular/core';
 import { Section } from '../../../models/section';
 import { SectionService } from '../../../services/section.service';
@@ -8,17 +7,20 @@ import { User } from '../../../models/user';
 import { Subscription } from 'rxjs/Subscription';
 import { Router } from '@angular/router';
 
+
 @Component({
-  selector: 'mwc-section-output-data-form',
-  templateUrl: './section-output-data-form.component.html',
-  styleUrls: ['./section-output-data-form.component.css']
+  selector: 'mwc-edit-section',
+  templateUrl: './edit-section.component.html',
+  styleUrls: ['./edit-section.component.css']
 })
-export class SectionOutputDataFormComponent implements OnInit {
+export class EditSectionComponent implements OnInit {
 
   companyName: string;
   section: Section;
   currentUser: User;
   subsriptions: Subscription[] = [];
+  progressBar: boolean;
+  addedSuccessfully: string;
 
   constructor(
     public router: Router,
@@ -26,7 +28,6 @@ export class SectionOutputDataFormComponent implements OnInit {
     private cs: CompanyService,
     private us: UserService
   ) {
-
     this.companyName = '';
     this.ss.restoreSection().then(sct => {
       if (sct !== null) {
@@ -43,15 +44,22 @@ export class SectionOutputDataFormComponent implements OnInit {
     });
   }
 
-  edit() {
-    this.ss.storeSection(this.section);
-    this.router.navigate(['/edit/section']);
+  save() {
+    this.progressBar = true;
+    this.ss.replaceSection(this.section, this.currentUser.unionId)
+      .then((res) => {
+        this.progressBar = false;
+        this.addedSuccessfully = res;
+      })
+      .catch((e) => console.log(e));
   }
 
   goBack() {
-    this.router.navigate(['/search/section']);
+    this.ss.storeSection(this.section);
+    this.router.navigate(['/view/section']);
   }
 
   ngOnInit() {
   }
+
 }

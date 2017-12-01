@@ -79,6 +79,7 @@ import { AddSectionComponent } from './components/add-section/add-section.compon
 import { SectionDataFormComponent } from './components/shared/section-data-form/section-data-form.component';
 import { SearchSectionComponent } from './components/search-section/search-section.component';
 import { SectionOutputDataFormComponent } from './components/output-data-forms/section-output-data-form/section-output-data-form.component';
+import { EditSectionComponent } from './components/edit/edit-section/edit-section.component';
 
 
 
@@ -102,6 +103,7 @@ import { SectionOutputDataFormComponent } from './components/output-data-forms/s
     SectionDataFormComponent,
     SearchSectionComponent,
     SectionOutputDataFormComponent,
+    EditSectionComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),

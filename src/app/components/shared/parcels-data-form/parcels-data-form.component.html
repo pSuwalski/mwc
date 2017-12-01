@@ -9,7 +9,7 @@
   <div class="form-row">
     <div class="row section-last-row">
       <div class="col-md-2">
-        <md-select [(ngModel)]="parcel.sectionId" placeholder="SEKCJA">
+        <md-select [disabled]="editionDisabled" [(ngModel)]="parcel.sectionId" placeholder="SEKCJA">
           <md-option *ngFor="let s of sections" [value]="s.id">
             {{ s.name }}
           </md-option>
@@ -17,17 +17,19 @@
       </div>
       <div class="col-md-2">
         <md-form-field>
-          <input class="textbox" type="text" mdInput placeholder="NUMER DZIAŁKI" [(ngModel)]="parcel.number" name="numerDzialki">
+          <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="NUMER DZIAŁKI" [(ngModel)]="parcel.number"
+            name="numerDzialki">
         </md-form-field>
       </div>
       <div class="col-md-2">
         <md-form-field>
-          <input class="textbox" type="text" mdInput placeholder="MIEJSCOWOŚĆ" [(ngModel)]="parcel.cityId" name="numerDzialki">
+          <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="MIEJSCOWOŚĆ" [(ngModel)]="parcel.cityId"
+            name="numerDzialki">
         </md-form-field>
       </div>
       <div class="col-md-2">
         <form>
-          <md-select placeholder="POWIERZCHNIA" [(ngModel)]="parcel.areaType" name="rodzajPowierzchni">
+          <md-select [disabled]="editionDisabled" placeholder="POWIERZCHNIA" [(ngModel)]="parcel.areaType" name="rodzajPowierzchni">
             <md-option *ngFor="let rodzaj of powierzchnia" [value]="rodzaj.value">
               {{rodzaj.viewValue}}
             </md-option>
@@ -36,15 +38,16 @@
       </div>
       <div class="col-md-2">
         <md-form-field>
-          <input class="textbox" type="text" mdInput placeholder="HEKTARÓW" [(ngModel)]="parcel.areaSurface" name="powierzchnia">
+          <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="HEKTARÓW" [(ngModel)]="parcel.areaSurface"
+            name="powierzchnia">
         </md-form-field>
       </div>
     </div>
   </div>
-  <div>
+  <div *ngIf="parcel.trenches.length || !editionDisabled">
     <div class="row">
       <div class="col-md-12 header">
-        Rówy melioryzacyjne
+        Rowy melioryzacyjne
       </div>
     </div>
   </div>
@@ -52,14 +55,17 @@
     <div class="row section-last-row" *ngFor="let t of parcel.trenches">
       <div class="col-md-3">
         <md-form-field>
-          <input class="textbox" type="text" mdInput placeholder="NUMERACJA ROWU" [(ngModel)]="t.number" name="numeracjaRoku">
+          <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="NUMERACJA ROWU" [(ngModel)]="t.number"
+            name="numeracjaRoku">
         </md-form-field>
       </div>
     </div>
   </div>
-  <button md-raised-button color="primary" [disabled]="parcel.trenches.length < 1" (click)="removeTrench()">Usuń Rów</button>
-  <button md-raised-button color="primary" (click)="addTrench()">Dodaj rów</button>
-  <div>
+  <div *ngIf="!editionDisabled">
+    <button md-raised-button color="primary" [disabled]="parcel.trenches.length < 1" (click)="removeTrench()">Usuń Rów</button>
+    <button md-raised-button color="primary" (click)="addTrench()">Dodaj rów</button>
+  </div>
+  <div *ngIf="parcel.drainages.length || !editionDisabled">
     <div class="row">
       <div class="col-md-12 header">
         Drenaze
@@ -70,14 +76,16 @@
     <div class="row section-last-row" *ngFor="let d of parcel.drainages">
       <div class="col-md-3">
         <md-form-field>
-          <input class="textbox" type="text" mdInput placeholder="NUMERACJA DRENAŻU" [(ngModel)]="d.number" name="numeracjaRoku">
+          <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="NUMERACJA DRENAŻU" [(ngModel)]="d.number" name="numeracjaRoku">
         </md-form-field>
       </div>
     </div>
   </div>
+  <div *ngIf="!editionDisabled">
   <button md-raised-button color="primary" [disabled]="parcel.drainages.length < 1" (click)="removeDrainage()">Usuń drenaż</button>
   <button md-raised-button color="primary" (click)="addDrainage()">Dodaj drenaż</button>
-  <div>
+  </div>
+  <div *ngIf="parcel.appliances.length || !editionDisabled">
     <div class="row">
       <div class="col-md-12 header">
         Urządzenia melioryzacyjne oddziałujące na działkę
@@ -88,36 +96,38 @@
     <div class="row sections-last-row">
       <div class="col-md-2">
         <md-form-field>
-          <input class="textbox" type="text" mdInput placeholder="NUMERACJA" [(ngModel)]="a.numbering" name="numeracjaRoku">
+          <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="NUMERACJA" [(ngModel)]="a.numbering" name="numeracjaRoku">
         </md-form-field>
       </div>
       <div class="col-md-2">
         <md-form-field>
-          <input class="textbox" type="text" mdInput placeholder="RODZAJ URZĄDZENIA" [(ngModel)]="a.applianceType" name="rodzajUrzadzenia">
+          <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="RODZAJ URZĄDZENIA" [(ngModel)]="a.applianceType" name="rodzajUrzadzenia">
         </md-form-field>
       </div>
       <div class="col-md-2">
         <md-form-field>
-          <input class="textbox" type="text" mdInput placeholder="OPIS URZĄDZENIA" [(ngModel)]="a.applianceDescription" name="opisUrzadzenia">
+          <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="OPIS URZĄDZENIA" [(ngModel)]="a.applianceDescription" name="opisUrzadzenia">
         </md-form-field>
       </div>
     </div>
   </div>
+  <div *ngIf="!editionDisabled">
   <button md-raised-button color="primary" [disabled]="parcel.appliances.length < 1" (click)="removeAppliance()">Usuń urządzenie</button>
   <button md-raised-button color="primary" (click)="addAppliance()">Dodaj urządzenie</button>
+  </div>
   <div class="row">
     <div class="col-md-12 header">Członkostwo</div>
   </div>
   <div class="row sections-last-row">
     <div class="col-md-2">
-      <md-select placeholder="CZŁONKOSTWO" [(ngModel)]="parcel.membership" name="objetaCzlonostwem">
+      <md-select [disabled]="editionDisabled" placeholder="CZŁONKOSTWO" [(ngModel)]="parcel.membership" name="objetaCzlonostwem">
         <md-option *ngFor="let i of objetaCzlonkostwem" [value]="i.value">
           {{i.viewValue}}
         </md-option>
       </md-select>
     </div>
     <div class="col-md-2" *ngIf="parcel.membership">
-      <md-select [disabled]="!parcel.membership" placeholder="CZŁONKOSTWO AKTYWNE" [(ngModel)]="parcel.membershipActive" name="objetaCzlonostwem">
+      <md-select [disabled]="!parcel.membership || editionDisabled" placeholder="CZŁONKOSTWO AKTYWNE" [(ngModel)]="parcel.membershipActive" name="objetaCzlonostwem">
         <md-option [value]="true">
           tak
         </md-option>
@@ -127,7 +137,7 @@
       </md-select>
     </div>
     <div class="col-md-2" *ngIf="parcel.membership">
-      <md-select [disabled]="!parcel.membership" placeholder="PODSTAWA PRAWNA" [(ngModel)]="parcel.legalBasis" name="podstawaPrawna">
+      <md-select [disabled]="!parcel.membership || editionDisabled" placeholder="PODSTAWA PRAWNA" [(ngModel)]="parcel.legalBasis" name="podstawaPrawna">
         <md-option *ngFor="let i of podstawaPrawna" [value]="i.value">
           {{i.viewValue}}
         </md-option>
@@ -135,13 +145,13 @@
     </div>
     <div class="col-md-2" *ngIf="parcel.membership">
       <md-form-field>
-        <input [disabled]="!parcel.membership" class="textbox" type="text" mdInput placeholder="DATA PRZYSTĄPIENIA DO SW" [(ngModel)]="parcel.SwMembershipStartDate"
+        <input [disabled]="!parcel.membership || editionDisabled" class="textbox" type="text" mdInput placeholder="DATA PRZYSTĄPIENIA DO SW" [(ngModel)]="parcel.SwMembershipStartDate"
           name="dataPrzystapienia">
       </md-form-field>
     </div>
     <div class="col-md-2" *ngIf="parcel.membership">
       <md-form-field>
-        <input [disabled]="parcel.membershipActive || !parcel.membership" class="textbox" type="text" mdInput placeholder="DATA WYPOWIEDZENIA"
+        <input [disabled]="parcel.membershipActive || !parcel.membership || editionDisabled" class="textbox" type="text" mdInput placeholder="DATA WYPOWIEDZENIA"
           [(ngModel)]="parcel.SwMembershipTerminationDate" name="dataWypowiedzenia">
       </md-form-field>
     </div>
@@ -156,20 +166,23 @@
       <div>
         <div class="col-md-2">
           <md-form-field>
-            <input class="textbox" type="text" mdInput placeholder="NUMER DECYZJI" [(ngModel)]="decision.decisionNumber" name="numerDecyzji">
+            <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="NUMER DECYZJI" [(ngModel)]="decision.decisionNumber" name="numerDecyzji">
           </md-form-field>
         </div>
         <div class="col-md-2">
           <md-form-field>
-            <input class="textbox" type="text" mdInput placeholder="DATA WYDANIA DECYZJI" [(ngModel)]="decision.decisionDate" name="dataWydaniaDecyzji">
+            <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="DATA WYDANIA DECYZJI" [(ngModel)]="decision.decisionDate" name="dataWydaniaDecyzji">
           </md-form-field>
         </div>
       </div>
     </div>
+    <div *ngIf="!editionDisabled">
     <button md-raised-button color="primary" [disabled]="parcel.foremanDecisions?.length < 1" (click)="removeDecision()">Usuń decyzję</button>
     <button md-raised-button color="primary" (click)="addDecision()">Dodaj kolejną decyzję</button>
+    </div>
   </div>
 </div>
 <div *ngIf="sections?.length < 1">
-    <mwc-info [link]="'/add/section'" [text]="'Ta spółka nie posiada sekcji. Dodaj sekcje by móc dodawać działki.'" [buttonText]="'Dodaj sekcje'" [success]="false"></mwc-info>
+  <mwc-info [link]="'/add/section'" [text]="'Ta spółka nie posiada sekcji. Dodaj sekcje by móc dodawać działki.'" [buttonText]="'Dodaj sekcje'"
+    [success]="false"></mwc-info>
 </div>

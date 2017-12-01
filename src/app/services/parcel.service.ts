@@ -50,6 +50,18 @@ export class ParcelService {
 
   }
 
+  async replaceParcel(parcel: Parcel, unionId: string): Promise<any> {
+    if (await this.checkIfExists(`unions/${unionId}/parcels/${parcel.id}`)) {
+      return this.db
+        .collection('unions')
+        .doc(unionId)
+        .collection('parcels')
+        .doc(parcel.id)
+        .set(parcel);
+    } else {
+      return Promise.resolve(false);
+    }
+  }
 
   async checkIfExists(path: string) {
     const dataRef = await this.db.doc(path).ref.get();

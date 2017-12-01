@@ -9,7 +9,7 @@
           {{c.name}}
         </md-option>
       </md-select>
-      <mwc-section-data-form *ngIf="section.companyId" [sectionDataForm]="section"></mwc-section-data-form>
+      <mwc-section-data-form *ngIf="section.companyId" [editionDisabled]="false" [sectionDataForm]="section"></mwc-section-data-form>
       <div class="button-container col-md-12">
         <button type="button" class="add-button accent" md-raised-button color="accent" (click)="add()">Dodaj</button>
       </div>

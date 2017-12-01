@@ -6,7 +6,7 @@ import * as _ from 'lodash';
 
 import 'rxjs/add/operator/do';
 
-
+let storedParcel: Parcel;
 
 @Injectable()
 export class ParcelService {
@@ -22,6 +22,21 @@ export class ParcelService {
   constructor(
     private db: AngularFirestore
   ) {
+  }
+
+  storeParcel(parcel: Parcel) {
+    storedParcel = parcel;
+  }
+
+  async restoreParcel(): Promise<Parcel> {
+    let returnParcel: Parcel;
+    if (storedParcel !== null) {
+      returnParcel = storedParcel;
+    } else {
+      returnParcel = null;
+    }
+
+    return returnParcel;
   }
 
   async addParcel(parcel: Parcel, unionId: string): Promise<any> {

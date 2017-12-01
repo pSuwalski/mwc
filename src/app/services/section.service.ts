@@ -50,9 +50,7 @@ export class SectionService {
   }
 
   async replaceSection(section: Section, unionId: string): Promise<any> {
-    // const id = this.db.createId();
     if (await this.checkIfExists(`unions/${unionId}/sections/${section.id}`)) {
-      // section.id = id;
       return this.db
         .collection('unions')
         .doc(unionId)
@@ -126,6 +124,26 @@ export class SectionService {
     }
     return output;
   }
+
+  async SearchSectionById(unionId: string, id: string): Promise<Section[]> {
+    this.loadedFromBegining = 0;
+    let companyIdRef;
+    if (!id) {
+      companyIdRef = await this.sectionsRef(unionId).ref.get();
+    } else {
+      companyIdRef = await this.sectionsRef(unionId).ref.
+        where('id', '==', id)
+        .limit(this.limit * 10).get();
+    }
+    const output: Section[] = [];
+    if (!companyIdRef.empty) {
+      this.moreToBeLoadedIndicator = companyIdRef.docs.length === 30;
+      this.loadedFromBegining = companyIdRef.docs.length;
+      companyIdRef.docs.forEach((p) => output.push(this.parse(p.data())));
+    }
+    return output;
+  }
+
 
   parse(dbResolution: any): Section {
     const resolutionData: Section = this.parseFromInterface(dbResolution, emptySection());

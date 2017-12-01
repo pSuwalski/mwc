@@ -27,7 +27,7 @@ export class SearchOwnerComponent implements OnDestroy {
     this.subsriptions.push(
       this.us.currentUser.subscribe((cu) => {
         this.currentUser = cu;
-        this.os.getCompanyOwners(this.currentUser.unionId).then((lse: Owner[]) => {
+        this.os.getUnionOwners(this.currentUser.unionId).then((lse: Owner[]) => {
           this.owners = lse; /*this.parcelFilter = this.parcels;*/
         });
       })
@@ -42,21 +42,21 @@ export class SearchOwnerComponent implements OnDestroy {
   myFilter() {
     switch (this.searchType) {
       case 'evidenceNumber': {
-        this.os.SearchCompanyOwnersByEvidenceNumber(this.currentUser.unionId, this.searchString).then((own: Owner[]) => {
+        this.os.SearchUnionOwnersByEvidenceNumber(this.currentUser.unionId, this.searchString).then((own: Owner[]) => {
           this.owners = own;
           console.log(this.owners);
         });
         break;
       }
       case 'namesurname': {
-        this.os.SearchCompanyOwnersByName(this.currentUser.unionId, this.searchString).then((own: Owner[]) => {
+        this.os.SearchUnionOwnersByName(this.currentUser.unionId, this.searchString).then((own: Owner[]) => {
           this.owners = own;
           console.log(this.owners);
         });
         break;
       }
       case 'address': {
-        this.os.SearchCompanyOwnersByAddress(this.currentUser.unionId, this.searchString).then((own: Owner[]) => {
+        this.os.SearchUnionOwnersByAddress(this.currentUser.unionId, this.searchString).then((own: Owner[]) => {
           this.owners = own;
           console.log(this.owners);
         });

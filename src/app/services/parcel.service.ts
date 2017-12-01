@@ -121,9 +121,9 @@ export class ParcelService {
     }
   }
 
-  parse(dbResolution: any): Parcel {
-    const resolutionData: Parcel = this.parseFromInterface(dbResolution, emptyParcel());
-    return resolutionData;
+  parse(dbParcel: any): Parcel {
+    const parcelData: Parcel = this.parseFromInterface(dbParcel, emptyParcel());
+    return parcelData;
   }
 
   parseFromInterface<T>(parsed: any, emptyParsedType: T): T {

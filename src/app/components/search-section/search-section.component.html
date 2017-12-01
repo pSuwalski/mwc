@@ -1,36 +1,33 @@
-<div class="card-container" >
-    <div class="card mat-elevation-z1">
-      <div class="form-container fixed">
-        <md-form-field class="col-md-11">
-          <input class="textbox" type="text"  mdInput placeholder="Wyszukaj..." [(ngModel)]="searchString" (input)="searchSections()" >
-        </md-form-field>
-        <div class="col-md-1">
-          <md-icon class="material-icons md-48" color="accent" (click)="search()">search</md-icon>
-        </div>
-      </div>
-      <div class="col-md-12">
-        <div class="row in-the-bottom on-the-right columns-title fixed">
-          <div class="card-field" style="float:left; width:100%">
-            <div class="col-md-2 header" (click)="sortByNumber()" >Numer ewidencyjny</div>
-            <div class="col-md-2 header" (click)="sortByAreaType() " >Nazwa regionu</div>
-            <div class="col-md-2 header" (click)="sortByAreaSurface()" >Rodzaj regionu</div>
-          </div>
-        </div>
-        <div class="result_container">
-        <div  *ngFor="let s of sections">
-        <div class="row bordered in-the-bottom on-the-right result" (click)="navigate('search/searchresult')">
-          <div class="card-field" style="float:left; width:100%">
-              <div class="col-md-2 " >{{s.evidenceNumber}}</div>
-              <div class="col-md-2 " >{{s.name}}</div>
-              <div class="col-md-2 " >{{s.areaType}}</div>
-            </div>
-          </div>
-        </div>
+<div class="form-container fixed">
+  <div class="card-title">
+    <div class="col-md-9">
+      <md-form-field>
+        <input class="textbox" type="text" mdInput placeholder="Wyszukaj..." [(ngModel)]="searchString" (input)="searchSections()">
+      </md-form-field>
+    </div>
+  </div>
+</div>
+<div class="col-md-12">
+  <div class="row in-the-bottom on-the-right columns-title fixed">
+    <div class="card-field" style="float:left; width:100%">
+      <div class="col-md-2 header" (click)="sortByNumber()">Numer ewidencyjny</div>
+      <div class="col-md-2 header" (click)="sortByAreaType() ">Nazwa regionu</div>
+      <div class="col-md-2 header" (click)="sortByAreaSurface()">Rodzaj regionu</div>
+    </div>
+  </div>
+  <div class="result_container">
+    <div *ngFor="let s of sections" id="s.id">
+      <div class="row bordered in-the-bottom on-the-right result" (click)="showChosenSection(s)">
+        <div class="card-field" style="float:left; width:100%">
+          <div class="col-md-2 ">{{s.evidenceNumber}}</div>
+          <div class="col-md-2 ">{{s.name}}</div>
+          <div class="col-md-2 ">{{s.areaType}}</div>
         </div>
       </div>
     </div>
   </div>
-  <!-- export interface Section 
+</div>
+<!-- export interface Section 
     evidenceNumber: number;
     name: string;
     areaType: areaType;

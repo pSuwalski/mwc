@@ -42,7 +42,7 @@ export class OwnerService {
     return dataRef.exists;
   }
 
-  async getCompanyOwners(unionId: string): Promise<Owner[]> {
+  async getUnionOwners(unionId: string): Promise<Owner[]> {
     this.loadedFromBegining = 0;
     const leeseesRef = await this.ownerRef(unionId).ref.limit(this.limit).get();
     if (!leeseesRef.empty) {
@@ -66,7 +66,7 @@ export class OwnerService {
     return returnVal;
   }
 
-  async SearchCompanyOwnersByName(unionId: string, nameSurname: string): Promise<Owner[]> {
+  async SearchUnionOwnersByName(unionId: string, nameSurname: string): Promise<Owner[]> {
     this.loadedFromBegining = 0;
     const ownerSurnameRef = await this.ownerRef(unionId).ref.
       where('surname', '>=', nameSurname).where('surname', '<=', nameSurname + String.fromCharCode(1000))
@@ -97,7 +97,7 @@ export class OwnerService {
     return output;
   }
 
-  async SearchCompanyOwnersByEvidenceNumber(unionId: string, evidenceNumber: string): Promise<Owner[]> {
+  async SearchUnionOwnersByEvidenceNumber(unionId: string, evidenceNumber: string): Promise<Owner[]> {
     let ownerEvidenceNumberRef;
     if (!evidenceNumber) {
       ownerEvidenceNumberRef = await this.ownerRef(unionId).ref.get();
@@ -118,7 +118,7 @@ export class OwnerService {
     return output;
   }
 
-  async SearchCompanyOwnersByAddress(unionId: string, address: string): Promise<Owner[]> {
+  async SearchUnionOwnersByAddress(unionId: string, address: string): Promise<Owner[]> {
     this.loadedFromBegining = 0;
     const ownerCityRef = await this.ownerRef(unionId).ref.
       where('city', '>=', address).where('city', '<=', address + String.fromCharCode(1000))

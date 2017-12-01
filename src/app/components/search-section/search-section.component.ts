@@ -2,7 +2,7 @@ import { Resolution } from '../../models/resolution';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Section } from '../../models/section';
-import { SectionService } from '../../services/section.service';
+import { SectionService,  } from '../../services/section.service';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user';
 import { Subscription } from 'rxjs/Subscription';
@@ -23,6 +23,7 @@ export class SearchSectionComponent implements OnDestroy {
   searchString: string;
 
   constructor(
+    public router: Router,
     private ss: SectionService,
     private us: UserService
   ) {
@@ -31,7 +32,8 @@ export class SearchSectionComponent implements OnDestroy {
         this.currentUser = cu;
         if (cu.companies[0]) {
           this.selectedCompanyId = cu.companies[0].id;
-          this.ss.getCompanySections(this.currentUser.unionId, this.selectedCompanyId).then((sct: Section[]) => {
+          this.ss.SearchSectionsByName(this.currentUser.unionId, '').then((sct: Section[]) => {
+          // this.ss.getCompanySections(this.currentUser.unionId, this.selectedCompanyId).then((sct: Section[]) => {
             this.sections = sct; /*this.parcelFilter = this.parcels;*/
           });
         }
@@ -39,8 +41,13 @@ export class SearchSectionComponent implements OnDestroy {
     );
   }
 
-    searchSections() {
-    this.ss.SearchCompanySectionsByName(this.currentUser.unionId, this.searchString).then((sct: Section[]) => {
+  showChosenSection(section: Section) {
+    this.ss.storeSection(section);
+    this.router.navigate(['/view/section']);
+  }
+
+  searchSections() {
+    this.ss.SearchSectionsByName(this.currentUser.unionId, this.searchString).then((sct: Section[]) => {
       this.sections = sct;
     });
   }

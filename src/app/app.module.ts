@@ -1,3 +1,4 @@
+import { CompanyService } from './services/company.service';
 import { SectionService } from './services/section.service';
 import { ResolutionsService } from './services/resolutions.service';
 import { OwnerService } from './services/owner.service';
@@ -77,6 +78,7 @@ import { SearchResolutionComponent } from './components/search-resolution/search
 import { AddSectionComponent } from './components/add-section/add-section.component';
 import { SectionDataFormComponent } from './components/shared/section-data-form/section-data-form.component';
 import { SearchSectionComponent } from './components/search-section/search-section.component';
+import { SectionOutputDataFormComponent } from './components/output-data-forms/section-output-data-form/section-output-data-form.component';
 
 
 
@@ -99,6 +101,7 @@ import { SearchSectionComponent } from './components/search-section/search-secti
     AddSectionComponent,
     SectionDataFormComponent,
     SearchSectionComponent,
+    SectionOutputDataFormComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
@@ -129,7 +132,8 @@ import { SearchSectionComponent } from './components/search-section/search-secti
     FormsModule,
     MdSelectModule,
   ],
-  providers: [GraphQlService, DatabaseService, UserResolver, UserService, ParcelService, OwnerService, ResolutionsService, SectionService, WorksService],
+  providers: [GraphQlService, DatabaseService, UserResolver, UserService, ParcelService, OwnerService,
+              ResolutionsService, SectionService, WorksService, CompanyService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

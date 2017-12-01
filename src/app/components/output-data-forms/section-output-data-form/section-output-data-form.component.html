@@ -1,0 +1,57 @@
+<div class="card-container">
+  <div class="card mat-elevation-z1">
+    <div class="form-container">
+      <div class="row">
+        <!-- <div class="card-title"> -->
+          <!-- <div class="col-md-12 no-padding bottom-border" style="position: fixed; background: white; z-index: 2; border: inherit"> -->
+            <div class="card-field card-navigation" (click)="goBack()">
+            <!-- <div class="col-md-1" (click)="navigate('search')"> -->
+                <md-icon>navigate_before</md-icon>
+            </div>
+            <div class="col-md-10 header ">Przegląd sekcji</div>
+          <!-- </div> -->
+        <!-- </div> -->
+      </div>
+      <div class="row">
+        <div class="col-md-12 header">
+          Spółka
+        </div>
+        <div class="col-md-12">
+          {{companyName}}
+        </div>
+      </div>
+      <div class="row">
+        <div class="header col-md-3">
+          Dane Sekcji
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          Numer ewidencyjny sekcji
+        </div>
+        <div class="col-md-2">
+          Nazwa Sekcji
+        </div>
+        <div class="col-md-2">
+          Rodzaj sekcji
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          {{section.evidenceNumber}}
+        </div>
+        <div class="col-md-2">
+          {{section.name}}
+        </div>
+        <div class="col-md-2">
+          {{section.areaType}}
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="button-container col-md-12">
+        <button type="button" class="add-button accent" md-raised-button color="accent" (click)="edit()">Edytuj</button>
+      </div>
+    </div>
+  </div>
+</div>

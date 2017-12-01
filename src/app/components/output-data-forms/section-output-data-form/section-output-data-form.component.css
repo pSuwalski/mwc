@@ -1,0 +1,29 @@
+md-form-field {
+    width: 100% !important;
+  }
+  
+  .header {
+    color: rgba(0, 0, 0, 0.57);
+    font-size: 18px;
+    line-height: 40px;
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+
+  .form-container {
+    padding: 24px;
+    height: 64px;
+  }
+  button {
+    float: right;
+    margin-left: 12px;
+    min-width: 160px;
+  }
+  .accent {
+    color: white !important;
+  }
+
+  .button-container {
+    padding: 16px 48px;
+    float: right;
+  }

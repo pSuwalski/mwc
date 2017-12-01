@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Section, emptySection } from '../models/section';
 import * as _ from 'lodash';
 
+let storedSection: Section;
+
 @Injectable()
 export class SectionService {
 
@@ -15,6 +17,21 @@ export class SectionService {
   constructor(
     private db: AngularFirestore
   ) {
+  }
+
+  storeSection(section: Section) {
+    storedSection = section;
+  }
+
+  async restoreSection(): Promise<Section> {
+    let returnSection: Section;
+    if (storedSection !== null) {
+      returnSection = storedSection;
+    } else {
+      returnSection = null;
+    }
+
+    return returnSection;
   }
 
   async addSection(section: Section, unionId: string): Promise<any> {
@@ -76,17 +93,12 @@ export class SectionService {
     }
   }
 
-  async SearchCompanySectionsByName(unionId: string, name: string): Promise<Section[]> {
+  async SearchSectionsByName(unionId: string, name: string): Promise<Section[]> {
     this.loadedFromBegining = 0;
     let sectionNameRef;
     if (!name) {
       sectionNameRef = await this.sectionsRef(unionId).ref.get();
     } else {
-      let str: string;
-      str = String.fromCharCode(380);
-      console.log(str);
-      str = String.fromCharCode(1000);
-      console.log(str);
       sectionNameRef = await this.sectionsRef(unionId).ref.
         where('name', '>=', name).where('name', '<=', name + String.fromCharCode(1000))
         .limit(this.limit * 10).get();

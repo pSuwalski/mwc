@@ -15,8 +15,10 @@ import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 export class SearchOwnerComponent implements OnDestroy {
 
   currentUser: User;
-  leesees: Owner[] = [];
+  owners: Owner[] = [];
   subsriptions: Subscription[] = [];
+  searchString: string;
+  searchType: 'evidenceNumber' | 'namesurname' | 'address';
 
   constructor(
     private os: OwnerService,
@@ -25,15 +27,44 @@ export class SearchOwnerComponent implements OnDestroy {
     this.subsriptions.push(
       this.us.currentUser.subscribe((cu) => {
         this.currentUser = cu;
-        this.os.getCompanyOwners(this.currentUser.unionId).then((lse: Owner[]) => {
-          this.leesees = lse; /*this.parcelFilter = this.parcels;*/ });
+        this.os.getUnionOwners(this.currentUser.unionId).then((lse: Owner[]) => {
+          this.owners = lse; /*this.parcelFilter = this.parcels;*/
+        });
       })
     );
-   }
+    this.searchType = 'namesurname';
+  }
 
-   ngOnDestroy() {
+  ngOnDestroy() {
     // this.subsriptions.forEach((s) => s.unsubscribe());
   }
 
-
+  myFilter() {
+    switch (this.searchType) {
+      case 'evidenceNumber': {
+        this.os.SearchUnionOwnersByEvidenceNumber(this.currentUser.unionId, this.searchString).then((own: Owner[]) => {
+          this.owners = own;
+          console.log(this.owners);
+        });
+        break;
+      }
+      case 'namesurname': {
+        this.os.SearchUnionOwnersByName(this.currentUser.unionId, this.searchString).then((own: Owner[]) => {
+          this.owners = own;
+          console.log(this.owners);
+        });
+        break;
+      }
+      case 'address': {
+        this.os.SearchUnionOwnersByAddress(this.currentUser.unionId, this.searchString).then((own: Owner[]) => {
+          this.owners = own;
+          console.log(this.owners);
+        });
+        break;
+      }
+      default: {
+        break;
+      }
+    }
+  }
 }

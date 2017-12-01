@@ -1,7 +1,9 @@
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Injectable } from '@angular/core';
-import { Section } from '../models/section';
+import { Section, emptySection } from '../models/section';
 import * as _ from 'lodash';
+
+let storedSection: Section;
 
 @Injectable()
 export class SectionService {
@@ -15,6 +17,21 @@ export class SectionService {
   constructor(
     private db: AngularFirestore
   ) {
+  }
+
+  storeSection(section: Section) {
+    storedSection = section;
+  }
+
+  async restoreSection(): Promise<Section> {
+    let returnSection: Section;
+    if (storedSection !== null) {
+      returnSection = storedSection;
+    } else {
+      returnSection = null;
+    }
+
+    return returnSection;
   }
 
   async addSection(section: Section, unionId: string): Promise<any> {
@@ -32,12 +49,32 @@ export class SectionService {
     }
   }
 
+  async replaceSection(section: Section, unionId: string): Promise<any> {
+    // const id = this.db.createId();
+    if (await this.checkIfExists(`unions/${unionId}/sections/${section.id}`)) {
+      // section.id = id;
+      return this.db
+        .collection('unions')
+        .doc(unionId)
+        .collection('sections')
+        .doc(section.id)
+        .set(section);
+    } else {
+      return Promise.resolve(false);
+    }
+  }
+
   async checkIfExists(path: string) {
     const dataRef = await this.db.doc(path).ref.get();
     return dataRef.exists;
   }
 
   async getCompanySections(unionId: string, companyId: string): Promise<Section[]> {
+    // TODO: PiechotM reconsider
+    if (null == companyId || undefined === companyId) {
+      return;
+    }
+
     if (!this.cachedCompanySections[companyId]) {
       const parcelsRef = await this.sectionsRef(unionId).ref
         .where('companyId', '==', companyId)
@@ -69,6 +106,36 @@ export class SectionService {
         return [];
       }
     }
+  }
+
+  async SearchSectionsByName(unionId: string, name: string): Promise<Section[]> {
+    this.loadedFromBegining = 0;
+    let sectionNameRef;
+    if (!name) {
+      sectionNameRef = await this.sectionsRef(unionId).ref.get();
+    } else {
+      sectionNameRef = await this.sectionsRef(unionId).ref.
+        where('name', '>=', name).where('name', '<=', name + String.fromCharCode(1000))
+        .limit(this.limit * 10).get();
+    }
+    const output: Section[] = [];
+    if (!sectionNameRef.empty) {
+      this.moreToBeLoadedIndicator = sectionNameRef.docs.length === 30;
+      this.loadedFromBegining = sectionNameRef.docs.length;
+      sectionNameRef.docs.forEach((p) => output.push(this.parse(p.data())));
+    }
+    return output;
+  }
+
+  parse(dbResolution: any): Section {
+    const resolutionData: Section = this.parseFromInterface(dbResolution, emptySection());
+    return resolutionData;
+  }
+
+  parseFromInterface<T>(parsed: any, emptyParsedType: T): T {
+    return _.reduce(_.keys(emptyParsedType), (object, key) => {
+      return _.assign(object, { [key]: parsed[key] });
+    }, {});
   }
 
   sectionsRef(unionId: string) {

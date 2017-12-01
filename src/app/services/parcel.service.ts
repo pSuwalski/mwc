@@ -1,6 +1,7 @@
+import { emptyParcelData } from '../models/owner';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Injectable } from '@angular/core';
-import { Parcel } from '../models/parcel';
+import { Parcel, emptyParcel } from '../models/parcel';
 import * as _ from 'lodash';
 
 import 'rxjs/add/operator/do';
@@ -58,6 +59,25 @@ export class ParcelService {
     }
   }
 
+  async SearchParcelByNumber(unionId: string, searchString: string): Promise<Parcel[]> {
+    let parcelNumberRef;
+    if (!searchString) {
+      parcelNumberRef = await this.parcelsRef(unionId).ref.get();
+    } else {
+      this.loadedFromBegining = 0;
+      parcelNumberRef = await this.parcelsRef(unionId).ref.
+        where('number', '==', searchString)
+        .limit(this.limit * 10).get();
+    }
+    const output: Parcel[] = [];
+    if (!parcelNumberRef.empty) {
+      this.moreToBeLoadedIndicator = parcelNumberRef.docs.length === 30;
+      this.loadedFromBegining = parcelNumberRef.docs.length;
+      parcelNumberRef.docs.forEach((p) => output.push(this.parse(p.data())));
+    }
+    return output;
+  }
+
   async getCompanyParcels(unionId: string, companyId: string, limit?: boolean): Promise<Parcel[]> {
     this.loadedFromBegining = 0;
     if (!this.cachedMultipleCompanyParcels[companyId]) {
@@ -100,6 +120,18 @@ export class ParcelService {
       }
     }
   }
+
+  parse(dbParcel: any): Parcel {
+    const parcelData: Parcel = this.parseFromInterface(dbParcel, emptyParcel());
+    return parcelData;
+  }
+
+  parseFromInterface<T>(parsed: any, emptyParsedType: T): T {
+    return _.reduce(_.keys(emptyParsedType), (object, key) => {
+      return _.assign(object, { [key]: parsed[key] });
+    }, {});
+  }
+
 
   parcelsRef(unionId: string) {
     return this.db.collection('unions').doc(unionId).collection('parcels');

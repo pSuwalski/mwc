@@ -1,6 +1,7 @@
 export interface Resolution {
   companyId: string;
-  sectionIds: string[];
+  sectionId: string;
+  parcelId: string;
   year: number;
   number: number;
   date: string;
@@ -26,8 +27,8 @@ export function emptyPayment() {
 
 export function emptyResolution(): Resolution {
   return {
-    companyId: null, sectionIds: [], year: null, number: null, date: null,
+    companyId: null, sectionId: null, year: null, number: null, date: null,
     paymentCount: null, payments: [], paymentMoreOneHour: null,
-    paymentLessOneHour: null, id: null, wholeCompany: true
+    paymentLessOneHour: null, id: null, parcelId: null,
   };
 }

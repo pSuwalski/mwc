@@ -30,11 +30,9 @@
         </md-form-field>
       </div>
       <div class="col-md-2">
-        <md-select [(ngModel)]="legalBasicsDataForm.year" placeholder="NA ROK">
-          <md-option *ngFor="let y of years" [value]="y">
-            {{ y }}
-          </md-option>
-        </md-select>
+        <md-form-field>
+          <input class="textbox" type="text" mdInput placeholder="NUMER DZIAŁKI" name="{{'dataPodjecia_'}}" [(ngModel)]="legalBasicsDataForm.parcelId">
+        </md-form-field>
       </div>
     </div>
     <div>

@@ -29,17 +29,12 @@
           <input class="textbox" type="text" mdInput placeholder="NUMER UCHWAŁY" name="{{'numerUchwaly_'}}" [(ngModel)]="legalBasicsDataForm.number">
         </md-form-field>
       </div>
-      <div class="col-md-1">
-      </div>
       <div class="col-md-2">
-        <md-form-field>
-          <input class="textbox" type="text" mdInput placeholder="DATA PODJĘCIA" name="{{'dataPodjecia_'}}" [(ngModel)]="legalBasicsDataForm.date">
-        </md-form-field>
-      </div>
-      <div class="col-md-2">
-        <md-form-field>
-          <input class="textbox" type="text" mdInput placeholder="DATA PODJĘCIA" name="{{'dataPodjecia_'}}" [(ngModel)]="legalBasicsDataForm.date">
-        </md-form-field>
+        <md-select [(ngModel)]="legalBasicsDataForm.year" placeholder="NA ROK">
+          <md-option *ngFor="let y of years" [value]="y">
+            {{ y }}
+          </md-option>
+        </md-select>
       </div>
     </div>
     <div>

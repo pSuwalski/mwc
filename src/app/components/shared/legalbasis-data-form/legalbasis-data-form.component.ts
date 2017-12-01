@@ -19,14 +19,7 @@ export class LegalbasisDataFormComponent implements OnInit, OnChanges {
 
   currentUser: User;
   sections: Section[];
-
-  selectedYear: string;
-  years = [
-    { value: 2017, viewValue: '2017' },
-    { value: 2016, viewValue: '2016' },
-    { value: 2015, viewValue: '2015' },
-    { value: 2014, viewValue: '2014' },
-  ];
+  years: number[];
 
   constructor(
     private us: UserService,
@@ -35,6 +28,8 @@ export class LegalbasisDataFormComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
+    const year = new Date().getFullYear() + 1;
+    this.years = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((v) => year - v);
     this.us.currentUser.subscribe((u) => {
       this.currentUser = u;
       this.ss.getCompanySections(this.currentUser.unionId, this.companyId).then((ss) => this.sections = ss);
@@ -43,8 +38,7 @@ export class LegalbasisDataFormComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-    console.log(this.companyId);
-    if (this.currentUser) {
+    if (this.currentUser && this.companyId) {
       this.ss.getCompanySections(this.currentUser.unionId, this.companyId).then((ss) => this.sections = ss);
     }
   }

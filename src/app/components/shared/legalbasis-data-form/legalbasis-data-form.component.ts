@@ -16,6 +16,7 @@ export class LegalbasisDataFormComponent implements OnInit, OnChanges {
 
   @Input() companyId = '';
   @Input() legalBasicsDataForm: Resolution;
+  @Input() editionDisabled = false;
 
   currentUser: User;
   sections: Section[];
@@ -35,9 +36,12 @@ export class LegalbasisDataFormComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
+    console.log(this.editionDisabled);
     this.us.currentUser.subscribe((u) => {
       this.currentUser = u;
-      this.ss.getCompanySections(this.currentUser.unionId, this.companyId).then((ss) => this.sections = ss);
+      this.ss.getCompanySections(this.currentUser.unionId, this.companyId).then((ss) => {
+        this.sections = ss;
+      });
     }
     );
   }

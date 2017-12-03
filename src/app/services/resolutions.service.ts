@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Resolution, emptyResolution } from '../models/resolution';
 import * as _ from 'lodash';
 
+let storedResolution: Resolution;
+
 @Injectable()
 export class ResolutionsService {
 
@@ -16,6 +18,21 @@ export class ResolutionsService {
   ) {
   }
 
+  storeResolution(resolution: Resolution) {
+    storedResolution = resolution;
+  }
+
+  async restoreResolution(): Promise<Resolution> {
+    let returnResolution: Resolution;
+    if (storedResolution !== null) {
+      returnResolution = storedResolution;
+    } else {
+      returnResolution = null;
+    }
+
+    return returnResolution;
+  }
+
   async addResolution(resolution: Resolution, unionId: string): Promise<any> {
     const id = this.db.createId();
     return this.db
@@ -24,6 +41,19 @@ export class ResolutionsService {
       .collection('resolutions')
       .doc(id)
       .set(_.assign(resolution, { id }));
+  }
+
+  async replaceResolution(resolution: Resolution, unionId: string): Promise<any> {
+    if (await this.checkIfExists(`unions/${unionId}/resolutions/${resolution.id}`)) {
+      return this.db
+        .collection('unions')
+        .doc(unionId)
+        .collection('resolutions')
+        .doc(resolution.id)
+        .set(resolution);
+    } else {
+      return Promise.resolve(false);
+    }
   }
 
   async checkIfExists(path: string) {

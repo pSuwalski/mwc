@@ -9,6 +9,7 @@ import { Works } from '../../../models/works';
 export class WorksdoneDataFormComponent implements OnInit {
 
   @Input() worksdoneDataForm: Works;
+  @Input() editionDisabled = false;
   constructor() { }
 
   ngOnInit() {

@@ -41,7 +41,7 @@ export class SearchWorksdoneComponent implements OnDestroy {
 
    showChosenWorks(works: Works) {
     this.ws.storeWorks(works);
-    // this.router.navigate(['/view/works']);
+    this.router.navigate(['/view/works']);
   }
 
   searchSections() {

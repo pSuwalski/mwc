@@ -25,7 +25,7 @@ export class WorksService {
     storedWorks = works;
   }
 
-  async restoreSection(): Promise<Works> {
+  async restoreWorks(): Promise<Works> {
     let returnWorks: Works;
     if (storedWorks !== null) {
       returnWorks = storedWorks;

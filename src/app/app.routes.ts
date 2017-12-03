@@ -25,6 +25,7 @@ import { ParcelOutputDataFormComponent } from './components/output-data-forms/pa
 import { OwnerOutputDataFormComponent } from './components/output-data-forms/owner-output-data-form/owner-output-data-form.component';
 import { ResolutionOutputDataFormComponent } from './components/output-data-forms/resolution-output-data-form/resolution-output-data-form.component';
 import { SearchWorksdoneComponent } from './components/search-worksdone/search-worksdone.component';
+import { WorksOutputDataFormComponent } from './components/output-data-forms/works-output-data-form/works-output-data-form.component';
 
 export const appRoutes: Routes = [
   {
@@ -127,10 +128,10 @@ export const appRoutes: Routes = [
             path: 'resolution',
             component: ResolutionOutputDataFormComponent,
           },
-          // {
-          //   path: 'section',
-          //   component: SearchSectionComponent,
-          // },
+          {
+            path: 'works',
+            component: WorksOutputDataFormComponent,
+          },
         ]
       },
     ],

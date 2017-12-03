@@ -8,6 +8,7 @@ import { ContactData } from '../../../models/owner';
 })
 export class ContactDataFormComponent implements OnInit {
   @Input() contactDataForm: ContactData;
+  @Input() editionDisabled = false;
 
   constructor() { }
 

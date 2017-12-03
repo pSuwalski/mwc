@@ -2,14 +2,14 @@
 <div class="form-row">
   <div class="row section-last-row">
     <div class="col-md-3">
-      <md-select placeholder="SPÓŁKA" [(ngModel)]="parcelData.companyId">
+      <md-select [disabled]="editionDisabled" placeholder="SPÓŁKA" [(ngModel)]="parcelData.companyId">
         <md-option *ngFor="let c of currentUser?.companies" [value]="c.id" (click)="selectCompany(c.id)">
           {{ c.name }}
         </md-option>
       </md-select>
     </div>
     <div class="col-md-3" *ngIf="parcelData.companyId && !(selectedSections?.length < 1)">
-      <md-select placeholder="SEKCJA" [(ngModel)]="parcelData.sectionId">
+      <md-select [disabled]="editionDisabled" placeholder="SEKCJA" [(ngModel)]="parcelData.sectionId">
         <md-option *ngFor="let s of selectedSections" [value]="s.id" (click)="selectSection(s.id)">
           {{ s.name }}
         </md-option>
@@ -20,7 +20,7 @@
     </div>
     <div class="col-md-3" *ngIf="parcelData.sectionId && !(selectedParcels?.length < 1) ">
       <md-form-field class="example-full-width" [mdMenuTriggerFor]="parcelMenu">
-        <input mdInput placeholder="DZIAŁKA" aria-label="State" #parcelInput [formControl]="parcelCtrl">
+        <input [disabled]="editionDisabled" mdInput placeholder="DZIAŁKA" aria-label="State" #parcelInput [formControl]="parcelCtrl">
       </md-form-field>
       <md-menu #parcelMenu="mdMenu" [class.transparent]="(filteredParcels | async)?.length > 0">
         <button md-menu-item *ngFor="let p of filteredParcels | async" (click)="selectParcel(p)">
@@ -33,7 +33,7 @@
     </div>
     <div class="col-md-2" *ngIf="parcelData.id && isParcelData()">
       <md-form-field>
-        <input class="textbox" type="text" mdInput placeholder="PROCENT UDZIAŁÓW" [(ngModel)]="parcelData.percent" name="numerDzialki">
+        <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="PROCENT UDZIAŁÓW" [(ngModel)]="parcelData.percent" name="numerDzialki">
       </md-form-field>
     </div>
   </div>

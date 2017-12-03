@@ -1,4 +1,5 @@
-import { AuthData, PersonalData, ContactData, Owner, emptyOwnerPersonal, emptyOwnerContact, emptySaldo, emptyParcelData, ParcelData } from '../../models/owner';
+import { AuthData, PersonalData, ContactData, Owner, emptyOwnerPersonal,
+         emptyOwnerContact, emptySaldo, emptyParcelData, ParcelData, emptyParcelDataFull } from '../../models/owner';
 import { Component, OnInit } from '@angular/core';
 import { OwnerService } from '../../services/owner.service';
 import { UserService } from '../../services/user.service';
@@ -57,7 +58,7 @@ export class AddOwnerComponent implements OnInit, OnDestroy {
   }
 
   addParcel() {
-    this.owner.parcelsData.push(emptyParcelData());
+    this.owner.parcelsData.push(emptyParcelDataFull());
   }
 
   removeAuth() {

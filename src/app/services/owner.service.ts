@@ -1,14 +1,23 @@
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Injectable } from '@angular/core';
 import {
-  Owner, PersonalData, ContactData,
-  AuthData, emptySaldo, emptyOwnerContact,
-  emptyOwnerPersonal, emptyOwnerAuth
+    AuthData,
+    ContactData,
+    emptyOwnerAuth,
+    emptyOwnerContact,
+    emptyOwnerPersonal,
+    emptyParcelData,
+    emptyParcelDataFull,
+    emptySaldo,
+    Owner,
+    PersonalData,
 } from '../models/owner';
 import * as hf from '../helper-functions';
 import * as _ from 'lodash';
 
 import 'rxjs/add/operator/do';
+
+let storedOwner: Owner;
 
 @Injectable()
 export class OwnerService {
@@ -22,6 +31,21 @@ export class OwnerService {
   constructor(
     private db: AngularFirestore
   ) { }
+
+  storeOwner(owner: Owner) {
+    storedOwner = owner;
+  }
+
+  async restoreOwner(): Promise<Owner> {
+    let returnOwner: Owner;
+    if (storedOwner !== null) {
+      returnOwner = storedOwner;
+    } else {
+      returnOwner = null;
+    }
+
+    return returnOwner;
+  }
 
   async addOwner(owner: Owner, unionId: string): Promise<any> {
     const id = this.db.createId();
@@ -37,6 +61,23 @@ export class OwnerService {
 
   }
 
+  async replaceOwner(owner: Owner, unionId: string): Promise<any> {
+    const id = owner.id;
+    if (await this.checkIfExists(`unions/${unionId}/owners/${owner.id}`)) {
+      const dbOwner = _.assign({ id }, owner.contactData, owner.personalData, {
+        historicSaldo: owner.historicSaldo, authData: owner.authData, parcelsData: owner.parcelsData
+      });
+      return this.db
+        .collection('unions')
+        .doc(unionId)
+        .collection('owners')
+        .doc(owner.id)
+        .set(dbOwner);
+    } else {
+      return Promise.resolve(false);
+    }
+  }
+
   async checkIfExists(path: string) {
     const dataRef = await this.db.doc(path).ref.get();
     return dataRef.exists;
@@ -45,6 +86,7 @@ export class OwnerService {
   async getUnionOwners(unionId: string): Promise<Owner[]> {
     this.loadedFromBegining = 0;
     const leeseesRef = await this.ownerRef(unionId).ref.limit(this.limit).get();
+    const output: Owner[] = [];
     if (!leeseesRef.empty) {
       this.moreToBeLoadedIndicator = leeseesRef.docs.length === 30;
       this.loadedFromBegining = leeseesRef.docs.length;
@@ -155,10 +197,15 @@ export class OwnerService {
     const contactData = this.parseFromInterface(dbOwner, emptyOwnerContact());
     const authData = [];
     const historicSaldo = this.parseFromInterface(dbOwner.historicSaldo, emptySaldo());
+    const parcelsData = [];
     if (dbOwner.authData) {
       dbOwner.authData.forEach((ad) => authData.push(this.parseFromInterface(ad, emptyOwnerAuth())));
     }
-    return { personalData, contactData, authData, id: dbOwner.id, historicSaldo };
+    if (dbOwner.parcelsData) {
+      dbOwner.parcelsData.forEach((pd) => {parcelsData.push(this.parseFromInterface(pd, emptyParcelDataFull()));
+      });
+    }
+    return { personalData, contactData, authData, id: dbOwner.id, historicSaldo, parcelsData: parcelsData };
   }
 
   parseFromInterface<T>(parsed: any, emptyParsedType: T): T {

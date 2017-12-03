@@ -80,6 +80,7 @@ import { SectionDataFormComponent } from './components/shared/section-data-form/
 import { SearchSectionComponent } from './components/search-section/search-section.component';
 import { SectionOutputDataFormComponent } from './components/output-data-forms/section-output-data-form/section-output-data-form.component';
 import { ParcelOutputDataFormComponent } from './components/output-data-forms/parcel-output-data-form/parcel-output-data-form.component';
+import { OwnerOutputDataFormComponent } from './components/output-data-forms/owner-output-data-form/owner-output-data-form.component';
 
 
 
@@ -104,6 +105,7 @@ import { ParcelOutputDataFormComponent } from './components/output-data-forms/pa
     SearchSectionComponent,
     SectionOutputDataFormComponent,
     ParcelOutputDataFormComponent,
+    OwnerOutputDataFormComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),

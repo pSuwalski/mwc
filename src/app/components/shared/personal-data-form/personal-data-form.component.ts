@@ -10,6 +10,7 @@ import { PersonalData } from '../../../models/owner';
 export class PersonalDataFormComponent implements OnInit {
 
   @Input() personalDataForm: PersonalData;
+  @Input() editionDisabled = false;
 
   constructor() {
   }

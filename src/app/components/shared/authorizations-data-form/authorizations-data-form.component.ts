@@ -10,6 +10,7 @@ import { AuthData } from '../../../models/owner';
 export class AuthorizationsDataFormComponent implements OnInit {
 
   @Input() authDataForm: AuthData;
+  @Input() editionDisabled = false;
 
   constructor() { }
 

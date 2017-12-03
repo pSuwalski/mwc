@@ -9,6 +9,7 @@ import { ContactData, Saldo } from '../../../models/owner';
 export class HistoricSaldoFormComponent implements OnInit {
 
   @Input() historicSaldo: Saldo;
+  @Input() editionDisabled = false;
   constructor() { }
 
   ngOnInit() {

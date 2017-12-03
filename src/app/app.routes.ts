@@ -22,6 +22,7 @@ import { AddSectionComponent } from './components/add-section/add-section.compon
 import { SearchSectionComponent } from './components/search-section/search-section.component';
 import { SectionOutputDataFormComponent } from './components/output-data-forms/section-output-data-form/section-output-data-form.component';
 import { ParcelOutputDataFormComponent } from './components/output-data-forms/parcel-output-data-form/parcel-output-data-form.component';
+import { OwnerOutputDataFormComponent } from './components/output-data-forms/owner-output-data-form/owner-output-data-form.component';
 
 export const appRoutes: Routes = [
   {
@@ -112,10 +113,10 @@ export const appRoutes: Routes = [
             path: 'parcel',
             component: ParcelOutputDataFormComponent,
           },
-          // {
-          //   path: 'leesee',
-          //   component: SearchOwnerComponent,
-          // },
+          {
+            path: 'owner',
+            component: OwnerOutputDataFormComponent,
+          },
           // {
           //   path: 'resolution',
           //   component: SearchResolutionComponent,

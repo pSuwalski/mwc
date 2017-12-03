@@ -82,6 +82,7 @@ import { SectionOutputDataFormComponent } from './components/output-data-forms/s
 import { ParcelOutputDataFormComponent } from './components/output-data-forms/parcel-output-data-form/parcel-output-data-form.component';
 import { OwnerOutputDataFormComponent } from './components/output-data-forms/owner-output-data-form/owner-output-data-form.component';
 import { ResolutionOutputDataFormComponent } from './components/output-data-forms/resolution-output-data-form/resolution-output-data-form.component';
+import { SearchWorksdoneComponent } from './components/search-worksdone/search-worksdone.component';
 
 
 
@@ -108,6 +109,7 @@ import { ResolutionOutputDataFormComponent } from './components/output-data-form
     ParcelOutputDataFormComponent,
     OwnerOutputDataFormComponent,
     ResolutionOutputDataFormComponent,
+    SearchWorksdoneComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),

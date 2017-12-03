@@ -73,7 +73,6 @@ export class ParcelsDataFormComponent implements OnChanges, OnInit {
   ngOnChanges() {
     if (this.currentUser) {
       this.sections = [];
-      console.log(this.parcel.companyId);
       this.ss.getCompanySections(this.currentUser.unionId, this.parcel.companyId).then((ss) => this.sections = ss);
     }
   }

@@ -42,7 +42,6 @@ export class SearchParcelComponent implements OnDestroy {
     );
 
     this.parcelFilter = this.parcels;
-    console.log(this.parcelFilter);
   }
 
   loadMore() {
@@ -112,7 +111,6 @@ export class SearchParcelComponent implements OnDestroy {
   MyFilter() {
     this.ps.SearchParcelByNumber(this.currentUser.unionId, this.searchString).then((own: Parcel[]) => {
       this.parcels = own;
-      console.log(this.parcels);
     });
   }
 

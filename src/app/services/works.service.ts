@@ -68,7 +68,6 @@ export class WorksService {
   async SearchWorksByProtocolNumber(unionId: string, protocolNumber: string): Promise<Works[]> {
     this.loadedFromBegining = 0;
     let companyIdRef;
-    console.log(protocolNumber);
     if (!protocolNumber) {
       companyIdRef = await this.worksRef(unionId).ref.get();
     } else {
@@ -78,8 +77,6 @@ export class WorksService {
     }
     const output: Works[] = [];
     if (!companyIdRef.empty) {
-
-    console.log(companyIdRef);
       this.moreToBeLoadedIndicator = companyIdRef.docs.length === 30;
       this.loadedFromBegining = companyIdRef.docs.length;
       companyIdRef.docs.forEach((p) => output.push(this.parse(p.data())));

@@ -36,7 +36,6 @@ export class LegalbasisDataFormComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    console.log(this.editionDisabled);
     this.us.currentUser.subscribe((u) => {
       this.currentUser = u;
       this.ss.getCompanySections(this.currentUser.unionId, this.companyId).then((ss) => {
@@ -47,7 +46,6 @@ export class LegalbasisDataFormComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-    console.log(this.companyId);
     if (this.currentUser) {
       this.ss.getCompanySections(this.currentUser.unionId, this.companyId).then((ss) => this.sections = ss);
     }

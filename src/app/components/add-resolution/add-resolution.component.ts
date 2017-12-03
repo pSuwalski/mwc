@@ -41,7 +41,6 @@ export class AddResolutionComponent implements OnDestroy {
   }
 
   changeCompanyId() {
-    console.log(this.resolution.companyId);
     setTimeout(() =>
       this.companyId = this.resolution.companyId
       , 2);

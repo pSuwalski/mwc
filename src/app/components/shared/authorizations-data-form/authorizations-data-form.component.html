@@ -1,8 +1,12 @@
-
 <div class="row">
   <div class="col-md-2">
     <md-form-field>
-      <input class="textbox" type="text" mdInput placeholder="IMIĘ I NAZWISKO" name="imienazwisko" [(ngModel)]="authDataForm.nameSurname">
+      <input class="textbox" type="text" mdInput placeholder="IMIĘ" name="imienazwisko" [(ngModel)]="authDataForm.name">
+    </md-form-field>
+  </div>
+  <div class="col-md-2">
+    <md-form-field>
+      <input class="textbox" type="text" mdInput placeholder="NAZWISKO" name="imienazwisko" [(ngModel)]="authDataForm.surname">
     </md-form-field>
   </div>
   <div class="col-md-2">
@@ -20,24 +24,42 @@
       <input class="textbox" type="text" mdInput placeholder="E-MAIL" name="email" [(ngModel)]="authDataForm.email">
     </md-form-field>
   </div>
-  <div class="col-md-2">
-    <md-form-field>
-      <input class="textbox" type="text" mdInput placeholder="ADRES DO KORESPONDENCJI" name="adres_korespondencji" [(ngModel)]="authDataForm.correspondenceAddress">
-    </md-form-field>
-  </div>
-  <div class="col-md-2">
-    <md-form-field>
-      <input class="textbox" type="text" mdInput placeholder="ZAKRES UPOWAŻNIENIA" name="zakres" [(ngModel)]="authDataForm.authScope">
-    </md-form-field>
-  </div>
-  <div class="col-md-1">
-    <md-form-field>
-      <input class="textbox" type="text" mdInput placeholder="WAŻNE OD" name="wazneod" [(ngModel)]="authDataForm.validFrom">
-    </md-form-field>
-  </div>
-  <div class="col-md-1">
-    <md-form-field>
-      <input class="textbox" type="text" mdInput placeholder="WAŻNE DO" name="waznedo" [(ngModel)]="authDataForm.validTill">
-    </md-form-field>
-  </div>
 </div>
+<div class="row">
+  <div class="col-md-2">
+    <md-form-field>
+      <input class="textbox" type="text" mdInput placeholder="ULICA I NUMER" name="adres_korespondencji" [(ngModel)]="authDataForm.correspondenceAddress.streetAndNumber">
+    </md-form-field>
+  </div>
+  <div class="col-md-2">
+    <md-form-field>
+      <input class="textbox" type="text" mdInput placeholder="MIASTO" name="adres_korespondencji" [(ngModel)]="authDataForm.correspondenceAddress.city">
+    </md-form-field>
+  </div>
+  <div class="col-md-2">
+    <md-form-field>
+      <input class="textbox" type="text" mdInput placeholder="MIESZKANIE" name="adres_korespondencji" [(ngModel)]="authDataForm.correspondenceAddress.apartment">
+    </md-form-field>
+  </div>
+  <div class="col-md-2">
+    <md-form-field>
+      <input class="textbox" type="text" mdInput placeholder="KOD POCZTOWY" name="adres_korespondencji" [(ngModel)]="authDataForm.correspondenceAddress.postCode">
+    </md-form-field>
+  </div>
+  <div class="row">
+    <div class="col-md-2">
+      <md-form-field>
+        <input class="textbox" type="text" mdInput placeholder="ZAKRES UPOWAŻNIENIA" name="zakres" [(ngModel)]="authDataForm.authScope">
+      </md-form-field>
+    </div>
+    <div class="col-md-1">
+      <md-form-field>
+        <input class="textbox" type="text" mdInput placeholder="WAŻNE OD" name="wazneod" [(ngModel)]="authDataForm.validFrom">
+      </md-form-field>
+    </div>
+    <div class="col-md-1">
+      <md-form-field>
+        <input class="textbox" type="text" mdInput placeholder="WAŻNE DO" name="waznedo" [(ngModel)]="authDataForm.validTill">
+      </md-form-field>
+    </div>
+  </div>

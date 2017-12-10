@@ -68,22 +68,22 @@
   <div class="row">
     <div class="col-md-3">
       <md-form-field>
-        <input class="textbox" type="text" mdInput placeholder="ULICA" name="ulica" [(ngModel)]="personalDataForm.street">
+        <input class="textbox" type="text" mdInput placeholder="ULICA I NUMER" name="ulica" [(ngModel)]="personalDataForm.address.streetAndNumber">
       </md-form-field>
     </div>
     <div class="col-md-1">
       <md-form-field>
-        <input class="textbox" type="text" mdInput placeholder="NR" name="nr" [(ngModel)]="personalDataForm.number">
+        <input class="textbox" type="text" mdInput placeholder="MIESZKANIE" name="nr" [(ngModel)]="personalDataForm.address.apartment">
       </md-form-field>
     </div>
     <div class="col-md-2">
         <md-form-field>
-          <input class="textbox" type="text" mdInput placeholder="KOD POCZTOWY" name="kod" [(ngModel)]="personalDataForm.postalCode">
+          <input class="textbox" type="text" mdInput placeholder="KOD POCZTOWY" name="kod" [(ngModel)]="personalDataForm.address.postCode">
         </md-form-field>
       </div>
       <div class="col-md-3">
         <md-form-field>
-          <input class="textbox" type="text" mdInput placeholder="MIASTO" name="miasto" [(ngModel)]="personalDataForm.city">
+          <input class="textbox" type="text" mdInput placeholder="MIASTO" name="miasto" [(ngModel)]="personalDataForm.address.city">
         </md-form-field>
       </div>
   </div>

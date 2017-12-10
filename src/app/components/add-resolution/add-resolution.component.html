@@ -4,14 +4,19 @@
       <div class="header">
         Wybierz spółkę
       </div>
-      <md-select placeholder="Spółka" (ngModelChange)="changeCompanyId()" [(ngModel)]="resolution.companyId">
-        <md-option *ngFor="let c of currentUser?.companies" [value]="c.id">
-          {{c.name}}
-        </md-option>
-      </md-select>
+      <div class="col-md-2 no-padding form-row">
+        <md-select placeholder="SPÓŁKA*" (ngModelChange)="changeCompanyId()" [(ngModel)]="resolution.companyId">
+          <md-option *ngFor="let c of currentUser?.companies" [value]="c.id">
+            {{c.name}}
+          </md-option>
+        </md-select>
+      </div>
+      <div class="clearfix"></div>
       <mwc-legalbasis-data-form *ngIf="resolution?.companyId" [legalBasicsDataForm]="resolution" [companyId]="companyId"></mwc-legalbasis-data-form>
       <div class="button-container col-md-12">
-        <button type="button" class="add-button accent" md-raised-button color="accent" (click)="add()">Dodaj</button>
+        <span class="invalid-info" *ngIf="resolution.paymentMoreOneHour && resolution.paymentLessOneHour">Wypełnij wszystkie wymagane (oznaczone *) pola</span>
+        <!-- <span class="invalid-info" *ngIf="!paymentsValidation()">Procenty opłat powinny sumować się do 100</span> -->
+        <button type="button" [disabled]="resolution.paymentMoreOneHour && resolution.paymentLessOneHour" class="add-button accent" md-raised-button color="accent" (click)="add()">Dodaj</button>
       </div>
     </div>
   </div>

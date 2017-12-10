@@ -26,3 +26,7 @@ button {
     margin-bottom: 6px;
     font-weight: 600;
   }
+
+  .form-row {
+    margin-bottom: 24px;
+  }

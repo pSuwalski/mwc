@@ -13,7 +13,7 @@
       </div>
     </div>
     <div class="button-container col-md-12">
-      <button type="button" class="add-button accent" md-raised-button color="accent" (click)="add()">Dodaj</button>
+      <button type="button" class="add-button accent" [disabled]="!works.startedFromDate || !works.finishedDate || !works.protocolNumber || !works.totalCost || works.totalCost < 0 || works.parcelsData.length < 1 || !works.parcelsData[0]?.id " md-raised-button color="accent" (click)="add()">Dodaj</button>
     </div>
   </div>
 </div>

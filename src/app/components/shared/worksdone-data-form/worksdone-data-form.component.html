@@ -6,19 +6,21 @@
 <div class="row">
   <div class="col-md-2">
     <md-form-field>
-      <input mdInput [mdDatepicker]="picker" [(ngModel)]="worksdoneDataForm.startedFromDate" placeholder="DATA ROZPOCZĘCIA">
+      <input mdInput [mdDatepicker]="picker" [(ngModel)]="worksdoneDataForm.startedFromDate" placeholder="DATA ROZPOCZĘCIA*">
       <md-datepicker-toggle mdSuffix [for]="picker"></md-datepicker-toggle>
       <md-datepicker #picker></md-datepicker>
     </md-form-field>
   </div>
   <div class="col-md-2">
     <md-form-field>
-      <input class="textbox" type="text" mdInput placeholder="ZAKOŃCZONO PRACĘ" name="zakonczonoPrace" [(ngModel)]="worksdoneDataForm.finishedDate">
+      <input mdInput [mdDatepicker]="picker2" [(ngModel)]="worksdoneDataForm.finishedDate" placeholder="DATA ZAKOŃCZENIA*">
+      <md-datepicker-toggle mdSuffix [for]="picker2"></md-datepicker-toggle>
+      <md-datepicker #picker2></md-datepicker>
     </md-form-field>
   </div>
   <div class="col-md-2">
     <md-form-field>
-      <input class="textbox" type="text" mdInput placeholder="PROTOKÓŁ NUMER" name="protokolNumer" [(ngModel)]="worksdoneDataForm.protocolNumber">
+      <input class="textbox" type="text" mdInput placeholder="PROTOKÓŁ NUMER*" name="protokolNumer" [(ngModel)]="worksdoneDataForm.protocolNumber">
     </md-form-field>
   </div>
   <div class="col-md-6">
@@ -33,7 +35,7 @@
   </div>
   <div class="col-md-2">
     <md-form-field>
-      <input class="textbox" type="text" mdInput placeholder="CAŁKOWITY KOSZT" name="calkowityKoszt" [(ngModel)]="worksdoneDataForm.totalCost">
+      <input class="textbox" type="number" mdInput placeholder="CAŁKOWITY KOSZT*" name="calkowityKoszt" [(ngModel)]="worksdoneDataForm.totalCost">
     </md-form-field>
   </div>
 </div>

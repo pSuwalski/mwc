@@ -5,6 +5,7 @@ import { User } from '../../../models/user';
 import { OnChanges } from '@angular/core/src/metadata/lifecycle_hooks';
 import { SectionService } from '../../../services/section.service';
 import { Section } from '../../../models/section';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'mwc-legalbasis-data-form',
@@ -41,6 +42,10 @@ export class LegalbasisDataFormComponent implements OnInit, OnChanges {
     if (this.currentUser && this.companyId) {
       this.ss.getCompanySections(this.currentUser.unionId, this.companyId).then((ss) => this.sections = ss);
     }
+  }
+
+  containsSection(sectionId: string): boolean {
+    return _.includes(this.legalBasicsDataForm.sectionIds, sectionId);
   }
 
   paymentCountChange() {

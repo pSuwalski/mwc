@@ -1,5 +1,7 @@
-import { AuthData, PersonalData, ContactData, Owner, emptyOwnerPersonal,
-         emptyOwnerContact, emptySaldo, emptyParcelData, ParcelData, emptyParcelDataFull } from '../../models/owner';
+import {
+  AuthData, PersonalData, ContactData, Owner, emptyOwnerPersonal,
+  emptyOwnerContact, emptySaldo, emptyParcelData, ParcelData, emptyParcelDataFull
+} from '../../models/owner';
 import { Component, OnInit } from '@angular/core';
 import { OwnerService } from '../../services/owner.service';
 import { UserService } from '../../services/user.service';
@@ -15,6 +17,7 @@ import { emptyAddress } from '../../models/address';
   styleUrls: ['./add-owner.component.css']
 })
 export class AddOwnerComponent implements OnInit, OnDestroy {
+  progressBar: boolean;
 
   addedSuccessfully: string;
 
@@ -42,9 +45,23 @@ export class AddOwnerComponent implements OnInit, OnDestroy {
   }
 
   add() {
+    this.progressBar = true;
+    this.owner.parcelsData.forEach((pd) => {
+      pd.percent = Math.min(pd.percent, 100);
+      pd.percent = Math.max(pd.percent, 0);
+      if (!pd.id) {
+        _.remove(this.owner.parcelsData, pd);
+      }
+    });
+    this.owner.authData.forEach((ad) => {
+      if (!ad.name || !ad.surname) {
+        _.remove(this.owner.authData, ad);
+      }
+    });
     this.db.addOwner(this.owner, this.currentUser.unionId)
       .then((res) => {
-        this.addedSuccessfully = res;
+        this.addedSuccessfully = 'success';
+        this.progressBar = false;
       })
       .catch((e) => console.log(e));
   }

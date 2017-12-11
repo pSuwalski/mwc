@@ -31,10 +31,5 @@
     <div class="col-md-3 info-container" *ngIf="parcelData.sectionId && selectedParcels?.length < 1 && !progressBar">
       <span class="info">Brak działek w wybranej sekcji</span>
     </div>
-    <div class="col-md-2" *ngIf="parcelData.id && isParcelData()">
-      <md-form-field>
-        <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="PROCENT UDZIAŁÓW" [(ngModel)]="parcelData.percent" name="numerDzialki">
-      </md-form-field>
-    </div>
   </div>
 </div>

@@ -13,23 +13,24 @@ import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
   styleUrls: ['./search-owner.component.css']
 })
 export class SearchOwnerComponent implements OnDestroy {
+  progressBar = true;
 
   currentUser: User;
-  owners: Owner[] = [];
   subsriptions: Subscription[] = [];
-  searchString: string;
   searchType: 'evidenceNumber' | 'namesurname' | 'address';
 
   constructor(
     private router: Router,
-    private os: OwnerService,
+    public os: OwnerService,
     private us: UserService
   ) {
     this.subsriptions.push(
       this.us.currentUser.subscribe((cu) => {
         this.currentUser = cu;
+        this.os.unionId = cu.unionId;
         this.os.getUnionOwners(this.currentUser.unionId).then((lse: Owner[]) => {
-          this.owners = lse; /*this.parcelFilter = this.parcels;*/
+          this.os.owners = lse; /*this.parcelFilter = this.parcels;*/
+          this.progressBar = false;
         });
       })
     );
@@ -45,23 +46,24 @@ export class SearchOwnerComponent implements OnDestroy {
     this.router.navigate(['/view/owner']);
   }
 
-  myFilter() {
+  search() {
+    this.progressBar = true;
     switch (this.searchType) {
       case 'evidenceNumber': {
-        this.os.SearchUnionOwnersByEvidenceNumber(this.currentUser.unionId, this.searchString).then((own: Owner[]) => {
-          this.owners = own;
+        this.os.SearchUnionOwnersByEvidenceNumber(this.currentUser.unionId).then((o: string) => {
+          this.progressBar = false;
         });
         break;
       }
       case 'namesurname': {
-        this.os.SearchUnionOwnersByName(this.currentUser.unionId, this.searchString).then((own: Owner[]) => {
-          this.owners = own;
+        this.os.SearchUnionOwnersByName(this.currentUser.unionId).then((o: string) => {
+          this.progressBar = false;
         });
         break;
       }
       case 'address': {
-        this.os.SearchUnionOwnersByAddress(this.currentUser.unionId, this.searchString).then((own: Owner[]) => {
-          this.owners = own;
+        this.os.SearchUnionOwnersByAddress(this.currentUser.unionId).then((o: string) => {
+          this.progressBar = false;
         });
         break;
       }

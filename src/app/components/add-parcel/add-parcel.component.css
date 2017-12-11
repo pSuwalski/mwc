@@ -7,10 +7,9 @@ button {
   padding: 24px;
 }
 .button-container {
-  padding: 16px 0px 32px 0px;
+  padding: 16px 48px 32px 0px;
   float: right;
   width: 100%;
-  margin-top: -12px;
 }
 .mat-tab-header {
   position: fixed;
@@ -31,7 +30,7 @@ md-select {
   color: rgba(0, 0, 0, 0.57);
   font-size: 18px;
   line-height: 40px;
-  margin-bottom: 6px;
+  margin-bottom: 10px;
   font-weight: 600;
 }
 

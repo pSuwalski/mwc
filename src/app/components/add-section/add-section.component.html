@@ -6,7 +6,7 @@
         Wybierz spółkę
       </div>
       <div class="col-md-2 no-padding">
-        <md-select placeholder="SPÓŁKA *" [(ngModel)]="section.companyId">
+        <md-select placeholder="SPÓŁKA*" [(ngModel)]="section.companyId">
           <md-option *ngFor="let c of currentUser?.companies" [value]="c.id">
             {{c.name}}
           </md-option>

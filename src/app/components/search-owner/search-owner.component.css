@@ -1,46 +1,36 @@
 .form-container {
     padding: 24px;
-    height: 64px;
   }
-  
+
   .material-icons.md-48 { font-size: 48px; }
-  
+
   .columns-title{
     font-weight: bold;
     padding-left: 0;
-    margin-top: 64px;
     padding-top: 16px;
-    box-shadow: 0 1px 1px -1px rgba(0,0,0,.2), 0 0px 1px 0 rgba(0,0,0,.14), 0 1px 1px 0 rgba(0,0,0,.12);
    }
-  
+
   .title:hover{
-  
+
     cursor: pointer;
   }
-  
+
   .result:hover{
     background-color: rgba(102, 221, 23, 0.4);
     /* color: white; */
     cursor: pointer;
   }
-  
+
   .bordered-solid {
     border: solid 4px #EEE;
     border-top: 0px;
   }
-  
+
   .result_container{
-    margin-top: 144px;
     min-height: 70%-144px;
   }
-  
-  .fixed{
-    position: fixed;
-    z-index: 2;
-    background-color: white;
-    width: 100%;
-  }
-  
+
+
   md-form-field {
     width: 91.666666666%;
   }
@@ -49,7 +39,6 @@
     color: rgba(0, 0, 0, 0.57);
     font-size: 18px;
     line-height: 40px;
-    margin-bottom: 6px;
+    margin-bottom: 10px;
     font-weight: 600;
   }
-  

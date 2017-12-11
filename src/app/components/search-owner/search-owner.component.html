@@ -1,21 +1,17 @@
-<!-- <div class="card-container">
-  <div class="card mat-elevation-z1"> -->
+<md-progress-bar *ngIf="progressBar" mode="indeterminate"></md-progress-bar>
 <div class="form-container fixed">
   <div class="card-title">
-    <div class="col-md-9">
-      <md-form-field>
-        <input class="textbox" type="text" mdInput placeholder="Wyszukaj..." [(ngModel)]="searchString" (input)="myFilter()">
-      </md-form-field>
+    <div class="header" *ngIf="!selectedCompanyId">
+      Wybierz rodzaj wyszukiwania
     </div>
-  </div>
-  <div class="col-md-1">
+    <div class="no-padding col-md-3 form-row">
       <form>
-        <md-select [(ngModel)]="searchType" name="first" placeholder="RODZAJ WYSZUKIWANIA">
+        <md-select (change)="os.searchString = ''; os.secondSearchString = '';" [(ngModel)]="searchType" name="first" placeholder="WYSZUKUJ WEDŁUG">
           <md-option value="evidenceNumber">
             NUMER EWIDENCYJNY
           </md-option>
           <md-option value="namesurname">
-            IMIE I NAZWISKO
+            IMIĘ I NAZWISKO
           </md-option>
           <md-option value="address">
             ADRES
@@ -23,52 +19,47 @@
         </md-select>
       </form>
     </div>
-</div>
-<!-- <div class="form-container fixed">
-  <md-form-field class="col-md-9">
-    <input class="textbox" type="text" mdInput placeholder="Wyszukaj..." [(ngModel)]="searchString" (input)="myFilter()">
-  </md-form-field>
-  <div class="col-md-1">
-    <form>
-      <md-select [(ngModel)]="searchType" name="first" placeholder="RODZAJ WYSZUKIWANIA">
-        <md-option value="evidenceNumber">
-          NUMER EWIDENCYJNY
-        </md-option>
-        <md-option value="namesurname">
-          IMIE I NAZWISKO
-        </md-option>
-        <md-option value="address">
-          ADRES
-        </md-option>
-      </md-select>
-    </form>
+    <div class="clearfix"></div>
+    <div class="no-padding"  [class.col-md-2]="searchType !== 'evidenceNumber'" [class.col-md-4]="searchType === 'evidenceNumber'">
+      <md-form-field>
+        <input (keypress)="$event.keyCode === 13 ? search() : null" class="textbox" type="text" mdInput [placeholder]="searchType === 'evidenceNumber' ? 'NUMER EWIDENCYJNY' : (searchType === 'namesurname' ? 'IMIĘ' : 'ULICA' )"
+          [(ngModel)]="os.searchString">
+      </md-form-field>
+    </div>
+    <div class="no-padding col-md-2" *ngIf="searchType !== 'evidenceNumber'">
+      <md-form-field>
+        <input (keypress)="$event.keyCode === 13 ? search() : null" class="textbox" type="text" mdInput [placeholder]="searchType === 'evidenceNumber' ? 'NUMER EWIDENCYJNY' : (searchType === 'namesurname' ? 'NAZWISKO' : 'MIASTO' )"
+          [(ngModel)]="os.secondSearchString">
+      </md-form-field>
+    </div>
+    <div class="col-md-3">
+      <button md-raised-button color="primary" (click)="search()">Wyszukaj</button>
+    </div>
   </div>
-</div> -->
+</div>
 <div class="col-md-12">
   <div class="row in-the-bottom on-the-right columns-title fixed">
     <div class="card-field" style="float:left; width:100%">
-      <div class="col-md-2 header" (click)="sortByTrench()">Numer ewidencyjny</div>
-      <div class="col-md-2 header" (click)="sortByNumber()">Imię</div>
-      <div class="col-md-2 header" (click)="sortByAreaType() ">Nazwisko</div>
-      <div class="col-md-2 header" (click)="sortByAreaSurface()">Pesel</div>
-      <div class="col-md-2 header" (click)="sortByCity() ">Miasto</div>
-      <div class="col-md-2 header" (click)="sortByStreet()">Ulica</div>
+      <div class="col-md-2 header">Numer ewidencyjny</div>
+      <div class="col-md-2 header">Imię</div>
+      <div class="col-md-2 header">Nazwisko</div>
+      <div class="col-md-2 header">Pesel</div>
+      <div class="col-md-2 header">Miasto</div>
+      <div class="col-md-2 header">Ulica</div>
     </div>
   </div>
   <div class="result_container">
-    <div *ngFor="let l of owners">
+    <div *ngFor="let l of os.owners">
       <div class="row bordered in-the-bottom on-the-right result" (click)="showChosenOwner(l)">
         <div class="card-field" style="float:left; width:100%">
           <div class="col-md-2 ">{{l.personalData.evidenceNumber}}</div>
           <div class="col-md-2 ">{{l.personalData.name}}</div>
           <div class="col-md-2 ">{{l.personalData.surname}}</div>
           <div class="col-md-2 ">{{l.personalData.pesel}}</div>
-          <div class="col-md-2 ">{{l.personalData.city}}</div>
-          <div class="col-md-2 ">{{l.personalData.street}}</div>
+          <div class="col-md-2 ">{{l.personalData.address.city}}</div>
+          <div class="col-md-2 ">{{l.personalData.address.streetAndNumber}}</div>
         </div>
       </div>
     </div>
   </div>
 </div>
-<!-- </div>
-</div> -->

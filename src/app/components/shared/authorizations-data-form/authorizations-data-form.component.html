@@ -1,65 +1,78 @@
 <div class="row">
   <div class="col-md-2">
     <md-form-field>
-      <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="IMIĘ" name="imienazwisko" [(ngModel)]="authDataForm.name">
+      <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="IMIĘ*" name="imienazwisko" [(ngModel)]="authDataForm.name">
     </md-form-field>
   </div>
   <div class="col-md-2">
     <md-form-field>
-      <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="NAZWISKO" name="imienazwisko" [(ngModel)]="authDataForm.surname">
+      <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="NAZWISKO*" name="imienazwisko" [(ngModel)]="authDataForm.surname">
     </md-form-field>
   </div>
   <div class="col-md-2">
     <md-form-field>
-      <input [disabled]="editionDisabled" [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="NUMER PESEL" name="pesel" [(ngModel)]="authDataForm.pesel">
+      <input [disabled]="editionDisabled" [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="NUMER PESEL"
+        name="pesel" [(ngModel)]="authDataForm.pesel">
     </md-form-field>
   </div>
   <div class="col-md-2">
     <md-form-field>
-      <input [disabled]="editionDisabled" [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="TELEFON" name="telefon" [(ngModel)]="authDataForm.phoneNumber">
+      <input [disabled]="editionDisabled" [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="TELEFON"
+        name="telefon" [(ngModel)]="authDataForm.phoneNumber">
     </md-form-field>
   </div>
   <div class="col-md-2">
     <md-form-field>
-      <input [disabled]="editionDisabled" [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="E-MAIL" name="email" [(ngModel)]="authDataForm.email">
+      <input [disabled]="editionDisabled" [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="E-MAIL"
+        name="email" [(ngModel)]="authDataForm.email">
     </md-form-field>
   </div>
 </div>
 <div class="row">
   <div class="col-md-2">
     <md-form-field>
-      <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="ULICA I NUMER" name="adres_korespondencji" [(ngModel)]="authDataForm.correspondenceAddress.streetAndNumber">
+      <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="ULICA I NUMER" name="adres_korespondencji"
+        [(ngModel)]="authDataForm.correspondenceAddress.streetAndNumber">
     </md-form-field>
   </div>
   <div class="col-md-2">
     <md-form-field>
-      <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="MIASTO" name="adres_korespondencji" [(ngModel)]="authDataForm.correspondenceAddress.city">
+      <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="MIASTO" name="adres_korespondencji"
+        [(ngModel)]="authDataForm.correspondenceAddress.city">
     </md-form-field>
   </div>
   <div class="col-md-2">
     <md-form-field>
-      <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="MIESZKANIE" name="adres_korespondencji" [(ngModel)]="authDataForm.correspondenceAddress.apartment">
+      <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="LOKAL" name="adres_korespondencji" [(ngModel)]="authDataForm.correspondenceAddress.apartment">
     </md-form-field>
   </div>
   <div class="col-md-2">
     <md-form-field>
-      <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="KOD POCZTOWY" name="adres_korespondencji" [(ngModel)]="authDataForm.correspondenceAddress.postCode">
+      <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="KOD POCZTOWY" name="adres_korespondencji"
+        [(ngModel)]="authDataForm.correspondenceAddress.postCode">
     </md-form-field>
   </div>
-  <div class="row">
-    <div class="col-md-2">
-      <md-form-field>
-        <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="ZAKRES UPOWAŻNIENIA" name="zakres" [(ngModel)]="authDataForm.authScope">
-      </md-form-field>
-    </div>
-    <div class="col-md-1">
-      <md-form-field>
-        <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="WAŻNE OD" name="wazneod" [(ngModel)]="authDataForm.validFrom">
-      </md-form-field>
-    </div>
-    <div class="col-md-1">
-      <md-form-field>
-        <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="WAŻNE DO" name="waznedo" [(ngModel)]="authDataForm.validTill">
-      </md-form-field>
-    </div>
+
+  <div class="clearifx"></div>
+  <div class="col-md-2">
+    <md-form-field>
+      <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="ZAKRES UPOWAŻNIENIA" name="zakres" [(ngModel)]="authDataForm.authScope">
+    </md-form-field>
   </div>
+</div>
+<div class="row">
+  <div class="col-md-2">
+    <md-form-field>
+      <input [disabled]="editionDisabled" mdInput [mdDatepicker]="from" [(ngModel)]="authDataForm.validFrom" name="asd" placeholder="WAŻNE OD">
+      <md-datepicker-toggle mdSuffix [for]="from"></md-datepicker-toggle>
+      <md-datepicker #from></md-datepicker>
+    </md-form-field>
+  </div>
+  <div class="col-md-2">
+    <md-form-field>
+      <input [disabled]="editionDisabled" mdInput [mdDatepicker]="to" [(ngModel)]="authDataForm.validTill" name="asd" placeholder="WAŻNE DO">
+      <md-datepicker-toggle mdSuffix [for]="to"></md-datepicker-toggle>
+      <md-datepicker #to></md-datepicker>
+    </md-form-field>
+  </div>
+</div>

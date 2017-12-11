@@ -50,7 +50,7 @@
     </div>
   </div>
   <div class="form-row" *ngFor="let t of parcel.trenches">
-    <div class="row section-last-row" >
+    <div class="row section-last-row">
       <div class="col-md-3">
         <md-form-field>
           <input class="textbox" type="text" mdInput placeholder="NUMERACJA ROWU*" [(ngModel)]="t.number" name="numeracjaRoku">
@@ -59,7 +59,8 @@
     </div>
   </div>
   <button md-raised-button color="primary" [disabled]="parcel.trenches.length < 1" (click)="removeTrench()">Usuń Rów</button>
-  <button md-raised-button color="primary" [disabled]="parcel?.trenches[0] && !parcel?.trenches[parcel?.trenches?.length - 1]?.number" (click)="addTrench()">Dodaj rów</button>
+  <button md-raised-button color="primary" [disabled]="parcel?.trenches[0] && !parcel?.trenches[parcel?.trenches?.length - 1]?.number"
+    (click)="addTrench()">Dodaj rów</button>
   <div>
     <div class="row">
       <div class="col-md-12 header">
@@ -77,110 +78,129 @@
     </div>
   </div>
   <div *ngIf="!editionDisabled">
-  <button md-raised-button color="primary" [disabled]="parcel.drainages.length < 1" (click)="removeDrainage()">Usuń drenaż</button>
-  <button md-raised-button color="primary" [disabled]="parcel?.drainages[0] && !parcel?.drainages[parcel?.drainages?.length - 1]?.number" (click)="addDrainage()">Dodaj drenaż</button>
-  <div>
-    <div class="row">
-      <div class="col-md-12 header">
-        Urządzenia melioryzacyjne oddziałujące na działkę
+    <button md-raised-button color="primary" [disabled]="parcel.drainages.length < 1" (click)="removeDrainage()">Usuń drenaż</button>
+    <button md-raised-button color="primary" [disabled]="parcel?.drainages[0] && !parcel?.drainages[parcel?.drainages?.length - 1]?.number"
+      (click)="addDrainage()">Dodaj drenaż</button>
+    <div>
+      <div class="row">
+        <div class="col-md-12 header">
+          Urządzenia melioryzacyjne oddziałujące na działkę
+        </div>
       </div>
     </div>
-  </div>
-  <div class="form-row" *ngFor="let a of parcel.appliances">
-    <div class="row sections-last-row" >
-      <div class="col-md-2">
-        <md-form-field>
-          <input class="textbox" type="text" mdInput placeholder="NUMERACJA*" [(ngModel)]="a.numbering" name="numeracjaRoku">
-        </md-form-field>
-      </div>
-      <div class="col-md-2">
-        <md-form-field>
-          <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="RODZAJ URZĄDZENIA" [(ngModel)]="a.applianceType" name="rodzajUrzadzenia">
-        </md-form-field>
-      </div>
-      <div class="col-md-2">
-        <md-form-field>
-          <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="OPIS URZĄDZENIA" [(ngModel)]="a.applianceDescription" name="opisUrzadzenia">
-        </md-form-field>
-      </div>
-    </div>
-  </div>
-  <div *ngIf="!editionDisabled">
-  <button md-raised-button color="primary" [disabled]="parcel.appliances.length < 1" (click)="removeAppliance()">Usuń urządzenie</button>
-  <button md-raised-button color="primary" [disabled]="parcel?.appliances[0] && !parcel?.appliances[parcel?.appliances?.length - 1]?.numbering" (click)="addAppliance()">Dodaj urządzenie</button>
-  <div class="row">
-    <div class="col-md-12 header">Członkostwo</div>
-  </div>
-  <div class="row sections-last-row">
-    <div class="col-md-2">
-      <md-select [disabled]="editionDisabled" placeholder="CZŁONKOSTWO*" [(ngModel)]="parcel.membership" name="objetaCzlonostwem">
-        <md-option *ngFor="let i of objetaCzlonkostwem" [value]="i.value">
-          {{i.viewValue}}
-        </md-option>
-      </md-select>
-    </div>
-    <div class="col-md-2" *ngIf="parcel.membership">
-      <md-select [disabled]="!parcel.membership" placeholder="CZŁONKOSTWO AKTYWNE*" [(ngModel)]="parcel.membershipActive" name="objetaCzlonostwem">
-        <md-option [value]="true">
-          tak
-        </md-option>
-        <md-option [value]="false">
-          nie
-        </md-option>
-      </md-select>
-    </div>
-    <div class="col-md-2" *ngIf="parcel.membership">
-      <md-select [disabled]="!parcel.membership && editionDisabled" placeholder="PODSTAWA PRAWNA*" [(ngModel)]="parcel.legalBasis" name="podstawaPrawna">
-        <md-option *ngFor="let i of podstawaPrawna" [value]="i.value">
-          {{i.viewValue}}
-        </md-option>
-      </md-select>
-    </div>
-    <div class="col-md-2" *ngIf="parcel.membership">
-      <md-form-field>
-        <input mdInput [disabled]="!parcel.membership" [mdDatepicker]="started" [(ngModel)]="parcel.SwMembershipStartDate" placeholder="DATA PRZYSTĄPIENIA DO SW">
-        <md-datepicker-toggle mdSuffix [for]="started"></md-datepicker-toggle>
-        <md-datepicker #started></md-datepicker>
-      </md-form-field>
-    </div>
-    <div class="col-md-2" *ngIf="parcel.membership && !parcel.membershipActive">
-      <md-form-field>
-        <input mdInput [mdDatepicker]="ended" [(ngModel)]="parcel.SwMembershipTerminationDate"
-          placeholder="DATA WYPOWIEDZENIA">
-        <md-datepicker-toggle mdSuffix [for]="ended"></md-datepicker-toggle>
-        <md-datepicker #ended></md-datepicker>
-      </md-form-field>
-    </div>
-  </div>
-
-  <div *ngIf="!parcel.membership || !parcel.membershipActive">
-    <div class="row">
-      <div class="col-md-12 header">Decyzje</div>
-    </div>
-
-    <div class="row sections-last-row" *ngFor="let decision of parcel.foremanDecisions; let i = index">
-      <div>
+    <div class="form-row" *ngFor="let a of parcel.appliances">
+      <div class="row sections-last-row">
         <div class="col-md-2">
           <md-form-field>
-            <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="NUMER DECYZJI" [(ngModel)]="decision.decisionNumber" name="numerDecyzji">
+            <input class="textbox" type="text" mdInput placeholder="NUMERACJA*" [(ngModel)]="a.numbering" name="numeracjaRoku">
           </md-form-field>
         </div>
         <div class="col-md-2">
           <md-form-field>
-            <input mdInput [disabled]="editionDisabled" [mdDatepicker]="foreman" [(ngModel)]="decision.decisionDate"
-              placeholder="DATA WYDANIA DECYZJI">
-            <md-datepicker-toggle mdSuffix [for]="foreman"></md-datepicker-toggle>
-            <md-datepicker #foreman></md-datepicker>
+            <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="RODZAJ URZĄDZENIA" [(ngModel)]="a.applianceType"
+              name="rodzajUrzadzenia">
+          </md-form-field>
+        </div>
+        <div class="col-md-2">
+          <md-form-field>
+            <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="OPIS URZĄDZENIA" [(ngModel)]="a.applianceDescription"
+              name="opisUrzadzenia">
           </md-form-field>
         </div>
       </div>
     </div>
     <div *ngIf="!editionDisabled">
-    <button md-raised-button color="primary" [disabled]="parcel.foremanDecisions?.length < 1" (click)="removeDecision()">Usuń decyzję</button>
-    <button md-raised-button color="primary" [disabled]="parcel?.foremanDecisions[0] && !parcel?.foremanDecisions[parcel?.foremanDecisions?.length - 1]?.decisionNumber && !parcel?.foremanDecisions[parcel?.foremanDecisions?.length - 1]?.decisionDate" (click)="addDecision()">Dodaj kolejną decyzję</button>
-  </div>
-</div>
-<div *ngIf="sections?.length < 1 && !progressBar">
-  <mwc-info [link]="'/add/section'" [text]="'Ta spółka nie posiada sekcji. Dodaj sekcje by móc dodawać działki.'" [buttonText]="'Dodaj sekcje'"
-    [success]="false"></mwc-info>
-</div>
+      <button md-raised-button color="primary" [disabled]="parcel.appliances.length < 1" (click)="removeAppliance()">Usuń urządzenie</button>
+      <button md-raised-button color="primary" [disabled]="parcel?.appliances[0] && !parcel?.appliances[parcel?.appliances?.length - 1]?.numbering"
+        (click)="addAppliance()">Dodaj urządzenie</button>
+      <div class="row">
+        <div class="col-md-12 header">Członkostwo</div>
+      </div>
+      <div class="row sections-last-row">
+        <div class="col-md-2">
+          <md-select [disabled]="editionDisabled" placeholder="CZŁONKOSTWO*" [(ngModel)]="parcel.membership" name="objetaCzlonostwem">
+            <md-option *ngFor="let i of objetaCzlonkostwem" [value]="i.value">
+              {{i.viewValue}}
+            </md-option>
+          </md-select>
+        </div>
+        <div class="col-md-2" *ngIf="parcel.membership">
+          <md-select [disabled]="!parcel.membership" placeholder="CZŁONKOSTWO AKTYWNE*" [(ngModel)]="parcel.membershipActive" name="objetaCzlonostwem">
+            <md-option [value]="true">
+              tak
+            </md-option>
+            <md-option [value]="false">
+              nie
+            </md-option>
+          </md-select>
+        </div>
+        <div class="col-md-2" *ngIf="parcel.membership">
+          <md-select [disabled]="!parcel.membership && editionDisabled" placeholder="PODSTAWA PRAWNA*" [(ngModel)]="parcel.legalBasis"
+            name="podstawaPrawna">
+            <md-option *ngFor="let i of podstawaPrawna" [value]="i.value">
+              {{i.viewValue}}
+            </md-option>
+          </md-select>
+        </div>
+        <div class="col-md-2" *ngIf="parcel.membership">
+          <md-form-field>
+            <input mdInput [disabled]="!parcel.membership" [mdDatepicker]="started" [(ngModel)]="parcel.SwMembershipStartDate" placeholder="DATA PRZYSTĄPIENIA DO SW">
+            <md-datepicker-toggle mdSuffix [for]="started"></md-datepicker-toggle>
+            <md-datepicker #started></md-datepicker>
+          </md-form-field>
+        </div>
+        <div class="col-md-2" *ngIf="parcel.membership && !parcel.membershipActive">
+          <md-form-field>
+            <input mdInput [mdDatepicker]="ended" [(ngModel)]="parcel.SwMembershipTerminationDate" placeholder="DATA WYPOWIEDZENIA">
+            <md-datepicker-toggle mdSuffix [for]="ended"></md-datepicker-toggle>
+            <md-datepicker #ended></md-datepicker>
+          </md-form-field>
+        </div>
+      </div>
+
+      <div *ngIf="!parcel.membership || !parcel.membershipActive">
+        <div class="row">
+          <div class="col-md-12 header">Decyzje</div>
+        </div>
+
+        <div class="row sections-last-row" *ngFor="let decision of parcel.foremanDecisions; let i = index">
+          <div>
+            <div class="col-md-2">
+              <md-form-field>
+                <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="NUMER DECYZJI" [(ngModel)]="decision.decisionNumber"
+                  name="numerDecyzji">
+              </md-form-field>
+            </div>
+            <div class="col-md-2">
+              <md-form-field>
+                <input mdInput [disabled]="editionDisabled" [mdDatepicker]="foreman" [(ngModel)]="decision.decisionDate" placeholder="DATA WYDANIA DECYZJI">
+                <md-datepicker-toggle mdSuffix [for]="foreman"></md-datepicker-toggle>
+                <md-datepicker #foreman></md-datepicker>
+              </md-form-field>
+            </div>
+            <div class="col-md-2">
+              <md-form-field>
+                <input [disabled]="editionDisabled" class="textbox" type="number" mdInput placeholder="WYSOKOŚĆ OPŁATY" [(ngModel)]="decision.payment"
+                  name="numerDecyzji">
+                  <span mdSuffix>PLN</span>
+              </md-form-field>
+            </div>
+            <div class="col-md-2">
+              <md-form-field>
+                <input mdInput [disabled]="editionDisabled" [mdDatepicker]="value" [(ngModel)]="decision.paymentDate" placeholder="TERMIN PŁAtNOŚCI">
+                <md-datepicker-toggle mdSuffix [for]="value"></md-datepicker-toggle>
+                <md-datepicker #value></md-datepicker>
+              </md-form-field>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="!editionDisabled">
+          <button md-raised-button color="primary" [disabled]="parcel.foremanDecisions?.length < 1" (click)="removeDecision()">Usuń decyzję</button>
+          <button md-raised-button color="primary" [disabled]="parcel?.foremanDecisions[0] && !parcel?.foremanDecisions[parcel?.foremanDecisions?.length - 1]?.decisionNumber && !parcel?.foremanDecisions[parcel?.foremanDecisions?.length - 1]?.decisionDate"
+            (click)="addDecision()">Dodaj kolejną decyzję</button>
+        </div>
+      </div>
+      <div *ngIf="sections?.length < 1 && !progressBar">
+        <mwc-info [link]="'/add/section'" [text]="'Ta spółka nie posiada sekcji. Dodaj sekcje by móc dodawać działki.'" [buttonText]="'Dodaj sekcje'"
+          [success]="false"></mwc-info>
+      </div>

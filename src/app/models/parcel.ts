@@ -1,4 +1,5 @@
 import * as _ from 'lodash';
+import { Payment } from './payments';
 
 
 export interface Parcel {
@@ -47,12 +48,16 @@ export function emptyAppliance(): Appliance {
 export interface ForemanDecision {
   decisionNumber: number;
   decisionDate: string;
+  payment: number;
+  paymentDate: string;
 }
 
 export function emptyForemanDecision(): ForemanDecision {
   return {
     decisionNumber: null,
-    decisionDate: null
+    decisionDate: null,
+    payment: null,
+    paymentDate: null
   };
 }
 

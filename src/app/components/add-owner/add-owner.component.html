@@ -1,6 +1,7 @@
+<md-progress-bar *ngIf="progressBar" mode="indeterminate"></md-progress-bar>
 <div class="card-container">
   <div class="card mat-elevation-z1">
-    <div class="form-container">
+    <div class="form-container" *ngIf="addedSuccessfully !== 'success'">
       <mwc-personal-data-form [personalDataForm]="owner.personalData"></mwc-personal-data-form>
       <mwc-contact-data-form [contactDataForm]="owner.contactData" (sameAddress)="sameCorrespondenceAddress()"></mwc-contact-data-form>
       <div>
@@ -28,10 +29,21 @@
             (click)="removeParcel()">Wykasuj Działkę</button>
         </div>
       </div>
+      <div class="clearfix"></div>
+
       <!-- Formularz z podpięciem istniejących działek Podpięcie do istniejących działek -->
       <div class="button-container col-md-12">
-        <button type="button" class="add-button accent" md-raised-button color="accent" (click)="add()">Dodaj</button>
+        <span *ngIf="(!owner.historicSaldo.capital && owner.historicSaldo.capital !== 0 )|| (!owner.historicSaldo.costs && owner.historicSaldo.costs !== 0 ) || (!owner.historicSaldo.interest && owner.historicSaldo.interest !== 0 ) || !owner.historicSaldo.untilDate || (
+          ((!owner.personalData.name || !owner.personalData.surname) && owner.personalData.type === 'person') || ((!owner.personalData.name || !owner.personalData.nip) && owner.personalData.type === 'company'))"
+          class="invalid-info">Wypełnij wszystkie wymagane (oznaczone *) pola</span>
+        <button type="button" [disabled]="(!owner.historicSaldo.capital && owner.historicSaldo.capital !== 0 )|| (!owner.historicSaldo.costs && owner.historicSaldo.costs !== 0 ) || (!owner.historicSaldo.interest && owner.historicSaldo.interest !== 0 ) || !owner.historicSaldo.untilDate || (
+          ((!owner.personalData.name || !owner.personalData.surname) && owner.personalData.type === 'person') || ((!owner.personalData.name || !owner.personalData.nip) && owner.personalData.type === 'company'))"
+          class="add-button accent" md-raised-button color="accent" (click)="add()">Dodaj</button>
       </div>
+    </div>
+
+    <div *ngIf="addedSuccessfully === 'success'" class="info">
+      <mwc-info [link]="'add/leesee'" [text]="'Dodano pomyślnie'" [buttonText]="'Dodaj kolejnego'" [success]="true" (click)="addingResult = null"></mwc-info>
     </div>
   </div>
 </div>

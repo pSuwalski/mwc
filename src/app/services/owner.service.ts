@@ -1,16 +1,16 @@
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Injectable } from '@angular/core';
 import {
-    AuthData,
-    ContactData,
-    emptyOwnerAuth,
-    emptyOwnerContact,
-    emptyOwnerPersonal,
-    emptyParcelData,
-    emptyParcelDataFull,
-    emptySaldo,
-    Owner,
-    PersonalData,
+  AuthData,
+  ContactData,
+  emptyOwnerAuth,
+  emptyOwnerContact,
+  emptyOwnerPersonal,
+  emptyParcelData,
+  emptyParcelDataFull,
+  emptySaldo,
+  Owner,
+  PersonalData,
 } from '../models/owner';
 import * as hf from '../helper-functions';
 import * as _ from 'lodash';
@@ -22,11 +22,15 @@ let storedOwner: Owner;
 @Injectable()
 export class OwnerService {
 
+  searchString: any;
+  secondSearchString: any;
+  unionId: any;
+
   editedOwner: Owner;
   limit = 30;
   loadedFromBegining = 0;
   moreToBeLoadedIndicator = true;
-  parcels: Owner[];
+  owners: Owner[];
 
   constructor(
     private db: AngularFirestore
@@ -108,75 +112,97 @@ export class OwnerService {
     return returnVal;
   }
 
-  async SearchUnionOwnersByName(unionId: string, nameSurname: string): Promise<Owner[]> {
+  async SearchUnionOwnersByName(unionId: string): Promise<string> {
+    const name = this.searchString ? _.capitalize(this.searchString) : '';
+    const surname = this.secondSearchString ? _.capitalize(this.secondSearchString) : '';
+    if (name.length < 1 && surname.length < 1) {
+      await this.getUnionOwners(this.unionId);
+      return 'ok';
+    }
     this.loadedFromBegining = 0;
-    const ownerSurnameRef = await this.ownerRef(unionId).ref.
-      where('surname', '>=', nameSurname).where('surname', '<=', nameSurname + String.fromCharCode(1000))
-      .limit(this.limit * 10).get();
-    const ownerNameRef = await this.ownerRef(unionId).ref
-      .where('name', '>=', nameSurname).where('name', '<=', nameSurname + String.fromCharCode(1000))
-      .limit(this.limit * 10).get();
+    const ownerSurnameRef = surname.length > 0 ? await this.ownerRef(unionId).ref.
+      where('surname', '>=', surname)
+      .where('surname', '<=', surname + String.fromCharCode(1000))
+      .limit(this.limit * 10).get() : null;
+    const ownerNameRef = name.length > 0 ? await this.ownerRef(unionId).ref
+      .where('name', '>=', name).where('name', '<=', name + String.fromCharCode(1000))
+      .limit(this.limit * 10).get() : null;
     const output: Owner[] = [];
     const outputtemp: Owner[] = [];
-    if (!ownerNameRef.empty) {
-      this.moreToBeLoadedIndicator = ownerNameRef.docs.length === 30;
+    if (ownerNameRef && !ownerNameRef.empty) {
+      this.moreToBeLoadedIndicator = ownerNameRef.docs.length === this.limit;
       this.loadedFromBegining = ownerNameRef.docs.length;
       ownerNameRef.docs.forEach((p) => outputtemp.push(this.parse(p.data())));
     }
-    if (!ownerSurnameRef.empty) {
-      this.moreToBeLoadedIndicator = ownerSurnameRef.docs.length === 30;
+    if (ownerSurnameRef && !ownerSurnameRef.empty) {
+      this.moreToBeLoadedIndicator = ownerSurnameRef.docs.length === this.limit;
       this.loadedFromBegining = ownerSurnameRef.docs.length;
       ownerSurnameRef.docs.forEach((p) => {
         outputtemp.push(this.parse(p.data()));
       });
     }
-
     outputtemp.forEach((o) => {
       if (!this.isOnArray(output, o)) {
         output.push(o);
       }
     });
-    return output;
+    this.owners = output;
+    return 'ok';
   }
 
-  async SearchUnionOwnersByEvidenceNumber(unionId: string, evidenceNumber: string): Promise<Owner[]> {
+  async SearchUnionOwnersByEvidenceNumber(unionId: string): Promise<string> {
+    const evidenceNumber = _.capitalize(this.searchString);
     let ownerEvidenceNumberRef;
     if (!evidenceNumber) {
       ownerEvidenceNumberRef = await this.ownerRef(unionId).ref.get();
     } else {
       this.loadedFromBegining = 0;
-      ownerEvidenceNumberRef = await this.ownerRef(unionId).ref.
-        where('evidenceNumber', '==', evidenceNumber)
+      ownerEvidenceNumberRef = await this.ownerRef(unionId).ref
+        .orderBy('evidenceNumber')
+        .where('evidenceNumber', '>=', evidenceNumber)
+        .where('evidenceNumber', '<=', evidenceNumber + String.fromCharCode(1000))
         .limit(this.limit * 10).get();
     }
     const output: Owner[] = [];
     if (!ownerEvidenceNumberRef.empty) {
-      this.moreToBeLoadedIndicator = ownerEvidenceNumberRef.docs.length === 30;
+      this.moreToBeLoadedIndicator = ownerEvidenceNumberRef.docs.length === this.limit;
       this.loadedFromBegining = ownerEvidenceNumberRef.docs.length;
       ownerEvidenceNumberRef.docs.forEach((p) => {
         output.push(this.parse(p.data()));
       });
     }
-    return output;
+    this.owners = output;
+    return 'ok';
   }
 
-  async SearchUnionOwnersByAddress(unionId: string, address: string): Promise<Owner[]> {
+  async SearchUnionOwnersByAddress(unionId: string): Promise<string> {
+    const street = this.searchString ? _.capitalize(this.searchString) : '';
+    const city = this.secondSearchString ? _.capitalize(this.secondSearchString) : '';
+    console.log(street, city);
+    if (street.length < 1 && city.length < 1) {
+      await this.getUnionOwners(this.unionId);
+      return 'ok';
+    }
     this.loadedFromBegining = 0;
-    const ownerCityRef = await this.ownerRef(unionId).ref.
-      where('city', '>=', address).where('city', '<=', address + String.fromCharCode(1000))
-      .limit(this.limit * 10).get();
-    const leeseesStreetRef = await this.ownerRef(unionId).ref
-      .where('street', '>=', address).where('street', '<=', address + String.fromCharCode(1000))
-      .limit(this.limit * 10).get();
+    const leeseesStreetRef = street.length > 1 ? await this.ownerRef(unionId).ref
+      .orderBy('streetAndNumber')
+      .where('streetAndNumber', '>=', street)
+      .where('streetAndNumber', '<=', street + String.fromCharCode(1000))
+      .limit(this.limit * 10).get() : null;
+    const ownerCityRef = city.length > 1 ? await this.ownerRef(unionId).ref
+      .orderBy('city')
+      .where('city', '>=', city)
+      .where('city', '<=', city + String.fromCharCode(1000))
+      .limit(this.limit * 10).get() : null;
     const output: Owner[] = [];
     const outputtemp: Owner[] = [];
-    if (!leeseesStreetRef.empty) {
-      this.moreToBeLoadedIndicator = leeseesStreetRef.docs.length === 30;
+    if (leeseesStreetRef && !leeseesStreetRef.empty) {
+      this.moreToBeLoadedIndicator = leeseesStreetRef.docs.length === this.limit;
       this.loadedFromBegining = leeseesStreetRef.docs.length;
       leeseesStreetRef.docs.forEach((p) => outputtemp.push(this.parse(p.data())));
     }
-    if (!ownerCityRef.empty) {
-      this.moreToBeLoadedIndicator = ownerCityRef.docs.length === 30;
+    if (ownerCityRef && !ownerCityRef.empty) {
+      this.moreToBeLoadedIndicator = ownerCityRef.docs.length === this.limit;
       this.loadedFromBegining = ownerCityRef.docs.length;
       ownerCityRef.docs.forEach((p) => {
         outputtemp.push(this.parse(p.data()));
@@ -188,7 +214,8 @@ export class OwnerService {
         output.push(o);
       }
     });
-    return output;
+    this.owners = output;
+    return 'ok';
   }
 
 
@@ -202,7 +229,8 @@ export class OwnerService {
       dbOwner.authData.forEach((ad) => authData.push(this.parseFromInterface(ad, emptyOwnerAuth())));
     }
     if (dbOwner.parcelsData) {
-      dbOwner.parcelsData.forEach((pd) => {parcelsData.push(this.parseFromInterface(pd, emptyParcelDataFull()));
+      dbOwner.parcelsData.forEach((pd) => {
+        parcelsData.push(this.parseFromInterface(pd, emptyParcelDataFull()));
       });
     }
     return { personalData, contactData, authData, id: dbOwner.id, historicSaldo, parcelsData: parcelsData };

@@ -14,7 +14,7 @@
   <div class="card-title" *ngIf="ss.selectedCompanyId">
     <div class="col-md-4 no-padding">
       <md-form-field>
-        <input class="textbox" (keypress)="onKeyDown($event)" (input)="onInput($event)" type="text" mdInput placeholder="Wyszukaj po nazwie" [(ngModel)]="ss.searchString">
+        <input class="textbox" (keypress)="onKeyDown($event)" (input)="onInput($event)" type="text" mdInput placeholder="NAZWA" [(ngModel)]="ss.searchString">
       </md-form-field>
     </div>
     <div class="col-md-3">
@@ -49,11 +49,11 @@
       </div>
     </div>
     <div *ngIf="ss.sections.length < 1 && ss.searchString && ss.lastQuery && !nulled" class="row bordered in-the-bottom on-the-right result">
-      <div class="card-field" style="float:left; width:100%">
+      <!-- <div class="card-field" style="float:left; width:100%">
         <div class="col-md-12">
           Brak wyników spełniające kryteria wyszukiwania
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>

@@ -6,6 +6,8 @@ import { User } from '../../models/user';
 import { Subscription } from 'rxjs/Subscription';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 
+import * as _ from 'lodash';
+
 @Component({
   selector: 'mwc-add-resolution',
   templateUrl: './add-resolution.component.html',
@@ -49,6 +51,18 @@ export class AddResolutionComponent implements OnDestroy {
   ngOnDestroy() {
     this.subscriptions.forEach((s) => s.unsubscribe());
   }
+
+  // paymentsValidation(): boolean {
+  //   return (
+  //     this.resolution.paymentCount ?
+  //       (this.resolution.payments.map((p) => p.paymentDate && p.paymentPercent).filter((b) => !b).length < 1
+  //         &&
+  //         _.reduce(this.resolution.payments, (p, n) => p.paymentPercent + n.paymentPercent, 0) === 100
+  //       )
+  //       :
+  //       false
+  //   );
+  // }
 
 
 }

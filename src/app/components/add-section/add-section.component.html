@@ -1,18 +1,29 @@
+<md-progress-bar *ngIf="progressBar" mode="indeterminate"></md-progress-bar>
 <div class="card-container">
   <div class="card mat-elevation-z1">
-    <div class="form-container">
+    <div class="form-container" *ngIf="addedSuccessfully !== 'success'">
       <div class="header">
         Wybierz spółkę
       </div>
-      <md-select placeholder="Spółka" [(ngModel)]="section.companyId">
-        <md-option *ngFor="let c of currentUser?.companies" [value]="c.id">
-          {{c.name}}
-        </md-option>
-      </md-select>
-      <mwc-section-data-form *ngIf="section.companyId" [editionDisabled]="false" [sectionDataForm]="section"></mwc-section-data-form>
-      <div class="button-container col-md-12">
-        <button type="button" class="add-button accent" md-raised-button color="accent" (click)="add()">Dodaj</button>
+      <div class="col-md-2 no-padding">
+        <md-select placeholder="SPÓŁKA *" [(ngModel)]="section.companyId">
+          <md-option *ngFor="let c of currentUser?.companies" [value]="c.id">
+            {{c.name}}
+          </md-option>
+        </md-select>
       </div>
+      <div class="clearfix"></div>
+      <mwc-section-data-form *ngIf="section.companyId" [sectionDataForm]="section"></mwc-section-data-form>
+      <div class="button-container col-md-12">
+        <span class="invalid-info" *ngIf="!section.areaType || !section.evidenceNumber || !section.name">Wypełnij wszystkie wymagane (oznaczone *) pola</span>
+        <button type="button" class="add-button accent" [disabled]="!section.areaType || !section.evidenceNumber || !section.name"
+          md-raised-button color="accent" (click)="add()">
+          Dodaj
+        </button>
+      </div>
+    </div>
+    <div *ngIf="addedSuccessfully === 'success'" class="info">
+      <mwc-info [link]="'add/section'" [text]="'Dodano pomyślnie'" [buttonText]="'Dodaj kolejną'" [success]="true" (click)="reload()"></mwc-info>
     </div>
   </div>
 </div>

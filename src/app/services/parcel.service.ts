@@ -5,6 +5,7 @@ import { Parcel, emptyParcel } from '../models/parcel';
 import * as _ from 'lodash';
 
 import 'rxjs/add/operator/do';
+import { capitalizeStrings } from '../helper-functions';
 
 let storedParcel: Parcel;
 
@@ -46,7 +47,7 @@ export class ParcelService {
       .doc(`${unionId}`)
       .collection('parcels')
       .doc(id)
-      .set(_.assign(parcel, { id }));
+      .set(capitalizeStrings(_.assign(parcel, { id })));
 
   }
 
@@ -57,7 +58,7 @@ export class ParcelService {
         .doc(unionId)
         .collection('parcels')
         .doc(parcel.id)
-        .set(parcel);
+        .set(capitalizeStrings(parcel));
     } else {
       return Promise.resolve(false);
     }
@@ -92,9 +93,11 @@ export class ParcelService {
       parcelNumberRef = await this.parcelsRef(unionId).ref.get();
     } else {
       this.loadedFromBegining = 0;
-      parcelNumberRef = await this.parcelsRef(unionId).ref.
-        where('number', '==', searchString)
-        .limit(this.limit * 10).get();
+      parcelNumberRef = await this.parcelsRef(unionId).ref
+        .where('number', '>=', searchString)
+        .where('number', '<=', searchString + String.fromCharCode(1000))
+        .limit(this.limit)
+        .get();
     }
     const output: Parcel[] = [];
     if (!parcelNumberRef.empty) {
@@ -167,5 +170,6 @@ export class ParcelService {
     return this.db.collection('unions').doc(unionId).collection('parcels').doc(parcelId);
   }
 
-
 }
+
+

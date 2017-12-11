@@ -17,29 +17,32 @@
       </div>
     </div>
     <div class="col-md-12 no-padding">
-      <div class="col-md-2">
-        <md-select [disabled]="editionDisabled" [(ngModel)]="legalBasicsDataForm.sectionId" placeholder="SEKCJA">
-          <md-option *ngFor="let s of sections" [value]="s.id">
-            {{ s.name }}
+      <div class="col-md-3">
+        <md-select [disabled]="editionDisabled" [(ngModel)]="legalBasicsDataForm.wholeCompany" placeholder="OBEJMUJĄCA CAŁĄ SPÓŁKĘ*">
+          <md-option [value]="true">
+            Tak
+          </md-option>
+          <md-option [value]="false">
+            Nie
           </md-option>
         </md-select>
       </div>
       <div class="col-md-2">
         <md-form-field>
-          <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="NUMER UCHWAŁY" name="{{'numerUchwaly_'}}" [(ngModel)]="legalBasicsDataForm.number">
+          <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="NUMER UCHWAŁY*" name="{{'numerUchwaly_'}}" [(ngModel)]="legalBasicsDataForm.number">
         </md-form-field>
       </div>
-      <div class="col-md-1">
+    </div>
+    <div *ngIf="!legalBasicsDataForm.wholeCompany">
+      <div class="col-md-12 header no-padding">
+        <div class="col-md-12">
+          Sekcje
+        </div>
       </div>
-      <div class="col-md-2">
-        <md-form-field>
-          <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="DATA PODJĘCIA" name="{{'dataPodjecia_'}}" [(ngModel)]="legalBasicsDataForm.date">
-        </md-form-field>
-      </div>
-      <div class="col-md-2">
-        <md-form-field>
-          <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="NUMER DZIAŁKI" name="{{'dataPodjecia_'}}" [(ngModel)]="legalBasicsDataForm.parcelId">
-        </md-form-field>
+    </div>
+    <div *ngIf="!legalBasicsDataForm.wholeCompany">
+      <div class="col-md-2" *ngFor="let s of sections">
+        <md-checkbox [checked]="containsSection(s.id)">{{s.name}}</md-checkbox>
       </div>
     </div>
     <div>
@@ -52,14 +55,12 @@
     <div class="col-md-12 no-padding">
       <div class="col-md-2">
         <md-form-field>
-          <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="OPŁATA POWYŻEJ 1 H" name="{{'powyzejGodziny_'}}" [(ngModel)]="legalBasicsDataForm.paymentMoreOneHour">
+          <input [disabled]="editionDisabled" class="textbox" type="number" mdInput placeholder="OPŁATA POWYŻEJ 1 H*" name="{{'powyzejGodziny_'}}" [(ngModel)]="legalBasicsDataForm.paymentMoreOneHour">
         </md-form-field>
-      </div>
-      <div class="col-md-1">
       </div>
       <div class="col-md-2">
         <md-form-field>
-          <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="OPŁATA PONIŻEJ 1 H" name="{{'ponizejGodziny_'}}" [(ngModel)]="legalBasicsDataForm.paymentLessOneHour">
+          <input [disabled]="editionDisabled" class="textbox" type="number" mdInput placeholder="OPŁATA PONIŻEJ 1 H*" name="{{'ponizejGodziny_'}}" [(ngModel)]="legalBasicsDataForm.paymentLessOneHour">
         </md-form-field>
       </div>
     </div>
@@ -70,9 +71,9 @@
         </div>
       </div>
     </div>
-    <div class="col-md-12 no-padding">
+    <div class="col-md-12 no-padding form-row">
       <div class="col-md-2">
-        <md-select [disabled]="editionDisabled" placeholder="Ilość płatności" (ngModelChange)="paymentCountChange()" [(ngModel)]="legalBasicsDataForm.paymentCount"
+        <md-select [disabled]="editionDisabled" placeholder="ILOŚĆ PŁATNOŚCI" (ngModelChange)="paymentCountChange()" [(ngModel)]="legalBasicsDataForm.paymentCount"
           name="year">
           <md-option *ngFor="let i of [1,2,3,4,5,6]" [value]="i">
             {{i}}
@@ -80,15 +81,18 @@
         </md-select>
       </div>
     </div>
-    <div class="col-md-12 no-padding" *ngFor="let p of legalBasicsDataForm.payments; let i = index">
+    <div class="col-md-12 no-padding form-row" *ngFor="let p of legalBasicsDataForm.payments; let i = index">
       <div class="col-md-3">
         <md-form-field>
-          <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="DATA PŁATNOŚCI {{i + 1}}" name="{{'platnoscI_'}}" [(ngModel)]="p.paymentDate">
+          <input [disabled]="editionDisabled" mdInput [mdDatepicker]="payment" [(ngModel)]="p.paymentDate" name="{{'platnoscI_'}}"
+            placeholder="DATA PŁATNOŚCI {{i + 1}}*">
+          <md-datepicker-toggle mdSuffix [for]="payment"></md-datepicker-toggle>
+          <md-datepicker #payment></md-datepicker>
         </md-form-field>
       </div>
       <div class="col-md-3">
         <md-form-field>
-          <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="% WYMAGANEJ WPŁATY" name="{{'procentPlatnosci_'}}" [(ngModel)]="p.paymentPercent">
+          <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="% WYMAGANEJ WPŁATY*" name="{{'procentPlatnosci_'}}" [(ngModel)]="p.paymentPercent">
         </md-form-field>
       </div>
     </div>

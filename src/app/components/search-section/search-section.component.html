@@ -1,22 +1,38 @@
-<div class="form-container fixed">
-  <div class="card-title">
-    <div class="col-md-9">
+<md-progress-bar *ngIf="progressBar" mode="indeterminate"></md-progress-bar>
+<div class="form-container">
+  <div class="header" *ngIf="!selectedCompanyId">
+    Wybierz spółkę
+  </div>
+  <div class="col-md-2 no-padding form-row">
+    <md-select name="first" placeholder="SPÓŁKA">
+      <md-option *ngFor="let c of currentUser?.companies" (click)="ss.selectCompany(c.id)" [value]="c.id">
+        {{ c.name }}
+      </md-option>
+    </md-select>
+  </div>
+  <div class="clearfix"></div>
+  <div class="card-title" *ngIf="ss.selectedCompanyId">
+    <div class="col-md-4 no-padding">
       <md-form-field>
-        <input class="textbox" type="text" mdInput placeholder="Wyszukaj..." [(ngModel)]="searchString" (input)="searchSections()">
+        <input class="textbox" (keypress)="onKeyDown($event)" (input)="onInput($event)" type="text" mdInput placeholder="Wyszukaj po nazwie" [(ngModel)]="ss.searchString">
       </md-form-field>
     </div>
+    <div class="col-md-3">
+      <button md-raised-button color="primary" (click)="searchSectionByName()">Wyszukaj {{ ss.searchString ? 'po nazwie' : 'wszystkie' }}</button>
+    </div>
+    <div class="clearfix"></div>
   </div>
 </div>
-<div class="col-md-12">
-  <div class="row in-the-bottom on-the-right columns-title fixed">
+<div class="col-md-12" *ngIf="ss.selectedCompanyId">
+  <div class="row in-the-bottom on-the-right">
     <div class="card-field" style="float:left; width:100%">
-      <div class="col-md-2 header" (click)="sortByNumber()">Numer ewidencyjny</div>
-      <div class="col-md-2 header" (click)="sortByAreaType() ">Nazwa regionu</div>
-      <div class="col-md-2 header" (click)="sortByAreaSurface()">Rodzaj regionu</div>
+      <div class="col-md-2 header">Numer ewidencyjny</div>
+      <div class="col-md-2 header">Nazwa sekcji</div>
+      <div class="col-md-2 header">Rodzaj sekcji</div>
     </div>
   </div>
   <div class="result_container">
-    <div *ngFor="let s of sections" id="s.id">
+    <div *ngFor="let s of ss.sections" id="s.id">
       <div class="row bordered in-the-bottom on-the-right result" (click)="showChosenSection(s)">
         <div class="card-field" style="float:left; width:100%">
           <div class="col-md-2 ">{{s.evidenceNumber}}</div>
@@ -25,10 +41,19 @@
         </div>
       </div>
     </div>
+    <div *ngIf="ss.moreToBeLoadedIndicator">
+      <div class="row bordered in-the-bottom on-the-right result" (click)="ss.loadMore()">
+        <div class="card-field" style="float:left; width:100%">
+          <div class="col-md-2">Pokaż więcej</div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="ss.sections.length < 1 && ss.searchString && ss.lastQuery && !nulled" class="row bordered in-the-bottom on-the-right result">
+      <div class="card-field" style="float:left; width:100%">
+        <div class="col-md-12">
+          Brak wyników spełniające kryteria wyszukiwania
+        </div>
+      </div>
+    </div>
   </div>
 </div>
-<!-- export interface Section 
-    evidenceNumber: number;
-    name: string;
-    areaType: areaType;
-    parcels: Parcel[]; -->

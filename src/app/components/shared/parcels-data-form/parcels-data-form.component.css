@@ -11,10 +11,6 @@
   font-weight: 600;
 }
 
-.mat-select {
-    padding-top: 9px !important;
-}
-
 .mat-select-trigger {
     font-size: 14px !important;
     /* it works when written in browser but not imported from here - ask piotrek */

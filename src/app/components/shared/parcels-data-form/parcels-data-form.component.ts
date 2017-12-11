@@ -21,6 +21,7 @@ export class ParcelsDataFormComponent implements OnChanges, OnInit {
   @Input() companyId = '';
   @Input() editionDisabled = false;
   progressBarIndicator: boolean;
+  progressBar = true;
 
   selectedPowierzchnia: string;
   powierzchnia = [
@@ -65,7 +66,8 @@ export class ParcelsDataFormComponent implements OnChanges, OnInit {
   ngOnInit() {
     this.us.currentUser.subscribe((u) => {
       this.currentUser = u;
-      this.ss.getCompanySections(this.currentUser.unionId, this.parcel.companyId).then((ss) => this.sections = ss);
+      this.ss.getCompanySections(this.currentUser.unionId, this.parcel.companyId)
+        .then((ss) => { this.sections = ss; this.progressBar = false; });
     }
     );
   }
@@ -116,7 +118,4 @@ export class ParcelsDataFormComponent implements OnChanges, OnInit {
   removeTrench() {
     this.parcel.trenches.pop();
   }
-
-
-
 }

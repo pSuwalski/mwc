@@ -2,6 +2,7 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { Injectable } from '@angular/core';
 import { Resolution, emptyResolution } from '../models/resolution';
 import * as _ from 'lodash';
+import { capitalizeStrings } from '../helper-functions';
 
 let storedResolution: Resolution;
 
@@ -40,7 +41,7 @@ export class ResolutionsService {
       .doc(unionId)
       .collection('resolutions')
       .doc(id)
-      .set(_.assign(resolution, { id }));
+      .set(capitalizeStrings(_.assign(resolution, { id })));
   }
 
   async replaceResolution(resolution: Resolution, unionId: string): Promise<any> {
@@ -50,7 +51,7 @@ export class ResolutionsService {
         .doc(unionId)
         .collection('resolutions')
         .doc(resolution.id)
-        .set(resolution);
+        .set(capitalizeStrings(resolution));
     } else {
       return Promise.resolve(false);
     }

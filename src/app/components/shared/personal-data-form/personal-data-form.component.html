@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-md-2">
       <md-form-field>
-        <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="NUMER EWIDENCYJNY" name="numer_ewidencyjny" [(ngModel)]="personalDataForm.evidenceNumber">
+        <input [disabled]="editionDisabled" [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="NUMER EWIDENCYJNY" name="numer_ewidencyjny" [(ngModel)]="personalDataForm.evidenceNumber">
       </md-form-field>
     </div>
     <div class="col-md-4">
@@ -26,37 +26,37 @@
   <div class="row">
     <div class="col-md-1" *ngIf="personalDataForm.type === 'person'">
       <md-form-field>
-        <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="IMIE" name="imie" [(ngModel)]="personalDataForm.name">
+        <input [disabled]="editionDisabled" [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="IMIE" name="imie" [(ngModel)]="personalDataForm.name">
       </md-form-field>
     </div>
     <div class="col-md-1" *ngIf="personalDataForm.type === 'person'">
       <md-form-field>
-        <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="NAZWISKO" name="nazwisko" [(ngModel)]="personalDataForm.surname">
+        <input [disabled]="editionDisabled" [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="NAZWISKO" name="nazwisko" [(ngModel)]="personalDataForm.surname">
       </md-form-field>
     </div>
     <div class="col-md-2"  *ngIf="personalDataForm.type === 'person'">
       <md-form-field>
-        <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="NUMER PESEL" name="numer" [(ngModel)]="personalDataForm.pesel">
+        <input [disabled]="editionDisabled" [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="NUMER PESEL" name="numer" [(ngModel)]="personalDataForm.pesel">
       </md-form-field>
     </div>
     <div class="col-md-2" *ngIf="personalDataForm.type === 'company'">
       <md-form-field>
-        <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="Nazwa" name="imie" [(ngModel)]="personalDataForm.name">
+        <input [disabled]="editionDisabled" [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="Nazwa" name="imie" [(ngModel)]="personalDataForm.name">
       </md-form-field>
     </div>
     <div class="col-md-2" *ngIf="personalDataForm.type === 'company'">
       <md-form-field>
-        <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="NIP" name="numer" [(ngModel)]="personalDataForm.nip">
+        <input [disabled]="editionDisabled" [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="NIP" name="numer" [(ngModel)]="personalDataForm.nip">
       </md-form-field>
     </div>
     <div class="col-md-2" *ngIf="personalDataForm.type === 'company'">
       <md-form-field>
-        <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="KRS" name="numer" [(ngModel)]="personalDataForm.regon">
+        <input [disabled]="editionDisabled" [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="KRS" name="numer" [(ngModel)]="personalDataForm.regon">
       </md-form-field>
     </div>
     <div class="col-md-2" *ngIf="personalDataForm.type === 'company'">
       <md-form-field>
-        <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="REGON" name="numer" [(ngModel)]="personalDataForm.krs">
+        <input [disabled]="editionDisabled" [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="REGON" name="numer" [(ngModel)]="personalDataForm.krs">
       </md-form-field>
     </div>
   </div>
@@ -68,22 +68,22 @@
   <div class="row">
     <div class="col-md-3">
       <md-form-field>
-        <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="ULICA" name="ulica" [(ngModel)]="personalDataForm.street">
+        <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="ULICA I NUMER" name="ulica" [(ngModel)]="personalDataForm.address.streetAndNumber">
       </md-form-field>
     </div>
     <div class="col-md-1">
       <md-form-field>
-        <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="NR" name="nr" [(ngModel)]="personalDataForm.number">
+        <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="MIESZKANIE" name="nr" [(ngModel)]="personalDataForm.address.apartment">
       </md-form-field>
     </div>
     <div class="col-md-2">
         <md-form-field>
-          <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="KOD POCZTOWY" name="kod" [(ngModel)]="personalDataForm.postalCode">
+          <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="KOD POCZTOWY" name="kod" [(ngModel)]="personalDataForm.address.postCode">
         </md-form-field>
       </div>
       <div class="col-md-3">
         <md-form-field>
-          <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="MIASTO" name="miasto" [(ngModel)]="personalDataForm.city">
+          <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="MIASTO" name="miasto" [(ngModel)]="personalDataForm.address.city">
         </md-form-field>
       </div>
   </div>

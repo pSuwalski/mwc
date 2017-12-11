@@ -107,3 +107,27 @@ md-progress-bar {
   left: 0!important;
   top: 64px!important;
 }
+
+.mat-select {
+  width: 100%;
+  margin-top: -8px;
+}
+
+.invalid-info {
+  display: block;
+  text-align: right;
+  margin-bottom: 12px;
+  color: #212121;
+}
+
+.no-padding {
+  padding: 0;
+}
+
+.form-row {
+  margin-bottom: 24px;
+}
+
+.info {
+  margin-bottom: 32px;
+}

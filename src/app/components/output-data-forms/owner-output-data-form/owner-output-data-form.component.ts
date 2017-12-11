@@ -1,6 +1,6 @@
 import { OwnerService } from '../../../services/owner.service';
 import { Component, OnInit } from '@angular/core';
-import { Owner, emptyOwnerContact, emptyOwnerPersonal, emptySaldo, emptyParcelDataFull } from '../../../models/owner';
+import { Owner, emptyOwnerContact, emptyOwnerPersonal, emptySaldo, emptyParcelDataFull, emptyOwnerAuth } from '../../../models/owner';
 import { UserService } from '../../../services/user.service';
 import { User } from '../../../models/user';
 import { Subscription } from 'rxjs/Subscription';
@@ -57,10 +57,7 @@ export class OwnerOutputDataFormComponent implements OnInit {
       this.owner.authData = [];
     }
     this.owner.authData.push(
-      {
-        authScope: null, correspondenceAddress: null, email: null, nameSurname: null, pesel: null,
-        phoneNumber: null, validFrom: null, validTill: null
-      }
+      emptyOwnerAuth()
     );
   }
 

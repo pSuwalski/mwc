@@ -87,6 +87,7 @@ import { WorksOutputDataFormComponent } from './components/output-data-forms/wor
 
 
 
+
 @NgModule({
   declarations: [AddParcelComponent, AdminPanelComponent, AppComponent,
     DocumentsComponent, HistoricSaldoFormComponent, HistoryComponent, HomeComponent, InfoComponent,

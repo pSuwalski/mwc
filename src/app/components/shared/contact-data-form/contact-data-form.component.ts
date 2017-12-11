@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ContactData } from '../../../models/owner';
 
 @Component({
@@ -7,8 +7,12 @@ import { ContactData } from '../../../models/owner';
   styleUrls: ['./contact-data-form.component.css']
 })
 export class ContactDataFormComponent implements OnInit {
+
+  sameAddressIndicator: boolean;
+
   @Input() contactDataForm: ContactData;
   @Input() editionDisabled = false;
+  @Output() sameAddress = new EventEmitter();
 
   constructor() { }
 

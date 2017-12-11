@@ -4,24 +4,29 @@
   </div>
 </div>
 <div class="row">
+  <div class="col-md-12">
+    <md-checkbox [(ngModel)]="sameAddressIndicator" (change)="sameAddress.emit()">Ten sam adres do korespondencji</md-checkbox>
+  </div>
+</div>
+<div class="row">
   <div class="col-md-3">
     <md-form-field>
-      <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="ULICA" name="ulica" [(ngModel)]="contactDataForm.street">
+      <input class="textbox" [disabled]="editionDisabled" type="text" mdInput placeholder="ULICA" name="ulica" [(ngModel)]="contactDataForm.address.streetAndNumber">
     </md-form-field>
   </div>
   <div class="col-md-1">
     <md-form-field>
-      <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="NR" name="nr" [(ngModel)]="contactDataForm.number">
+      <input class="textbox" [disabled]="editionDisabled" type="text" mdInput placeholder="APARTAMENT" name="nr" [(ngModel)]="contactDataForm.address.apartment">
     </md-form-field>
   </div>
   <div class="col-md-2">
     <md-form-field>
-      <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="KOD POCZTOWY" name="kod" [(ngModel)]="contactDataForm.postalCode">
+      <input class="textbox" [disabled]="editionDisabled" type="text" mdInput placeholder="KOD POCZTOWY" name="kod" [(ngModel)]="contactDataForm.address.postCode">
     </md-form-field>
   </div>
   <div class="col-md-3">
     <md-form-field>
-      <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="MIASTO" name="miasto" [(ngModel)]="contactDataForm.city">
+      <input class="textbox" [disabled]="editionDisabled" type="text" mdInput placeholder="MIASTO" name="miasto" [(ngModel)]="contactDataForm.address.city">
     </md-form-field>
   </div>
 </div>

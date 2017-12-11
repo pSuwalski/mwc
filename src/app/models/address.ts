@@ -4,3 +4,12 @@ export interface Address {
   postCode: string;
   streetAndNumber: string;
 }
+
+export function emptyAddress(): Address {
+  return {
+    apartment: null,
+    city: null,
+    postCode: null,
+    streetAndNumber: null
+  };
+}

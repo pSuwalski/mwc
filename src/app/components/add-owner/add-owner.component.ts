@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { User } from '../../models/user';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import * as _ from 'lodash';
+import { emptyAddress } from '../../models/address';
 
 @Component({
   selector: 'mwc-add-owner',
@@ -51,7 +52,7 @@ export class AddOwnerComponent implements OnInit, OnDestroy {
   addAuth() {
     this.owner.authData.push(
       {
-        authScope: null, correspondenceAddress: null, email: null, nameSurname: null, pesel: null,
+        authScope: null, correspondenceAddress: emptyAddress(), email: null, name: null, surname: null, pesel: null,
         phoneNumber: null, validFrom: null, validTill: null
       }
     );
@@ -71,6 +72,14 @@ export class AddOwnerComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subscriptions.forEach((s) => s.unsubscribe());
+  }
+
+  sameCorrespondenceAddress() {
+    if (this.owner.contactData.address === this.owner.personalData.address) {
+      this.owner.contactData.address = emptyAddress();
+    } else {
+      this.owner.contactData.address = this.owner.personalData.address;
+    }
   }
 
 }

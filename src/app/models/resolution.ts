@@ -1,20 +1,20 @@
 export interface Resolution {
   companyId: string;
-  sectionId: string;
-  parcelId: string;
+  sectionIds: string[];
   year: number;
   number: number;
-  date: string;
   paymentCount: number;
   payments: Payment[];
   paymentMoreOneHour: number;
   paymentLessOneHour: number;
   id: string;
+  wholeCompany?: boolean;
 }
 
 export interface Payment {
-  paymentDate: number;
+  paymentDate: string;
   paymentPercent: number;
+  paymentDone?: boolean;
 }
 
 export function emptyPayment() {
@@ -26,8 +26,8 @@ export function emptyPayment() {
 
 export function emptyResolution(): Resolution {
   return {
-    companyId: null, sectionId: null, year: null, number: null, date: null,
+    companyId: null, sectionIds: null, year: null, number: null,
     paymentCount: null, payments: [], paymentMoreOneHour: null,
-    paymentLessOneHour: null, id: null, parcelId: null,
+    paymentLessOneHour: null, id: null, wholeCompany: null
   };
 }

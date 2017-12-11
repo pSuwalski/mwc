@@ -1,34 +1,88 @@
-<div class="card-container" >
+<div class="card-container">
   <div class="card mat-elevation-z1">
+    <md-progress-bar *ngIf="progressBar" mode="indeterminate"></md-progress-bar>
     <div class="form-container fixed">
-      <md-form-field class="col-md-11">
-        <input class="textbox" type="text"  mdInput placeholder="Wyszukaj..." [(ngModel)]="searchString" (input)="MyFilter()" >
-      </md-form-field>
-      <div class="col-md-1">
-        <md-icon class="material-icons md-48" color="accent">search</md-icon>
-      </div>
-    </div>
-    <div class="col-md-12">
-      <div class="row in-the-bottom on-the-right columns-title fixed">
-        <div class="card-field" style="float:left; width:100%">
-          <div class="col-md-2 header" (click)="sortByNumber()" >numer działki</div>
-          <div class="col-md-2 header" (click)="sortByAreaType() " >typ powierzchni</div>
-          <div class="col-md-2 header" (click)="sortByAreaSurface()" >powierzchnia [ha]</div>
-          <!-- <div class="col-md-1 header" (click)="sortByTrench()" >rów</div> -->
+      <div class="row">
+        <div class="header col-md-12">
+          Wybierz spółkę
+        </div>
+
+        <div class="col-md-2 form-row">
+          <form>
+            <md-select name="first" placeholder="SPÓŁKA" [(ngModel)]="selectedCompanyId">
+              <md-option *ngFor="let c of currentUser?.companies" [value]="c.id" (click)="getCompanySections()">
+                {{ c.name }}
+              </md-option>
+            </md-select>
+          </form>
         </div>
       </div>
-      <div class="result_container">
-      <div  *ngFor="let p of parcels">
-      <div class="row bordered in-the-bottom on-the-right result" (click)="showChosenParcel(p)">
-        <div class="card-field" style="float:left; width:100%">
-            <div class="col-md-2 " >{{p.number}}</div>
-            <div class="col-md-2 " >{{p.areaType}}</div>
-            <div class="col-md-2 " >{{p.areaSurface}}</div>
-            <!-- <div class="col-md-1 " >{{p.trench}}</div> -->
+      <div class="row" *ngIf="sections.length">
+        <div class="header col-md-12">
+          Wybierz sekcję
+        </div>
+        <div class="col-md-2 form-row">
+          <form>
+            <md-select name="first" placeholder="SEKCJA" [(ngModel)]="selectedSectionId">
+              <md-option *ngFor="let s of sections" [value]="s.id" (click)="getSectionParcels()">
+                {{ s.name }}
+              </md-option>
+            </md-select>
+          </form>
+        </div>
+        <div *ngIf="selectedSectionId">
+        <md-form-field class="col-md-11" >
+          <input class="textbox" type="text" mdInput placeholder="Wyszukaj po numerze działki" [(ngModel)]="searchString" (input)="MyFilter()">
+        </md-form-field>
+      </div>
+        <div class="col-md-1" *ngIf="selectedSectionId">
+          <md-icon class="material-icons md-48" color="accent">search</md-icon>
+        </div>
+      </div>
+      <div class="row" *ngIf="selectedSectionId">
+        <div class="col-md-2 header" (click)="sortByNumber()">numer działki</div>
+        <div class="col-md-2 header" (click)="sortByAreaType() ">typ powierzchni</div>
+        <div class="col-md-2 header" (click)="sortByAreaSurface()">powierzchnia [ha]</div>
+      </div>
+
+      <!-- <div class="col-md-1 header" (click)="sortByTrench()" >rów</div> -->
+      <div *ngFor="let p of parcels">
+        <div class="row" *ngIf="selectedSectionId" (click)="showChosenParcel(p)">
+
+          <div class="col-md-2 ">{{p.number}}</div>
+          <div class="col-md-2 ">{{p.areaType}}</div>
+          <div class="col-md-2 ">{{p.areaSurface}}</div>
+          <!-- <div class="col-md-1 " >{{p.trench}}</div> -->
+
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="row">
+      <div class="col-md-12"> -->
+    <!-- <div class="row in-the-bottom on-the-right columns-title fixed"> -->
+    <!-- <div class="card-field" style="float:left; width:100%">
+          <div class="col-md-2 header" (click)="sortByNumber()">numer działki</div>
+          <div class="col-md-2 header" (click)="sortByAreaType() ">typ powierzchni</div>
+          <div class="col-md-2 header" (click)="sortByAreaSurface()">powierzchnia [ha]</div> -->
+    <!-- <div class="col-md-1 header" (click)="sortByTrench()" >rów</div> -->
+    <!-- </div> -->
+    <!-- </div> -->
+    <!-- <div class="result_container"> -->
+    <!-- <div *ngFor="let p of parcels"> -->
+    <!-- <div class="row bordered in-the-bottom on-the-right result" (click)="showChosenParcel(p)"> -->
+    <!-- <div class="row" (click)="showChosenParcel(p)"> -->
+    <!-- <div class="card-field" style="float:left; width:100%"> -->
+    <!-- <div style="float:left; width:100%"> -->
+    <!-- <div class="col-md-2 ">{{p.number}}</div>
+              <div class="col-md-2 ">{{p.areaType}}</div>
+              <div class="col-md-2 ">{{p.areaSurface}}</div> -->
+    <!-- <div class="col-md-1 " >{{p.trench}}</div> -->
+    <!-- </div>
           </div>
-        </div>
-      </div>
-      </div>
-    </div>
-  </div>
-</div>
+        </div> -->
+    <!-- </div> -->
+    <!-- </div> -->
+    <!-- </div>
+  </div> -->
+    <!-- </div> -->

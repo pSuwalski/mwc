@@ -1,3 +1,5 @@
+import { Address, emptyAddress } from "./address";
+
 export class Owner {
   personalData: PersonalData;
   contactData: ContactData;
@@ -5,7 +7,7 @@ export class Owner {
   id: string;
   historicSaldo: Saldo;
   saldo?: Saldo;
-  parcelsData?:  ParcelData[];
+  parcelsData?: ParcelData[];
 }
 
 export interface PersonalData {
@@ -14,10 +16,7 @@ export interface PersonalData {
   name: string;
   surname?: string;
   pesel?: number;
-  postalCode: string;
-  city: string;
-  street: string;
-  number: number;
+  address: Address;
   krs?: number;
   nip?: number;
   regon?: number;
@@ -25,17 +24,14 @@ export interface PersonalData {
 
 export function emptyOwnerPersonal(): PersonalData {
   return {
-    city: null, evidenceNumber: null, krs: null, name: null, nip: null, number: null, pesel: null,
-    postalCode: null, regon: null, street: null, surname: null, type: 'person'
+    evidenceNumber: null, krs: null, name: null, nip: null, pesel: null,
+    regon: null, surname: null, type: 'person', address: emptyAddress()
   };
 }
 
 
 export interface ContactData {
-  postalCode: number;
-  city: string;
-  street: string;
-  number: number;
+  address: Address;
   email: string;
   deskPhoneNumber: number;
   cellPhoneNumber: number;
@@ -43,17 +39,17 @@ export interface ContactData {
 
 export function emptyOwnerContact(): ContactData {
   return {
-    cellPhoneNumber: null, city: null, deskPhoneNumber: null, email: null, number: null,
-    postalCode: null, street: null
+    cellPhoneNumber: null, deskPhoneNumber: null, email: null, address: emptyAddress()
   };
 }
 
 export interface AuthData {
-  nameSurname: string;
+  name: string;
+  surname?: string;
   pesel: number;
   phoneNumber: number;
   email: string;
-  correspondenceAddress: string;
+  correspondenceAddress: Address;
   authScope: string;
   validFrom: string;
   validTill: string;
@@ -62,7 +58,7 @@ export interface AuthData {
 
 export function emptyOwnerAuth(): AuthData {
   return {
-    authScope: null, correspondenceAddress: null, email: null, nameSurname: null, pesel: null,
+    authScope: null, correspondenceAddress: emptyAddress(), email: null, name: null, surname: null, pesel: null,
     phoneNumber: null, validFrom: null, validTill: null
   };
 }
@@ -72,6 +68,7 @@ export interface Saldo {
   capital: number;
   interest: number;
   costs: number;
+  untilDate?: string;
 }
 
 export function emptySaldo(): Saldo {
@@ -87,12 +84,15 @@ export interface ParcelData {
   percent?: number;
   companyId?: string;
   sectionId?: string;
+  from?: string;
+  to?: string;
 }
 
 export function emptyParcelData(): ParcelData {
   return {
     id: null,
-    percent: null
+    percent: null,
+    from: null
   };
 }
 

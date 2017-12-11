@@ -34,13 +34,18 @@ export class AddSectionComponent implements OnDestroy {
     this.db.addSection(this.section, this.currentUser.unionId)
       .then((res) => {
         this.progressBar = false;
-        this.addedSuccessfully = res;
+        this.addedSuccessfully = 'success';
       })
       .catch((e) => console.log(e));
   }
 
   ngOnDestroy() {
     this.subscriptions.forEach((s) => s.unsubscribe());
+  }
+
+  reload() {
+    this.section = emptySection();
+    this.addedSuccessfully = null;
   }
 
 }

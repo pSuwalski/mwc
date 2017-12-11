@@ -7,7 +7,7 @@ import { User } from '../../models/user';
 import { Subscription } from 'rxjs/Subscription';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import { SectionService } from '../../services/section.service';
-import { Section, emptySection } from '../../models/section';
+import { Section } from '../../models/section';
 
 @Component({
   selector: 'mwc-search-parcel',

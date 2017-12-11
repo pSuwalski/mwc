@@ -139,13 +139,13 @@ export class ParcelService {
       .limit(limit ? this.limit : 100000);
       parcelNameRef = await this.lastQuery.orderBy('number', 'asc').limit(this.limit).get();
     } else {
+      console.log(numberSearch);
       this.lastQuery = await this.parcelsRef(unionId).ref
       .where('companyId', '==', companyId)
       .where('sectionId', '==', sectionId)
-      .where('number', '>=', _.capitalize(numberSearch))
-      .where('number', '<=', _.capitalize(numberSearch) + String.fromCharCode(1000))
+      .where('number', '==', numberSearch)
       .limit(limit ? this.limit : 100000);
-      parcelNameRefUpperCase = await this.lastQuery.orderBy('number', 'asc').limit(this.limit).get();
+      parcelNameRefUpperCase = await this.lastQuery.get();
     }
     const output: Parcel[] = [];
     if (parcelNameRef && !parcelNameRef.empty) {

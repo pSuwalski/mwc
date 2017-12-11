@@ -1,39 +1,110 @@
-<div class="card-container" >
+<md-progress-bar *ngIf="progressBar" mode="indeterminate">
+  </md-progress-bar>
+  <div class="card-container">
     <div class="card mat-elevation-z1">
       <div class="form-container fixed">
-        <md-form-field class="col-md-11">
-            <input class="textbox" type="text"  mdInput placeholder="Wyszukaj..." [(ngModel)]="searchString" (input)="searchResolutions()" >
-            <!-- <input class="textbox" type="text"  mdInput placeholder="Wyszukaj..." [(ngModel)]="searchString" > -->
-        </md-form-field>
-        <!-- <div class="col-md-1">
-          <md-icon class="material-icons md-48" color="accent" (click)="searchResolutions()">search</md-icon>
+        <div class="row">
+          <div class="header col-md-12">
+            Wybierz spółkę
+          </div>
+          <div class="col-md-2 form-row">
+            <form>
+              <md-select name="first" placeholder="SPÓŁKA" [(ngModel)]="selectedCompanyId">
+                <md-option *ngFor="let c of currentUser?.companies" [value]="c.id" (click)="getCompanyResolutions()">
+                  {{ c.name }}
+                </md-option>
+              </md-select>
+            </form>
+          </div>
+        </div>
+ 
+        <!-- <div *ngIf="selectedCompanyId && sections?.length < 1">
+          <mwc-info [link]="'/add/section'" [text]="'Ta spółka nie posiada jeszcze sekcji. Dodaj sekcje by móc dodawać uchwały.'" [buttonText]="'Dodaj sekcje'"
+            [success]="false"></mwc-info>
         </div> -->
-      </div>
-      <div class="col-md-12">
-        <div class="row in-the-bottom on-the-right columns-title fixed">
-          <div class="card-field" style="float:left; width:100%">
-            <div class="col-md-2 header" (click)="sortByNumber()" >Rok</div>
-            <div class="col-md-2 header" (click)="sortByAreaType() " >Numer uchwały</div>
-            <div class="col-md-2 header" (click)="sortByAreaSurface()" >Data uchwały</div>
-            <div class="col-md-4 header" (click)="sortByTrench()" >Data pierwszej płatności</div>
+
+        <div class="row" *ngIf="selectedCompanyId">
+          <div class="col-md-4">
+            <md-form-field>
+              <!-- <input class="textbox" (keypress)="onKeyDown($event)" (input)="onInput($event)" type="text" mdInput placeholder="Wyszukaj po numerze"
+                  [(ngModel)]="numberSearchString"> -->
+              <input class="textbox" (keypress)="onKeyDownNumber($event)" type="text" mdInput placeholder="Wyszukaj po numerze" [(ngModel)]="numberSearchString">
+            </md-form-field>
           </div>
-        </div>
-        <div class="result_container">
-        <div  *ngFor="let r of resolutions">
-        <div class="row bordered in-the-bottom on-the-right result" (click)="showChosenResolution(r)">
-          <div class="card-field" style="float:left; width:100%">
-              <div class="col-md-2 " >{{r.year}}</div>
-              <div class="col-md-2 " >{{r.number}}</div>
-              <div class="col-md-2 " >{{r.date}}</div>
-              <div class="col-md-1 " >{{r.paymentI}}</div>
-            </div>
+          <div class="col-md-3">
+            <button md-raised-button color="primary" (click)="searchResolutionByNumber()">Wyszukaj {{ numberSearchString ? 'po numerze' : 'wszystkie' }}</button>
           </div>
+          <div class="clearfix"></div>
         </div>
+  
+        <div class="row" *ngIf="selectedCompanyId">
+            <div class="col-md-2 header" (click)="sortByNumber()">Rok</div>
+            <div class="col-md-2 header" (click)="sortByAreaType() ">Numer uchwały</div>
+            <div class="col-md-2 header" (click)="sortByAreaSurface()">Data uchwały</div>
+            <div class="col-md-4 header" (click)="sortByTrench()">Data pierwszej płatności</div>
+        </div>
+        <div *ngFor="let r of resolutions">
+          <div class="row" *ngIf="selectedCompanyId" (click)="showChosenResolution(r)">
+              <div class="col-md-2 ">{{r.year}}</div>
+              <div class="col-md-2 ">{{r.number}}</div>
+              <div class="col-md-2 ">{{r.date}}</div>
+              <div class="col-md-1 ">{{r.paymentI}}</div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  <!-- year: number;
+
+<!-- <div class="card-container">
+  <div class="card mat-elevation-z1">
+    <div class="form-container fixed">
+      <div class="row">
+        <div class="header col-md-12">
+          Wybierz spółkę
+        </div>
+        <div class="col-md-2 form-row">
+          <form>
+            <md-select name="first" placeholder="SPÓŁKA" [(ngModel)]="selectedCompanyId">
+              <md-option *ngFor="let c of currentUser?.companies" [value]="c.id" (click)="getCompanySections()">
+                {{ c.name }}
+              </md-option>
+            </md-select>
+          </form>
+        </div>
+      </div>
+      <md-form-field class="col-md-11">
+        <input class="textbox" type="text" mdInput placeholder="Wyszukaj..." [(ngModel)]="searchString" (input)="searchResolutions()"> -->
+        <!-- <input class="textbox" type="text"  mdInput placeholder="Wyszukaj..." [(ngModel)]="searchString" > -->
+      <!-- </md-form-field> -->
+      <!-- <div class="col-md-1">
+          <md-icon class="material-icons md-48" color="accent" (click)="searchResolutions()">search</md-icon>
+        </div> -->
+    <!-- </div>
+    <div class="col-md-12">
+      <div class="row in-the-bottom on-the-right columns-title fixed">
+        <div class="card-field" style="float:left; width:100%">
+          <div class="col-md-2 header" (click)="sortByNumber()">Rok</div>
+          <div class="col-md-2 header" (click)="sortByAreaType() ">Numer uchwały</div>
+          <div class="col-md-2 header" (click)="sortByAreaSurface()">Data uchwały</div>
+          <div class="col-md-4 header" (click)="sortByTrench()">Data pierwszej płatności</div>
+        </div>
+      </div>
+      <div class="result_container">
+        <div *ngFor="let r of resolutions">
+          <div class="row bordered in-the-bottom on-the-right result" (click)="showChosenResolution(r)">
+            <div class="card-field" style="float:left; width:100%">
+              <div class="col-md-2 ">{{r.year}}</div>
+              <div class="col-md-2 ">{{r.number}}</div>
+              <div class="col-md-2 ">{{r.date}}</div>
+              <div class="col-md-1 ">{{r.paymentI}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+<!-- year: number;
   number: number;
   date: string;
   paymentI: string;

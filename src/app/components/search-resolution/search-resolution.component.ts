@@ -20,7 +20,8 @@ export class SearchResolutionComponent implements OnDestroy {
   resolutions: Resolution[] = [];
   subsriptions: Subscription[] = [];
 
-  searchString: string;
+  // searchString: string;
+  numberSearchString: string;
 
   constructor(
     private rs: ResolutionsService,
@@ -30,14 +31,30 @@ export class SearchResolutionComponent implements OnDestroy {
     this.subsriptions.push(
       this.us.currentUser.subscribe((cu) => {
         this.currentUser = cu;
-        if (cu.companies[0]) {
-          this.selectedCompanyId = cu.companies[0].id;
-          this.rs.getCompanyResolutions(this.currentUser.unionId, this.selectedCompanyId).then((rst: Resolution[]) => {
-            this.resolutions = rst; /*this.parcelFilter = this.parcels;*/
-          });
-        }
+
       })
     );
+  }
+
+  onKeyDownNumber(event: KeyboardEvent) {
+    if (event.keyCode === 13) {
+      this.searchResolutionByNumber();
+    }
+  }
+
+  getCompanyResolutions() {
+    this.rs.getCompanyResolutions(this.currentUser.unionId, this.selectedCompanyId).then((rst: Resolution[]) => {
+      this.resolutions = rst;
+      console.log(this.resolutions);
+    });
+  }
+
+  searchResolutionByNumber() {
+    this.rs.getCompanyResolutionsByNumber(this.currentUser.unionId, this.selectedCompanyId,
+      this.numberSearchString).then((rst) => {
+        this.resolutions = rst;
+        console.log(this.resolutions);
+      });
   }
 
   showChosenResolution(resolution: Resolution) {
@@ -45,11 +62,11 @@ export class SearchResolutionComponent implements OnDestroy {
     this.router.navigate(['/view/resolution']);
   }
 
-  searchResolutions() {
-    this.rs.SearchResolutionByNumber(this.currentUser.unionId, this.searchString).then((rst: Resolution[]) => {
-      this.resolutions = rst;
-    });
-  }
+  // searchResolutions() {
+  //   this.rs.SearchResolutionByNumber(this.currentUser.unionId, this.searchString).then((rst: Resolution[]) => {
+  //     this.resolutions = rst;
+  //   });
+  // }
 
   ngOnDestroy() {
     this.subsriptions.forEach((s) => s.unsubscribe());

@@ -80,7 +80,7 @@ export class SearchParcelComponent implements OnDestroy {
   }
 
   loadMore() {
-    this.ps.loadMoreByCity().then((prs: Parcel[]) => this.parcels.concat(prs));
+    this.ps.loadMoreByNumber().then((prs: Parcel[]) => this.parcels.concat(prs));
   }
 
   ngOnDestroy() {

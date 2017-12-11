@@ -51,6 +51,13 @@ export class SearchWorksdoneComponent implements OnDestroy {
     this.router.navigate(['/view/works']);
   }
 
+  loadMore() {
+    this.ws.loadMoreByNumber().then((wrk) => {
+      this.works = wrk;
+      console.log(this.works);
+    });
+  }
+
   searchWorksByProtocolNumber() {
     console.log(this.protocolNumberSearchString);
     this.ws.SearchWorksByProtocolNumber(this.currentUser.unionId, this.protocolNumberSearchString).then((wrk: Works[]) => {

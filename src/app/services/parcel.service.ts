@@ -15,7 +15,7 @@ export class ParcelService {
 
   lastQuery: firestore.Query;
   editedParcel: Parcel;
-  limit = 1;
+  limit = 2;
   loadedFromBegining = 0;
   parcels: Parcel[] = [];
   moreToBeLoadedIndicator = false;
@@ -216,17 +216,18 @@ export class ParcelService {
     }
   }
 
-  async loadMoreByNumber() {
+  async loadMoreByNumber(): Promise<Parcel[]> {
     if (this.moreToBeLoadedIndicator) {
-      const sectionsRef = await this.lastQuery
-        .orderBy('name', 'asc')
+      const parcelsRef = await this.lastQuery
+        .orderBy('number', 'asc')
         .startAfter(this.parcels[this.loadedFromBegining - 1].number)
         .limit(this.limit)
         .get();
-      if (!sectionsRef.empty) {
-        this.moreToBeLoadedIndicator = sectionsRef.docs.length === this.limit;
-        this.loadedFromBegining = this.loadedFromBegining + sectionsRef.docs.length;
-        sectionsRef.docs.forEach((p) => this.parcels.push(p.data() as Parcel));
+      if (!parcelsRef.empty) {
+        this.moreToBeLoadedIndicator = parcelsRef.docs.length === this.limit;
+        this.loadedFromBegining = this.loadedFromBegining + parcelsRef.docs.length;
+        parcelsRef.docs.forEach((p) => this.parcels.push(p.data() as Parcel));
+        return this.parcels;
       } else {
         return [];
       }
@@ -237,15 +238,21 @@ export class ParcelService {
     if (this.moreToBeLoadedIndicator) {
       console.log(this.parcels);
       console.log(this.loadedFromBegining);
-      const sectionsRef = await this.lastQuery
-        .orderBy('name', 'asc')
-        .startAfter(this.parcels[this.loadedFromBegining - 1].cityId)
+      const parcelsRef = await this.lastQuery
+        .orderBy('cityId', 'asc')
+        // .startAfter(this.parcels[this.loadedFromBegining - 1].cityId)
+        .startAfter("Random")
         .limit(this.limit)
         .get();
-      if (!sectionsRef.empty) {
-        this.moreToBeLoadedIndicator = sectionsRef.docs.length === this.limit;
-        this.loadedFromBegining = this.loadedFromBegining + sectionsRef.docs.length;
-        sectionsRef.docs.forEach((p) => this.parcels.push(p.data() as Parcel));
+
+        console.log(parcelsRef);
+      if (!parcelsRef.empty) {
+        console.log(parcelsRef);
+        this.moreToBeLoadedIndicator = parcelsRef.docs.length === this.limit;
+        this.loadedFromBegining = this.loadedFromBegining + parcelsRef.docs.length;
+        parcelsRef.docs.forEach((p) => {
+        this.parcels.push(p.data() as Parcel);
+      });
       } else {
         return [];
       }

@@ -2,6 +2,7 @@ import { AngularFirestore } from 'angularfire2/firestore';
 import { Injectable } from '@angular/core';
 import { emptyWorks, Works } from '../models/works';
 import * as _ from 'lodash';
+import { firestore } from 'firebase/app';
 
 import 'rxjs/add/operator/do';
 import { capitalizeStrings } from '../helper-functions';
@@ -11,11 +12,12 @@ let storedWorks: Works;
 @Injectable()
 export class WorksService {
 
-  limit = 30;
+  limit = 1;
   loadedFromBegining = 0;
-  moreToBeLoadedIndicator = true;
-  sections: Works[];
+  moreToBeLoadedIndicator = false;
+  works: Works[];
   cachedWorks: { [id: string]: Works[] } = {};
+  lastQuery: firestore.Query;
 
   constructor(
     private db: AngularFirestore
@@ -68,21 +70,43 @@ export class WorksService {
 
   async SearchWorksByProtocolNumber(unionId: string, protocolNumber: string): Promise<Works[]> {
     this.loadedFromBegining = 0;
-    let companyIdRef;
+    let worksRef;
     if (!protocolNumber) {
-      companyIdRef = await this.worksRef(unionId).ref.get();
+      this.lastQuery = await this.worksRef(unionId).ref
+      .limit(this.limit);
+      worksRef = await this.lastQuery.orderBy('protocolNumber', 'asc').limit(this.limit).get();
     } else {
-      companyIdRef = await this.worksRef(unionId).ref.
-        where('protocolNumber', '==', protocolNumber)
-        .limit(this.limit * 10).get();
+      this.lastQuery = await this.worksRef(unionId).ref.
+      where('protocolNumber', '==', protocolNumber)
+      .limit(this.limit);
+      worksRef = await this.lastQuery.orderBy('protocolNumber', 'asc').limit(this.limit).get();
     }
     const output: Works[] = [];
-    if (!companyIdRef.empty) {
-      this.moreToBeLoadedIndicator = companyIdRef.docs.length === 30;
-      this.loadedFromBegining = companyIdRef.docs.length;
-      companyIdRef.docs.forEach((p) => output.push(this.parse(p.data())));
+    if (!worksRef.empty) {
+      this.moreToBeLoadedIndicator = worksRef.docs.length === this.limit;
+      this.loadedFromBegining = worksRef.docs.length;
+      worksRef.docs.forEach((p) => output.push(this.parse(p.data())));
     }
+    this.works = output;
     return output;
+  }
+
+  async loadMoreByNumber(): Promise<Works[]> {
+    if (this.moreToBeLoadedIndicator) {
+      const parcelsRef = await this.lastQuery
+        .orderBy('protocolNumber', 'asc')
+        .startAfter(this.works[this.loadedFromBegining - 1].protocolNumber)
+        .limit(this.limit)
+        .get();
+      if (!parcelsRef.empty) {
+        this.moreToBeLoadedIndicator = parcelsRef.docs.length === this.limit;
+        this.loadedFromBegining = this.loadedFromBegining + parcelsRef.docs.length;
+        parcelsRef.docs.forEach((p) => this.works.push(p.data() as Works));
+        return this.works;
+      } else {
+        return [];
+      }
+    }
   }
 
   parse(dbResolution: any): Works {

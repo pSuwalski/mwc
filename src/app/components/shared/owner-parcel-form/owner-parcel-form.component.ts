@@ -1,5 +1,6 @@
+import { CompanyService } from '../../../services/company.service';
 import { Component, Input, OnInit } from '@angular/core';
-import { ParcelData, emptyParcelData } from '../../../models/owner';
+import { ParcelData, emptyParcelData, emptyParcelDataFull } from '../../../models/owner';
 import { UserService } from '../../../services/user.service';
 import { User } from '../../../models/user';
 import { Parcel } from '../../../models/parcel';
@@ -21,20 +22,28 @@ export class OwnerParcelFormComponent implements OnInit {
   parcelCtrl: FormControl;
   progressBar = true;
 
+  companyName: string;
+  sectionName: string;
+
   @Input() parcelData: ParcelData;
   currentUser: User;
   selectedParcels: Parcel[] = [];
   selectedSections: Section[] = [];
 
+  @Input() editionDisabled = false;
+  @Input() id: string;
 
   constructor(
     private ps: ParcelService,
+    private cs: CompanyService,
     private ss: SectionService,
     private us: UserService
   ) {
+
     this.us.currentUser.subscribe((cu) => {
       this.currentUser = cu;
       this.progressBar = false;
+
     });
     this.parcelCtrl = new FormControl();
     this.filteredParcels = this.parcelCtrl.valueChanges
@@ -52,12 +61,26 @@ export class OwnerParcelFormComponent implements OnInit {
 
   ngOnInit() {
     if (this.isParcelData()) {
-      this.parcelData.percent = 100;
+      if (this.parcelData.companyId !== null) {
+        this.ss.getCompanySections(this.currentUser.unionId, this.parcelData.companyId).then((sections) => {
+          this.selectedSections = sections;
+          this.progressBar = false;
+        });
+      }
+      if (this.parcelData.sectionId !== null && this.parcelData.companyId !== null) {
+        this.ps.getSectionParcels(this.currentUser.unionId, this.parcelData.companyId, this.parcelData.sectionId, false).then((parcels) => {
+          this.selectedParcels = parcels;
+          this.progressBar = false;
+        });
+      }
+      if (this.parcelData.percent === undefined) {
+        this.parcelData.percent = 100;
+      }
     }
   }
 
   isParcelData() {
-    return this.parcelData.percent !== undefined;
+    return (this.parcelData !== undefined );
   }
 
   selectCompany(id: string) {

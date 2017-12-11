@@ -27,6 +27,7 @@ export class SearchParcelComponent implements OnDestroy {
   public parcelFilter: Parcel[];
 
   constructor(
+    private router: Router,
     private ps: ParcelService,
     private us: UserService
   ) {
@@ -113,23 +114,11 @@ export class SearchParcelComponent implements OnDestroy {
       this.parcels = own;
       console.log(this.parcels);
     });
-    // this.parcelFilter = [];
-    // this.searchString = this.searchString.toLowerCase();
-    // if (this.searchString.length !== 0) {
-    //   for (const parcel of this.parcels) {
-    //     if (parcel.areaType.toLowerCase().indexOf(this.searchString) >= 0) {
-    //       this.parcelFilter.push(parcel);
-    //     } else if (String(parcel.number).toLowerCase().indexOf(this.searchString) >= 0) {
-    //       this.parcelFilter.push(parcel);
-    //     } else if (String(parcel.areaSurface).toLowerCase().indexOf(this.searchString) >= 0) {
-    //       this.parcelFilter.push(parcel);
-    //     }
-    //     // else if (String(parcel.trench).toLowerCase().indexOf(this.searchString) >= 0) {
-    //       // this.parcelFilter.push(parcel);
-    //     // }
-    //   }
-    // } else {
-    //   this.parcelFilter = this.parcels;
-    // }
   }
+
+  showChosenParcel(parcel: Parcel) {
+    this.ps.storeParcel(parcel);
+    this.router.navigate(['/view/parcel']);
+  }
+
 }

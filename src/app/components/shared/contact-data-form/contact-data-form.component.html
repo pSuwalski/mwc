@@ -11,39 +11,39 @@
 <div class="row">
   <div class="col-md-3">
     <md-form-field>
-      <input class="textbox" type="text" mdInput placeholder="ULICA" name="ulica" [(ngModel)]="contactDataForm.address.streetAndNumber">
+      <input class="textbox" [disabled]="editionDisabled" type="text" mdInput placeholder="ULICA" name="ulica" [(ngModel)]="contactDataForm.address.streetAndNumber">
     </md-form-field>
   </div>
   <div class="col-md-1">
     <md-form-field>
-      <input class="textbox" type="text" mdInput placeholder="APARTAMENT" name="nr" [(ngModel)]="contactDataForm.address.apartment">
+      <input class="textbox" [disabled]="editionDisabled" type="text" mdInput placeholder="APARTAMENT" name="nr" [(ngModel)]="contactDataForm.address.apartment">
     </md-form-field>
   </div>
   <div class="col-md-2">
     <md-form-field>
-      <input class="textbox" type="text" mdInput placeholder="KOD POCZTOWY" name="kod" [(ngModel)]="contactDataForm.address.postCode">
+      <input class="textbox" [disabled]="editionDisabled" type="text" mdInput placeholder="KOD POCZTOWY" name="kod" [(ngModel)]="contactDataForm.address.postCode">
     </md-form-field>
   </div>
   <div class="col-md-3">
     <md-form-field>
-      <input class="textbox" type="text" mdInput placeholder="MIASTO" name="miasto" [(ngModel)]="contactDataForm.address.city">
+      <input class="textbox" [disabled]="editionDisabled" type="text" mdInput placeholder="MIASTO" name="miasto" [(ngModel)]="contactDataForm.address.city">
     </md-form-field>
   </div>
 </div>
 <div class="row">
   <div class="col-md-3">
     <md-form-field>
-      <input class="textbox" type="text" mdInput placeholder="E-MAIL" name="email" [(ngModel)]="contactDataForm.email">
+      <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="E-MAIL" name="email" [(ngModel)]="contactDataForm.email">
     </md-form-field>
   </div>
   <div class="col-md-2">
     <md-form-field>
-      <input class="textbox" type="text" mdInput placeholder="TELEFON STACJONARNY" name="stacjonarny" [(ngModel)]="contactDataForm.deskPhoneNumber">
+      <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="TELEFON STACJONARNY" name="stacjonarny" [(ngModel)]="contactDataForm.deskPhoneNumber">
     </md-form-field>
   </div>
   <div class="col-md-2">
     <md-form-field>
-      <input class="textbox" type="text" mdInput placeholder="TELEFON KOMÓRKOWY" name="komórkowy" [(ngModel)]="contactDataForm.cellPhoneNumber">
+      <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="TELEFON KOMÓRKOWY" name="komórkowy" [(ngModel)]="contactDataForm.cellPhoneNumber">
     </md-form-field>
   </div>
 </div>

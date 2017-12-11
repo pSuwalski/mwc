@@ -17,6 +17,7 @@ export class LegalbasisDataFormComponent implements OnInit, OnChanges {
 
   @Input() companyId = '';
   @Input() legalBasicsDataForm: Resolution;
+  @Input() editionDisabled = false;
 
   currentUser: User;
   sections: Section[];
@@ -33,7 +34,9 @@ export class LegalbasisDataFormComponent implements OnInit, OnChanges {
     this.years = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((v) => year - v);
     this.us.currentUser.subscribe((u) => {
       this.currentUser = u;
-      this.ss.getCompanySections(this.currentUser.unionId, this.companyId).then((ss) => this.sections = ss);
+      this.ss.getCompanySections(this.currentUser.unionId, this.companyId).then((ss) => {
+        this.sections = ss;
+      });
     }
     );
   }

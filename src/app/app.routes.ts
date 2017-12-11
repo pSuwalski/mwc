@@ -21,7 +21,11 @@ import { SearchResolutionComponent } from './components/search-resolution/search
 import { AddSectionComponent } from './components/add-section/add-section.component';
 import { SearchSectionComponent } from './components/search-section/search-section.component';
 import { SectionOutputDataFormComponent } from './components/output-data-forms/section-output-data-form/section-output-data-form.component';
-import { EditSectionComponent } from './components/edit/edit-section/edit-section.component';
+import { ParcelOutputDataFormComponent } from './components/output-data-forms/parcel-output-data-form/parcel-output-data-form.component';
+import { OwnerOutputDataFormComponent } from './components/output-data-forms/owner-output-data-form/owner-output-data-form.component';
+import { ResolutionOutputDataFormComponent } from './components/output-data-forms/resolution-output-data-form/resolution-output-data-form.component';
+import { SearchWorksdoneComponent } from './components/search-worksdone/search-worksdone.component';
+import { WorksOutputDataFormComponent } from './components/output-data-forms/works-output-data-form/works-output-data-form.component';
 
 export const appRoutes: Routes = [
   {
@@ -99,6 +103,10 @@ export const appRoutes: Routes = [
             path: 'section',
             component: SearchSectionComponent,
           },
+          {
+            path: 'works',
+            component: SearchWorksdoneComponent,
+          },
         ]
       },
       {
@@ -108,39 +116,22 @@ export const appRoutes: Routes = [
             path: 'section',
             component: SectionOutputDataFormComponent,
           },
-          // {
-          //   path: 'leesee',
-          //   component: SearchOwnerComponent,
-          // },
-          // {
-          //   path: 'resolution',
-          //   component: SearchResolutionComponent,
-          // },
-          // {
-          //   path: 'section',
-          //   component: SearchSectionComponent,
-          // },
-        ]
-      },
-      {
-        path: 'edit',
-        children: [
           {
-            path: 'section',
-            component: EditSectionComponent,
+            path: 'parcel',
+            component: ParcelOutputDataFormComponent,
           },
-          // {
-          //   path: 'leesee',
-          //   component: SearchOwnerComponent,
-          // },
-          // {
-          //   path: 'resolution',
-          //   component: SearchResolutionComponent,
-          // },
-          // {
-          //   path: 'section',
-          //   component: SearchSectionComponent,
-          // },
+          {
+            path: 'owner',
+            component: OwnerOutputDataFormComponent,
+          },
+          {
+            path: 'resolution',
+            component: ResolutionOutputDataFormComponent,
+          },
+          {
+            path: 'works',
+            component: WorksOutputDataFormComponent,
+          },
         ]
       },
     ],

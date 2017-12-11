@@ -1,0 +1,33 @@
+<div class="form-container fixed">
+  <div class="card-title">
+    <div class="col-md-9">
+      <md-form-field>
+        <input class="textbox" type="text" mdInput placeholder="Wyszukaj..." [(ngModel)]="searchString" (input)="searchSections()">
+      </md-form-field>
+    </div>
+  </div>
+</div>
+<div class="col-md-12">
+  <div class="row in-the-bottom on-the-right columns-title fixed">
+    <div class="card-field" style="float:left; width:100%">
+      <div class="col-md-2 header" (click)="sortByNumber()">Data rozpoczęcia</div>
+      <div class="col-md-2 header" (click)="sortByNumber()">Data zakończenia</div>
+      <div class="col-md-2 header" (click)="sortByNumber()">Numer protokołu</div>
+      <div class="col-md-2 header" (click)="sortByAreaType() ">Rodzaj wykonanych prac</div>
+      <div class="col-md-2 header" (click)="sortByAreaSurface()">Całkowity koszt</div>
+    </div>
+  </div>
+  <div class="result_container">
+    <div *ngFor="let w of works" id="s.id">
+      <div class="row bordered in-the-bottom on-the-right result" (click)="showChosenWorks(w)">
+        <div class="card-field" style="float:left; width:100%">
+          <div class="col-md-2 ">{{w.startedFromDate}}</div>
+          <div class="col-md-2 ">{{w.finishedDate}}</div>
+          <div class="col-md-2 ">{{w.protocolNumber}}</div>
+          <div class="col-md-2 ">{{w.type}}</div>
+          <div class="col-md-2 ">{{w.totalCost}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

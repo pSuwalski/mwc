@@ -11,6 +11,7 @@ export class ContactDataFormComponent implements OnInit {
   sameAddressIndicator: boolean;
 
   @Input() contactDataForm: ContactData;
+  @Input() editionDisabled = false;
   @Output() sameAddress = new EventEmitter();
 
   constructor() { }

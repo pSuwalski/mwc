@@ -2,7 +2,7 @@ import { Resolution } from '../../models/resolution';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Section } from '../../models/section';
-import { SectionService,  } from '../../services/section.service';
+import { SectionService, } from '../../services/section.service';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user';
 import { Subscription } from 'rxjs/Subscription';
@@ -15,30 +15,30 @@ import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 })
 export class SearchSectionComponent implements OnDestroy {
 
-
+  progressBar = true;
   currentUser: User;
-  sections: Section[] = [];
-  selectedCompanyId: string;
   subsriptions: Subscription[] = [];
-  searchString: string;
+  nulled = false;
+  searchedAndNotNulled = false;
 
   constructor(
     public router: Router,
-    private ss: SectionService,
+    public ss: SectionService,
     private us: UserService
   ) {
     this.subsriptions.push(
       this.us.currentUser.subscribe((cu) => {
+        this.progressBar = false;
         this.currentUser = cu;
-        if (cu.companies[0]) {
-          this.selectedCompanyId = cu.companies[0].id;
-          this.ss.SearchSectionsByName(this.currentUser.unionId, '').then((sct: Section[]) => {
-          // this.ss.getCompanySections(this.currentUser.unionId, this.selectedCompanyId).then((sct: Section[]) => {
-            this.sections = sct; /*this.parcelFilter = this.parcels;*/
-          });
-        }
+        this.ss.unionId = cu.unionId;
       })
     );
+  }
+
+  checkIfNulled() {
+    if (this.ss.searchString.length === 0 && this.searchedAndNotNulled) {
+      this.nulled = true;
+    }
   }
 
   showChosenSection(section: Section) {
@@ -46,9 +46,10 @@ export class SearchSectionComponent implements OnDestroy {
     this.router.navigate(['/view/section']);
   }
 
-  searchSections() {
-    this.ss.SearchSectionsByName(this.currentUser.unionId, this.searchString).then((sct: Section[]) => {
-      this.sections = sct;
+  searchSectionByName() {
+    this.ss.SearchSectionsByName(this.ss.unionId, this.ss.selectedCompanyId, this.ss.searchString).then(() => {
+      this.searchedAndNotNulled = true;
+      this.nulled = false;
     });
   }
 

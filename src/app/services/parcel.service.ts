@@ -6,7 +6,7 @@ import * as _ from 'lodash';
 
 import 'rxjs/add/operator/do';
 
-
+let storedParcel: Parcel;
 
 @Injectable()
 export class ParcelService {
@@ -24,6 +24,21 @@ export class ParcelService {
   ) {
   }
 
+  storeParcel(parcel: Parcel) {
+    storedParcel = parcel;
+  }
+
+  async restoreParcel(): Promise<Parcel> {
+    let returnParcel: Parcel;
+    if (storedParcel !== null) {
+      returnParcel = storedParcel;
+    } else {
+      returnParcel = null;
+    }
+
+    return returnParcel;
+  }
+
   async addParcel(parcel: Parcel, unionId: string): Promise<any> {
     const id = this.db.createId();
     return this.db
@@ -35,6 +50,18 @@ export class ParcelService {
 
   }
 
+  async replaceParcel(parcel: Parcel, unionId: string): Promise<any> {
+    if (await this.checkIfExists(`unions/${unionId}/parcels/${parcel.id}`)) {
+      return this.db
+        .collection('unions')
+        .doc(unionId)
+        .collection('parcels')
+        .doc(parcel.id)
+        .set(parcel);
+    } else {
+      return Promise.resolve(false);
+    }
+  }
 
   async checkIfExists(path: string) {
     const dataRef = await this.db.doc(path).ref.get();

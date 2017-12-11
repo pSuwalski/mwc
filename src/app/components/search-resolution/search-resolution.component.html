@@ -20,7 +20,7 @@
         </div>
         <div class="result_container">
         <div  *ngFor="let r of resolutions">
-        <div class="row bordered in-the-bottom on-the-right result" (click)="navigate('search/searchresult')">
+        <div class="row bordered in-the-bottom on-the-right result" (click)="showChosenResolution(r)">
           <div class="card-field" style="float:left; width:100%">
               <div class="col-md-2 " >{{r.year}}</div>
               <div class="col-md-2 " >{{r.number}}</div>

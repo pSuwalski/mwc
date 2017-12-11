@@ -1,0 +1,56 @@
+<div class="card-container">
+  <div class="card mat-elevation-z1">
+
+    <div class="form-container">
+      <div class="row">
+        <div class=
+        <div class="card-field card-navigation" (click)="goBack()">
+          <md-icon>navigate_before</md-icon>
+        </div>
+        <div class="col-md-10 header" style="padding-top: 4px">Przegląd właściciela</div>
+      </div>
+      <mwc-personal-data-form [editionDisabled]="editionDisabled" [personalDataForm]="owner.personalData"></mwc-personal-data-form>
+      <mwc-contact-data-form [editionDisabled]="editionDisabled" [contactDataForm]="owner.contactData"></mwc-contact-data-form>
+      <div>
+        <div *ngIf="!editionDisabled || owner?.authData?.length > 0" class="header">
+          Udzielone pełnomocnictwa
+        </div>
+        <mwc-authorizations-data-form *ngFor="let auth of owner.authData" [editionDisabled]="editionDisabled" [authDataForm]="auth"></mwc-authorizations-data-form>
+        <div class="auth-button-container">
+          <button *ngIf="!editionDisabled" type="button" class="add-button accent" md-raised-button color="primary" (click)="addAuth()">Dodaj {{owner.authData?.length > 0 ? 'kolejne' : ''}} pełnomocnictwo</button>
+          <button *ngIf="!editionDisabled" type="button" class="add-button accent" md-raised-button color="primary" [disabled]="owner?.authData?.length < 1"
+            (click)="removeAuth()">Wykasuj pełnomocnictwo</button>
+        </div>
+      </div>
+      <div>
+        <mwc-historic-saldo-form [editionDisabled]="editionDisabled" [historicSaldo]="owner.historicSaldo"></mwc-historic-saldo-form>
+      </div>
+      <div>
+        <div *ngIf="!editionDisabled || owner?.parcelsData?.length > 0" class="header">
+          Działki
+        </div>
+        <!-- <mwc-owner-parcel-form [editionDisabled]="editionDisabled" [id]="id"></mwc-owner-parcel-form> -->
+        <!-- <mwc-owner-parcel-form [editionDisabled]="editionDisabled" [parcelData]="owner.parcelsData[0]"></mwc-owner-parcel-form> -->
+        <mwc-owner-parcel-form [editionDisabled]="editionDisabled" *ngFor="let pd of owner.parcelsData" [parcelData]="pd"></mwc-owner-parcel-form>
+        <div class="auth-button-container">
+          <button *ngIf="!editionDisabled" type="button" class="add-button accent" md-raised-button color="primary" (click)="addParcel()">Dodaj {{owner.parcelsData?.length > 0 ? 'kolejną' : ''}} Działkę</button>
+          <button *ngIf="!editionDisabled" type="button" class="add-button accent" md-raised-button color="primary" [disabled]="owner?.parcelsData?.length < 1"
+            (click)="removeParcel()">Wykasuj Działkę</button>
+        </div>
+      </div>
+      <div *ngIf="editionDisabled" class="button-container col-md-12">
+        <button type="button" class="add-button accent" md-raised-button color="accent" (click)="edit()">Edytuj</button>
+      </div>
+      <div *ngIf="!editionDisabled" class="no-padding col-md-12">
+        <div class="col-md-10 no-padding">
+          <div class="button-container col-md-10">
+            <button type="button" class="add-button accent" md-raised-button color="accent" (click)="cancel()">Anuluj</button>
+          </div>
+        </div>
+        <div class="button-container col-md-2">
+          <button type="button" class="add-button accent" md-raised-button color="accent" (click)="save()">Zapisz</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

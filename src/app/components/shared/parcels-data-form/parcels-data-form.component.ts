@@ -19,6 +19,7 @@ export class ParcelsDataFormComponent implements OnChanges, OnInit {
   sections: Section[];
   @Input() parcel: Parcel;
   @Input() companyId = '';
+  @Input() editionDisabled = false;
   progressBarIndicator: boolean;
   progressBar = true;
 

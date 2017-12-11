@@ -21,6 +21,7 @@ export class SearchOwnerComponent implements OnDestroy {
   searchType: 'evidenceNumber' | 'namesurname' | 'address';
 
   constructor(
+    private router: Router,
     private os: OwnerService,
     private us: UserService
   ) {
@@ -39,26 +40,28 @@ export class SearchOwnerComponent implements OnDestroy {
     // this.subsriptions.forEach((s) => s.unsubscribe());
   }
 
+  showChosenOwner(owner: Owner) {
+    this.os.storeOwner(owner);
+    this.router.navigate(['/view/owner']);
+  }
+
   myFilter() {
     switch (this.searchType) {
       case 'evidenceNumber': {
         this.os.SearchUnionOwnersByEvidenceNumber(this.currentUser.unionId, this.searchString).then((own: Owner[]) => {
           this.owners = own;
-          console.log(this.owners);
         });
         break;
       }
       case 'namesurname': {
         this.os.SearchUnionOwnersByName(this.currentUser.unionId, this.searchString).then((own: Owner[]) => {
           this.owners = own;
-          console.log(this.owners);
         });
         break;
       }
       case 'address': {
         this.os.SearchUnionOwnersByAddress(this.currentUser.unionId, this.searchString).then((own: Owner[]) => {
           this.owners = own;
-          console.log(this.owners);
         });
         break;
       }

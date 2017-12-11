@@ -1,56 +1,32 @@
 <div class="card-container">
   <div class="card mat-elevation-z1">
     <div class="form-container">
-      <div class="row">
-        <!-- <div class="card-title"> -->
-          <!-- <div class="col-md-12 no-padding bottom-border" style="position: fixed; background: white; z-index: 2; border: inherit"> -->
-            <div class="card-field card-navigation" (click)="goBack()">
-            <!-- <div class="col-md-1" (click)="navigate('search')"> -->
-                <md-icon>navigate_before</md-icon>
-            </div>
-            <div class="col-md-10 header ">Przegląd sekcji</div>
-          <!-- </div> -->
-        <!-- </div> -->
+      <div class="row form-row">
+        <div class="card-field card-navigation" (click)="goBack()">
+          <md-icon>navigate_before</md-icon>
+        </div>
+        <div class="col-md-10 header" style="padding-top: 4px">Przegląd sekcji</div>
       </div>
       <div class="row">
-        <div class="col-md-12 header">
-          Spółka
-        </div>
-        <div class="col-md-12">
-          {{companyName}}
-        </div>
+        <md-select class="col-md-5" [disabled]="editionDisabled" placeholder="Spółka" [(ngModel)]="section.companyId">
+          <md-option *ngFor="let c of currentUser?.companies" [value]="c.id">
+            {{c.name}}
+          </md-option>
+        </md-select>
       </div>
-      <div class="row">
-        <div class="header col-md-3">
-          Dane Sekcji
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-3">
-          Numer ewidencyjny sekcji
-        </div>
-        <div class="col-md-2">
-          Nazwa Sekcji
-        </div>
-        <div class="col-md-2">
-          Rodzaj sekcji
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-3">
-          {{section.evidenceNumber}}
-        </div>
-        <div class="col-md-2">
-          {{section.name}}
-        </div>
-        <div class="col-md-2">
-          {{section.areaType}}
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="button-container col-md-12">
+      <mwc-section-data-form *ngIf="section.companyId" [editionDisabled]="editionDisabled" [sectionDataForm]="section"></mwc-section-data-form>
+      <div *ngIf="editionDisabled" class="button-container col-md-12">
         <button type="button" class="add-button accent" md-raised-button color="accent" (click)="edit()">Edytuj</button>
+      </div>
+      <div *ngIf="!editionDisabled" class="no-padding col-md-12">
+        <div class="col-md-10 no-padding">
+          <div class="button-container col-md-10">
+            <button type="button" class="add-button accent" md-raised-button color="accent" (click)="cancel()">Anuluj</button>
+          </div>
+        </div>
+        <div class="button-container col-md-2">
+          <button type="button" class="add-button accent" md-raised-button color="accent" (click)="save()">Zapisz</button>
+        </div>
       </div>
     </div>
   </div>

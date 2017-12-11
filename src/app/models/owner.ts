@@ -95,3 +95,12 @@ export function emptyParcelData(): ParcelData {
     from: null
   };
 }
+
+export function emptyParcelDataFull(): ParcelData {
+  return {
+    id: null,
+    percent: null,
+    sectionId: null,
+    companyId: null,
+  };
+}

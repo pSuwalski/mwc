@@ -9,7 +9,7 @@ import { Section } from '../../../models/section';
 export class SectionDataFormComponent implements OnInit {
 
   @Input() sectionDataForm: Section;
-
+  @Input() editionDisabled = false;
   selectedAreaType: string;
   areaType = [
     { value: 'wojewodztwo', viewValue: 'województwo' },

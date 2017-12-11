@@ -27,6 +27,17 @@ button {
     font-weight: 600;
   }
 
-  md-select {
-    margin-bottom: 24px;
+  .auth-button-container {
+    float: left;
   }
+
+  .auth-button-container button {
+    margin-left: 0;
+    margin-right: 12px;
+  }
+
+  mwc-authorizations-data-form, mwc-owner-parcel-form  {
+    margin-bottom: 16px;
+    display: block;
+  }
+  

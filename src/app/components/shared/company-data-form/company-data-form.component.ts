@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'mwc-company-data-form',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./company-data-form.component.css']
 })
 export class CompanyDataFormComponent implements OnInit {
+
+  @Input() editionDisabled = false;
 
   constructor() { }
 

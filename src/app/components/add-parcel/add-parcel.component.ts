@@ -23,7 +23,6 @@ export class AddParcelComponent implements OnDestroy {
   currentUser: User;
   progressBar: boolean;
   subscriptions: Subscription[] = [];
-
   parcel: Parcel = emptyParcel();
 
   constructor(

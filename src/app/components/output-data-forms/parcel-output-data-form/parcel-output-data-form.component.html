@@ -1,0 +1,36 @@
+<md-progress-bar *ngIf="progressBar" mode="indeterminate"></md-progress-bar>
+<div class="card-container">
+  <div class="card mat-elevation-z1">
+    <!-- <div class="form-container" *ngIf="!addingResult || addingResult === 'error'"> -->
+    <div class="form-container" *ngIf="!addingResult || addingResult === 'error'">
+      <div class="row">
+        <div class="card-field card-navigation" (click)="goBack()">
+          <md-icon>navigate_before</md-icon>
+        </div>
+        <div class="col-md-10 header" style="padding-top: 4px">Przegląd działki</div>
+      </div>
+      <md-select [disabled]="editionDisabled" placeholder="Spółka" (ngModelChange)="changeCompanyId()" [(ngModel)]="parcel.companyId">
+        <md-option *ngFor="let c of currentUser?.companies" [value]="c.id">
+          {{c.name}}
+        </md-option>
+      </md-select>
+      <mwc-parcels-data-form *ngIf="parcel.companyId" [editionDisabled]="editionDisabled" [parcel]="parcel" [companyId]="companyId"></mwc-parcels-data-form>
+      <div *ngIf="editionDisabled" class="button-container col-md-12">
+        <button type="button" class="add-button accent" md-raised-button color="accent" (click)="edit()">Edytuj</button>
+      </div>
+      <div *ngIf="!editionDisabled" class="no-padding col-md-12">
+        <div class="col-md-10 no-padding">
+          <div class="button-container col-md-10">
+            <button type="button" class="add-button accent" md-raised-button color="accent" (click)="cancel()">Anuluj</button>
+          </div>
+        </div>
+        <div class="button-container col-md-2">
+          <button type="button" class="add-button accent" md-raised-button color="accent" (click)="save()">Zapisz</button>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="addingResult === 'success'" class="info">
+      <mwc-info [link]="'add/parcel'" [text]="'Dodano pomyślnie'" [buttonText]="'Dodaj kolejną'" [success]="true" (click)="addingResult = null"></mwc-info>
+    </div>
+  </div>
+</div>

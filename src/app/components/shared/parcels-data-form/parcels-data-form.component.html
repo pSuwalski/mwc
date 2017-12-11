@@ -42,10 +42,10 @@
       </div>
     </div>
   </div>
-  <div>
+  <div *ngIf="parcel.trenches.length || !editionDisabled">
     <div class="row">
       <div class="col-md-12 header">
-        Rówy melioryzacyjne
+        Rowy melioryzacyjne
       </div>
     </div>
   </div>
@@ -76,6 +76,7 @@
       </div>
     </div>
   </div>
+  <div *ngIf="!editionDisabled">
   <button md-raised-button color="primary" [disabled]="parcel.drainages.length < 1" (click)="removeDrainage()">Usuń drenaż</button>
   <button md-raised-button color="primary" [disabled]="parcel?.drainages[0] && !parcel?.drainages[parcel?.drainages?.length - 1]?.number" (click)="addDrainage()">Dodaj drenaż</button>
   <div>
@@ -94,16 +95,17 @@
       </div>
       <div class="col-md-2">
         <md-form-field>
-          <input class="textbox" type="text" mdInput placeholder="RODZAJ URZĄDZENIA" [(ngModel)]="a.applianceType" name="rodzajUrzadzenia">
+          <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="RODZAJ URZĄDZENIA" [(ngModel)]="a.applianceType" name="rodzajUrzadzenia">
         </md-form-field>
       </div>
       <div class="col-md-2">
         <md-form-field>
-          <input class="textbox" type="text" mdInput placeholder="OPIS URZĄDZENIA" [(ngModel)]="a.applianceDescription" name="opisUrzadzenia">
+          <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="OPIS URZĄDZENIA" [(ngModel)]="a.applianceDescription" name="opisUrzadzenia">
         </md-form-field>
       </div>
     </div>
   </div>
+  <div *ngIf="!editionDisabled">
   <button md-raised-button color="primary" [disabled]="parcel.appliances.length < 1" (click)="removeAppliance()">Usuń urządzenie</button>
   <button md-raised-button color="primary" [disabled]="parcel?.appliances[0] && !parcel?.appliances[parcel?.appliances?.length - 1]?.numbering" (click)="addAppliance()">Dodaj urządzenie</button>
   <div class="row">
@@ -111,7 +113,7 @@
   </div>
   <div class="row sections-last-row">
     <div class="col-md-2">
-      <md-select placeholder="CZŁONKOSTWO*" [(ngModel)]="parcel.membership" name="objetaCzlonostwem">
+      <md-select [disabled]="editionDisabled" placeholder="CZŁONKOSTWO*" [(ngModel)]="parcel.membership" name="objetaCzlonostwem">
         <md-option *ngFor="let i of objetaCzlonkostwem" [value]="i.value">
           {{i.viewValue}}
         </md-option>
@@ -128,7 +130,7 @@
       </md-select>
     </div>
     <div class="col-md-2" *ngIf="parcel.membership">
-      <md-select [disabled]="!parcel.membership" placeholder="PODSTAWA PRAWNA*" [(ngModel)]="parcel.legalBasis" name="podstawaPrawna">
+      <md-select [disabled]="!parcel.membership && editionDisabled" placeholder="PODSTAWA PRAWNA*" [(ngModel)]="parcel.legalBasis" name="podstawaPrawna">
         <md-option *ngFor="let i of podstawaPrawna" [value]="i.value">
           {{i.viewValue}}
         </md-option>
@@ -160,12 +162,12 @@
       <div>
         <div class="col-md-2">
           <md-form-field>
-            <input class="textbox" type="text" mdInput placeholder="NUMER DECYZJI" [(ngModel)]="decision.decisionNumber" name="numerDecyzji">
+            <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="NUMER DECYZJI" [(ngModel)]="decision.decisionNumber" name="numerDecyzji">
           </md-form-field>
         </div>
         <div class="col-md-2">
           <md-form-field>
-            <input mdInput [mdDatepicker]="foreman" [(ngModel)]="decision.decisionDate"
+            <input mdInput [disabled]="editionDisabled" [mdDatepicker]="foreman" [(ngModel)]="decision.decisionDate"
               placeholder="DATA WYDANIA DECYZJI">
             <md-datepicker-toggle mdSuffix [for]="foreman"></md-datepicker-toggle>
             <md-datepicker #foreman></md-datepicker>
@@ -173,6 +175,7 @@
         </div>
       </div>
     </div>
+    <div *ngIf="!editionDisabled">
     <button md-raised-button color="primary" [disabled]="parcel.foremanDecisions?.length < 1" (click)="removeDecision()">Usuń decyzję</button>
     <button md-raised-button color="primary" [disabled]="parcel?.foremanDecisions[0] && !parcel?.foremanDecisions[parcel?.foremanDecisions?.length - 1]?.decisionNumber && !parcel?.foremanDecisions[parcel?.foremanDecisions?.length - 1]?.decisionDate" (click)="addDecision()">Dodaj kolejną decyzję</button>
   </div>

@@ -24,7 +24,8 @@ export class SearchResolutionComponent implements OnDestroy {
 
   constructor(
     private rs: ResolutionsService,
-    private us: UserService
+    private us: UserService,
+    private router: Router
   ) {
     this.subsriptions.push(
       this.us.currentUser.subscribe((cu) => {
@@ -37,6 +38,11 @@ export class SearchResolutionComponent implements OnDestroy {
         }
       })
     );
+  }
+
+  showChosenResolution(resolution: Resolution) {
+    this.rs.storeResolution(resolution);
+    this.router.navigate(['/view/resolution']);
   }
 
   searchResolutions() {

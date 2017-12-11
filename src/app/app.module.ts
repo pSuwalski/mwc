@@ -79,7 +79,12 @@ import { AddSectionComponent } from './components/add-section/add-section.compon
 import { SectionDataFormComponent } from './components/shared/section-data-form/section-data-form.component';
 import { SearchSectionComponent } from './components/search-section/search-section.component';
 import { SectionOutputDataFormComponent } from './components/output-data-forms/section-output-data-form/section-output-data-form.component';
-import { EditSectionComponent } from './components/edit/edit-section/edit-section.component';
+import { ParcelOutputDataFormComponent } from './components/output-data-forms/parcel-output-data-form/parcel-output-data-form.component';
+import { OwnerOutputDataFormComponent } from './components/output-data-forms/owner-output-data-form/owner-output-data-form.component';
+import { ResolutionOutputDataFormComponent } from './components/output-data-forms/resolution-output-data-form/resolution-output-data-form.component';
+import { SearchWorksdoneComponent } from './components/search-worksdone/search-worksdone.component';
+import { WorksOutputDataFormComponent } from './components/output-data-forms/works-output-data-form/works-output-data-form.component';
+
 
 
 
@@ -103,7 +108,11 @@ import { EditSectionComponent } from './components/edit/edit-section/edit-sectio
     SectionDataFormComponent,
     SearchSectionComponent,
     SectionOutputDataFormComponent,
-    EditSectionComponent,
+    ParcelOutputDataFormComponent,
+    OwnerOutputDataFormComponent,
+    ResolutionOutputDataFormComponent,
+    SearchWorksdoneComponent,
+    WorksOutputDataFormComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),

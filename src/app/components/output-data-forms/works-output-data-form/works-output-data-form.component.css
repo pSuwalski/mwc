@@ -1,0 +1,51 @@
+md-form-field {
+    width: 100% !important;
+  }
+  
+  .header {
+    color: rgba(0, 0, 0, 0.57);
+    font-size: 18px;
+    line-height: 40px;
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+
+  button {
+    float: right;
+    margin-left: 12px;
+    min-width: 160px;
+  }
+  .accent {
+    color: white !important;
+  }
+
+  .button-container {
+    padding: 16px 48px;
+    float: right;
+  }
+
+  .form-container {
+    padding: 24px;
+  }
+  .button-container {
+    padding: 16px 48px;
+    float: right;
+  }
+
+  .mat-tab-header {
+    position: fixed;
+  }
+
+  .works-button-container {
+    float: left;
+  }
+
+  .works-button-container button {
+    margin-left: 0;
+    margin-right: 12px;
+  }
+
+  mwc-owner-parcel-form, mwc-worksdone-data-form{
+    margin-bottom: 16px;
+    display: block;
+  }

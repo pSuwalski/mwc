@@ -16,6 +16,7 @@ import { Section, emptySection } from '../../models/section';
 })
 export class SearchParcelComponent implements OnDestroy {
 
+  progressBar = true;
   currentUser: User;
   parcels: Parcel[] = [];
   subsriptions: Subscription[] = [];
@@ -28,6 +29,8 @@ export class SearchParcelComponent implements OnDestroy {
   areaSurfaceSorted = false;
   trenchSorted = false;
   public parcelFilter: Parcel[];
+  citySearchString: string;
+  numberSearchString: string;
 
   constructor(
     private router: Router,
@@ -38,16 +41,24 @@ export class SearchParcelComponent implements OnDestroy {
     this.subsriptions.push(
       this.us.currentUser.subscribe((cu) => {
         this.currentUser = cu;
-        if (cu.companies[0]) {
-          this.ps.getUnionParcels(cu.unionId)
-            .then((prs: Parcel[]) => { this.parcels = prs; this.parcelFilter = this.parcels; });
-        }
+        this.progressBar = false;
       })
     );
-
-    console.log(this.sections);
-    // this.sections[0] = emptySection();
     this.parcelFilter = this.parcels;
+  }
+
+  searchParcelByCity() {
+    this.ps.getSectionParcelsByCity(this.currentUser.unionId, this.selectedCompanyId, this.selectedSectionId,
+      this.citySearchString).then((prc) => {
+        this.parcels = prc;
+      });
+  }
+
+  searchParcelByNumber() {
+    this.ps.getSectionParcelsByNumber(this.currentUser.unionId, this.selectedCompanyId, this.selectedSectionId,
+      this.numberSearchString).then((prc) => {
+        this.parcels = prc;
+      });
   }
 
   // onInput() {
@@ -56,11 +67,17 @@ export class SearchParcelComponent implements OnDestroy {
   //   }
   // }
 
-  // onKeyDown(event: KeyboardEvent) {
-  //   if (event.keyCode === 13) {
-  //     this.searchSectionByName();
-  //   }
-  // }
+  onKeyDownCity(event: KeyboardEvent) {
+    if (event.keyCode === 13) {
+      this.searchParcelByCity();
+    }
+  }
+
+  onKeyDownNumber(event: KeyboardEvent) {
+    if (event.keyCode === 13) {
+      this.searchParcelByNumber();
+    }
+  }
 
   loadMore() {
     this.ps.loadMoreUnionParcels(this.currentUser.unionId).then((prs: Parcel[]) => this.parcels.concat(prs));
@@ -127,24 +144,21 @@ export class SearchParcelComponent implements OnDestroy {
   // }
 
   getCompanySections() {
+    this.selectedSectionId = null;
     this.ss.getCompanySections(this.currentUser.unionId, this.selectedCompanyId).then((sct) => {
       this.sections = sct;
-      console.log(this.sections);
     });
   }
 
   getSectionParcels() {
-    this.ps.getSectionParcels(this.currentUser.unionId, this.selectedCompanyId, this.selectedSectionId).then((prc: Parcel[]) => {
-      this.parcels = prc;
-    });
-    console.log(this.parcels);
+    this.searchParcelByNumber();
   }
 
   MyFilter() {
     // this.ps.SearchParcelByNumber(this.currentUser.unionId, this.searchString).then((own: Parcel[]) => {
     //   this.parcels = own;
     // });
-    console.log(this.parcels);
+    // console.log(this.parcels);
   }
 
   showChosenParcel(parcel: Parcel) {

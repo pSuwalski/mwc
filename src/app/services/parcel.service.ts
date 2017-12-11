@@ -2,6 +2,7 @@ import { emptyParcelData } from '../models/owner';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Injectable } from '@angular/core';
 import { Parcel, emptyParcel } from '../models/parcel';
+import { firestore } from 'firebase/app';
 import * as _ from 'lodash';
 
 import 'rxjs/add/operator/do';
@@ -12,6 +13,7 @@ let storedParcel: Parcel;
 @Injectable()
 export class ParcelService {
 
+  lastQuery: firestore.Query;
   editedParcel: Parcel;
   limit = 30;
   loadedFromBegining = 0;
@@ -85,6 +87,78 @@ export class ParcelService {
     } else {
       return this.cachedMultipleCompanySectionParcels[companyId][sectionId];
     }
+  }
+
+  async getSectionParcelsByCity(unionId: string, companyId: string, sectionId: string,
+    citySearch: string, limit?: boolean): Promise<Parcel[]> {
+
+    this.loadedFromBegining = 0;
+    let parcelNameRef;
+    let parcelNameRefUpperCase;
+    console.log(unionId, companyId, name);
+    if (!citySearch) {
+      this.lastQuery = await this.parcelsRef(unionId).ref
+      .where('companyId', '==', companyId)
+      .where('sectionId', '==', sectionId)
+      .limit(limit ? this.limit : 100000);
+      parcelNameRef = await this.lastQuery.orderBy('number', 'asc').limit(this.limit).get();
+    } else {
+      this.lastQuery = await this.parcelsRef(unionId).ref
+      .where('companyId', '==', companyId)
+      .where('sectionId', '==', sectionId)
+      .where('cityId', '>=', _.capitalize(citySearch))
+      .where('cityId', '<=', _.capitalize(citySearch) + String.fromCharCode(1000))
+      .limit(limit ? this.limit : 100000);
+      parcelNameRefUpperCase = await this.lastQuery.orderBy('cityId', 'asc').limit(this.limit).get();
+    }
+    const output: Parcel[] = [];
+    if (parcelNameRef && !parcelNameRef.empty) {
+      this.moreToBeLoadedIndicator = parcelNameRef.docs.length === this.limit;
+      this.loadedFromBegining = parcelNameRef.docs.length;
+      parcelNameRef.docs.forEach((p) => output.push(this.parse(p.data())));
+    }
+    if (parcelNameRefUpperCase && !parcelNameRefUpperCase.empty) {
+      this.moreToBeLoadedIndicator = parcelNameRefUpperCase.docs.length === this.limit * 10;
+      this.loadedFromBegining = parcelNameRefUpperCase.docs.length;
+      parcelNameRefUpperCase.docs.forEach((p) => output.push(this.parse(p.data())));
+    }
+    return output;
+  }
+
+  async getSectionParcelsByNumber(unionId: string, companyId: string, sectionId: string,
+    numberSearch: string, limit?: boolean): Promise<Parcel[]> {
+
+    this.loadedFromBegining = 0;
+    let parcelNameRef;
+    let parcelNameRefUpperCase;
+    console.log(unionId, companyId, name);
+    if (!numberSearch) {
+      this.lastQuery = await this.parcelsRef(unionId).ref
+      .where('companyId', '==', companyId)
+      .where('sectionId', '==', sectionId)
+      .limit(limit ? this.limit : 100000);
+      parcelNameRef = await this.lastQuery.orderBy('number', 'asc').limit(this.limit).get();
+    } else {
+      this.lastQuery = await this.parcelsRef(unionId).ref
+      .where('companyId', '==', companyId)
+      .where('sectionId', '==', sectionId)
+      .where('number', '>=', _.capitalize(numberSearch))
+      .where('number', '<=', _.capitalize(numberSearch) + String.fromCharCode(1000))
+      .limit(limit ? this.limit : 100000);
+      parcelNameRefUpperCase = await this.lastQuery.orderBy('number', 'asc').limit(this.limit).get();
+    }
+    const output: Parcel[] = [];
+    if (parcelNameRef && !parcelNameRef.empty) {
+      this.moreToBeLoadedIndicator = parcelNameRef.docs.length === this.limit;
+      this.loadedFromBegining = parcelNameRef.docs.length;
+      parcelNameRef.docs.forEach((p) => output.push(this.parse(p.data())));
+    }
+    if (parcelNameRefUpperCase && !parcelNameRefUpperCase.empty) {
+      this.moreToBeLoadedIndicator = parcelNameRefUpperCase.docs.length === this.limit * 10;
+      this.loadedFromBegining = parcelNameRefUpperCase.docs.length;
+      parcelNameRefUpperCase.docs.forEach((p) => output.push(this.parse(p.data())));
+    }
+    return output;
   }
 
   async SearchParcelByNumber(unionId: string, searchString: string): Promise<Parcel[]> {

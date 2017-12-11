@@ -76,6 +76,13 @@
           <div class="col-md-2 ">{{p.cityId}}</div>
         </div>
       </div>
+      <div *ngIf="ps.moreToBeLoadedIndicator">
+        <div class="row bordered in-the-bottom on-the-right result" (click)="loadMore()">
+          <div class="card-field" style="float:left; width:100%">
+            <div class="col-md-2">Pokaż więcej</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

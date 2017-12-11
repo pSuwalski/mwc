@@ -15,9 +15,10 @@ export class ParcelService {
 
   lastQuery: firestore.Query;
   editedParcel: Parcel;
-  limit = 30;
+  limit = 1;
   loadedFromBegining = 0;
-  moreToBeLoadedIndicator = true;
+  parcels: Parcel[] = [];
+  moreToBeLoadedIndicator = false;
   cachedMultipleCompanyParcels: { [id: string]: Parcel[] } = {};
   cachedMultipleCompanySectionParcels: { [companyId: string]: { [sectionId: string]: Parcel[] } } = {};
 
@@ -122,6 +123,7 @@ export class ParcelService {
       this.loadedFromBegining = parcelNameRefUpperCase.docs.length;
       parcelNameRefUpperCase.docs.forEach((p) => output.push(this.parse(p.data())));
     }
+    this.parcels = output;
     return output;
   }
 
@@ -158,6 +160,7 @@ export class ParcelService {
       this.loadedFromBegining = parcelNameRefUpperCase.docs.length;
       parcelNameRefUpperCase.docs.forEach((p) => output.push(this.parse(p.data())));
     }
+    this.parcels = output;
     return output;
   }
 
@@ -179,7 +182,8 @@ export class ParcelService {
       this.loadedFromBegining = parcelNumberRef.docs.length;
       parcelNumberRef.docs.forEach((p) => output.push(this.parse(p.data())));
     }
-    return output;
+    this.parcels = output;
+    return this.parcels;
   }
 
   async getCompanyParcels(unionId: string, companyId: string, limit?: boolean): Promise<Parcel[]> {
@@ -212,13 +216,36 @@ export class ParcelService {
     }
   }
 
-  async loadMoreUnionParcels(unionId: string) {
+  async loadMoreByNumber() {
     if (this.moreToBeLoadedIndicator) {
-      const parcelsRef = await this.parcelsRef(unionId).ref.startAfter(this.loadedFromBegining).limit(this.limit).get();
-      if (!parcelsRef.empty) {
-        this.moreToBeLoadedIndicator = parcelsRef.docs.length === 30;
-        this.loadedFromBegining = this.loadedFromBegining + parcelsRef.docs.length;
-        return parcelsRef.docs.map((p) => p.data() as Parcel);
+      const sectionsRef = await this.lastQuery
+        .orderBy('name', 'asc')
+        .startAfter(this.parcels[this.loadedFromBegining - 1].number)
+        .limit(this.limit)
+        .get();
+      if (!sectionsRef.empty) {
+        this.moreToBeLoadedIndicator = sectionsRef.docs.length === this.limit;
+        this.loadedFromBegining = this.loadedFromBegining + sectionsRef.docs.length;
+        sectionsRef.docs.forEach((p) => this.parcels.push(p.data() as Parcel));
+      } else {
+        return [];
+      }
+    }
+  }
+
+  async loadMoreByCity() {
+    if (this.moreToBeLoadedIndicator) {
+      console.log(this.parcels);
+      console.log(this.loadedFromBegining);
+      const sectionsRef = await this.lastQuery
+        .orderBy('name', 'asc')
+        .startAfter(this.parcels[this.loadedFromBegining - 1].cityId)
+        .limit(this.limit)
+        .get();
+      if (!sectionsRef.empty) {
+        this.moreToBeLoadedIndicator = sectionsRef.docs.length === this.limit;
+        this.loadedFromBegining = this.loadedFromBegining + sectionsRef.docs.length;
+        sectionsRef.docs.forEach((p) => this.parcels.push(p.data() as Parcel));
       } else {
         return [];
       }

@@ -19,6 +19,7 @@ export class SearchWorksdoneComponent implements OnDestroy {
   selectedCompanyId: string;
   subsriptions: Subscription[] = [];
   searchString: string;
+  protocolNumberSearchString: string;
 
   constructor(
     public router: Router,
@@ -39,13 +40,20 @@ export class SearchWorksdoneComponent implements OnDestroy {
     );
    }
 
+   onKeyDown(event: KeyboardEvent) {
+    if (event.keyCode === 13) {
+      this.searchWorksByProtocolNumber();
+    }
+  }
+
    showChosenWorks(works: Works) {
     this.ws.storeWorks(works);
     this.router.navigate(['/view/works']);
   }
 
-  searchSections() {
-    this.ws.SearchWorksByProtocolNumber(this.currentUser.unionId, this.searchString).then((wrk: Works[]) => {
+  searchWorksByProtocolNumber() {
+    console.log(this.protocolNumberSearchString);
+    this.ws.SearchWorksByProtocolNumber(this.currentUser.unionId, this.protocolNumberSearchString).then((wrk: Works[]) => {
       this.works = wrk;
     });
   }

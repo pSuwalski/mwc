@@ -1,6 +1,7 @@
 .form-container {
-    padding: 24px;
-    height: 64px;
+  padding: 24px;
+  /* height: 64px; */
+  padding-bottom: 0;
   }
 
   .material-icons.md-48 { font-size: 48px; }

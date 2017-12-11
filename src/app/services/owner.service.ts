@@ -57,7 +57,7 @@ export class OwnerService {
       .doc(unionId)
       .collection('owners')
       .doc(id)
-      .set(dbOwner);
+      .set(hf.capitalizeStrings(dbOwner));
 
   }
 
@@ -72,7 +72,7 @@ export class OwnerService {
         .doc(unionId)
         .collection('owners')
         .doc(owner.id)
-        .set(dbOwner);
+        .set(hf.capitalizeStrings(dbOwner));
     } else {
       return Promise.resolve(false);
     }

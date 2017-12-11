@@ -9,7 +9,7 @@ export interface FinancialRecord {
 export interface Payment extends FinancialRecord {
   type: 'payment';
   from: 'account' | 'postalOrder' | 'cash';
-  forYear: '';
+  forYear: number;
 }
 
 

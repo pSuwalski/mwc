@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Section, emptySection } from '../models/section';
 import * as _ from 'lodash';
 import { firestore } from 'firebase/app';
+import { capitalizeStrings } from '../helper-functions';
 
 let storedSection: Section;
 
@@ -48,7 +49,7 @@ export class SectionService {
         .doc(unionId)
         .collection('sections')
         .doc(id)
-        .set(section);
+        .set(capitalizeStrings(section));
     } else {
       return Promise.resolve(false);
     }
@@ -61,7 +62,7 @@ export class SectionService {
         .doc(unionId)
         .collection('sections')
         .doc(section.id)
-        .set(section);
+        .set(capitalizeStrings(section));
     } else {
       return Promise.resolve(false);
     }
@@ -75,6 +76,7 @@ export class SectionService {
   selectCompany(id: string) {
     console.log(id, this.selectedCompanyId);
     if (id !== this.selectedCompanyId) {
+      this.searchString = null;
       this.sections = [];
       this.selectedCompanyId = id;
       this.SearchSectionsByName(this.unionId, this.selectedCompanyId, this.searchString);

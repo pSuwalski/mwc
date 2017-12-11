@@ -35,9 +35,15 @@ export class SearchSectionComponent implements OnDestroy {
     );
   }
 
-  checkIfNulled() {
-    if (this.ss.searchString.length === 0 && this.searchedAndNotNulled) {
+  onInput() {
+    if (this.ss.searchString && this.ss.searchString.length === 0 && this.searchedAndNotNulled) {
       this.nulled = true;
+    }
+  }
+
+  onKeyDown(event: KeyboardEvent) {
+    if (event.keyCode === 13) {
+      this.searchSectionByName();
     }
   }
 
@@ -47,9 +53,11 @@ export class SearchSectionComponent implements OnDestroy {
   }
 
   searchSectionByName() {
+    this.progressBar = true;
     this.ss.SearchSectionsByName(this.ss.unionId, this.ss.selectedCompanyId, this.ss.searchString).then(() => {
       this.searchedAndNotNulled = true;
       this.nulled = false;
+      this.progressBar = false;
     });
   }
 

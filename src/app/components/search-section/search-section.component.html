@@ -14,7 +14,7 @@
   <div class="card-title" *ngIf="ss.selectedCompanyId">
     <div class="col-md-4 no-padding">
       <md-form-field>
-        <input class="textbox" (input)="checkIfNulled()" type="text" mdInput placeholder="Wyszukaj po nazwie" [(ngModel)]="ss.searchString">
+        <input class="textbox" (keypress)="onKeyDown($event)" (input)="onInput($event)" type="text" mdInput placeholder="Wyszukaj po nazwie" [(ngModel)]="ss.searchString">
       </md-form-field>
     </div>
     <div class="col-md-3">

@@ -1,11 +1,12 @@
+<md-progress-bar *ngIf="progressBar" mode="indeterminate"></md-progress-bar>
 <div class="card-container">
   <div class="card mat-elevation-z1">
-    <div class="form-container">
+    <div class="form-container" *ngIf="addedSuccessfully !== 'success'">
       <div class="header">
         Wybierz spółkę
       </div>
       <div class="col-md-2 no-padding">
-        <md-select placeholder="Spółka *" [(ngModel)]="section.companyId">
+        <md-select placeholder="SPÓŁKA *" [(ngModel)]="section.companyId">
           <md-option *ngFor="let c of currentUser?.companies" [value]="c.id">
             {{c.name}}
           </md-option>
@@ -20,6 +21,9 @@
           Dodaj
         </button>
       </div>
+    </div>
+    <div *ngIf="addedSuccessfully === 'success'" class="info">
+      <mwc-info [link]="'add/section'" [text]="'Dodano pomyślnie'" [buttonText]="'Dodaj kolejną'" [success]="true" (click)="reload()"></mwc-info>
     </div>
   </div>
 </div>

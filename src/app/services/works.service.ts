@@ -4,6 +4,7 @@ import { emptyWorks, Works } from '../models/works';
 import * as _ from 'lodash';
 
 import 'rxjs/add/operator/do';
+import { capitalizeStrings } from '../helper-functions';
 
 let storedWorks: Works;
 
@@ -44,7 +45,7 @@ export class WorksService {
       .doc(`${unionId}`)
       .collection('works')
       .doc(id)
-      .set(works);
+      .set(capitalizeStrings(works));
   }
 
   async replaceWorks(section: Works, unionId: string): Promise<any> {
@@ -54,7 +55,7 @@ export class WorksService {
         .doc(unionId)
         .collection('works')
         .doc(section.id)
-        .set(section);
+        .set(capitalizeStrings(section));
     } else {
       return Promise.resolve(false);
     }

@@ -10,14 +10,14 @@ export interface Section {
 }
 
 enum areaType {
-  wojewodztwo = 'województwo',
-  powiat = 'powiat',
-  gmina = 'gmina',
-  miasto = 'miasto',
-  wioska = 'wioska',
-  solectwo = 'sołectwo',
-  zlewnia = 'zlewnia',
-  inne = 'inne'
+  wojewodztwo = 'Województwo',
+  powiat = 'Powiat',
+  gmina = 'Gmina',
+  miasto = 'Miasto',
+  wioska = 'Wioska',
+  solectwo = 'Sołectwo',
+  zlewnia = 'Zlewnia',
+  inne = 'Inne'
 }
 
 export function emptySection(): Section {

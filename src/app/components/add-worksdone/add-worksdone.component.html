@@ -1,6 +1,7 @@
+<md-progress-bar *ngIf="progressBar" mode="indeterminate"></md-progress-bar>
 <div class="card-container">
   <div class="card mat-elevation-z1">
-    <div class="form-container">
+    <div *ngIf="addedSuccessfully !== 'success'"  class="form-container">
       <mwc-worksdone-data-form [worksdoneDataForm]="works"></mwc-worksdone-data-form>
       <div class="header">
         Działki
@@ -12,8 +13,11 @@
           (click)="removeParcel()">Wykasuj Działkę</button>
       </div>
     </div>
-    <div class="button-container col-md-12">
+    <div *ngIf="addedSuccessfully !== 'success'" class="button-container col-md-12">
       <button type="button" class="add-button accent" [disabled]="!works.startedFromDate || !works.finishedDate || !works.protocolNumber || !works.totalCost || works.totalCost < 0 || works.parcelsData.length < 1 || !works.parcelsData[0]?.id " md-raised-button color="accent" (click)="add()">Dodaj</button>
     </div>
+    <div *ngIf="addedSuccessfully === 'success'" class="info">
+        <mwc-info [link]="'add/works'" [text]="'Dodano pomyślnie'" [buttonText]="'Dodaj kolejne'" [success]="true" (click)="reload()"></mwc-info>
+      </div>
   </div>
 </div>

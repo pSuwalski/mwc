@@ -34,32 +34,20 @@ export class SearchParcelComponent implements OnDestroy {
 
   constructor(
     private router: Router,
-    private ps: ParcelService,
+    public ps: ParcelService,
     private ss: SectionService,
     private us: UserService
   ) {
     this.subsriptions.push(
       this.us.currentUser.subscribe((cu) => {
         this.currentUser = cu;
+        this.ps.unionId = cu.unionId;
         this.progressBar = false;
       })
     );
     this.parcelFilter = this.parcels;
   }
 
-  searchParcelByCity() {
-    this.ps.getSectionParcelsByCity(this.currentUser.unionId, this.selectedCompanyId, this.selectedSectionId,
-      this.citySearchString).then((prc) => {
-        this.parcels = prc;
-      });
-  }
-
-  searchParcelByNumber() {
-    this.ps.getSectionParcelsByNumber(this.currentUser.unionId, this.selectedCompanyId, this.selectedSectionId,
-      this.numberSearchString).then((prc) => {
-        this.parcels = prc;
-      });
-  }
 
   // onInput() {
   //   if (this.ss.searchString && this.ss.searchString.length === 0 && this.searchedAndNotNulled) {
@@ -69,13 +57,13 @@ export class SearchParcelComponent implements OnDestroy {
 
   onKeyDownCity(event: KeyboardEvent) {
     if (event.keyCode === 13) {
-      this.searchParcelByCity();
+      this.ps.searchParcels(this.ps.unionId, this.ps.companyId, this.ps.sectionId);
     }
   }
 
   onKeyDownNumber(event: KeyboardEvent) {
     if (event.keyCode === 13) {
-      this.searchParcelByNumber();
+      this.ps.searchParcels(this.ps.unionId, this.ps.companyId, this.ps.sectionId);
     }
   }
 
@@ -125,40 +113,16 @@ export class SearchParcelComponent implements OnDestroy {
     }
   }
 
-  // sortByTrench() {
-  //   if (this.trenchSorted === false) {
-  //     this.parcels.sort((a, b) => {
-  //       if (a.trench < b.trench) { return -1; }
-  //       if (a.trench > b.trench) { return 1; }
-  //       return 0;
-  //     });
-  //     this.trenchSorted = true;
-  //   } else {
-  //     this.parcels.sort((a, b) => {
-  //       if (a.trench > b.trench) { return -1; }
-  //       if (a.trench < b.trench) { return 1; }
-  //       return 0;
-  //     });
-  //     this.trenchSorted = false;
-  //   }
-  // }
 
   getCompanySections() {
-    this.selectedSectionId = null;
-    this.ss.getCompanySections(this.currentUser.unionId, this.selectedCompanyId).then((sct) => {
+    this.ps.sectionId = null;
+    this.ss.getCompanySections(this.ps.unionId, this.ps.companyId).then((sct) => {
       this.sections = sct;
     });
   }
 
   getSectionParcels() {
-    this.searchParcelByNumber();
-  }
-
-  MyFilter() {
-    // this.ps.SearchParcelByNumber(this.currentUser.unionId, this.searchString).then((own: Parcel[]) => {
-    //   this.parcels = own;
-    // });
-    // console.log(this.parcels);
+    this.ps.searchParcels(this.ps.unionId, this.ps.companyId, this.ps.sectionId);
   }
 
   showChosenParcel(parcel: Parcel) {

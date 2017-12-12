@@ -4,71 +4,60 @@
   <div class="card mat-elevation-z1">
     <div class="form-container fixed">
       <div class="row">
-        <div class="header col-md-12">
+        <div class="header col-md-2">
           Wybierz spółkę
         </div>
+        <div class="header col-md-2" *ngIf="ps.companyId">
+          Wybierz sekcję
+        </div>
+        <div class="col-md-1 form-row">
+        </div>
+        <div class="header col-md-6" *ngIf="ps.companyId">
+          Wyszukiwanie
+        </div>
+        <div class="clearfix"></div>
         <div class="col-md-2 form-row">
           <form>
-            <md-select name="first" placeholder="SPÓŁKA" [(ngModel)]="selectedCompanyId">
+            <md-select name="first" placeholder="SPÓŁKA" [(ngModel)]="ps.companyId">
               <md-option *ngFor="let c of currentUser?.companies" [value]="c.id" (click)="getCompanySections()">
                 {{ c.name }}
               </md-option>
             </md-select>
           </form>
         </div>
-      </div>
-      <div class="row" *ngIf="sections.length">
-        <div class="header col-md-12">
-          Wybierz sekcję
-        </div>
-        <div class="col-md-2 form-row">
+        <div class="col-md-2 form-row" *ngIf="ps.companyId">
           <form>
-            <md-select name="first" placeholder="SEKCJA" [(ngModel)]="selectedSectionId">
+            <md-select name="first" placeholder="SEKCJA" [(ngModel)]="ps.sectionId">
               <md-option *ngFor="let s of sections" [value]="s.id" (click)="getSectionParcels()">
                 {{ s.name }}
               </md-option>
             </md-select>
           </form>
         </div>
-      </div>
-      <div *ngIf="selectedCompanyId && sections?.length < 1">
-        <mwc-info [link]="'/add/section'" [text]="'Ta spółka nie posiada jeszcze sekcji. Dodaj sekcje by móc dodawać uchwały.'" [buttonText]="'Dodaj sekcje'"
-          [success]="false"></mwc-info>
-      </div>
-      <div class="row" *ngIf="selectedSectionId">
-        <div class="col-md-4">
+        <div class="col-md-1 form-row" *ngIf="ps.companyId">
+        </div>
+        <div class="col-md-2 form-row" *ngIf="ps.companyId">
           <md-form-field>
-            <!-- <input class="textbox" (keypress)="onKeyDown($event)" (input)="onInput($event)" type="text" mdInput placeholder="Wyszukaj po mieście"
-              [(ngModel)]="citySearchString"> -->
-            <input class="textbox" (keypress)="onKeyDownCity($event)" type="text" mdInput placeholder="Wyszukaj po mieście" [(ngModel)]="citySearchString">
+            <input class="textbox" (keypress)="onKeyDownNumber($event)" type="text" mdInput placeholder="Wyszukaj po numerze" [(ngModel)]="ps.searchString">
           </md-form-field>
         </div>
-        <div class="col-md-3">
-          <button md-raised-button color="primary" (click)="searchParcelByCity()">Wyszukaj {{ citySearchString ? 'po mieście' : 'wszystkie' }}</button>
-        </div>
-        <div class="clearfix"></div>
-      </div>
-      <div class="row" *ngIf="selectedSectionId">
-        <div class="col-md-4">
+        <div class="col-md-2 form-row" *ngIf="ps.companyId">
           <md-form-field>
-            <!-- <input class="textbox" (keypress)="onKeyDown($event)" (input)="onInput($event)" type="text" mdInput placeholder="Wyszukaj po numerze"
-                [(ngModel)]="numberSearchString"> -->
-            <input class="textbox" (keypress)="onKeyDownNumber($event)" type="text" mdInput placeholder="Wyszukaj po numerze" [(ngModel)]="numberSearchString">
+            <input class="textbox" (keypress)="onKeyDownCity($event)" type="text" mdInput placeholder="Wyszukaj po mieście" [(ngModel)]="ps.secondSearchString">
           </md-form-field>
         </div>
-        <div class="col-md-3">
-          <button md-raised-button color="primary" (click)="searchParcelByNumber()">Wyszukaj {{ numberSearchString ? 'po numerze' : 'wszystkie' }}</button>
+        <div class="col-md-2" *ngIf="ps.companyId">
+          <button md-raised-button color="primary" (click)="ps.searchParcels(ps.unionId, ps.companyId, ps.sectionId)">Wyszukaj {{ ((ps.searchString && ps.searchString.length > 0) || (ps.secondSearchString && ps.secondSearchString.length
+            > 0)) ? '' : 'wszystkie' }}</button>
         </div>
-        <div class="clearfix"></div>
       </div>
-
-      <div class="row" *ngIf="selectedSectionId">
+      <div class="row" *ngIf="ps.companyId">
         <div class="col-md-2 header" (click)="sortByNumber()">numer działki</div>
         <div class="col-md-2 header" (click)="sortByAreaType() ">typ powierzchni</div>
         <div class="col-md-2 header" (click)="sortByAreaSurface()">powierzchnia [ha]</div>
         <div class="col-md-2 header" (click)="sortByAreaSurface()">miasto</div>
       </div>
-      <div *ngFor="let p of parcels">
+      <div *ngFor="let p of ps.parcels">
         <div class="row" *ngIf="selectedSectionId" (click)="showChosenParcel(p)">
           <div class="col-md-2 ">{{p.number}}</div>
           <div class="col-md-2 ">{{p.areaType}}</div>
@@ -76,13 +65,13 @@
           <div class="col-md-2 ">{{p.cityId}}</div>
         </div>
       </div>
-      <div *ngIf="ps.moreToBeLoadedIndicator">
+      <!-- <div *ngIf="ps.moreToBeLoadedIndicator">
         <div class="row bordered in-the-bottom on-the-right result" (click)="loadMore()">
           <div class="card-field" style="float:left; width:100%">
             <div class="col-md-2">Pokaż więcej</div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>

@@ -125,7 +125,7 @@ export const appRoutes: Routes = [
             component: OwnerOutputDataFormComponent,
           },
           {
-            path: 'resolution',
+            path: 'resolution/:id',
             component: ResolutionOutputDataFormComponent,
           },
           {

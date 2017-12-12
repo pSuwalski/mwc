@@ -6,7 +6,7 @@ import { WorksService } from '../../../services/works.service';
 import { UserService } from '../../../services/user.service';
 import { User } from '../../../models/user';
 import { Subscription } from 'rxjs/Subscription';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import * as _ from 'lodash';
 
@@ -28,20 +28,22 @@ export class WorksOutputDataFormComponent implements OnInit {
   constructor(
     public router: Router,
     private wk: WorksService,
-    private us: UserService
+    private us: UserService,
+    private route: ActivatedRoute
   ) {
-
-    this.wk.restoreWorks().then(wrk => {
-      if (wrk !== null) {
-        this.works = wrk;
-        this.subsriptions.push(
-          this.us.currentUser.subscribe((cu) => {
-            this.currentUser = cu;
-
-          })
-        );
-      }
-    });
+    this.subsriptions.push(
+      this.us.currentUser
+        .combineLatest(this.route.params)
+        .subscribe(([cu, params]) => {
+          this.wk.restoreWorks(cu.unionId, params['id']).then(wrk => {
+            if (wrk !== null) {
+              this.works = wrk;
+            } else {
+              this.router.navigate(['/search/works']);
+            }
+          });
+        })
+    );
   }
 
   save() {

@@ -28,15 +28,17 @@ export class WorksService {
     storedWorks = works;
   }
 
-  async restoreWorks(): Promise<Works> {
-    let returnWorks: Works;
-    if (storedWorks !== null) {
-      returnWorks = storedWorks;
+  async restoreWorks(unionId: string, id: string): Promise<Works> {
+    if (storedWorks.id === id) {
+      return storedWorks;
     } else {
-      returnWorks = null;
+      const worksRef = await this.worksRef(unionId).doc(id).ref.get();
+      if (worksRef.exists) {
+        return this.parse(worksRef.data());
+      } else {
+        return null;
+      }
     }
-
-    return returnWorks;
   }
 
   async addWorks(works: Works, unionId: string): Promise<any> {

@@ -129,7 +129,7 @@ export const appRoutes: Routes = [
             component: ResolutionOutputDataFormComponent,
           },
           {
-            path: 'works',
+            path: 'works/:id',
             component: WorksOutputDataFormComponent,
           },
         ]

@@ -29,7 +29,7 @@ export class WorksService {
   }
 
   async restoreWorks(unionId: string, id: string): Promise<Works> {
-    if (storedWorks.id === id) {
+    if (storedWorks && storedWorks.id === id) {
       return storedWorks;
     } else {
       const worksRef = await this.worksRef(unionId).doc(id).ref.get();

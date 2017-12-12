@@ -26,7 +26,7 @@ export class ResolutionsService {
   }
 
   async restoreResolution(unionId: string, id: string): Promise<Resolution> {
-    if (storedResolution.id === id) {
+    if (storedResolution && storedResolution.id === id) {
       return storedResolution;
     } else {
       const resolutionRef = await this.resolutionsRef(unionId).doc(id).ref.get();

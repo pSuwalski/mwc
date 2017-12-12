@@ -7,11 +7,13 @@
         </div>
         <div class="col-md-10 header" style="padding-top: 4px">Przegląd wykonanych robót</div>
       </div>
-      <mwc-worksdone-data-form [editionDisabled]="editionDisabled" [worksdoneDataForm]="works"></mwc-worksdone-data-form>
-      <div class="header">
-        Działki
+      <div *ngIf="works">
+        <mwc-worksdone-data-form [editionDisabled]="editionDisabled" [worksdoneDataForm]="works"></mwc-worksdone-data-form>
+        <div class="header">
+          Działki
+        </div>
+        <mwc-owner-parcel-form *ngFor="let pd of works.parcelsData" [editionDisabled]="editionDisabled" [parcelData]="pd"></mwc-owner-parcel-form>
       </div>
-      <mwc-owner-parcel-form *ngFor="let pd of works.parcelsData" [editionDisabled]="editionDisabled" [parcelData]="pd"></mwc-owner-parcel-form>
       <div class="works-button-container">
         <button *ngIf="!editionDisabled" type="button" class="add-button accent" md-raised-button color="primary" (click)="addParcel()">Dodaj {{works.parcelsData?.length > 0 ? 'kolejną' : ''}} Działkę</button>
         <button *ngIf="!editionDisabled" type="button" class="add-button accent" md-raised-button color="primary" [disabled]="works?.parcelsData?.length < 1"

@@ -10,7 +10,7 @@
       <!-- <div class="header">
         Wybierz spółkę
       </div> -->
-      <md-select [disabled]="editionDisabled" placeholder="Spółka" (ngModelChange)="changeCompanyId()" [(ngModel)]="resolution.companyId">
+      <md-select [disabled]="editionDisabled" placeholder="Spółka" (ngModelChange)="changeCompanyId()" *ngIf="resolution?.companyId" [(ngModel)]="resolution.companyId">
         <md-option *ngFor="let c of currentUser?.companies" [value]="c.id">
           {{c.name}}
         </md-option>

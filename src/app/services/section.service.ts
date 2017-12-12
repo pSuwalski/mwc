@@ -30,7 +30,7 @@ export class SectionService {
   }
 
   async restoreSection(unionId: string, id: string): Promise<Section> {
-    if (storedSection.id === id) {
+    if (storedSection && storedSection.id === id) {
       return storedSection;
     } else {
       const sectionRef = await this.sectionsRef(unionId).doc(id).ref.get();

@@ -8,13 +8,13 @@
         <div class="col-md-10 header" style="padding-top: 4px">Przegląd sekcji</div>
       </div>
       <div class="row">
-        <md-select class="col-md-5" [disabled]="editionDisabled" placeholder="Spółka" [(ngModel)]="section.companyId">
+        <md-select class="col-md-5" [disabled]="editionDisabled" placeholder="Spółka" *ngIf="section?.companyId" [(ngModel)]="section.companyId">
           <md-option *ngFor="let c of currentUser?.companies" [value]="c.id">
             {{c.name}}
           </md-option>
         </md-select>
       </div>
-      <mwc-section-data-form *ngIf="section.companyId" [editionDisabled]="editionDisabled" [sectionDataForm]="section"></mwc-section-data-form>
+      <mwc-section-data-form *ngIf="section?.companyId" [editionDisabled]="editionDisabled" [sectionDataForm]="section"></mwc-section-data-form>
       <div *ngIf="editionDisabled" class="button-container col-md-12">
         <button type="button" class="add-button accent" md-raised-button color="accent" (click)="edit()">Edytuj</button>
       </div>

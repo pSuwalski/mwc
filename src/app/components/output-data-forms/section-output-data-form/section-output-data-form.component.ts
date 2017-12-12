@@ -6,7 +6,7 @@ import { CompanyService } from '../../../services/company.service';
 import { UserService } from '../../../services/user.service';
 import { User } from '../../../models/user';
 import { Subscription } from 'rxjs/Subscription';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import * as _ from 'lodash';
 
@@ -30,23 +30,23 @@ export class SectionOutputDataFormComponent implements OnInit {
     public router: Router,
     private ss: SectionService,
     private cs: CompanyService,
-    private us: UserService
+    private us: UserService,
+    private route: ActivatedRoute
   ) {
-
+    this.subsriptions.push(
+      this.us.currentUser
+        .combineLatest(this.route.params)
+        .subscribe(([cu, params]) => {
+          this.ss.restoreSection(cu.unionId, params['id']).then(sct => {
+            if (sct !== null) {
+              this.section = sct;
+            } else {
+              this.router.navigate(['/search/parcel']);
+            }
+          });
+        })
+    );
     this.companyName = '';
-    this.ss.restoreSection().then(sct => {
-      if (sct !== null) {
-        this.section = sct;
-        this.subsriptions.push(
-          this.us.currentUser.subscribe((cu) => {
-            this.currentUser = cu;
-            this.cs.SearchCompanyById(this.currentUser.unionId, this.section.companyId).then(cmp => {
-              this.companyName = cmp[0].name;
-            });
-          })
-        );
-      }
-    });
   }
 
   save() {

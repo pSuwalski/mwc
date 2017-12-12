@@ -53,23 +53,6 @@ export class ParcelOutputDataFormComponent implements OnInit {
 
     this.sectionName = '';
     this.companyName = '';
-    // this.ps.restoreParcel().then(prc => {
-    //   if (prc !== null) {
-    //     this.parcel = prc;
-    //     this.subsriptions.push(
-    //       this.us.currentUser.subscribe((cu) => {
-    //         this.currentUser = cu;
-    //         this.cs.SearchCompanyById(this.currentUser.unionId, this.parcel.companyId).then(cmp => {
-    //           this.companyName = cmp[0].name;
-    //         });
-    //         this.ss.SearchSectionById(this.currentUser.unionId, this.parcel.sectionId).then(sct => {
-    //           this.sectionName = sct[0].name;
-    //         });
-
-    //       })
-    //     );
-    //   }
-    // });
   }
 
   save() {

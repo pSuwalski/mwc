@@ -29,15 +29,17 @@ export class SectionService {
     storedSection = section;
   }
 
-  async restoreSection(): Promise<Section> {
-    let returnSection: Section;
-    if (storedSection !== null) {
-      returnSection = storedSection;
+  async restoreSection(unionId: string, id: string): Promise<Section> {
+    if (storedSection.id === id) {
+      return storedSection;
     } else {
-      returnSection = null;
+      const sectionRef = await this.sectionsRef(unionId).doc(id).ref.get();
+      if (sectionRef.exists) {
+        return this.parse(sectionRef.data());
+      } else {
+        return null;
+      }
     }
-
-    return returnSection;
   }
 
   async addSection(section: Section, unionId: string): Promise<any> {

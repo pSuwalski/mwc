@@ -49,7 +49,7 @@ export class SearchSectionComponent implements OnDestroy {
 
   showChosenSection(section: Section) {
     this.ss.storeSection(section);
-    this.router.navigate(['/view/section']);
+    this.router.navigate(['/view/section', section.id]);
   }
 
   searchSectionByName() {

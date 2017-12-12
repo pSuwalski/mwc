@@ -113,7 +113,7 @@ export const appRoutes: Routes = [
         path: 'view',
         children: [
           {
-            path: 'section',
+            path: 'section/:id',
             component: SectionOutputDataFormComponent,
           },
           {

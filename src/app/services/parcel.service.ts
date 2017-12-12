@@ -45,19 +45,6 @@ export class ParcelService {
     }
   }
 
-  // async restoreResolution(unionId: string, id: string): Promise<Resolution> {
-  //   if (storedResolution.id === id) {
-  //     return storedResolution;
-  //   } else {
-  //     const resolutionRef = await this.resolutionsRef(unionId).doc(id).ref.get();
-  //     if (resolutionRef.exists) {
-  //       return this.parse(resolutionRef.data());
-  //     } else {
-  //       return null;
-  //     }
-  //   }
-  // }
-
   async addParcel(parcel: Parcel, unionId: string): Promise<any> {
     const id = this.db.createId();
     return this.db

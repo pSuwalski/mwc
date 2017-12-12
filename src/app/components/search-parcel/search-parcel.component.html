@@ -58,11 +58,13 @@
         <div class="col-md-2 header" (click)="sortByAreaSurface()">miasto</div>
       </div>
       <div *ngFor="let p of ps.parcels">
-        <div class="row" (click)="showChosenParcel(p)">
-          <div class="col-md-2 ">{{p.number}}</div>
-          <div class="col-md-2 ">{{p.areaType}}</div>
-          <div class="col-md-2 ">{{p.areaSurface}}</div>
-          <div class="col-md-2 ">{{p.cityId}}</div>
+        <div class="row bordered in-the-bottom on-the-right result" (click)="showChosenParcel(p)">
+          <div class="card-field" style="float:left; width:100%">
+            <div class="col-md-2 ">{{p.number}}</div>
+            <div class="col-md-2 ">{{p.areaType}}</div>
+            <div class="col-md-2 ">{{p.areaSurface}}</div>
+            <div class="col-md-2 ">{{p.cityId}}</div>
+          </div>
         </div>
       </div>
       <!-- <div *ngIf="ps.moreToBeLoadedIndicator">

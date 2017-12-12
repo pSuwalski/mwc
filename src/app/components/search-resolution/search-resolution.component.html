@@ -42,13 +42,14 @@
         </div>
       </div>
       <div *ngFor="let r of resolutions">
-        <div class="row" *ngIf="selectedCompanyId" (click)="showChosenResolution(r)">
-          <div class="col-md-2 ">{{r.year}}</div>
-          <div class="col-md-2 ">{{r.number}}</div>
-          <div class="col-md-2 ">{{r.paymentCount}}</div>
+        <div class="row bordered in-the-bottom on-the-right result" *ngIf="selectedCompanyId" (click)="showChosenResolution(r)">
+          <div class="card-field" style="float:left; width:100%">
+            <div class="col-md-2 ">{{r.year}}</div>
+            <div class="col-md-2 ">{{r.number}}</div>
+            <div class="col-md-2 ">{{r.paymentCount}}</div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-<!-- </div> -->

@@ -41,7 +41,7 @@ export class SectionOutputDataFormComponent implements OnInit {
             if (sct !== null) {
               this.section = sct;
             } else {
-              this.router.navigate(['/search/parcel']);
+              this.router.navigate(['/search/section']);
             }
           });
         })

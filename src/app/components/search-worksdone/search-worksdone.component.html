@@ -1,4 +1,53 @@
-<div class="form-container fixed">
+<md-progress-bar *ngIf="progressBar" mode="indeterminate">
+</md-progress-bar>
+<div class="card-container">
+  <div class="card mat-elevation-z1">
+    <div class="form-container">
+      <div class="row">
+        <div class="col-md-4">
+          <md-form-field>
+            <!-- <input class="textbox" (keypress)="onKeyDown($event)" (input)="onInput($event)" type="text" mdInput placeholder="Wyszukaj po mieście"
+                [(ngModel)]="citySearchString"> -->
+            <input class="textbox" (keypress)="onKeyDown($event)" type="text" mdInput placeholder="Wyszukaj po numerze protokołu" [(ngModel)]="protocolNumberSearchString">
+          </md-form-field>
+        </div>
+        <div class="col-md-3">
+          <button md-raised-button color="primary" (click)="searchWorksByProtocolNumber()">Wyszukaj {{ protocolNumberSearchString ? 'po numerze protokołu' : 'wszystkie' }}</button>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="col-md-2 header" (click)="sortByNumber()">Data rozpoczęcia</div>
+        <div class="col-md-2 header" (click)="sortByNumber()">Data zakończenia</div>
+        <div class="col-md-2 header" (click)="sortByNumber()">Numer protokołu</div>
+        <div class="col-md-2 header" (click)="sortByAreaType() ">Rodzaj wykonanych prac</div>
+        <div class="col-md-2 header" (click)="sortByAreaSurface()">Całkowity koszt</div>
+      </div>
+    </div>
+    <div *ngFor="let w of works" id="s.id">
+      <div class="col-md-12">
+        <div class="row" (click)="showChosenWorks(w)">
+          <div class="col-md-2">{{w.startedFromDate}}</div>
+          <div class="col-md-2">{{w.finishedDate}}</div>
+          <div class="col-md-2">{{w.protocolNumber}}</div>
+          <div class="col-md-2">{{w.type}}</div>
+          <div class="col-md-2">{{w.totalCost}}</div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="ws.moreToBeLoadedIndicator">
+      <div class="row bordered in-the-bottom on-the-right result" (click)="loadMore()">
+        <div class="card-field" style="float:left; width:100%">
+          <div class="col-md-2">Pokaż więcej</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="form-container fixed">
   <div class="card-title">
     <div class="col-md-9">
       <md-form-field>
@@ -31,3 +80,4 @@
     </div>
   </div>
 </div>
+</div> -->

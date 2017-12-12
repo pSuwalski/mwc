@@ -36,7 +36,6 @@ export class ResolutionOutputDataFormComponent implements OnInit {
   ) {
     this.companyName = '';
     this.rs.restoreResolution().then(res => {
-      console.log('res: ', res);
       if (res !== null) {
         this.resolution = res;
         this.subsriptions.push(

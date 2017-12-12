@@ -1,4 +1,3 @@
-<md-progress-bar *ngIf="progressBar"></md-progress-bar>
 <div *ngIf="sections?.length > 0">
   <div>
     <div class="row">
@@ -10,7 +9,7 @@
   <div class="form-row">
     <div class="row section-last-row">
       <div class="col-md-2">
-        <md-select [(ngModel)]="parcel.sectionId" placeholder="SEKCJA*">
+        <md-select [disabled]="editionDisabled" [(ngModel)]="parcel.sectionId" placeholder="SEKCJA">
           <md-option *ngFor="let s of sections" [value]="s.id">
             {{ s.name }}
           </md-option>
@@ -18,17 +17,19 @@
       </div>
       <div class="col-md-2">
         <md-form-field>
-          <input class="textbox" type="text" mdInput placeholder="NUMER DZIAŁKI*" [(ngModel)]="parcel.number" name="numerDzialki">
+          <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="NUMER DZIAŁKI" [(ngModel)]="parcel.number"
+            name="numerDzialki">
         </md-form-field>
       </div>
       <div class="col-md-2">
         <md-form-field>
-          <input class="textbox" type="text" mdInput placeholder="MIEJSCOWOŚĆ*" [(ngModel)]="parcel.cityId" name="numerDzialki">
+          <input [disabled]="editionDisabled" class="textbox" type="text" mdInput placeholder="MIEJSCOWOŚĆ" [(ngModel)]="parcel.cityId"
+            name="numerDzialki">
         </md-form-field>
       </div>
       <div class="col-md-2">
         <form>
-          <md-select placeholder="POWIERZCHNIA*" [(ngModel)]="parcel.areaType" name="rodzajPowierzchni">
+          <md-select [disabled]="editionDisabled" placeholder="POWIERZCHNIA" [(ngModel)]="parcel.areaType" name="rodzajPowierzchni">
             <md-option *ngFor="let rodzaj of powierzchnia" [value]="rodzaj.value">
               {{rodzaj.viewValue}}
             </md-option>
@@ -37,7 +38,8 @@
       </div>
       <div class="col-md-2">
         <md-form-field>
-          <input class="textbox" type="number" mdInput placeholder="HEKTARÓW*" [(ngModel)]="parcel.areaSurface" name="powierzchnia">
+          <input [disabled]="editionDisabled" class="textbox" type="number" mdInput placeholder="HEKTARÓW" [(ngModel)]="parcel.areaSurface"
+            name="powierzchnia">
         </md-form-field>
       </div>
     </div>
@@ -49,6 +51,7 @@
       </div>
     </div>
   </div>
+
   <div class="form-row" *ngFor="let t of parcel.trenches">
     <div class="row section-last-row">
       <div class="col-md-3">
@@ -67,13 +70,13 @@
         Drenaze
       </div>
     </div>
-  </div>
-  <div class="form-row" *ngFor="let d of parcel.drainages">
-    <div class="row section-last-row">
-      <div class="col-md-3">
-        <md-form-field>
-          <input class="textbox" type="text" mdInput placeholder="NUMERACJA DRENAŻU*" [(ngModel)]="d.number" name="numeracjaRoku">
-        </md-form-field>
+    <div class="form-row" *ngFor="let d of parcel.drainages">
+      <div class="row section-last-row">
+        <div class="col-md-3">
+          <md-form-field>
+            <input class="textbox" type="text" mdInput placeholder="NUMERACJA DRENAŻU*" [(ngModel)]="d.number" name="numeracjaRoku">
+          </md-form-field>
+        </div>
       </div>
     </div>
   </div>
@@ -182,7 +185,7 @@
               <md-form-field>
                 <input [disabled]="editionDisabled" class="textbox" type="number" mdInput placeholder="WYSOKOŚĆ OPŁATY" [(ngModel)]="decision.payment"
                   name="numerDecyzji">
-                  <span mdSuffix>PLN</span>
+                <span mdSuffix>PLN</span>
               </md-form-field>
             </div>
             <div class="col-md-2">
@@ -200,7 +203,10 @@
             (click)="addDecision()">Dodaj kolejną decyzję</button>
         </div>
       </div>
-      <div *ngIf="sections?.length < 1 && !progressBar">
-        <mwc-info [link]="'/add/section'" [text]="'Ta spółka nie posiada sekcji. Dodaj sekcje by móc dodawać działki.'" [buttonText]="'Dodaj sekcje'"
-          [success]="false"></mwc-info>
-      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="sections?.length < 1 && !progressBar">
+  <mwc-info [link]="'/add/section'" [text]="'Ta spółka nie posiada sekcji. Dodaj sekcje by móc dodawać działki.'" [buttonText]="'Dodaj sekcje'"
+    [success]="false"></mwc-info>
+</div>

@@ -2,7 +2,11 @@
 <div class="form-container fixed">
   <div class="card-title">
     <div class="header" *ngIf="!selectedCompanyId">
-      Wybierz rodzaj wyszukiwania
+      <div class="col-md-4 no-padding">Wybierz rodzaj wyszukiwania</div>
+      <div class="col-md-6">
+        Wyszukiwanie
+      </div>
+      <div class="clearfix"></div>
     </div>
     <div class="no-padding col-md-3 form-row">
       <form>
@@ -19,8 +23,8 @@
         </md-select>
       </form>
     </div>
-    <div class="clearfix"></div>
-    <div class="no-padding"  [class.col-md-2]="searchType !== 'evidenceNumber'" [class.col-md-4]="searchType === 'evidenceNumber'">
+    <div class="col-md-1"></div>
+    <div [class.col-md-2]="searchType !== 'evidenceNumber'" [class.col-md-4]="searchType === 'evidenceNumber'">
       <md-form-field>
         <input (keypress)="$event.keyCode === 13 ? search() : null" class="textbox" type="text" mdInput [placeholder]="searchType === 'evidenceNumber' ? 'NUMER EWIDENCYJNY' : (searchType === 'namesurname' ? 'IMIĘ' : 'ULICA' )"
           [(ngModel)]="os.searchString">
@@ -33,8 +37,10 @@
       </md-form-field>
     </div>
     <div class="col-md-3">
-      <button md-raised-button color="primary" (click)="search()">Wyszukaj</button>
+      <button md-raised-button color="primary" (click)="search()">Wyszukaj {{ (searchType !== 'evidenceNumber' && !os.searchString?.length && !os.secondSearchString?.length) || (searchType === 'evidenceNumber'
+          && !os.searchString?.length) ? 'wszystkich' : '' }}</button>
     </div>
+    <div class="clearfix"></div>
   </div>
 </div>
 <div class="col-md-12">

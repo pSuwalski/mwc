@@ -1,10 +1,10 @@
 import { OwnerService } from '../../../services/owner.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Owner, emptyOwnerContact, emptyOwnerPersonal, emptySaldo, emptyParcelDataFull, emptyOwnerAuth } from '../../../models/owner';
 import { UserService } from '../../../services/user.service';
 import { User } from '../../../models/user';
 import { Subscription } from 'rxjs/Subscription';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import * as _ from 'lodash';
 
@@ -13,7 +13,7 @@ import * as _ from 'lodash';
   templateUrl: './owner-output-data-form.component.html',
   styleUrls: ['./owner-output-data-form.component.css']
 })
-export class OwnerOutputDataFormComponent implements OnInit {
+export class OwnerOutputDataFormComponent implements OnInit, OnDestroy {
 
   // owner: Owner;
   ownerTemp: Owner;
@@ -36,18 +36,22 @@ export class OwnerOutputDataFormComponent implements OnInit {
     private router: Router,
     private os: OwnerService,
     private us: UserService,
+    private route: ActivatedRoute
   ) {
-    this.os.restoreOwner().then(own => {
-      if (own !== null) {
-        this.owner = own;
-        this.subsriptions.push(
-          this.us.currentUser.subscribe((cu) => {
-            this.currentUser = cu;
-          })
-        );
-      }
-    });
-   }
+    this.subsriptions.push(
+      this.us.currentUser
+        .combineLatest(this.route.params)
+        .subscribe(([cu, params]) => {
+          this.os.restoreOwner(cu.unionId, params['id']).then(own => {
+            if (own !== null) {
+              this.owner = own;
+            } else {
+              this.router.navigate(['/search/owner']);
+            }
+          });
+        })
+    );
+  }
 
   ngOnInit() {
   }
@@ -101,6 +105,10 @@ export class OwnerOutputDataFormComponent implements OnInit {
 
   goBack() {
     this.router.navigate(['/search/leesee']);
+  }
+
+  ngOnDestroy() {
+    this.subsriptions.forEach((s) => s.unsubscribe());
   }
 
 }

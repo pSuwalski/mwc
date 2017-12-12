@@ -6,6 +6,8 @@ import { UserService } from '../../services/user.service';
 import { User } from '../../models/user';
 import { Subscription } from 'rxjs/Subscription';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
+import { SectionService } from '../../services/section.service';
+import { Section } from '../../models/section';
 
 @Component({
   selector: 'mwc-search-parcel',
@@ -14,39 +16,71 @@ import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 })
 export class SearchParcelComponent implements OnDestroy {
 
+  progressBar = true;
   currentUser: User;
   parcels: Parcel[] = [];
   subsriptions: Subscription[] = [];
   selectedCompanyId: string;
-
+  selectedSectionId: string;
+  sections: Section[] = [];
   public searchString: string;
   numberSorted = false;
   areaTypeSorted = false;
   areaSurfaceSorted = false;
   trenchSorted = false;
   public parcelFilter: Parcel[];
+  citySearchString: string;
+  numberSearchString: string;
 
   constructor(
     private router: Router,
     private ps: ParcelService,
+    private ss: SectionService,
     private us: UserService
   ) {
     this.subsriptions.push(
       this.us.currentUser.subscribe((cu) => {
         this.currentUser = cu;
-        if (cu.companies[0]) {
-          this.ps.getUnionParcels(cu.unionId)
-            .then((prs: Parcel[]) => { this.parcels = prs; this.parcelFilter = this.parcels; });
-        }
+        this.progressBar = false;
       })
     );
-
     this.parcelFilter = this.parcels;
-    console.log(this.parcelFilter);
+  }
+
+  searchParcelByCity() {
+    this.ps.getSectionParcelsByCity(this.currentUser.unionId, this.selectedCompanyId, this.selectedSectionId,
+      this.citySearchString).then((prc) => {
+        this.parcels = prc;
+      });
+  }
+
+  searchParcelByNumber() {
+    this.ps.getSectionParcelsByNumber(this.currentUser.unionId, this.selectedCompanyId, this.selectedSectionId,
+      this.numberSearchString).then((prc) => {
+        this.parcels = prc;
+      });
+  }
+
+  // onInput() {
+  //   if (this.ss.searchString && this.ss.searchString.length === 0 && this.searchedAndNotNulled) {
+  //     this.nulled = true;
+  //   }
+  // }
+
+  onKeyDownCity(event: KeyboardEvent) {
+    if (event.keyCode === 13) {
+      this.searchParcelByCity();
+    }
+  }
+
+  onKeyDownNumber(event: KeyboardEvent) {
+    if (event.keyCode === 13) {
+      this.searchParcelByNumber();
+    }
   }
 
   loadMore() {
-    this.ps.loadMoreUnionParcels(this.currentUser.unionId).then((prs: Parcel[]) => this.parcels.concat(prs));
+    this.ps.loadMoreByNumber().then((prs: Parcel[]) => this.parcels.concat(prs));
   }
 
   ngOnDestroy() {
@@ -109,11 +143,22 @@ export class SearchParcelComponent implements OnDestroy {
   //   }
   // }
 
-  MyFilter() {
-    this.ps.SearchParcelByNumber(this.currentUser.unionId, this.searchString).then((own: Parcel[]) => {
-      this.parcels = own;
-      console.log(this.parcels);
+  getCompanySections() {
+    this.selectedSectionId = null;
+    this.ss.getCompanySections(this.currentUser.unionId, this.selectedCompanyId).then((sct) => {
+      this.sections = sct;
     });
+  }
+
+  getSectionParcels() {
+    this.searchParcelByNumber();
+  }
+
+  MyFilter() {
+    // this.ps.SearchParcelByNumber(this.currentUser.unionId, this.searchString).then((own: Parcel[]) => {
+    //   this.parcels = own;
+    // });
+    // console.log(this.parcels);
   }
 
   showChosenParcel(parcel: Parcel) {

@@ -3,12 +3,14 @@ import { Injectable } from '@angular/core';
 import { Resolution, emptyResolution } from '../models/resolution';
 import * as _ from 'lodash';
 import { capitalizeStrings } from '../helper-functions';
+import { firestore } from 'firebase/app';
 
 let storedResolution: Resolution;
 
 @Injectable()
 export class ResolutionsService {
 
+  lastQuery: firestore.Query;
   limit = 30;
   loadedFromBegining = 0;
   moreToBeLoadedIndicator = true;
@@ -64,7 +66,9 @@ export class ResolutionsService {
 
   async getCompanyResolutions(unionId: string, companyId: string): Promise<Resolution[]> {
     this.loadedFromBegining = 0;
-    const parcelsRef = await this.resolutionsRef(unionId).ref.limit(this.limit).get();
+    const parcelsRef = await this.resolutionsRef(unionId).ref
+    .where('companyId', '==', companyId)
+    .limit(this.limit).get();
     if (!parcelsRef.empty) {
       this.moreToBeLoadedIndicator = parcelsRef.docs.length === 30;
       this.loadedFromBegining = parcelsRef.docs.length;
@@ -72,6 +76,39 @@ export class ResolutionsService {
     } else {
       return [];
     }
+  }
+
+  async getCompanyResolutionsByNumber(unionId: string, companyId: string,
+    numberSearch: string, limit?: boolean): Promise<Resolution[]> {
+
+    this.loadedFromBegining = 0;
+    let parcelNameRef;
+    let parcelNameRefUpperCase;
+    console.log(unionId, companyId, name);
+    if (!numberSearch) {
+      this.lastQuery = await this.resolutionsRef(unionId).ref
+      .where('companyId', '==', companyId)
+      .limit(limit ? this.limit : 100000);
+      parcelNameRef = await this.lastQuery.orderBy('number', 'asc').limit(this.limit).get();
+    } else {
+      this.lastQuery = await this.resolutionsRef(unionId).ref
+      .where('companyId', '==', companyId)
+      .where('number', '==', numberSearch)
+      .limit(limit ? this.limit : 100000);
+      parcelNameRefUpperCase = await this.lastQuery.get();
+    }
+    const output: Resolution[] = [];
+    if (parcelNameRef && !parcelNameRef.empty) {
+      this.moreToBeLoadedIndicator = parcelNameRef.docs.length === this.limit;
+      this.loadedFromBegining = parcelNameRef.docs.length;
+      return parcelNameRef.docs.map((p) => p.data() as Resolution);
+    }
+    if (parcelNameRefUpperCase && !parcelNameRefUpperCase.empty) {
+      this.moreToBeLoadedIndicator = parcelNameRefUpperCase.docs.length === this.limit * 10;
+      this.loadedFromBegining = parcelNameRefUpperCase.docs.length;
+      return parcelNameRefUpperCase.docs.map((p) => p.data() as Resolution);
+    }
+    return output;
   }
 
   async loadMoreCompanyParcels(unionId: string) {

@@ -79,6 +79,18 @@ export class AddOwnerComponent implements OnInit, OnDestroy {
     this.owner.parcelsData.push(emptyParcelDataFull());
   }
 
+  init() {
+    this.addedSuccessfully = null;
+    this.owner = {
+      personalData: emptyOwnerPersonal(),
+      contactData: emptyOwnerContact(),
+      authData: [],
+      id: null,
+      historicSaldo: emptySaldo(),
+      parcelsData: []
+    };
+  }
+
   removeAuth() {
     this.owner.authData.pop();
   }

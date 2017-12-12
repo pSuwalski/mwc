@@ -121,7 +121,7 @@ export const appRoutes: Routes = [
             component: ParcelOutputDataFormComponent,
           },
           {
-            path: 'owner',
+            path: 'owner/:id',
             component: OwnerOutputDataFormComponent,
           },
           {

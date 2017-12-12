@@ -4,8 +4,8 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-md-12">
-    <md-checkbox [(ngModel)]="sameAddressIndicator" (change)="sameAddress.emit()">Ten sam adres do korespondencji</md-checkbox>
+  <div class="col-md-12 checkbox">
+    <md-checkbox *ngIf="!editionDisabled" [(ngModel)]="sameAddressIndicator" (change)="sameAddress.emit()">Ten sam adres do korespondencji</md-checkbox>
   </div>
 </div>
 <div class="row">

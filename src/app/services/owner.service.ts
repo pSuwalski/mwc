@@ -40,22 +40,28 @@ export class OwnerService {
     storedOwner = owner;
   }
 
-  async restoreOwner(): Promise<Owner> {
-    let returnOwner: Owner;
-    if (storedOwner !== null) {
-      returnOwner = storedOwner;
+  async restoreOwner(unionId: string, id: string): Promise<Owner> {
+    if (storedOwner.id === id) {
+      return storedOwner;
     } else {
-      returnOwner = null;
+      const ownerRef = await this.ownerRef(unionId).doc(id).ref.get();
+      if (ownerRef.exists) {
+        return this.parse(ownerRef.data());
+      } else {
+        return null;
+      }
     }
-
-    return returnOwner;
   }
 
   async addOwner(owner: Owner, unionId: string): Promise<any> {
     const id = this.db.createId();
-    const dbOwner = _.assign({ id }, owner.contactData, owner.personalData, {
-      historicSaldo: owner.historicSaldo, authData: owner.authData, parcelsData: owner.parcelsData
-    });
+    const address = _.cloneDeep(owner.personalData.address);
+    const personalData = { personalData: _.cloneDeep(owner.personalData) };
+    delete personalData.personalData.address;
+    const dbOwner = _.assign(address, { id },
+      owner.contactData, personalData.personalData, {
+        historicSaldo: owner.historicSaldo, authData: owner.authData, parcelsData: owner.parcelsData
+      });
     return this.db
       .collection('unions')
       .doc(unionId)
@@ -68,9 +74,13 @@ export class OwnerService {
   async replaceOwner(owner: Owner, unionId: string): Promise<any> {
     const id = owner.id;
     if (await this.checkIfExists(`unions/${unionId}/owners/${owner.id}`)) {
-      const dbOwner = _.assign({ id }, owner.contactData, owner.personalData, {
-        historicSaldo: owner.historicSaldo, authData: owner.authData, parcelsData: owner.parcelsData
-      });
+      const address = _.cloneDeep(owner.personalData.address);
+      const personalData = { personalData: _.cloneDeep(owner.personalData) };
+      delete personalData.personalData.address;
+      const dbOwner = _.assign(address, { id },
+        owner.contactData, personalData.personalData, {
+          historicSaldo: owner.historicSaldo, authData: owner.authData, parcelsData: owner.parcelsData
+        });
       return this.db
         .collection('unions')
         .doc(unionId)
@@ -116,7 +126,7 @@ export class OwnerService {
     const name = this.searchString ? _.capitalize(this.searchString) : '';
     const surname = this.secondSearchString ? _.capitalize(this.secondSearchString) : '';
     if (name.length < 1 && surname.length < 1) {
-      await this.getUnionOwners(this.unionId);
+      this.owners = await this.getUnionOwners(this.unionId);
       return 'ok';
     }
     this.loadedFromBegining = 0;
@@ -180,16 +190,16 @@ export class OwnerService {
     const city = this.secondSearchString ? _.capitalize(this.secondSearchString) : '';
     console.log(street, city);
     if (street.length < 1 && city.length < 1) {
-      await this.getUnionOwners(this.unionId);
+      this.owners = await this.getUnionOwners(this.unionId);
       return 'ok';
     }
     this.loadedFromBegining = 0;
-    const leeseesStreetRef = street.length > 1 ? await this.ownerRef(unionId).ref
+    const leeseesStreetRef = street.length > 0 ? await this.ownerRef(unionId).ref
       .orderBy('streetAndNumber')
       .where('streetAndNumber', '>=', street)
       .where('streetAndNumber', '<=', street + String.fromCharCode(1000))
       .limit(this.limit * 10).get() : null;
-    const ownerCityRef = city.length > 1 ? await this.ownerRef(unionId).ref
+    const ownerCityRef = city.length > 0 ? await this.ownerRef(unionId).ref
       .orderBy('city')
       .where('city', '>=', city)
       .where('city', '<=', city + String.fromCharCode(1000))
@@ -220,10 +230,11 @@ export class OwnerService {
 
 
   parse(dbOwner: any): Owner {
-    const personalData: PersonalData = this.parseFromInterface(dbOwner, emptyOwnerPersonal());
+    const personalData: PersonalData = this.parsePersonalData(dbOwner);
     const contactData = this.parseFromInterface(dbOwner, emptyOwnerContact());
     const authData = [];
-    const historicSaldo = this.parseFromInterface(dbOwner.historicSaldo, emptySaldo());
+    const historicSaldo = dbOwner.historicSaldo;
+    const saldo = dbOwner.saldo;
     const parcelsData = [];
     if (dbOwner.authData) {
       dbOwner.authData.forEach((ad) => authData.push(this.parseFromInterface(ad, emptyOwnerAuth())));
@@ -233,13 +244,32 @@ export class OwnerService {
         parcelsData.push(this.parseFromInterface(pd, emptyParcelDataFull()));
       });
     }
-    return { personalData, contactData, authData, id: dbOwner.id, historicSaldo, parcelsData: parcelsData };
+    return { personalData, contactData, authData, id: dbOwner.id, historicSaldo, saldo, parcelsData: parcelsData };
   }
 
   parseFromInterface<T>(parsed: any, emptyParsedType: T): T {
     return _.reduce(_.keys(emptyParsedType), (object, key) => {
       return _.assign(object, { [key]: parsed[key] });
     }, {});
+  }
+
+  parsePersonalData(parsed: any): PersonalData {
+    return _.omitBy({
+      type: parsed.type,
+      evidenceNumber: parsed.evidenceNumber,
+      name: parsed.name,
+      surname: parsed.surname,
+      address: _.omitBy({
+        streetAndNumber: parsed.streetAndNumber,
+        city: parsed.city,
+        postCode: parsed.postCode,
+        apartment: parsed.apartment,
+      }, (v) => _.isNull(v) || _.isUndefined(v)),
+      nip: parsed.nip,
+      regon: parsed.regon,
+      krs: parsed.krs,
+      pesel: parsed.pesel
+    }, (v) => _.isNull(v) || _.isUndefined(v));
   }
 
 

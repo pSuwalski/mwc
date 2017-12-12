@@ -1,5 +1,6 @@
 .form-container {
     padding: 24px;
+    padding-bottom: 0;
   }
 
   .material-icons.md-48 { font-size: 48px; }

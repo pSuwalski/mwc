@@ -65,7 +65,7 @@
   <button md-raised-button color="primary" [disabled]="parcel?.trenches[0] && !parcel?.trenches[parcel?.trenches?.length - 1]?.number"
     (click)="addTrench()">Dodaj rów</button>
   <div>
-    <div class="row">
+    <div class="row" *ngIf="!editionDisabled">
       <div class="col-md-12 header">
         Drenaze
       </div>

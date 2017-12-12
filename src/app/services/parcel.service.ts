@@ -32,16 +32,31 @@ export class ParcelService {
     storedParcel = parcel;
   }
 
-  async restoreParcel(): Promise<Parcel> {
-    let returnParcel: Parcel;
-    if (storedParcel !== null) {
-      returnParcel = storedParcel;
+  async restoreParcel(unionId: string, id: string): Promise<Parcel> {
+    if (storedParcel.id === id) {
+      return storedParcel;
     } else {
-      returnParcel = null;
+      const parcelRef = await this.parcelsRef(unionId).doc(id).ref.get();
+      if (parcelRef.exists) {
+        return this.parse(parcelRef.data());
+      } else {
+        return null;
+      }
     }
-
-    return returnParcel;
   }
+
+  // async restoreResolution(unionId: string, id: string): Promise<Resolution> {
+  //   if (storedResolution.id === id) {
+  //     return storedResolution;
+  //   } else {
+  //     const resolutionRef = await this.resolutionsRef(unionId).doc(id).ref.get();
+  //     if (resolutionRef.exists) {
+  //       return this.parse(resolutionRef.data());
+  //     } else {
+  //       return null;
+  //     }
+  //   }
+  // }
 
   async addParcel(parcel: Parcel, unionId: string): Promise<any> {
     const id = this.db.createId();

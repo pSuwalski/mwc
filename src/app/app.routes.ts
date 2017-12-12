@@ -117,7 +117,7 @@ export const appRoutes: Routes = [
             component: SectionOutputDataFormComponent,
           },
           {
-            path: 'parcel',
+            path: 'parcel/:id',
             component: ParcelOutputDataFormComponent,
           },
           {

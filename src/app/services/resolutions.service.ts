@@ -26,7 +26,6 @@ export class ResolutionsService {
   }
 
   async restoreResolution(unionId: string, id: string): Promise<Resolution> {
-    // let returnResolution: Resolution;
     if (storedResolution.id === id) {
       return storedResolution;
     } else {
@@ -38,19 +37,6 @@ export class ResolutionsService {
       }
     }
   }
-
-  // async restoreOwner(unionId: string, id: string): Promise<Owner> {
-  //   if (storedOwner.id === id) {
-  //     return storedOwner;
-  //   } else {
-  //     const ownerRef = await this.ownerRef(unionId).doc(id).ref.get();
-  //     if (ownerRef.exists) {
-  //       return this.parse(ownerRef.data());
-  //     } else {
-  //       return null;
-  //     }
-  //   }
-  // }
 
   async addResolution(resolution: Resolution, unionId: string): Promise<any> {
     const id = this.db.createId();

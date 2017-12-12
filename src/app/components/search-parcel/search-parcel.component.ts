@@ -163,7 +163,6 @@ export class SearchParcelComponent implements OnDestroy {
 
   showChosenParcel(parcel: Parcel) {
     this.ps.storeParcel(parcel);
-    this.router.navigate(['/view/parcel']);
+    this.router.navigate(['/view/parcel', parcel.id]);
   }
-
 }

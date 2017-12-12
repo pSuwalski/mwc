@@ -43,6 +43,10 @@ export class ResolutionOutputDataFormComponent implements OnInit {
           this.rs.restoreResolution(cu.unionId, params['id']).then(res => {
             if (res !== null) {
               this.resolution = res;
+              this.currentUser = cu;
+              this.cs.SearchCompanyById(this.currentUser.unionId, this.resolution.companyId).then(cmp => {
+                this.companyName = cmp[0].name;
+              });
             } else {
               this.router.navigate(['/search/resolution']);
             }

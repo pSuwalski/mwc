@@ -44,6 +44,13 @@ export class ParcelOutputDataFormComponent implements OnInit {
           this.ps.restoreParcel(cu.unionId, params['id']).then(prc => {
             if (prc !== null) {
               this.parcel = prc;
+              this.currentUser = cu;
+              this.cs.SearchCompanyById(this.currentUser.unionId, this.parcel.companyId).then(cmp => {
+                this.companyName = cmp[0].name;
+              });
+              this.ss.SearchSectionById(this.currentUser.unionId, this.parcel.sectionId).then(sct => {
+                this.sectionName = sct[0].name;
+              });
             } else {
               this.router.navigate(['/search/parcel']);
             }

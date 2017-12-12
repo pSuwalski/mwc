@@ -40,6 +40,10 @@ export class SectionOutputDataFormComponent implements OnInit {
           this.ss.restoreSection(cu.unionId, params['id']).then(sct => {
             if (sct !== null) {
               this.section = sct;
+              this.currentUser = cu;
+              this.cs.SearchCompanyById(this.currentUser.unionId, this.section.companyId).then(cmp => {
+                this.companyName = cmp[0].name;
+              });
             } else {
               this.router.navigate(['/search/section']);
             }
@@ -67,7 +71,7 @@ export class SectionOutputDataFormComponent implements OnInit {
 
 
   edit() {
-   this.sectionTemp = _.cloneDeep(this.section);
+    this.sectionTemp = _.cloneDeep(this.section);
     this.editionDisabled = false;
   }
 

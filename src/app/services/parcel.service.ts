@@ -38,7 +38,7 @@ export class ParcelService {
   }
 
   async restoreParcel(unionId: string, id: string): Promise<Parcel> {
-    if (storedParcel.id === id) {
+    if (storedParcel && storedParcel.id === id) {
       return storedParcel;
     } else {
       const parcelRef = await this.parcelsRef(unionId).doc(id).ref.get();
@@ -104,14 +104,18 @@ export class ParcelService {
     let parcelCitySnapshots;
     let parcelNumberSnapshots;
     if (this.searchString.length < 1 && this.secondSearchString.length < 1) {
+      console.log(1)
       if (this.companyId) {
         this.parcels = await this.getCompanyParcels(this.unionId, this.companyId);
-      }else {
+        console.log(2, this.parcels);
+      } else {
         this.parcels = await this.getUnionParcels(this.unionId);
+        console.log(3, this.parcels);
       }
       return;
     }
     if (this.searchString.length > 0) {
+      console.log(4, this.parcels);
       let parcelNumberRef = await this.parcelsRef(unionId).ref
         .where('companyId', '==', companyId)
         .orderBy('number', 'asc')
@@ -122,7 +126,10 @@ export class ParcelService {
         parcelNumberRef = parcelNumberRef.where('sectionId', '==', sectionId);
       }
       parcelNumberSnapshots = await parcelNumberRef.get();
-    } else {
+
+    }
+    if (this.secondSearchString.length > 0) {
+      console.log(5, this.parcels);
       let parcelCityRef = await this.parcelsRef(unionId).ref
         .where('companyId', '==', companyId)
         .orderBy('cityId', 'asc')
@@ -148,66 +155,8 @@ export class ParcelService {
       parcelCitySnapshots.docs.forEach((p) => output.push(this.parse(p.data())));
     }
     this.parcels = output;
+    console.log(6, this.parcels);
     return output;
-  }
-
-  async getSectionParcelsByNumber(unionId: string, companyId: string, sectionId: string,
-    numberSearch: string, limit?: boolean): Promise<Parcel[]> {
-
-    this.loadedFromBegining = 0;
-    let parcelNameRef;
-    let parcelNameRefUpperCase;
-    console.log(unionId, companyId, name);
-    if (!numberSearch) {
-      this.lastQuery = await this.parcelsRef(unionId).ref
-        .where('companyId', '==', companyId)
-        .where('sectionId', '==', sectionId)
-        .limit(limit ? this.limit : 100000);
-      parcelNameRef = await this.lastQuery.orderBy('number', 'asc').limit(this.limit).get();
-    } else {
-      console.log(numberSearch);
-      this.lastQuery = await this.parcelsRef(unionId).ref
-        .where('companyId', '==', companyId)
-        .where('sectionId', '==', sectionId)
-        .where('number', '==', numberSearch)
-        .limit(limit ? this.limit : 100000);
-      parcelNameRefUpperCase = await this.lastQuery.get();
-    }
-    const output: Parcel[] = [];
-    if (parcelNameRef && !parcelNameRef.empty) {
-      this.moreToBeLoadedIndicator = parcelNameRef.docs.length === this.limit;
-      this.loadedFromBegining = parcelNameRef.docs.length;
-      parcelNameRef.docs.forEach((p) => output.push(this.parse(p.data())));
-    }
-    if (parcelNameRefUpperCase && !parcelNameRefUpperCase.empty) {
-      this.moreToBeLoadedIndicator = parcelNameRefUpperCase.docs.length === this.limit * 10;
-      this.loadedFromBegining = parcelNameRefUpperCase.docs.length;
-      parcelNameRefUpperCase.docs.forEach((p) => output.push(this.parse(p.data())));
-    }
-    this.parcels = output;
-    return output;
-  }
-
-  async SearchParcelByNumber(unionId: string, searchString: string): Promise<Parcel[]> {
-    let parcelNumberRef;
-    if (!searchString) {
-      parcelNumberRef = await this.parcelsRef(unionId).ref.get();
-    } else {
-      this.loadedFromBegining = 0;
-      parcelNumberRef = await this.parcelsRef(unionId).ref
-        .where('number', '>=', searchString)
-        .where('number', '<=', searchString + String.fromCharCode(1000))
-        .limit(this.limit)
-        .get();
-    }
-    const output: Parcel[] = [];
-    if (!parcelNumberRef.empty) {
-      this.moreToBeLoadedIndicator = parcelNumberRef.docs.length === 30;
-      this.loadedFromBegining = parcelNumberRef.docs.length;
-      parcelNumberRef.docs.forEach((p) => output.push(this.parse(p.data())));
-    }
-    this.parcels = output;
-    return this.parcels;
   }
 
   async getCompanyParcels(unionId: string, companyId: string, limit?: boolean): Promise<Parcel[]> {
@@ -218,11 +167,13 @@ export class ParcelService {
         this.moreToBeLoadedIndicator = limit ? parcelsRef.docs.length === 30 : false;
         this.loadedFromBegining = parcelsRef.docs.length;
         this.cachedMultipleCompanyParcels[companyId] = parcelsRef.docs.map((p) => p.data() as Parcel);
+        this.parcels = this.cachedMultipleCompanyParcels[companyId];
         return this.cachedMultipleCompanyParcels[companyId];
       } else {
         return [];
       }
     } else {
+      this.parcels = this.cachedMultipleCompanyParcels[companyId];
       return this.cachedMultipleCompanyParcels[companyId];
     }
   }

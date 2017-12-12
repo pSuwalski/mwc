@@ -41,7 +41,7 @@ export class OwnerService {
   }
 
   async restoreOwner(unionId: string, id: string): Promise<Owner> {
-    if (storedOwner.id === id) {
+    if (storedOwner && storedOwner.id === id) {
       return storedOwner;
     } else {
       const ownerRef = await this.ownerRef(unionId).doc(id).ref.get();

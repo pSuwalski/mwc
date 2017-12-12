@@ -47,7 +47,7 @@
           </md-form-field>
         </div>
         <div class="col-md-2" *ngIf="ps.companyId">
-          <button md-raised-button color="primary" (click)="ps.searchParcels(ps.unionId, ps.companyId, ps.sectionId)">Wyszukaj {{ ((ps.searchString && ps.searchString.length > 0) || (ps.secondSearchString && ps.secondSearchString.length
+          <button md-raised-button color="primary" (click)="search()">Wyszukaj {{ ((ps.searchString && ps.searchString.length > 0) || (ps.secondSearchString && ps.secondSearchString.length
             > 0)) ? '' : 'wszystkie' }}</button>
         </div>
       </div>
@@ -58,7 +58,7 @@
         <div class="col-md-2 header" (click)="sortByAreaSurface()">miasto</div>
       </div>
       <div *ngFor="let p of ps.parcels">
-        <div class="row" *ngIf="selectedSectionId" (click)="showChosenParcel(p)">
+        <div class="row" (click)="showChosenParcel(p)">
           <div class="col-md-2 ">{{p.number}}</div>
           <div class="col-md-2 ">{{p.areaType}}</div>
           <div class="col-md-2 ">{{p.areaSurface}}</div>

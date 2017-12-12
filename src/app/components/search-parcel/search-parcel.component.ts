@@ -57,13 +57,15 @@ export class SearchParcelComponent implements OnDestroy {
 
   onKeyDownCity(event: KeyboardEvent) {
     if (event.keyCode === 13) {
-      this.ps.searchParcels(this.ps.unionId, this.ps.companyId, this.ps.sectionId);
+      this.progressBar = true;
+      this.ps.searchParcels(this.ps.unionId, this.ps.companyId, this.ps.sectionId).then(() => this.progressBar = false);
     }
   }
 
   onKeyDownNumber(event: KeyboardEvent) {
     if (event.keyCode === 13) {
-      this.ps.searchParcels(this.ps.unionId, this.ps.companyId, this.ps.sectionId);
+      this.progressBar = true;
+      this.ps.searchParcels(this.ps.unionId, this.ps.companyId, this.ps.sectionId).then(() => this.progressBar = false);
     }
   }
 
@@ -115,18 +117,27 @@ export class SearchParcelComponent implements OnDestroy {
 
 
   getCompanySections() {
+    this.progressBar = true;
     this.ps.sectionId = null;
     this.ss.getCompanySections(this.ps.unionId, this.ps.companyId).then((sct) => {
       this.sections = sct;
+      this.progressBar = false;
     });
   }
 
   getSectionParcels() {
-    this.ps.searchParcels(this.ps.unionId, this.ps.companyId, this.ps.sectionId);
+    this.progressBar = true;
+    this.ps.searchParcels(this.ps.unionId, this.ps.companyId, this.ps.sectionId).then(() => this.progressBar = false);
   }
 
   showChosenParcel(parcel: Parcel) {
     this.ps.storeParcel(parcel);
     this.router.navigate(['/view/parcel', parcel.id]);
+  }
+
+  search() {
+    console.log('asd');
+    this.progressBar = true;
+    this.ps.searchParcels(this.ps.unionId, this.ps.companyId, this.ps.sectionId).then(() => this.progressBar = false);
   }
 }

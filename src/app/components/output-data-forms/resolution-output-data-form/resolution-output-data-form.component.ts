@@ -7,7 +7,7 @@ import { CompanyService } from '../../../services/company.service';
 import { UserService } from '../../../services/user.service';
 import { User } from '../../../models/user';
 import { Subscription } from 'rxjs/Subscription';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import * as _ from 'lodash';
 
@@ -32,22 +32,23 @@ export class ResolutionOutputDataFormComponent implements OnInit {
     private rs: ResolutionsService,
     private ss: SectionService,
     private cs: CompanyService,
-    private us: UserService
+    private us: UserService,
+    private route: ActivatedRoute
   ) {
     this.companyName = '';
-    this.rs.restoreResolution().then(res => {
-      if (res !== null) {
-        this.resolution = res;
-        this.subsriptions.push(
-          this.us.currentUser.subscribe((cu) => {
-            this.currentUser = cu;
-            this.cs.SearchCompanyById(this.currentUser.unionId, this.resolution.companyId).then(cmp => {
-              this.companyName = cmp[0].name;
-            });
-          })
-        );
-      }
-    });
+    this.subsriptions.push(
+      this.us.currentUser
+        .combineLatest(this.route.params)
+        .subscribe(([cu, params]) => {
+          this.rs.restoreResolution(cu.unionId, params['id']).then(res => {
+            if (res !== null) {
+              this.resolution = res;
+            } else {
+              this.router.navigate(['/search/resolution']);
+            }
+          });
+        })
+    );
   }
 
   ngOnInit() {

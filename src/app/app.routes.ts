@@ -113,11 +113,11 @@ export const appRoutes: Routes = [
         path: 'view',
         children: [
           {
-            path: 'section',
+            path: 'section/:id',
             component: SectionOutputDataFormComponent,
           },
           {
-            path: 'parcel',
+            path: 'parcel/:id',
             component: ParcelOutputDataFormComponent,
           },
           {
@@ -125,7 +125,7 @@ export const appRoutes: Routes = [
             component: OwnerOutputDataFormComponent,
           },
           {
-            path: 'resolution',
+            path: 'resolution/:id',
             component: ResolutionOutputDataFormComponent,
           },
           {

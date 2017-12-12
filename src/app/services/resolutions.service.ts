@@ -25,15 +25,17 @@ export class ResolutionsService {
     storedResolution = resolution;
   }
 
-  async restoreResolution(): Promise<Resolution> {
-    let returnResolution: Resolution;
-    if (storedResolution !== null) {
-      returnResolution = storedResolution;
+  async restoreResolution(unionId: string, id: string): Promise<Resolution> {
+    if (storedResolution.id === id) {
+      return storedResolution;
     } else {
-      returnResolution = null;
+      const resolutionRef = await this.resolutionsRef(unionId).doc(id).ref.get();
+      if (resolutionRef.exists) {
+        return this.parse(resolutionRef.data());
+      } else {
+        return null;
+      }
     }
-
-    return returnResolution;
   }
 
   async addResolution(resolution: Resolution, unionId: string): Promise<any> {

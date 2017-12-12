@@ -59,7 +59,7 @@ export class SearchResolutionComponent implements OnDestroy {
 
   showChosenResolution(resolution: Resolution) {
     this.rs.storeResolution(resolution);
-    this.router.navigate(['/view/resolution']);
+    this.router.navigate(['/view/resolution', resolution.id]);
   }
 
   // searchResolutions() {

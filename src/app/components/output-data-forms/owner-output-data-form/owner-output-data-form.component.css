@@ -41,3 +41,15 @@ button {
     display: block;
   }
 
+  .card-navigation {
+    float: left;
+    margin-bottom: 0;
+    cursor: pointer;
+    margin-right: -12px;
+    height: 24px;
+  }
+
+.mat-tab-body-wrapper {
+    margin-top: 0;
+}
+

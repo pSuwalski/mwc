@@ -23,7 +23,8 @@ import {
   MdTabsModule,
   MdToolbarModule,
   MdRippleModule,
-  MdMenuModule
+  MdMenuModule,
+  MdDialogModule
 } from '@angular/material';
 
 import { RouterModule, Routes } from '@angular/router';
@@ -61,6 +62,7 @@ import { WorksdoneDataFormComponent } from './components/shared/worksdone-data-f
 import { CompanyDataFormComponent } from './components/shared/company-data-form/company-data-form.component';
 import { UserResolver } from './resolvers/user-resolver';
 import { UserService } from './services/user.service';
+import { DialogService } from './services/dialog.service';
 import { GraphQlService } from './services/graphQl.service';
 import { WorksService } from './services/works.service';
 import { HttpModule } from '@angular/http';
@@ -84,6 +86,11 @@ import { OwnerOutputDataFormComponent } from './components/output-data-forms/own
 import { ResolutionOutputDataFormComponent } from './components/output-data-forms/resolution-output-data-form/resolution-output-data-form.component';
 import { SearchWorksdoneComponent } from './components/search-worksdone/search-worksdone.component';
 import { WorksOutputDataFormComponent } from './components/output-data-forms/works-output-data-form/works-output-data-form.component';
+import { AuthorizationsDialogComponent } from './components/shared/authorizations-dialog/authorizations-dialog.component';
+import { ParcelDialogComponent } from './components/shared/parcel-dialog/parcel-dialog.component';
+import { PaymentsDialogComponent } from './components/shared/payments-dialog/payments-dialog.component';
+import { NotesDialogComponent } from './components/shared/notes-dialog/notes-dialog.component';
+import { NotesFormComponent } from './components/shared/notes-form/notes-form.component';
 
 
 
@@ -96,18 +103,23 @@ import { WorksOutputDataFormComponent } from './components/output-data-forms/wor
     ContactDataFormComponent, AuthorizationsDataFormComponent, LegalbasisDataFormComponent,
     ParcelsDataFormComponent,
     PaymentsDataFormComponent,
+    PaymentsDialogComponent,
     RegisterPageComponent,
     WorksdoneDataFormComponent,
     CompanyDataFormComponent,
     AddOwnerComponent,
     AddResolutionComponent,
     AddWorksdoneComponent,
+    AuthorizationsDialogComponent,
     SearchOwnerComponent,
     SearchResolutionComponent,
+    NotesDialogComponent,
+    NotesFormComponent,
     AddSectionComponent,
     SectionDataFormComponent,
     SearchSectionComponent,
     SectionOutputDataFormComponent,
+    ParcelDialogComponent,
     ParcelOutputDataFormComponent,
     OwnerOutputDataFormComponent,
     ResolutionOutputDataFormComponent,
@@ -125,6 +137,7 @@ import { WorksOutputDataFormComponent } from './components/output-data-forms/wor
     MdButtonModule,
     MdCardModule,
     MdDatepickerModule,
+    MdDialogModule,
     MdExpansionModule,
     MdCheckboxModule,
     MdIconModule,
@@ -143,8 +156,12 @@ import { WorksOutputDataFormComponent } from './components/output-data-forms/wor
     FormsModule,
     MdSelectModule,
   ],
-  providers: [GraphQlService, DatabaseService, UserResolver, UserService, ParcelService, OwnerService,
-              ResolutionsService, SectionService, WorksService, CompanyService],
+  providers: [GraphQlService, DatabaseService, DialogService, UserResolver, UserService, ParcelService, OwnerService,
+    ResolutionsService, SectionService, WorksService, CompanyService],
+  entryComponents: [
+    AuthorizationsDialogComponent, ParcelDialogComponent, PaymentsDialogComponent, NotesDialogComponent
+  ],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

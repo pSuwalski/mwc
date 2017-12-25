@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { FinancialRecord, Cancelation, AdditionalCosts, Payment } from '../../../models/payments';
+
 
 @Component({
   selector: 'mwc-payments-data-form',
@@ -7,36 +9,21 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class PaymentsDataFormComponent implements OnInit {
 
-  payments: Payment[];
+  @Input() financialRecord: any;
+  @Input() editionDisabled = false;
+  years: number[];
 
-  @Input() paymentsDataForm: UserPaymentsData;
-
-  constructor() {
+  constructor(
+  ) {
+    const year = new Date().getFullYear() + 1;
+    this.years = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((v) => year - v);
   }
 
   ngOnInit() {
-    this.payments = [
-      {value: undefined, 'date': ''}
-    ];
-    this.paymentsDataForm.payments = this.payments;
   }
 
-  addPayment() {
-    this.payments.push({ value: undefined, 'date': '' });
-  }
+
+
 }
 
-export interface Payment {
-  value: number;
-  date: string;
-}
 
-export interface UserPaymentsData {
-  payments: Payment[];
-  fullAmount: number;
-  capital: number;
-  interest: number;
-  shipmentCost: number;
-  discontinued: number;
-  left: number;
-}

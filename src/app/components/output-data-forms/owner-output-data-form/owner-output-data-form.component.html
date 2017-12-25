@@ -1,56 +1,132 @@
+<md-progress-bar mode="indeterminate" *ngIf="progressBar"></md-progress-bar>
 <div class="card-container">
   <div class="card mat-elevation-z1">
-
     <div class="form-container">
       <div class="row">
-        <div class=
-        <div class="card-field card-navigation" (click)="goBack()">
+         <div class="card-field card-navigation" (click)="goBack()">
           <md-icon>navigate_before</md-icon>
         </div>
         <div class="col-md-10 header" style="padding-top: 4px">Przegląd właściciela</div>
       </div>
-      <mwc-personal-data-form [editionDisabled]="editionDisabled" [personalDataForm]="owner.personalData"></mwc-personal-data-form>
-      <mwc-contact-data-form [editionDisabled]="editionDisabled" [contactDataForm]="owner.contactData"></mwc-contact-data-form>
-      <div>
-        <div *ngIf="!editionDisabled || owner?.authData?.length > 0" class="header">
-          Udzielone pełnomocnictwa
-        </div>
-        <mwc-authorizations-data-form *ngFor="let auth of owner.authData" [editionDisabled]="editionDisabled" [authDataForm]="auth"></mwc-authorizations-data-form>
-        <div class="auth-button-container">
-          <button *ngIf="!editionDisabled" type="button" class="add-button accent" md-raised-button color="primary" (click)="addAuth()">Dodaj {{owner.authData?.length > 0 ? 'kolejne' : ''}} pełnomocnictwo</button>
-          <button *ngIf="!editionDisabled" type="button" class="add-button accent" md-raised-button color="primary" [disabled]="owner?.authData?.length < 1"
-            (click)="removeAuth()">Wykasuj pełnomocnictwo</button>
-        </div>
-      </div>
-      <div>
-        <mwc-historic-saldo-form [editionDisabled]="editionDisabled" [historicSaldo]="owner.historicSaldo"></mwc-historic-saldo-form>
-      </div>
-      <div>
-        <div *ngIf="!editionDisabled || owner?.parcelsData?.length > 0" class="header">
-          Działki
-        </div>
-        <!-- <mwc-owner-parcel-form [editionDisabled]="editionDisabled" [id]="id"></mwc-owner-parcel-form> -->
-        <!-- <mwc-owner-parcel-form [editionDisabled]="editionDisabled" [parcelData]="owner.parcelsData[0]"></mwc-owner-parcel-form> -->
-        <mwc-owner-parcel-form [editionDisabled]="editionDisabled" *ngFor="let pd of owner.parcelsData" [parcelData]="pd"></mwc-owner-parcel-form>
-        <div class="auth-button-container">
-          <button *ngIf="!editionDisabled" type="button" class="add-button accent" md-raised-button color="primary" (click)="addParcel()">Dodaj {{owner.parcelsData?.length > 0 ? 'kolejną' : ''}} Działkę</button>
-          <button *ngIf="!editionDisabled" type="button" class="add-button accent" md-raised-button color="primary" [disabled]="owner?.parcelsData?.length < 1"
-            (click)="removeParcel()">Wykasuj Działkę</button>
-        </div>
-      </div>
-      <div *ngIf="editionDisabled" class="button-container col-md-12">
-        <button type="button" class="add-button accent" md-raised-button color="accent" (click)="edit()">Edytuj</button>
-      </div>
-      <div *ngIf="!editionDisabled" class="no-padding col-md-12">
-        <div class="col-md-10 no-padding">
-          <div class="button-container col-md-10">
-            <button type="button" class="add-button accent" md-raised-button color="accent" (click)="cancel()">Anuluj</button>
+    </div>
+    <div class="clearfix"></div>
+    <md-tab-group>
+      <md-tab label="Dane właściciela" (click)="editionDisabled = true">
+        <div class="form-container">
+          <mwc-personal-data-form [editionDisabled]="editionDisabled" [personalDataForm]="owner.personalData"></mwc-personal-data-form>
+          <mwc-contact-data-form [editionDisabled]="editionDisabled" [contactDataForm]="owner.contactData"></mwc-contact-data-form>
+          <div>
+            <div *ngIf="!editionDisabled || owner?.authData?.length > 0" class="header">
+              Udzielone pełnomocnictwa
+            </div>
+            <mwc-authorizations-data-form *ngFor="let auth of owner.authData" [editionDisabled]="editionDisabled" [authDataForm]="auth"></mwc-authorizations-data-form>
+            <div class="auth-button-container">
+              <button *ngIf="!editionDisabled" type="button" class="add-button accent" md-raised-button color="primary" (click)="addAuth()">Dodaj {{owner.authData?.length > 0 ? 'kolejne' : ''}} pełnomocnictwo</button>
+              <button *ngIf="!editionDisabled" type="button" class="add-button accent" md-raised-button color="primary" [disabled]="owner?.authData?.length < 1"
+                (click)="removeAuth()">Wykasuj pełnomocnictwo</button>
+            </div>
+          </div>
+          <div *ngIf="editionDisabled" class="button-container col-md-12">
+            <button type="button" class="add-button accent" md-raised-button color="accent" (click)="edit()">Edytuj</button>
+          </div>
+          <div *ngIf="!editionDisabled" class="no-padding col-md-12">
+            <div class="col-md-10 no-padding">
+              <div class="button-container col-md-10">
+                <button type="button" class="add-button accent" md-raised-button color="accent" (click)="cancel()">Anuluj</button>
+              </div>
+            </div>
+            <div class="button-container col-md-2">
+              <button type="button" class="add-button accent" md-raised-button color="accent" (click)="save()">Zapisz</button>
+            </div>
           </div>
         </div>
-        <div class="button-container col-md-2">
-          <button type="button" class="add-button accent" md-raised-button color="accent" (click)="save()">Zapisz</button>
+      </md-tab>
+      <md-tab label="Działki" (click)="editionDisabled = true">
+        <div class="form-container">
+          <div>
+            <div class="header">
+              Działki
+            </div>
+            <div *ngFor="let pd of owner.parcelsData">
+              <mwc-owner-parcel-form [parcelData]="pd" [editionDisabled]="true"></mwc-owner-parcel-form>
+              <div class="auth-button-container" style="margin-bottom: 36px; margin-top: -24px;">
+                <button type="button" class="add-button accent" md-raised-button color="primary" (click)="removeParcel(pd)">Wykasuj działkę</button>
+                <button type="button" class="add-button accent" md-raised-button color="primary" (click)="editParcel(pd)">Edytuj działkę</button>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+            <div class="auth-button-container" style="padding-bottom: 16px;">
+              <button type="button" class="add-button accent" md-raised-button color="primary" (click)="addParcel()">Dodaj {{owner.parcelsData?.length > 0 ? 'kolejną' : ''}} Działkę</button>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      </md-tab>
+      <md-tab label="Finanse" (click)="editionDisabled = true">
+        <div class="form-container">
+          <div class="header">
+            Saldo
+          </div>
+          <div class="saldo">
+            <div class="col-md-3 no-padding">
+
+              <md-form-field class="example-full-width">
+                <input [disabled]="true" placeholder="ŁĄCZNIE" [value]="owner?.saldo?.capital + owner?.saldo?.costs + owner?.saldo?.interest"
+                  mdInput type="text">
+              </md-form-field>
+            </div>
+            <div class="col-md-3 no-padding">
+              <md-form-field class="example-full-width">
+                <input [disabled]="true" placeholder="KAPITAŁ" [value]="owner?.saldo?.capital ? owner?.saldo?.capital : 0" mdInput type="text">
+              </md-form-field>
+            </div>
+            <div class="col-md-3 no-padding">
+              <md-form-field class="example-full-width">
+                <input [disabled]="true" placeholder="DODATKOWE KOSZTA" [value]="owner?.saldo?.costs ? owner?.saldo?.costs : 0" mdInput type="text">
+              </md-form-field>
+            </div>
+            <div class="col-md-3 no-padding">
+              <md-form-field class="example-full-width">
+                <input [disabled]="true" placeholder="ODSETKI" [value]="owner?.saldo?.interest ? owner?.saldo?.interest : 0" mdInput type="text">
+              </md-form-field>
+            </div>
+          </div>
+          <div class="clearfix"></div>
+          <div class="header">
+            Rekordy Finansowe
+          </div>
+          <div class="clearfix"></div>
+          <div class="row" *ngFor="let fr of owner.payments">
+            <mwc-payments-data-form [editionDisabled]="true" [financialRecord]="fr"></mwc-payments-data-form>
+            <div class="auth-button-container" style="margin-bottom: 16px; padding: 0 15px;">
+              <button type="button" class="add-button accent" md-raised-button color="primary" (click)="removePayment(fr)">Wykasuj rekord finansowy</button>
+              <button type="button" class="add-button accent" md-raised-button color="primary" (click)="editPayment(fr)">Edytuj rekord finansowy</button>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+          <div class="clearfix"></div>
+          <button type="button" class="add-button accent" style="margin-left: 0; float: left; margin-bottom: 16px;" md-raised-button
+            color="primary" (click)="addFinancialRecord()">Dodaj rekord finansowy</button>
+        </div>
+      </md-tab>
+      <md-tab label="Notatki">
+        <div class="form-container">
+          <div class="header">
+            Notatki
+          </div>
+          <div class="clearfix"></div>
+          <div *ngFor="let note of owner.notes">
+            <mwc-notes-form [editionDisabled]="true" [note]="note"></mwc-notes-form>
+            <div class="auth-button-container" style="margin-bottom: 16px;">
+              <button type="button" class="add-button accent" md-raised-button color="primary" (click)="removeNote(note)">Wykasuj notatkę</button>
+              <button type="button" class="add-button accent" md-raised-button color="primary" (click)="editNote(note)">Edytuj notatkę</button>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+          <div class="clearfix"></div>
+          <button type="button" class="add-button accent" style="margin-left: 0; float: left; margin-bottom: 16px;" md-raised-button
+            color="primary" (click)="addNote()">Dodaj notatkę</button>
+        </div>
+      </md-tab>
+    </md-tab-group>
   </div>
 </div>

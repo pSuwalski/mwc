@@ -31,6 +31,7 @@ export class SearchOwnerComponent implements OnDestroy {
         this.os.getUnionOwners(this.currentUser.unionId).then((lse: Owner[]) => {
           this.os.owners = lse; /*this.parcelFilter = this.parcels;*/
           this.progressBar = false;
+          console.log(lse);
         });
       })
     );

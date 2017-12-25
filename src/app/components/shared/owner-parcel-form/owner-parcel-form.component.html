@@ -19,17 +19,57 @@
       <span class="info">Brak sekcji w wybranej spółce</span>
     </div>
     <div class="col-md-3" *ngIf="parcelData.sectionId && !(selectedParcels?.length < 1) ">
-      <md-form-field class="example-full-width" [mdMenuTriggerFor]="parcelMenu">
-        <input [disabled]="editionDisabled" mdInput placeholder="DZIAŁKA" aria-label="State" #parcelInput [formControl]="parcelCtrl">
+      <!-- <md-select [disabled]="editionDisabled" placeholder="SPÓŁKA" [(ngModel)]="parcelData.id">
+        <md-option *ngFor="let p of selectedParcels" [value]="c.id" (click)="selectParcel(p)">
+          {{ p.number + ' ' + p.name }}
+        </md-option>
+      </md-select> -->
+      <md-form-field *ngIf="editionDisabled" class="example-full-width">
+        <input [disabled]="editionDisabled" mdInput (click)="fileredParcels = selectedParcels" placeholder="DZIAŁKA" aria-label="State"
+          #parcelInput [formControl]="parcelCtrl">
       </md-form-field>
-      <md-menu #parcelMenu="mdMenu" [class.transparent]="(filteredParcels | async)?.length > 0">
-        <button md-menu-item *ngFor="let p of filteredParcels | async" (click)="selectParcel(p)">
-          {{ p.number + ' ' + p.cityId }}
-        </button>
-      </md-menu>
+      <div *ngIf="!editionDisabled">
+        <md-form-field class="example-full-width" [mdMenuTriggerFor]="parcelMenu">
+          <input [disabled]="editionDisabled" mdInput (click)="fileredParcels = selectedParcels" placeholder="DZIAŁKA" aria-label="State"
+            #parcelInput [formControl]="parcelCtrl">
+        </md-form-field>
+        <md-menu #parcelMenu="mdMenu" [class.transparent]="(filteredParcels | async)?.length > 0">
+          <button md-menu-item *ngFor="let p of filteredParcels | async" (click)="selectParcel(p)">
+            {{ p.number + ' ' + p.cityId }}
+          </button>
+        </md-menu>
+      </div>
     </div>
     <div class="col-md-3 info-container" *ngIf="parcelData.sectionId && selectedParcels?.length < 1 && !progressBar">
       <span class="info">Brak działek w wybranej sekcji</span>
+    </div>
+    <div class="clearfix"></div>
+    <div class="info" *ngIf="otherOwners?.count && otherOwners?.percent <= 100">Ta działka ma {{otherOwners.count + (otherOwners.count > 1 ? 'innych właścicieli' : 'innego właściciela')}}, pozostałe
+      do rozdzielenia udziały łącznie {{ 100 - otherOwners.percent}}</div>
+    <div class="info" *ngIf="otherOwners?.percent >= 100">
+      Ta działka ma {{otherOwners.count + (otherOwners.count > 1 ? 'innych właścicieli' : 'innego właściciela')}}, nie pozostało
+      już wolnych udziałów w działce.
+    </div>
+    <div class="col-md-3" *ngIf="parcelData.id && !smallerParcelData">
+      <md-form-field class="example-full-width">
+        <input [disabled]="editionDisabled" mdInput placeholder="PROCENT UDZIAŁÓW" [(ngModel)]="parcelData.percent" aria-label="State"
+          type="number">
+      </md-form-field>
+    </div>
+    <div class="col-md-3" *ngIf="parcelData.id && !smallerParcelData">
+      <md-form-field>
+        <input [disabled]="editionDisabled" mdInput [mdDatepicker]="historic" [(ngModel)]="parcelData.from" name="{{'platnoscI_'}}"
+          placeholder="OD*">
+        <md-datepicker-toggle mdSuffix [for]="historic"></md-datepicker-toggle>
+        <md-datepicker #historic></md-datepicker>
+      </md-form-field>
+    </div>
+    <div class="col-md-3" *ngIf="parcelData.id && !smallerParcelData">
+      <md-form-field>
+        <input [disabled]="editionDisabled" mdInput [mdDatepicker]="to" [(ngModel)]="parcelData.to" name="{{'platnoscI_'}}" placeholder="DO*">
+        <md-datepicker-toggle mdSuffix [for]="to"></md-datepicker-toggle>
+        <md-datepicker #to></md-datepicker>
+      </md-form-field>
     </div>
   </div>
 </div>

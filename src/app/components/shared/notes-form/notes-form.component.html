@@ -1,0 +1,14 @@
+<div class="row">
+  <div class="col-md-9 checkbox">
+    <md-form-field>
+      <input [disabled]="editionDisabled" mdInput [(ngModel)]="note.text" name="{{'platnoscI_'}}" placeholder="NOTATKA*">
+    </md-form-field>
+  </div>
+  <div class="col-md-3 checkbox">
+    <md-form-field>
+      <input [disabled]="editionDisabled" mdInput [mdDatepicker]="historic" [(ngModel)]="note.date" name="{{'platnoscI_'}}" placeholder="DATA*">
+      <md-datepicker-toggle mdSuffix [for]="historic"></md-datepicker-toggle>
+      <md-datepicker #historic></md-datepicker>
+    </md-form-field>
+  </div>
+</div>

@@ -65,6 +65,11 @@ mwc-documents .mat-tab-label {
   text-transform: uppercase;
 }
 
+mwc-owner-output-data-form .mat-tab-label {
+  width: 33.333333333%;
+  text-transform: uppercase;
+}
+
 .floated-container {
   float: left;
   width: 100%;
@@ -85,15 +90,11 @@ mwc-documents .mat-tab-label {
   margin-top: -1px;
 }
 
-.mat-tab-header {
+.mat-tab-header.documents {
   position: fixed !important;
   width: 100%;
   background: white;
   z-index: 2;
-}
-
-.mat-tab-body-wrapper {
-  margin-top: 48px;
 }
 
 * {
@@ -144,4 +145,27 @@ md-progress-bar {
   margin-right: -12px;
 }
 
+.mat-tab-group {
+  font-family: 'Lato', sans-serif!important;
+}
+.header {
+  font-family: 'Lato', sans-serif!important;
+}
+.mat-input-element:disabled {
+  color: rgba(0, 0, 0, 0.66)!important;
+}
 
+.mat-dialog-container {
+  max-width: 90vw!important;
+}
+md-toolbar {
+  background: linear-gradient(to right, white 18%, #1e88e5 50% , #1e88e5)!important;
+}
+.toolbar-logo {
+  background: url(/assets/img/logo_text.png);
+  width: 130px;
+  height: 20px;
+  background-size: auto 100%;
+  display: block;
+  background-repeat: no-repeat;
+}

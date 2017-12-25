@@ -1,0 +1,5 @@
+<mwc-owner-parcel-form [parcelData]="parcelDataForm" [editionDisabled]="false"></mwc-owner-parcel-form>
+<div class="button-container">
+  <button md-raised-button (click)="cancel()">Anuluj</button>
+  <button md-raised-button color="accent" [disabled]="!parcelDataForm.id || !parcelDataForm.sectionId || !parcelDataForm.companyId || !parcelDataForm.percent" (click)="save()">Zapisz</button>
+</div>

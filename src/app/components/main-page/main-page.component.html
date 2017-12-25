@@ -1,8 +1,6 @@
 <md-toolbar color="primary" class="toolbar mat-elevation-z1">
   <a routerLink="/">
-    <span style="color: white">
-      Melior
-      <span style="font-weight: 100">®</span>
+    <span class="toolbar-logo">
     </span>
   </a>
   <div class="navigation">
@@ -28,7 +26,7 @@
       Uchwałę
     </button>
     <button md-menu-item (click)="router.navigate(['/add/works'])">
-      Wykonane roboty
+      Prace melioryzacyjne
     </button>
   </md-menu>
   <md-menu #searchMenu="mdMenu" x-position="after" y-position="below">
@@ -45,7 +43,7 @@
       Uchwały
     </button>
     <button md-menu-item (click)="router.navigate(['/search/works'])">
-      Wykonane roboty
+      Prace melioryzacyjne
     </button>
   </md-menu>
   <md-menu #accountMenu="mdMenu" x-position="after" y-position="below">

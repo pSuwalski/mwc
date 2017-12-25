@@ -27,15 +27,7 @@ export function emptyWorks(): Works {
 
 export function emptyWorksParcelData(): ParcelData {
   return {
-    id: null
+    id: null,
   };
 }
 
-export function emptyWorksParcelDataFull(): ParcelData {
-  return {
-    id: null,
-    percent: null,
-    sectionId: null,
-    companyId: null,
-  };
-}

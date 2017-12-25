@@ -10,6 +10,12 @@ import { User } from '../../models/user';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 import * as _ from 'lodash';
 import { emptyAddress } from '../../models/address';
+import { MdDialog } from '@angular/material';
+import { AuthorizationsDataFormComponent } from '../shared/authorizations-data-form/authorizations-data-form.component';
+import { DialogService } from '../../services/dialog.service';
+import { AuthorizationsDialogComponent } from '../shared/authorizations-dialog/authorizations-dialog.component';
+import { OwnerParcelFormComponent } from '../shared/owner-parcel-form/owner-parcel-form.component';
+import { ParcelDialogComponent } from '../shared/parcel-dialog/parcel-dialog.component';
 
 @Component({
   selector: 'mwc-add-owner',
@@ -34,6 +40,8 @@ export class AddOwnerComponent implements OnInit, OnDestroy {
   currentUser: User;
   constructor(
     private db: OwnerService,
+    private ds: DialogService,
+    private dialog: MdDialog,
     private us: UserService
   ) {
     this.subscriptions.push(
@@ -67,17 +75,48 @@ export class AddOwnerComponent implements OnInit, OnDestroy {
   }
 
   addAuth() {
-    this.owner.authData.push(
-      {
-        authScope: null, correspondenceAddress: emptyAddress(), email: null, name: null, surname: null, pesel: null,
-        phoneNumber: null, validFrom: null, validTill: null
+    this.ds.inputData = {
+      authScope: null, correspondenceAddress: emptyAddress(), email: null, name: null, surname: null, pesel: null,
+      phoneNumber: null, validFrom: null, validTill: null
+    };
+    const dialogRef = this.dialog.open(AuthorizationsDialogComponent, { width: '90%' });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'save') {
+        this.owner.authData.push(this.ds.inputData);
       }
-    );
+    });
   }
 
   addParcel() {
-    this.owner.parcelsData.push(emptyParcelDataFull());
+    this.ds.inputData = emptyParcelDataFull();
+    const dialogRef = this.dialog.open(ParcelDialogComponent, { width: '90%' });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'save') {
+        this.owner.parcelsData.push(this.ds.inputData);
+      }
+    });
   }
+
+  editAuth(authData: AuthData) {
+    this.ds.inputData = _.cloneDeep(authData);
+    const dialogRef = this.dialog.open(AuthorizationsDialogComponent, { width: '90%' });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'save') {
+        this.owner.authData.find((a) => a === authData)[0] = _.cloneDeep(this.ds.inputData);
+      }
+    });
+  }
+
+  editParcel(parcelData: ParcelData) {
+    this.ds.inputData = _.cloneDeep(parcelData);
+    const dialogRef = this.dialog.open(ParcelDialogComponent, { width: '90%' });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'save') {
+        this.owner.parcelsData.find((a) => a === parcelData)[0] = _.cloneDeep(this.ds.inputData);
+      }
+    });
+  }
+
 
   init() {
     this.addedSuccessfully = null;
@@ -91,12 +130,12 @@ export class AddOwnerComponent implements OnInit, OnDestroy {
     };
   }
 
-  removeAuth() {
-    this.owner.authData.pop();
+  removeAuth(authData: AuthData) {
+    _.remove(this.owner.authData, authData);
   }
 
-  removeParcel() {
-    this.owner.parcelsData.pop();
+  removeParcel(parcelsData: ParcelData) {
+    _.remove(this.owner.parcelsData, parcelsData);
   }
 
   ngOnDestroy() {

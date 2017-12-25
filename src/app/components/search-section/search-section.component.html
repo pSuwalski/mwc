@@ -1,61 +1,63 @@
 <md-progress-bar *ngIf="progressBar" mode="indeterminate"></md-progress-bar>
-<div class="form-container">
-  <div class="header" *ngIf="!selectedCompanyId">
-    <div class="col-md-4 no-padding">Wybierz spółkę</div>
-    <div class="col-md-6" *ngIf="ss.selectedCompanyId">Wyszukiwanie</div>
+<div class="mat-elevation-z1">
+  <div class="form-container">
+    <div class="header" *ngIf="!selectedCompanyId">
+      <div class="col-md-4 no-padding">Wybierz spółkę</div>
+      <div class="col-md-6" *ngIf="ss.selectedCompanyId">Wyszukiwanie</div>
+      <div class="clearfix"></div>
+    </div>
+    <div class="col-md-2 no-padding form-row" style="padding-right: 15px">
+      <md-select name="first" placeholder="SPÓŁKA">
+        <md-option *ngFor="let c of currentUser?.companies" (click)="ss.selectCompany(c.id)" [value]="c.id">
+          {{ c.name }}
+        </md-option>
+      </md-select>
+    </div>
+    <div class="col-md-2"></div>
+    <div class="card-title" *ngIf="ss.selectedCompanyId">
+      <div class="col-md-4">
+        <md-form-field>
+          <input class="textbox" (keypress)="onKeyDown($event)" (input)="onInput($event)" type="text" mdInput placeholder="NAZWA" [(ngModel)]="ss.searchString">
+        </md-form-field>
+      </div>
+      <div class="col-md-3">
+        <button md-raised-button color="primary" (click)="searchSectionByName()">Wyszukaj {{ ss.searchString ? 'po nazwie' : 'wszystkie' }}</button>
+      </div>
+    </div>
     <div class="clearfix"></div>
   </div>
-  <div class="col-md-2 no-padding form-row"  style="padding-right: 15px">
-    <md-select name="first" placeholder="SPÓŁKA">
-      <md-option *ngFor="let c of currentUser?.companies" (click)="ss.selectCompany(c.id)" [value]="c.id">
-        {{ c.name }}
-      </md-option>
-    </md-select>
-  </div>
-  <div class="col-md-2"></div>
-  <div class="card-title" *ngIf="ss.selectedCompanyId">
-    <div class="col-md-4">
-      <md-form-field>
-        <input class="textbox" (keypress)="onKeyDown($event)" (input)="onInput($event)" type="text" mdInput placeholder="NAZWA" [(ngModel)]="ss.searchString">
-      </md-form-field>
-    </div>
-    <div class="col-md-3">
-      <button md-raised-button color="primary" (click)="searchSectionByName()">Wyszukaj {{ ss.searchString ? 'po nazwie' : 'wszystkie' }}</button>
-    </div>
-  </div>
-  <div class="clearfix"></div>
-</div>
-<div class="col-md-12" *ngIf="ss.selectedCompanyId">
-  <div class="row in-the-bottom on-the-right columns-title">
-    <div class="card-field" style="float:left; width:100%">
-      <div class="col-md-2 header">Numer ewidencyjny</div>
-      <div class="col-md-2 header">Nazwa sekcji</div>
-      <div class="col-md-2 header">Rodzaj sekcji</div>
-    </div>
-  </div>
-  <div class="result_container">
-    <div *ngFor="let s of ss.sections" id="s.id">
-      <div class="row bordered in-the-bottom on-the-right result" (click)="showChosenSection(s)">
-        <div class="card-field" style="float:left; width:100%">
-          <div class="col-md-2 ">{{s.evidenceNumber}}</div>
-          <div class="col-md-2 ">{{s.name}}</div>
-          <div class="col-md-2 ">{{s.areaType}}</div>
-        </div>
+  <div class="col-md-12" *ngIf="ss.selectedCompanyId">
+    <div class="row in-the-bottom on-the-right columns-title">
+      <div class="card-field" style="float:left; width:100%">
+        <div class="col-md-2 header">Numer ewidencyjny</div>
+        <div class="col-md-2 header">Nazwa sekcji</div>
+        <div class="col-md-2 header">Rodzaj sekcji</div>
       </div>
     </div>
-    <div *ngIf="ss.moreToBeLoadedIndicator">
-      <div class="row bordered in-the-bottom on-the-right result" (click)="ss.loadMore()">
-        <div class="card-field" style="float:left; width:100%">
-          <div class="col-md-2">Pokaż więcej</div>
+    <div class="result_container">
+      <div *ngFor="let s of ss.sections" id="s.id">
+        <div class="row bordered in-the-bottom on-the-right result" (click)="showChosenSection(s)">
+          <div class="card-field" style="float:left; width:100%">
+            <div class="col-md-2 ">{{s.evidenceNumber}}</div>
+            <div class="col-md-2 ">{{s.name}}</div>
+            <div class="col-md-2 ">{{s.areaType}}</div>
+          </div>
         </div>
       </div>
-    </div>
-    <div *ngIf="ss.sections.length < 1 && ss.searchString && ss.lastQuery && !nulled" class="row bordered in-the-bottom on-the-right result">
-      <!-- <div class="card-field" style="float:left; width:100%">
+      <div *ngIf="ss.moreToBeLoadedIndicator">
+        <div class="row bordered in-the-bottom on-the-right result" (click)="ss.loadMore()">
+          <div class="card-field" style="float:left; width:100%">
+            <div class="col-md-2">Pokaż więcej</div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="ss.sections.length < 1 && ss.searchString && ss.lastQuery && !nulled" class="row bordered in-the-bottom on-the-right result">
+        <!-- <div class="card-field" style="float:left; width:100%">
         <div class="col-md-12">
           Brak wyników spełniających kryteria wyszukiwania
         </div>
       </div> -->
+      </div>
     </div>
   </div>
 </div>

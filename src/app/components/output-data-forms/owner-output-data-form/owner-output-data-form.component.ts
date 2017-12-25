@@ -1,12 +1,20 @@
 import { OwnerService } from '../../../services/owner.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Owner, emptyOwnerContact, emptyOwnerPersonal, emptySaldo, emptyParcelDataFull, emptyOwnerAuth } from '../../../models/owner';
+import { Owner, emptyOwnerContact, emptyOwnerPersonal, emptySaldo, emptyParcelDataFull, emptyOwnerAuth, AuthData, ParcelData, Note, emptyNote } from '../../../models/owner';
 import { UserService } from '../../../services/user.service';
 import { User } from '../../../models/user';
 import { Subscription } from 'rxjs/Subscription';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import * as _ from 'lodash';
+import { Payment, FinancialRecord } from '../../../models/payments';
+import { DialogService } from '../../../services/dialog.service';
+import { MdDialog } from '@angular/material';
+import { ParcelDialogComponent } from '../../shared/parcel-dialog/parcel-dialog.component';
+import { AuthorizationsDialogComponent } from '../../shared/authorizations-dialog/authorizations-dialog.component';
+import { emptyAddress } from '../../../models/address';
+import { PaymentsDialogComponent } from '../../shared/payments-dialog/payments-dialog.component';
+import { NotesDialogComponent } from '../../shared/notes-dialog/notes-dialog.component';
 
 @Component({
   selector: 'mwc-owner-output-data-form',
@@ -20,8 +28,10 @@ export class OwnerOutputDataFormComponent implements OnInit, OnDestroy {
   currentUser: User;
   subsriptions: Subscription[] = [];
   editionDisabled = true;
-  progressBar: boolean;
+  progressBar = true;
   addedSuccessfully: string;
+
+  financialRecords: any[] = []; // Financial Record
 
   owner: Owner = {
     personalData: emptyOwnerPersonal(),
@@ -31,11 +41,14 @@ export class OwnerOutputDataFormComponent implements OnInit, OnDestroy {
     historicSaldo: emptySaldo(),
     parcelsData: []
   };
+  id: string;
 
   constructor(
     private router: Router,
     private os: OwnerService,
     private us: UserService,
+    private ds: DialogService,
+    private dialog: MdDialog,
     private route: ActivatedRoute
   ) {
     this.subsriptions.push(
@@ -43,8 +56,14 @@ export class OwnerOutputDataFormComponent implements OnInit, OnDestroy {
         .combineLatest(this.route.params)
         .subscribe(([cu, params]) => {
           this.os.restoreOwner(cu.unionId, params['id']).then(own => {
+            this.id = params['id'];
+            this.currentUser = cu;
+            console.log('asdasdas')
+            this.progressBar = false;
             if (own !== null) {
               this.owner = own;
+              this.os.getOwnersFinancialRecords(this.currentUser.unionId, this.owner.id)
+                .then((fr) => this.financialRecords = fr.sort((a, b) => (new Date(a.date)).getTime() - new Date(b.date).getTime()));
             } else {
               this.router.navigate(['/search/owner']);
             }
@@ -56,38 +75,155 @@ export class OwnerOutputDataFormComponent implements OnInit, OnDestroy {
   ngOnInit() {
   }
 
+
   addAuth() {
-    if (this.owner.authData === undefined) {
-      this.owner.authData = [];
-    }
-    this.owner.authData.push(
-      emptyOwnerAuth()
-    );
+    this.ds.inputData = {
+      authScope: null, correspondenceAddress: emptyAddress(), email: null, name: null, surname: null, pesel: null,
+      phoneNumber: null, validFrom: null, validTill: null
+    };
+    const dialogRef = this.dialog.open(AuthorizationsDialogComponent, { width: '90%' });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'save') {
+        this.owner.authData.push(this.ds.inputData);
+        this.save();
+      }
+    });
+  }
+
+  addFinancialRecord() {
+    this.ds.inputData = {
+      id: null,
+      value: null,
+      type: null,
+      for: null,
+      date: null,
+      from: null,
+      forYear: null,
+      reason: null
+    };
+    const dialogRef = this.dialog.open(PaymentsDialogComponent, { width: '90%' });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'save') {
+        this.owner.payments.push(this.ds.inputData);
+        console.log(this.ds.inputData);
+        this.os.setPayment(this.ds.inputData, this.owner.id, this.currentUser.unionId);
+      }
+    });
   }
 
   addParcel() {
-    if (this.owner.parcelsData === undefined) {
-      this.owner.parcelsData = [];
-    }
-    this.owner.parcelsData.push(emptyParcelDataFull());
+    this.ds.inputData = emptyParcelDataFull();
+    const dialogRef = this.dialog.open(ParcelDialogComponent, { width: '90%' });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'save') {
+        this.owner.parcelsData.push(this.ds.inputData);
+        this.save();
+      }
+    });
   }
 
-  removeAuth() {
-    this.owner.authData.pop();
+  addNote() {
+    this.ds.inputData = emptyNote();
+    const dialogRef = this.dialog.open(NotesDialogComponent, { width: '90%' });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'save') {
+        this.owner.notes.push(this.ds.inputData);
+        this.os.setNote(this.ds.inputData, this.owner.id, this.currentUser.unionId);
+      }
+    });
   }
 
-  removeParcel() {
-    this.owner.parcelsData.pop();
+  editAuth(authData: AuthData) {
+    this.ds.inputData = _.cloneDeep(authData);
+    const dialogRef = this.dialog.open(AuthorizationsDialogComponent, { width: '90%' });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'save') {
+        this.owner.authData.find((a) => a === authData)[0] = _.cloneDeep(this.ds.inputData);
+        this.save();
+      }
+    });
   }
 
+  editNote(note: Note) {
+    this.ds.inputData = _.cloneDeep(note);
+    const dialogRef = this.dialog.open(NotesDialogComponent, { width: '90%' });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'save') {
+        this.owner.notes.find((a) => a === note)[0] = _.cloneDeep(this.ds.inputData);
+        this.os.setNote(this.ds.inputData, this.owner.id, this.currentUser.unionId);
+      }
+    });
+  }
+
+  editPayment(financialRecord: FinancialRecord) {
+    this.ds.inputData = _.cloneDeep(financialRecord);
+    const dialogRef = this.dialog.open(PaymentsDialogComponent, { width: '90%' });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'save') {
+        this.owner.payments.find((a) => a === financialRecord)[0] = _.cloneDeep(this.ds.inputData);
+        this.save();
+      }
+    });
+  }
+
+  editParcel(parcelData: ParcelData) {
+    this.ds.inputData = _.cloneDeep(parcelData);
+    const dialogRef = this.dialog.open(ParcelDialogComponent, { width: '90%' });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'save') {
+        this.owner.parcelsData.find((a) => a === parcelData)[0] = _.cloneDeep(this.ds.inputData);
+        this.save();
+      }
+    });
+  }
+
+
+  init() {
+    this.addedSuccessfully = null;
+    this.owner = {
+      personalData: emptyOwnerPersonal(),
+      contactData: emptyOwnerContact(),
+      authData: [],
+      id: null,
+      historicSaldo: emptySaldo(),
+      parcelsData: []
+    };
+  }
+
+  removeAuth(authData: AuthData) {
+    _.remove(this.owner.authData, authData);
+    this.save();
+  }
+
+  removeNote(note: Note) {
+    this.os.removeNote(note, this.owner.id, this.currentUser.unionId);
+    _.remove(this.owner.notes, note);
+  }
+
+  removeParcel(parcelsData: ParcelData) {
+    this.progressBar = true;
+    this.editionDisabled = true;
+    this.os.removeParcel(_.remove(this.owner.parcelsData, parcelsData), this.owner.id, this.currentUser.unionId).then(() => {
+      this.progressBar = false;
+    });
+    this.save();
+  }
+
+  removePayment(financialRecord: FinancialRecord) {
+    this.os.removePayment(financialRecord, this.owner.id, this.currentUser.unionId);
+    _.remove(this.owner.payments, financialRecord);
+  }
 
   save() {
+    console.log(1);
     this.progressBar = true;
     this.editionDisabled = true;
     this.os.replaceOwner(this.owner, this.currentUser.unionId)
       .then((res) => {
+        console.log(2);
         this.progressBar = false;
         this.addedSuccessfully = res;
+        this.restoreOwner();
       })
       .catch((e) => console.log(e));
   }
@@ -109,6 +245,18 @@ export class OwnerOutputDataFormComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subsriptions.forEach((s) => s.unsubscribe());
+  }
+
+  restoreOwner() {
+    this.os.restoreOwner(this.currentUser.unionId, this.id).then(own => {
+      if (own !== null) {
+        this.owner = own;
+        this.os.getOwnersFinancialRecords(this.currentUser.unionId, this.owner.id)
+          .then((fr) => this.financialRecords = fr.sort((a, b) => (new Date(a.date)).getTime() - new Date(b.date).getTime()));
+      } else {
+        this.router.navigate(['/search/owner']);
+      }
+    });
   }
 
 }

@@ -1,5 +1,6 @@
 import * as _ from 'lodash';
 import { Payment } from './payments';
+import { ParcelData } from './owner';
 
 
 export interface Parcel {
@@ -19,6 +20,28 @@ export interface Parcel {
   SwMembershipTerminationDate: string;
   foremanDecisions: ForemanDecision[];
   id: string;
+  ownersHistory?: OwnersHistory[];
+}
+
+export function getParcelsPercent(parcel: Parcel): OwnedInfo {
+  let percent = 0;
+  let count = 0;
+  parcel.ownersHistory.forEach((ow) => {
+    if (new Date(ow.to).getTime() > Date.now()) {
+      percent = percent + ow.percent;
+      count ++;
+     }
+  });
+  return { percent, count };
+}
+
+export function getActiveOwners(parcel: Parcel): OwnersHistory[] {
+  return parcel.ownersHistory.filter((ow) => new Date(ow.to).getTime() > Date.now());
+}
+
+export interface OwnedInfo {
+  percent: number;
+  count: number;
 }
 
 export interface Numbered {
@@ -59,6 +82,13 @@ export function emptyForemanDecision(): ForemanDecision {
     payment: null,
     paymentDate: null
   };
+}
+
+export interface OwnersHistory {
+  id: string;
+  percent: number;
+  from: string;
+  to: string;
 }
 
 

@@ -1,9 +1,9 @@
 import { CompanyService } from '../../../services/company.service';
-import { Component, Input, OnInit } from '@angular/core';
-import { ParcelData, emptyParcelData, emptyParcelDataFull } from '../../../models/owner';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ParcelData, ParcelDataFull, emptyParcelData, emptyParcelDataFull } from '../../../models/owner';
 import { UserService } from '../../../services/user.service';
 import { User } from '../../../models/user';
-import { Parcel } from '../../../models/parcel';
+import { Parcel, getParcelsPercent, OwnedInfo } from '../../../models/parcel';
 import * as _ from 'lodash';
 import { ParcelService } from '../../../services/parcel.service';
 import { FormControl } from '@angular/forms';
@@ -25,10 +25,14 @@ export class OwnerParcelFormComponent implements OnInit {
   companyName: string;
   sectionName: string;
 
-  @Input() parcelData: ParcelData;
+  @Input() parcelData: ParcelDataFull;
+  @Input() smallerParcelData;
   currentUser: User;
   selectedParcels: Parcel[] = [];
   selectedSections: Section[] = [];
+  selectedParcel: Parcel;
+
+  otherOwners: OwnedInfo;
 
   @Input() editionDisabled = false;
   @Input() id: string;
@@ -73,14 +77,24 @@ export class OwnerParcelFormComponent implements OnInit {
           this.progressBar = false;
         });
       }
-      if (this.parcelData.percent === undefined) {
-        this.parcelData.percent = 100;
+      if (this.parcelData.id) {
+        this.ps.getSectionParcels(this.currentUser.unionId, this.parcelData.companyId, this.parcelData.sectionId, false).then((parcels) => {
+          this.selectedParcels = parcels;
+          this.progressBar = false;
+          const parcel = this.selectedParcels.find((p) => p.id === this.parcelData.id);
+          if (parcel) {
+            this.parcelCtrl.setValue(parcel.number + ' ' + parcel.cityId);
+          }
+        });
+      }
+      if (this.editionDisabled) {
+        this.parcelCtrl.disable();
       }
     }
   }
 
   isParcelData() {
-    return (this.parcelData !== undefined );
+    return (this.parcelData !== undefined);
   }
 
   selectCompany(id: string) {
@@ -105,8 +119,15 @@ export class OwnerParcelFormComponent implements OnInit {
   }
 
   selectParcel(parcel: Parcel) {
+    this.progressBar = true;
     this.parcelData.id = parcel.id;
     this.parcelCtrl.setValue(parcel.number + ' ' + parcel.cityId);
+    this.ps.restoreParcel(this.currentUser.unionId, parcel.id).then((p) => {
+      this.selectedParcel = p;
+      this.progressBar = false;
+      this.otherOwners = getParcelsPercent(p);
+    });
+
   }
 
 

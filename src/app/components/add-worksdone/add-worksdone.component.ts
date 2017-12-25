@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Works, emptyWorks, emptyWorksParcelDataFull } from '../../models/works';
+import { Works, emptyWorks, emptyWorksParcelData } from '../../models/works';
 import * as _ from 'lodash';
 import { WorksService } from '../../services/works.service';
 import { User } from '../../models/user';
@@ -39,7 +39,7 @@ export class AddWorksdoneComponent implements OnInit {
   }
 
   addParcel() {
-    this.works.parcelsData.push(emptyWorksParcelDataFull());
+    this.works.parcelsData.push(emptyWorksParcelData());
   }
 
   reload() {

@@ -1,7 +1,7 @@
 import { emptyParcelData } from '../models/owner';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Injectable } from '@angular/core';
-import { Parcel, emptyParcel } from '../models/parcel';
+import { Parcel, emptyParcel, OwnersHistory } from '../models/parcel';
 import { firestore } from 'firebase/app';
 import * as _ from 'lodash';
 
@@ -43,7 +43,12 @@ export class ParcelService {
     } else {
       const parcelRef = await this.parcelsRef(unionId).doc(id).ref.get();
       if (parcelRef.exists) {
-        return this.parse(parcelRef.data());
+        const parcelOwnersHistorySnapshots = await this.parcelsRef(unionId).doc(id).collection('ownersHistory').ref.get();
+        const ownersHistory: OwnersHistory[] = [];
+        if (!parcelOwnersHistorySnapshots.empty) {
+          parcelOwnersHistorySnapshots.docs.forEach((pows) => ownersHistory.push(pows.data() as OwnersHistory));
+        }
+        return this.parse(parcelRef.data(), ownersHistory);
       } else {
         return null;
       }
@@ -104,13 +109,10 @@ export class ParcelService {
     let parcelCitySnapshots;
     let parcelNumberSnapshots;
     if (this.searchString.length < 1 && this.secondSearchString.length < 1) {
-      console.log(1)
       if (this.companyId) {
         this.parcels = await this.getCompanyParcels(this.unionId, this.companyId);
-        console.log(2, this.parcels);
       } else {
         this.parcels = await this.getUnionParcels(this.unionId);
-        console.log(3, this.parcels);
       }
       return;
     }
@@ -234,7 +236,8 @@ export class ParcelService {
     }
   }
 
-  parse(dbParcel: any): Parcel {
+  parse(dbParcel: any, ownersHistory?: OwnersHistory[]): Parcel {
+    dbParcel.ownersHistory = ownersHistory ? ownersHistory : [];
     const parcelData: Parcel = this.parseFromInterface(dbParcel, emptyParcel());
     return parcelData;
   }

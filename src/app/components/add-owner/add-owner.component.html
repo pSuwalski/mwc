@@ -8,11 +8,16 @@
         <div class="header">
           Udzielone pełnomocnictwa
         </div>
-        <mwc-authorizations-data-form *ngFor="let auth of owner.authData" [authDataForm]="auth"></mwc-authorizations-data-form>
+        <div *ngFor="let auth of owner.authData">
+          <mwc-authorizations-data-form [editionDisabled]="true" [authDataForm]="auth"></mwc-authorizations-data-form>
+          <div class="auth-button-container" style="margin-bottom: 16px;">
+            <button type="button" class="add-button accent" md-raised-button color="primary" (click)="removeAuth(auth)">Wykasuj pełnomocnictwo</button>
+            <button type="button" class="add-button accent" md-raised-button color="primary" (click)="editAuth(auth)">Edytuj pełnomocnictwo</button>
+          </div>
+          <div class="clearfix"></div>
+        </div>
         <div class="auth-button-container">
           <button type="button" class="add-button accent" md-raised-button color="primary" (click)="addAuth()">Dodaj {{owner.authData?.length > 0 ? 'kolejne' : ''}} pełnomocnictwo</button>
-          <button type="button" class="add-button accent" md-raised-button color="primary" [disabled]="owner?.authData?.length < 1"
-            (click)="removeAuth()">Wykasuj pełnomocnictwo</button>
         </div>
       </div>
       <div>
@@ -22,11 +27,16 @@
         <div class="header">
           Działki
         </div>
-        <mwc-owner-parcel-form *ngFor="let pd of owner.parcelsData" [parcelData]="pd"></mwc-owner-parcel-form>
+        <div *ngFor="let pd of owner.parcelsData">
+          <mwc-owner-parcel-form [parcelData]="pd" [editionDisabled]="true"></mwc-owner-parcel-form>
+          <div class="auth-button-container" style="margin-bottom: 16px;">
+            <button type="button" class="add-button accent" md-raised-button color="primary" (click)="removeParcel(pd)">Wykasuj działkę</button>
+            <button type="button" class="add-button accent" md-raised-button color="primary" (click)="editParcel(pd)">Edytuj działkę</button>
+          </div>
+          <div class="clearfix"></div>
+        </div>
         <div class="auth-button-container">
           <button type="button" class="add-button accent" md-raised-button color="primary" (click)="addParcel()">Dodaj {{owner.parcelsData?.length > 0 ? 'kolejną' : ''}} Działkę</button>
-          <button type="button" class="add-button accent" md-raised-button color="primary" [disabled]="owner?.parcelsData?.length < 1"
-            (click)="removeParcel()">Wykasuj Działkę</button>
         </div>
       </div>
       <div class="clearfix"></div>

@@ -9,12 +9,13 @@
         </div>
         <div class="col-md-10 header" style="padding-top: 4px">Przegląd działki</div>
       </div>
-      <md-select [disabled]="editionDisabled" placeholder="Spółka" (ngModelChange)="changeCompanyId()" *ngIf="parcel?.companyId" [(ngModel)]="parcel.companyId">
+      <md-select [disabled]="editionDisabled" placeholder="SPÓŁKA" (ngModelChange)="changeCompanyId()" *ngIf="parcel?.companyId" [(ngModel)]="parcel.companyId">
         <md-option *ngFor="let c of currentUser?.companies" [value]="c.id">
           {{c.name}}
         </md-option>
       </md-select>
       <mwc-parcels-data-form *ngIf="parcel?.companyId" [editionDisabled]="editionDisabled" [parcel]="parcel" [companyId]="companyId"></mwc-parcels-data-form>
+      
       <div *ngIf="editionDisabled" class="button-container col-md-12">
         <button type="button" class="add-button accent" md-raised-button color="accent" (click)="edit()">Edytuj</button>
       </div>

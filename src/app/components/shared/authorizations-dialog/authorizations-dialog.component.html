@@ -1,0 +1,5 @@
+<mwc-authorizations-data-form [authDataForm]="authDataForm" [editionDisabled]="false"></mwc-authorizations-data-form>
+<div class="button-container">
+  <button md-raised-button (click)="cancel()">Anuluj</button>
+  <button md-raised-button color="accent" [disabled]="!authDataForm.validFrom || !authDataForm.validTill || !authDataForm.name || !authDataForm.surname" (click)="save()">Zapisz</button>
+</div>

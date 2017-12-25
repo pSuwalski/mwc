@@ -1,0 +1,5 @@
+<mwc-notes-form [editionDisabled]="false" [note]="note"></mwc-notes-form>
+<div class="button-container">
+  <button md-raised-button (click)="cancel()">Anuluj</button>
+  <button md-raised-button color="accent" [disabled]="!note.date || !note.text" (click)="save()">Zapisz</button>
+</div>

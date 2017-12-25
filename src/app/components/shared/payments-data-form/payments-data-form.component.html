@@ -1,40 +1,75 @@
 <md-progress-bar *ngIf="progressBar" mode="indeterminate"></md-progress-bar>
-<div class="form-row">
-  <div class="row section-last-row">
-    <div class="col-md-3">
-      <button>Dodaj Wpłatę</button>
+<div class="col-md-12 form-container" *ngIf="financialRecord">
+  <div class="form-row">
+    <div class="col-md-2">
+      <md-select [disabled]="editionDisabled" placeholder="TYP*" [(ngModel)]="financialRecord.type">
+        <md-option value="payment">
+          Wpłata
+        </md-option>
+        <md-option value="cancelation">
+          Umożenie
+        </md-option>
+        <md-option value="additionalCosts">
+          Koszty dodatkowe
+        </md-option>
+      </md-select>
     </div>
+    <div class="col-md-2">
+      <md-select [disabled]="editionDisabled" placeholder="NA ROK*" [(ngModel)]="financialRecord.forYear">
+        <md-option *ngFor="let y of years" [value]="y">
+          {{ y }}
+        </md-option>
+      </md-select>
+    </div>
+    <div class="clearfix"></div>
   </div>
-</div>
-<div class="col-md-6">
+  <div class="col-md-2" *ngIf="financialRecord.type === 'payment'">
+    <md-select [disabled]="editionDisabled" placeholder="WPŁACONO PRZEZ*" [(ngModel)]="financialRecord.from">
+      <md-option value="account">
+        Na konto
+      </md-option>
+      <md-option value="postalOrder">
+        Przekaz pocztowy
+      </md-option>
+      <md-option value="cash">
+        Gotówka
+      </md-option>
+    </md-select>
+  </div>
   <div class="col-md-2">
     <md-form-field>
-      <input class="textbox" type="text" mdInput placeholder="WYSOKOŚĆ NALICZONEJ OPŁATY" name="naliczonaOplata" [(ngModel)]="paymentsDataForm.fullAmount">
+      <input class="textbox" [disabled]="editionDisabled" type="number" mdInput placeholder="WYSOKOŚĆ PLN*" name="naliczonaOplata"
+        [(ngModel)]="financialRecord.value">
     </md-form-field>
   </div>
   <div class="col-md-2">
     <md-form-field>
-      <input class="textbox" type="text" mdInput placeholder="KAPITAŁ DO SPŁATY" name="pozostalyKapital" [(ngModel)]="paymentsDataForm.capital">
+      <input [disabled]="editionDisabled" mdInput [mdDatepicker]="historic" [(ngModel)]="financialRecord.date" name="{{'platnoscI_'}}"
+        placeholder="DATA*">
+      <md-datepicker-toggle mdSuffix [for]="historic"></md-datepicker-toggle>
+      <md-datepicker #historic></md-datepicker>
     </md-form-field>
   </div>
-  <div class="col-md-2">
-    <md-form-field>
-      <input class="textbox" type="text" mdInput placeholder="ODSETKI USTAWOWE" name="odsetkiUstawowe" [(ngModel)]="paymentsDataForm.interest">
-    </md-form-field>
+
+  <div class="col-md-2" *ngIf="financialRecord.type !== 'additionalCost'">
+    <md-select placeholder="DOTYCZY*" [disabled]="editionDisabled" [(ngModel)]="financialRecord.for">
+      <md-option value="capital">
+        Kapitału
+      </md-option>
+      <md-option value="interests">
+        Odsetek
+      </md-option>
+      <md-option value="costs">
+        Kosztów
+      </md-option>
+      <md-option value="costs">
+        Ogólnych finansów
+      </md-option>
+    </md-select>
   </div>
-  <div class="col-md-2">
+  <div class="col-md-2" *ngIf="financialRecord?.type === 'cancelation'">
     <md-form-field>
-      <input class="textbox" type="text" mdInput placeholder="KOSZTY WYSYŁKI" name="kosztyWysylki" [(ngModel)]="paymentsDataForm.shipmentCost">
-    </md-form-field>
-  </div>
-  <div class="col-md-2">
-    <md-form-field>
-      <input class="textbox" type="text" mdInput placeholder="UMOŻONO KWOTĘ" name="umozono" [(ngModel)]="paymentsDataForm.discontinued">
-    </md-form-field>
-  </div>
-  <div class="col-md-2">
-    <md-form-field>
-      <input class="textbox" type="text" mdInput placeholder="DO SPŁATY" name="doSplaty" [(ngModel)]="paymentsDataForm.left">
+      <input class="textbox" [disabled]="editionDisabled" type="text" mdInput placeholder="POWÓD" name="umozono" [(ngModel)]="financialRecord.reason">
     </md-form-field>
   </div>
 </div>

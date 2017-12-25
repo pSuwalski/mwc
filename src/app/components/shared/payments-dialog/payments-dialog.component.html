@@ -1,0 +1,5 @@
+<mwc-payments-data-form [financialRecord]="financialRecord" [editionDisabled]="false"></mwc-payments-data-form>
+<div class="button-container">
+  <button md-raised-button (click)="cancel()">Anuluj</button>
+  <button md-raised-button color="accent" [disabled]="(financialRecord?.type === 'additionalCosts' ? !financialRecord.reason : false ) || (financialRecord?.type === 'payment' ? !financialRecord.forYear : false) || (financialRecord?.type !== 'additionalCosts' ? !financialRecord.for : false) || !financialRecord.date || !financialRecord.value || (financialRecord.type === 'payment' ? !financialRecord.from : false ) ||  !financialRecord.type" (click)="save()">Zapisz</button>
+</div>

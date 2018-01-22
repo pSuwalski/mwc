@@ -61,6 +61,7 @@ export class OwnerOutputDataFormComponent implements OnInit, OnDestroy {
             this.progressBar = false;
             if (own !== null) {
               this.owner = own;
+              console.log(own)
               this.os.getOwnersFinancialRecords(this.currentUser.unionId, this.owner.id)
                 .then((fr) => this.financialRecords = fr.sort((a, b) => (new Date(a.date)).getTime() - new Date(b.date).getTime()));
             } else {

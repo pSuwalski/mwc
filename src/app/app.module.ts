@@ -91,6 +91,8 @@ import { PaymentsDialogComponent } from './components/shared/payments-dialog/pay
 import { NotesDialogComponent } from './components/shared/notes-dialog/notes-dialog.component';
 import { NotesFormComponent } from './components/shared/notes-form/notes-form.component';
 import { SameAddressDialogComponent } from './components/shared/same-address-dialog/same-address-dialog.component';
+import { ValuesPipe } from './pipes/values.pipe';
+import { YearPaymentsPipe } from './pipes/year-payments.pipe';
 
 
 
@@ -126,6 +128,8 @@ import { SameAddressDialogComponent } from './components/shared/same-address-dia
     ResolutionOutputDataFormComponent,
     SearchWorksdoneComponent,
     WorksOutputDataFormComponent,
+    ValuesPipe,
+    YearPaymentsPipe
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),

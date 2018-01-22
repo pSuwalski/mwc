@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FinancialRecord, Cancelation, AdditionalCosts, Payment } from '../../../models/payments';
+import { ParcelDataFull } from '../../../models/owner';
 
 
 @Component({
@@ -11,6 +12,7 @@ export class PaymentsDataFormComponent implements OnInit {
 
   @Input() financialRecord: any;
   @Input() editionDisabled = false;
+  @Input() parcels: ParcelDataFull[];
   years: number[];
 
   constructor(
@@ -20,6 +22,7 @@ export class PaymentsDataFormComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.parcels);
   }
 
 

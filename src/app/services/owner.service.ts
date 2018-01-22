@@ -104,6 +104,7 @@ export class OwnerService {
       if (ownerRef.exists) {
         const owner = this.parse(ownerRef.data(), payments, notes, parcelsData);
         await this.calculateOwnerSaldos(owner, unionId);
+        console.log(owner)
         return owner;
       } else {
         return null;
@@ -425,7 +426,6 @@ export class OwnerService {
       const payments = owner.payments.filter((p) => p.type === 'payment' && (p as Payment).parcelId === pd.id);
       const cancelations = owner.payments.filter((p) => p.type === 'cancelation' && (p as Cancelation).parcelId === pd.id);
       const fees = owner.fees.filter((f) => f.parcelId === pd.id);
-      console.log('fees', fees);
       calculateParcelSaldos(fees, payments as Payment[], cancelations as Cancelation[], pd, owner);
     });
 
@@ -437,7 +437,9 @@ export function calculateParcelSaldos(fs: Fee[], ps: Payment[], cs: Cancelation[
   const fees: { [key: number]: Fee[] } = _.cloneDeep(_.groupBy(fs, (f) => f.forYear));
   console.log('groupedFees', fees)
   const payments: { [key: number]: Payment[] } = _.cloneDeep(_.groupBy(ps, (p) => p.forYear));
+  console.log('##########' ,payments)
   const cancelations: { [key: number]: Payment[] } = _.cloneDeep(_.groupBy(cs, (c) => c.forYear));
+  let leftovers = 0;
   _.keys(fees).forEach((k) => {
     const financialRecords = [];
     financialRecords.concat(fees[k]).concat(payments[k] ? payments[k] : []).concat(cancelations[k] ? cancelations[k] : []);
@@ -451,37 +453,47 @@ export function calculateParcelSaldos(fs: Fee[], ps: Payment[], cs: Cancelation[
       .filter((c) => c.for === 'everything')
       .reduce((acc, v) => acc += v.value, 0);
     fees[k].forEach((f) => {
-      console.log('ffffff', f);
+      parcel.saldos[k] = parcel.saldos[k] ? parcel.saldos[k] : { interest: 0, costs: 0, capital: 0}
+      const firstValue = f.value;
       let lastPaymentDate;
-      if (payments[k]) {
+      if (cancelationsSum) {
+        f.value -= cancelationsSum;
+        cancelationsSum = f.value < 0 ? - f.value : 0;
+        if (cancelationsSum) {
+          f.value = 0;
+        }
+      } 
+      if (everythingCancelationsSum) {
+        f.value -= everythingCancelationsSum;
+        everythingCancelationsSum = f.value < 0 ? - f.value : 0;
+        if (everythingCancelationsSum) {
+          f.value = 0;
+        }
+      }
+      if (leftovers) {
+        f.value -= leftovers;
+        leftovers = f.value < 0 ? - f.value : 0;
+        if (leftovers) {
+          f.value = 0;
+        }
+      }
+      if (payments[k] && f.value) {
         payments[k].sort((a, b) => new Date(a.date).getTime() - new Date(a.date).getTime()).forEach((p, pi) => {
-          console.log('#####', p);
-          if (cancelationsSum) {
-            f.value -= cancelationsSum;
-            cancelationsSum = f.value < 0 ? - f.value : 0;
-            if (cancelationsSum) {
-              f.value = 0;
-            }
-          } else if (everythingCancelationsSum) {
-            f.value -= everythingCancelationsSum;
-            everythingCancelationsSum = f.value < 0 ? - f.value : 0;
-            if (everythingCancelationsSum) {
-              f.value = 0;
-            }
-          }
+
           if (f.value > 0) {
             const timeDifference = Math.floor(
               (new Date(p.date).getTime() - new Date(f.date).getTime()) / (1000 * 60 * 60 * 24)
-            );
+            )
             if (timeDifference > 0) {
               parcel.saldos[k].interest = parcel.saldos[k].interest ?
-                parcel.saldos[k].interest + getIntrests(timeDifference, new Date(f.date).getTime(), f.value) :
-                getIntrests(timeDifference, new Date(f.date).getTime(), f.value);
+                parcel.saldos[k].interest - getIntrests(timeDifference, new Date(f.date).getTime(), f.value) :
+                - getIntrests(timeDifference, new Date(f.date).getTime(), firstValue);
             }
             f.value -= p.value;
             p.value = f.value < 0 ? - f.value : 0;
             if (p.value) {
               f.value = 0;
+              leftovers += p.value;
             }
             lastPaymentDate = p.date;
           }
@@ -517,30 +529,73 @@ export function calculateParcelSaldos(fs: Fee[], ps: Payment[], cs: Cancelation[
     owner.saldos[k].interest = owner.saldos[k].interest ?
       owner.saldos[k].interest + parcel.saldos[k].interest :
       parcel.saldos[k].interest;
+    for(let i = 0; i < 3; i++){
+      if(leftovers > 0) {
+        leftovers = leftoversToSaldo(owner.saldos[k], leftovers);
+      }
+    }
+    if(leftovers > 0) {
+      owner.saldos[k].capital  += leftovers;
+      leftovers = 0;
+    }
   });
 }
 
+export function leftoversToSaldo(saldo: Saldo, leftovers: number): number {
+  if(saldo.capital <= saldo.interest && saldo.capital <= saldo.costs && saldo.capital < 0) {
+    saldo.capital  += leftovers;
+    if(saldo.capital > 0) {
+      leftovers = saldo.capital;
+      saldo.capital = 0;
+    }else {
+      leftovers = 0;
+    }
+  }
+  if(saldo.interest <= saldo.capital && saldo.interest <= saldo.costs && saldo.interest < 0) {
+    console.log('saldo.interest', saldo.interest, 'leftovers', leftovers);
+    saldo.interest  += leftovers;
+    if(saldo.interest > 0) {
+      leftovers = saldo.interest;
+      saldo.interest = 0;
+    }else {
+      leftovers = 0;
+    }
+    console.log('saldo.interest', saldo.interest, 'leftovers', leftovers);
+  }
+  if(saldo.costs <= saldo.interest && saldo.costs <= saldo.capital && saldo.costs < 0) {
+    saldo.costs  += leftovers;
+    if(saldo.costs > 0) {
+      leftovers = saldo.costs;
+      saldo.costs = 0;
+    }else {
+      leftovers = 0;
+    }
+  }
+  return leftovers;
+}
+
+
+
 
 export function getIntrests(days: number, date: number, value: number) {
-  console.log(value * 0.07 * days / 365, value, days);
   if (date >= new Date('01-01-2016').getTime()) {
-    return value * 0.07 * days / 365;
+    return Math.floor( value * 0.07 * days / 365 * 100 ) / 100;
   } else if (date >= new Date('12-23-2014').getTime()) {
-    return value * 0.08 * days / 365;
+    return Math.floor( value * 0.08 * days / 365 * 100 ) / 100;
   } else if (date > new Date('12-15-2008').getTime()) {
-    return value * 0.13 * days / 365;
+    return Math.floor( value * 0.13 * days / 365 * 100 ) / 100;
   } else if (date > new Date('10-15-2005').getTime()) {
-    return value * 0.115 * days / 365;
+    return Math.floor( value * 0.115 * days / 365 * 100 ) / 100;
   } else if (date > new Date('01-10-2005').getTime()) {
-    return value * 0.135 * days / 365;
+    return Math.floor( value * 0.135 * days / 365 * 100 ) / 100;
   } else if (date > new Date('09-25-2003').getTime()) {
-    return value * 0.125 * days / 365;
+    return Math.floor( value * 0.125 * days / 365 * 100 ) / 100;
   } else if (date > new Date('02-01-2003').getTime()) {
-    return value * 0.13 * days / 365;
+    return Math.floor( value * 0.13 * days / 365 * 100 ) / 100 ;
   } else if (date > new Date('07-25-2002').getTime()) {
-    return value * 0.16 * days / 365;
+    return Math.floor( value * 0.16 * days / 365 * 100 ) / 100;
   } else {
-    return value * 0.16 * days / 365;
+    return Math.floor( value * 0.16 * days / 365 * 100 ) / 100;
   }
 }
 

@@ -14,6 +14,7 @@ export class ValuesPipe implements PipeTransform {
         _.assign({ key: key }, value[key])
       );
     }
+    console.log(values)
     return values;
   }
 

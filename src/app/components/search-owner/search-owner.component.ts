@@ -43,7 +43,7 @@ export class SearchOwnerComponent implements OnDestroy {
   }
 
   showChosenOwner(owner: Owner) {
-    this.os.storeOwner(owner);
+    // this.os.storeOwner(owner);
     this.router.navigate(['/view/owner', owner.id]);
   }
 

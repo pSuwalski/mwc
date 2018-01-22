@@ -1,6 +1,6 @@
 <md-progress-bar *ngIf="progressBar" mode="indeterminate"></md-progress-bar>
 <div class="col-md-12 form-container" *ngIf="financialRecord">
-  <div class="form-row">
+  <div class="form-row" *ngIf="!editionDisabled">
     <div class="col-md-2">
       <md-select [disabled]="editionDisabled" placeholder="TYP*" [(ngModel)]="financialRecord.type">
         <md-option value="payment">
@@ -14,6 +14,13 @@
         </md-option>
       </md-select>
     </div>
+    <div class="col-md-2">
+        <md-select [disabled]="editionDisabled" placeholder="DOTYCZY DZIAŁKI*" [(ngModel)]="financialRecord.parcelId">
+          <md-option *ngFor="let p of parcels" [value]="p.id">
+           S {{ p.id }}
+          </md-option>
+        </md-select>
+      </div>
     <div class="col-md-2">
       <md-select [disabled]="editionDisabled" placeholder="NA ROK*" [(ngModel)]="financialRecord.forYear">
         <md-option *ngFor="let y of years" [value]="y">

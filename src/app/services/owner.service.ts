@@ -488,11 +488,8 @@ export function calculateParcelSaldos(fs: Fee[], ps: Payment[], cs: Cancelation[
         });
       }
       if (f.value > 0) {
-        console.log(parcel.saldos[k])
         parcel.saldos[k] = parcel.saldos[k] ? parcel.saldos[k] : { capital: 0, interest: 0, costs: 0 };
-        console.log(parcel.saldos[k])
         parcel.saldos[k].capital = parcel.saldos[k].capital ? parcel.saldos[k].capital - f.value : -f.value;
-        console.log(parcel.saldos[k])
         const timeDifference = (Date.now() - new Date(lastPaymentDate ? lastPaymentDate : f.date).getTime()) / (1000 * 60 * 60 * 24);
         parcel.saldos[k].interest = parcel.saldos[k].interest ?
           parcel.saldos[k].interest - getIntrests(timeDifference, new Date(f.date).getTime(), f.value) :

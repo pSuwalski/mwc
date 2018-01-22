@@ -30,6 +30,7 @@ export class OwnerOutputDataFormComponent implements OnInit, OnDestroy {
   editionDisabled = true;
   progressBar = true;
   addedSuccessfully: string;
+  
 
   financialRecords: any[] = []; // Financial Record
 
@@ -56,9 +57,7 @@ export class OwnerOutputDataFormComponent implements OnInit, OnDestroy {
         .subscribe(([cu, params]) => {
           this.os.restoreOwner(cu.unionId, params['id']).then(own => {
             this.id = params['id'];
-            console.log(own);
             this.currentUser = cu;
-            console.log('asdasdas');
             this.progressBar = false;
             if (own !== null) {
               this.owner = own;

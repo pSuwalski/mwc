@@ -1,3 +1,5 @@
+import { Saldo } from '../models/owner';
+import { Resolution } from '../models/resolution';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Injectable } from '@angular/core';
 import {
@@ -19,8 +21,8 @@ import * as hf from '../helper-functions';
 import * as _ from 'lodash';
 
 import 'rxjs/add/operator/do';
-import { FinancialRecord, Payment, Cancelation, AdditionalCosts } from '../models/payments';
-import { OwnersHistory } from '../models/parcel';
+import { Fee, FinancialRecord, Payment, Cancelation, AdditionalCosts } from '../models/payments';
+import { Parcel, OwnersHistory } from '../models/parcel';
 
 let storedOwner: Owner;
 
@@ -86,7 +88,7 @@ export class OwnerService {
       const ownerRef = await this.ownersRef(unionId).doc(id).ref.get();
       const paymentsRef = await this.ownersRef(unionId).doc(id).collection('payments').ref.get();
       const notesRef = await this.ownersRef(unionId).doc(id).collection('notes').ref.get();
-      const parcelsDataRef = await this.ownersRef(unionId).doc(id).collection('parcelsData').ref.get();
+      const parcelsDataRef = await this.ownersRef(unionId).doc(id).collection('parcels').ref.get();
       const payments = [];
       const notes = [];
       const parcelsData = [];
@@ -100,7 +102,9 @@ export class OwnerService {
         notesRef.docs.forEach((n) => notes.push(n.data()));
       }
       if (ownerRef.exists) {
-        return this.parse(ownerRef.data(), payments, notes, parcelsData);
+        const owner = this.parse(ownerRef.data(), payments, notes, parcelsData);
+        await this.calculateOwnerSaldos(owner, unionId);
+        return owner;
       } else {
         return null;
       }
@@ -123,7 +127,7 @@ export class OwnerService {
     });
     const dbOwner = _.assign(address, { id },
       owner.contactData, personalData.personalData, {
-        historicSaldo: owner.historicSaldo, authData: owner.authData
+        authData: owner.authData
       });
     return this.db
       .collection('unions')
@@ -142,7 +146,7 @@ export class OwnerService {
       delete personalData.personalData.address;
       const dbOwner = _.assign(address, { id },
         owner.contactData, personalData.personalData, {
-          historicSaldo: owner.historicSaldo, authData: owner.authData
+          authData: owner.authData
         });
       return this.db
         .collection('unions')
@@ -301,14 +305,16 @@ export class OwnerService {
     const historicSaldo = dbOwner.historicSaldo;
     const saldo = dbOwner.saldo;
     if (dbOwner.authData) {
+      dbOwner.authData = dbOwner.authData ? dbOwner.authData : [];
       dbOwner.authData.forEach((ad) => authData.push(this.parseFromInterface(ad, emptyOwnerAuth())));
     }
     if (parcelsData) {
+      dbOwner.parcelsData = dbOwner.parcelsData ? dbOwner.parcelsData : [];
       dbOwner.parcelsData.forEach((pd, i) => {
         parcelsData[i] = this.parseFromInterface(pd, emptyParcelDataFull());
       });
     }
-    return { personalData, contactData, authData, id: dbOwner.id, historicSaldo, saldo, parcelsData, payments, notes };
+    return { personalData, contactData, authData, id: dbOwner.id, parcelsData, payments, notes };
   }
 
   parseFromInterface<T>(parsed: any, emptyParsedType: T): T {
@@ -341,6 +347,12 @@ export class OwnerService {
     return this.db.collection('unions').doc(unionId).collection('owners');
   }
 
+  setParcel(parcel: ParcelDataFull, ownerId: string, unionId: string) {
+    console.log(parcel);
+    parcel.id = parcel.id ? parcel.id : this.db.createId();
+    return this.ownersRef(unionId).doc(ownerId).collection('parcels').doc(parcel.id).set(parcel);
+  }
+
   setPayment(payment: FinancialRecord, ownerId: string, unionId: string) {
     payment.id = this.db.createId();
     return this.ownersRef(unionId).doc(ownerId).collection('payments').doc(payment.id).set(payment);
@@ -352,7 +364,7 @@ export class OwnerService {
   }
 
   async removeParcel(parcelData: ParcelData, ownerId: string, unionId: string) {
-    await this.ownersRef(unionId).doc(ownerId).collection('parcelsData').doc(parcelData.id).delete();
+    await this.ownersRef(unionId).doc(ownerId).collection('parcels').doc(parcelData.id).delete();
     return this.db.doc(`unions/${unionId}/companies/${parcelData.companyId}/parcels/${parcelData.id}`)
       .collection('ownersHistory').doc(ownerId).delete();
   }
@@ -367,7 +379,172 @@ export class OwnerService {
     return this.ownersRef(unionId).doc(ownerId).collection('notes').doc(note.id).delete();
   }
 
+  async calculateOwnerSaldos(owner: Owner, unionId: string) { // resolutions as an input
+    owner.fees = owner.fees ? owner.fees : [];
+    const resolutionsRef = await this.db.collection('unions').doc(unionId).collection('resolutions').ref.get();
+    const resolutions: Resolution[] = resolutionsRef.empty ? [] : resolutionsRef.docs.map((p) => p.data() as Resolution);
+    const saldo: Saldo = emptySaldo();
+    const parcels: Parcel[] = [];
+    owner.parcelsData.forEach(async (pd) => {
+      const ref = await this.db.doc('unions/' + unionId + '/parcels/' + pd.id).ref.get();
+      if (ref.exists) {
+        parcels.push(ref.data() as Parcel);
+      }
+    });
+    resolutions.forEach((r) => {
+      const ownerParcels = owner.parcelsData.filter(
+        r.wholeCompany ?
+          ((pd) => pd.companyId === r.companyId) :
+          ((pd) => pd.companyId === r.companyId && _.contains(r.sectionIds, pd.sectionId))
+      );
+      console.log(ownerParcels, r);
+      ownerParcels.forEach((p) => {
+        const matchingParcel = parcels.find((parcel) => parcel.id === p.id);
+        p.area = matchingParcel ? matchingParcel.areaSurface : 0;
+        console.log(r);
+        if (r.year >= new Date(p.from).getFullYear()) {
+          r.payments.forEach((payment) => {
+            const fee: Fee = {
+              value: p.percent * p.area > 1 ? r.paymentMoreOneHour * p.percent * p.area : r.paymentLessOneHour,
+              type: 'fee',
+              parcelId: p.id,
+              id: Math.random().toString(36).substr(2, 5),
+              date: payment.paymentDate,
+              forYear: r.year
+            };
+            if (owner.fees) {
+              owner.fees.push(fee);
+            } else {
+              owner.fees = [fee];
+            }
+          });
+        }
+      });
+    });
+    owner.parcelsData.forEach((pd) => {
+      const payments = owner.payments.filter((p) => p.type === 'payment' && (p as Payment).parcelId === pd.id);
+      const cancelations = owner.payments.filter((p) => p.type === 'cancelation' && (p as Cancelation).parcelId === pd.id);
+      const fees = owner.fees.filter((f) => f.parcelId === pd.id);
+      console.log('fees', fees);
+      calculateParcelSaldos(fees, payments as Payment[], cancelations as Cancelation[], pd, owner);
+    });
 
+  }
+}
+
+
+export function calculateParcelSaldos(fs: Fee[], ps: Payment[], cs: Cancelation[], parcel: ParcelDataFull, owner: Owner) {
+  const fees: { [key: number]: Fee[] } = _.cloneDeep(_.groupBy(fs, (f) => f.forYear));
+  console.log('groupedFees', fees)
+  const payments: { [key: number]: Payment[] } = _.cloneDeep(_.groupBy(ps, (p) => p.forYear));
+  const cancelations: { [key: number]: Payment[] } = _.cloneDeep(_.groupBy(cs, (c) => c.forYear));
+  _.keys(fees).forEach((k) => {
+    const financialRecords = [];
+    financialRecords.concat(fees[k]).concat(payments[k] ? payments[k] : []).concat(cancelations[k] ? cancelations[k] : []);
+    let cancelationsSum = (cancelations[k] ? cancelations[k] : [])
+      .filter((c) => c.for === 'capital')
+      .reduce((acc, v) => acc += v.value, 0);
+    let interetsCancelationsSum = (cancelations[k] ? cancelations[k] : [])
+      .filter((c) => c.for === 'interests')
+      .reduce((acc, v) => acc += v.value, 0);
+    let everythingCancelationsSum = (cancelations[k] ? cancelations[k] : [])
+      .filter((c) => c.for === 'everything')
+      .reduce((acc, v) => acc += v.value, 0);
+    fees[k].forEach((f) => {
+      console.log('ffffff', f);
+      let lastPaymentDate;
+      if (payments[k]) {
+        payments[k].sort((a, b) => new Date(a.date).getTime() - new Date(a.date).getTime()).forEach((p, pi) => {
+          console.log('#####', p);
+          if (cancelationsSum) {
+            f.value -= cancelationsSum;
+            cancelationsSum = f.value < 0 ? - f.value : 0;
+            if (cancelationsSum) {
+              f.value = 0;
+            }
+          } else if (everythingCancelationsSum) {
+            f.value -= everythingCancelationsSum;
+            everythingCancelationsSum = f.value < 0 ? - f.value : 0;
+            if (everythingCancelationsSum) {
+              f.value = 0;
+            }
+          }
+          if (f.value > 0) {
+            const timeDifference = Math.floor(
+              (new Date(p.date).getTime() - new Date(f.date).getTime()) / (1000 * 60 * 60 * 24)
+            );
+            if (timeDifference > 0) {
+              parcel.saldos[k].interest = parcel.saldos[k].interest ?
+                parcel.saldos[k].interest + getIntrests(timeDifference, new Date(f.date).getTime(), f.value) :
+                getIntrests(timeDifference, new Date(f.date).getTime(), f.value);
+            }
+            f.value -= p.value;
+            p.value = f.value < 0 ? - f.value : 0;
+            if (p.value) {
+              f.value = 0;
+            }
+            lastPaymentDate = p.date;
+          }
+        });
+      }
+      if (f.value > 0) {
+        console.log(parcel.saldos[k])
+        parcel.saldos[k] = parcel.saldos[k] ? parcel.saldos[k] : { capital: 0, interest: 0, costs: 0 };
+        console.log(parcel.saldos[k])
+        parcel.saldos[k].capital = parcel.saldos[k].capital ? parcel.saldos[k].capital - f.value : -f.value;
+        console.log(parcel.saldos[k])
+        const timeDifference = (Date.now() - new Date(lastPaymentDate ? lastPaymentDate : f.date).getTime()) / (1000 * 60 * 60 * 24);
+        parcel.saldos[k].interest = parcel.saldos[k].interest ?
+          parcel.saldos[k].interest - getIntrests(timeDifference, new Date(f.date).getTime(), f.value) :
+          - getIntrests(timeDifference, new Date(f.date).getTime(), f.value);
+      }
+    });
+    if (parcel.saldos[k].interest && interetsCancelationsSum) {
+      parcel.saldos[k].interest -= interetsCancelationsSum;
+      interetsCancelationsSum = parcel.saldos[k].interest < 0 ? - parcel.saldos[k].interest : 0;
+      if (interetsCancelationsSum) {
+        parcel.saldos[k].interest = 0;
+      }
+    }
+    if (parcel.saldos[k].interest && everythingCancelationsSum) {
+      parcel.saldos[k].interest -= everythingCancelationsSum;
+      everythingCancelationsSum = parcel.saldos[k].interest < 0 ? - parcel.saldos[k].interest : 0;
+      if (everythingCancelationsSum) {
+        parcel.saldos[k].interest = 0;
+      }
+    }
+    parcel.saldos[k].capital = parcel.saldos[k].capital + everythingCancelationsSum + cancelationsSum;
+    owner.saldos = owner.saldos ? owner.saldos : {};
+    owner.saldos[k] = owner.saldos[k] ? owner.saldos[k] : { capital: 0, interest: 0, costs: 0 }
+    owner.saldos[k].capital = owner.saldos[k].capital ? owner.saldos[k].capital + parcel.saldos[k].capital : parcel.saldos[k].capital;
+    owner.saldos[k].interest = owner.saldos[k].interest ?
+      owner.saldos[k].interest + parcel.saldos[k].interest :
+      parcel.saldos[k].interest;
+  });
+}
+
+
+export function getIntrests(days: number, date: number, value: number) {
+  console.log(value * 0.07 * days / 365, value, days);
+  if (date >= new Date('01-01-2016').getTime()) {
+    return value * 0.07 * days / 365;
+  } else if (date >= new Date('12-23-2014').getTime()) {
+    return value * 0.08 * days / 365;
+  } else if (date > new Date('12-15-2008').getTime()) {
+    return value * 0.13 * days / 365;
+  } else if (date > new Date('10-15-2005').getTime()) {
+    return value * 0.115 * days / 365;
+  } else if (date > new Date('01-10-2005').getTime()) {
+    return value * 0.135 * days / 365;
+  } else if (date > new Date('09-25-2003').getTime()) {
+    return value * 0.125 * days / 365;
+  } else if (date > new Date('02-01-2003').getTime()) {
+    return value * 0.13 * days / 365;
+  } else if (date > new Date('07-25-2002').getTime()) {
+    return value * 0.16 * days / 365;
+  } else {
+    return value * 0.16 * days / 365;
+  }
 }
 
 

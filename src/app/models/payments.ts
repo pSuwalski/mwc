@@ -1,7 +1,7 @@
 export interface FinancialRecord {
   id: string;
   value: number;
-  type: 'payment' | 'additionalCosts' | 'cancelation';
+  type: 'payment' | 'additionalCosts' | 'cancelation' | 'fee';
   date: string;
   forYear: number;
 }
@@ -11,6 +11,7 @@ export interface Payment extends FinancialRecord {
   type: 'payment';
   from: 'account' | 'postalOrder' | 'cash';
   for: 'capital' | 'costs' | 'interests' | 'everything';
+  parcelId: string;
 }
 
 
@@ -22,6 +23,12 @@ export interface Cancelation extends FinancialRecord {
   type: 'cancelation';
   for: 'capital' | 'costs' | 'interests' | 'everything';
   reason: string;
+  parcelId: string;
+}
+
+export interface Fee extends FinancialRecord {
+  type: 'fee';
+  parcelId: string;
 }
 
 
@@ -33,7 +40,8 @@ export function emptyCancelation(): Cancelation {
     for: null,
     date: null,
     reason: null,
-    forYear: null
+    forYear: null,
+    parcelId: null
   };
 }
 
@@ -45,7 +53,8 @@ export function emptyPayment(): Payment {
     for: null,
     date: null,
     from: null,
-    forYear: null
+    forYear: null,
+    parcelId: null
   };
 }
 

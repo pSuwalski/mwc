@@ -51,7 +51,6 @@ import { MdSelectModule } from '@angular/material';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { InfoComponent } from './components/shared/info/info.component';
-import { HistoricSaldoFormComponent } from './components/shared/historic-saldo-form/historic-saldo-form.component';
 import { ContactDataFormComponent } from './components/shared/contact-data-form/contact-data-form.component';
 import { OwnerParcelFormComponent } from './components/shared/owner-parcel-form/owner-parcel-form.component';
 import { AuthorizationsDataFormComponent } from './components/shared/authorizations-data-form/authorizations-data-form.component';
@@ -91,13 +90,14 @@ import { ParcelDialogComponent } from './components/shared/parcel-dialog/parcel-
 import { PaymentsDialogComponent } from './components/shared/payments-dialog/payments-dialog.component';
 import { NotesDialogComponent } from './components/shared/notes-dialog/notes-dialog.component';
 import { NotesFormComponent } from './components/shared/notes-form/notes-form.component';
+import { SameAddressDialogComponent } from './components/shared/same-address-dialog/same-address-dialog.component';
 
 
 
 
 @NgModule({
   declarations: [AddParcelComponent, AdminPanelComponent, AppComponent,
-    DocumentsComponent, HistoricSaldoFormComponent, HistoryComponent, HomeComponent, InfoComponent,
+    DocumentsComponent, HistoryComponent, HomeComponent, InfoComponent,
     LoginPageComponent, MainPageComponent, NavigationToolbarComponent, OwnerParcelFormComponent,
     PersonalDataFormComponent, SearchComponent, SearchParcelComponent, SearchresultComponent, SearchrecordComponent, TemplateslistComponent,
     ContactDataFormComponent, AuthorizationsDataFormComponent, LegalbasisDataFormComponent,
@@ -111,6 +111,7 @@ import { NotesFormComponent } from './components/shared/notes-form/notes-form.co
     AddResolutionComponent,
     AddWorksdoneComponent,
     AuthorizationsDialogComponent,
+    SameAddressDialogComponent,
     SearchOwnerComponent,
     SearchResolutionComponent,
     NotesDialogComponent,
@@ -159,7 +160,7 @@ import { NotesFormComponent } from './components/shared/notes-form/notes-form.co
   providers: [GraphQlService, DatabaseService, DialogService, UserResolver, UserService, ParcelService, OwnerService,
     ResolutionsService, SectionService, WorksService, CompanyService],
   entryComponents: [
-    AuthorizationsDialogComponent, ParcelDialogComponent, PaymentsDialogComponent, NotesDialogComponent
+    AuthorizationsDialogComponent, ParcelDialogComponent, PaymentsDialogComponent, NotesDialogComponent, SameAddressDialogComponent
   ],
 
   bootstrap: [AppComponent]

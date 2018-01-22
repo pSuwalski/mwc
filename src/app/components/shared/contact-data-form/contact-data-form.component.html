@@ -5,7 +5,7 @@
 </div>
 <div class="row">
   <div class="col-md-12 checkbox">
-    <md-checkbox *ngIf="!editionDisabled" [(ngModel)]="sameAddressIndicator" (change)="sameAddress.emit()">Ten sam adres do korespondencji</md-checkbox>
+    <button md-raised-button color="primary" *ngIf="!editionDisabled"  (click)="sameAddress.emit()">Użyj adresu z pełnomocnictwa</button>
   </div>
 </div>
 <div class="row">

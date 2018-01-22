@@ -38,7 +38,6 @@ export class OwnerOutputDataFormComponent implements OnInit, OnDestroy {
     contactData: emptyOwnerContact(),
     authData: [],
     id: null,
-    historicSaldo: emptySaldo(),
     parcelsData: []
   };
   id: string;
@@ -57,8 +56,9 @@ export class OwnerOutputDataFormComponent implements OnInit, OnDestroy {
         .subscribe(([cu, params]) => {
           this.os.restoreOwner(cu.unionId, params['id']).then(own => {
             this.id = params['id'];
+            console.log(own);
             this.currentUser = cu;
-            console.log('asdasdas')
+            console.log('asdasdas');
             this.progressBar = false;
             if (own !== null) {
               this.owner = own;
@@ -104,8 +104,8 @@ export class OwnerOutputDataFormComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(PaymentsDialogComponent, { width: '90%' });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'save') {
+        this.owner.payments = this.owner.payments ? this.owner.payments : [];
         this.owner.payments.push(this.ds.inputData);
-        console.log(this.ds.inputData);
         this.os.setPayment(this.ds.inputData, this.owner.id, this.currentUser.unionId);
       }
     });
@@ -116,8 +116,9 @@ export class OwnerOutputDataFormComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(ParcelDialogComponent, { width: '90%' });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'save') {
+        this.owner.parcelsData = this.owner.parcelsData ? this.owner.parcelsData : [];
         this.owner.parcelsData.push(this.ds.inputData);
-        this.save();
+        this.os.setParcel(this.ds.inputData, this.owner.id, this.currentUser.unionId).then(() => { });
       }
     });
   }
@@ -127,6 +128,7 @@ export class OwnerOutputDataFormComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(NotesDialogComponent, { width: '90%' });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'save') {
+        this.owner.notes = this.owner.notes ? this.owner.notes : [];
         this.owner.notes.push(this.ds.inputData);
         this.os.setNote(this.ds.inputData, this.owner.id, this.currentUser.unionId);
       }
@@ -171,8 +173,9 @@ export class OwnerOutputDataFormComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(ParcelDialogComponent, { width: '90%' });
     dialogRef.afterClosed().subscribe(result => {
       if (result === 'save') {
-        this.owner.parcelsData.find((a) => a === parcelData)[0] = _.cloneDeep(this.ds.inputData);
-        this.save();
+        const index = this.owner.parcelsData.findIndex((p) => p.id === this.ds.inputData.id);
+        this.owner.parcelsData[index] = _.cloneDeep(this.ds.inputData);
+        this.os.setParcel(this.ds.inputData, this.owner.id, this.currentUser.unionId);
       }
     });
   }
@@ -185,14 +188,12 @@ export class OwnerOutputDataFormComponent implements OnInit, OnDestroy {
       contactData: emptyOwnerContact(),
       authData: [],
       id: null,
-      historicSaldo: emptySaldo(),
       parcelsData: []
     };
   }
 
   removeAuth(authData: AuthData) {
     _.remove(this.owner.authData, authData);
-    this.save();
   }
 
   removeNote(note: Note) {
@@ -203,10 +204,9 @@ export class OwnerOutputDataFormComponent implements OnInit, OnDestroy {
   removeParcel(parcelsData: ParcelData) {
     this.progressBar = true;
     this.editionDisabled = true;
-    this.os.removeParcel(_.remove(this.owner.parcelsData, parcelsData), this.owner.id, this.currentUser.unionId).then(() => {
+    this.os.removeParcel(_.remove(this.owner.parcelsData, parcelsData)[0], this.owner.id, this.currentUser.unionId).then(() => {
       this.progressBar = false;
     });
-    this.save();
   }
 
   removePayment(financialRecord: FinancialRecord) {

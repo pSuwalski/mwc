@@ -16,6 +16,7 @@ import { DialogService } from '../../services/dialog.service';
 import { AuthorizationsDialogComponent } from '../shared/authorizations-dialog/authorizations-dialog.component';
 import { OwnerParcelFormComponent } from '../shared/owner-parcel-form/owner-parcel-form.component';
 import { ParcelDialogComponent } from '../shared/parcel-dialog/parcel-dialog.component';
+import { SameAddressDialogComponent } from '../shared/same-address-dialog/same-address-dialog.component';
 
 @Component({
   selector: 'mwc-add-owner',
@@ -32,7 +33,6 @@ export class AddOwnerComponent implements OnInit, OnDestroy {
     contactData: emptyOwnerContact(),
     authData: [],
     id: null,
-    historicSaldo: emptySaldo(),
     parcelsData: []
   };
 
@@ -125,7 +125,6 @@ export class AddOwnerComponent implements OnInit, OnDestroy {
       contactData: emptyOwnerContact(),
       authData: [],
       id: null,
-      historicSaldo: emptySaldo(),
       parcelsData: []
     };
   }
@@ -143,11 +142,18 @@ export class AddOwnerComponent implements OnInit, OnDestroy {
   }
 
   sameCorrespondenceAddress() {
-    if (this.owner.contactData.address === this.owner.personalData.address) {
-      this.owner.contactData.address = emptyAddress();
-    } else {
-      this.owner.contactData.address = this.owner.personalData.address;
-    }
+    console.log(1);
+    this.ds.inputData = _.cloneDeep(this.owner.authData);
+    const dialogRef = this.dialog.open(SameAddressDialogComponent, { width: '90%' });
+    dialogRef.afterClosed().subscribe(result => {
+      if (_.isNumber(result)) {
+        this.owner.contactData.address = this.owner.authData[result].correspondenceAddress;
+        this.owner.contactData.cellPhoneNumber = this.owner.authData[result].phoneNumber;
+        this.owner.contactData.email = this.owner.authData[result].email;
+      } else {
+        this.owner.contactData.address = emptyAddress();
+      }
+    });
   }
-
 }
+

@@ -44,3 +44,7 @@ button {
     margin-bottom: 16px;
     display: block;
   }
+
+  .card-container {
+    background: white;
+  }

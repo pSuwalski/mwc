@@ -6,7 +6,7 @@
 
 @include mat-core();
 
-$candy-app-primary: mat-palette($mat-blue, 600);
+$candy-app-primary: mat-palette($mat-light-blue, 600);
 $candy-app-accent:  mat-palette($mat-light-green, A700);
 $candy-app-warn:    mat-palette($mat-red);
 $candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-app-warn);
@@ -159,7 +159,7 @@ md-progress-bar {
   max-width: 90vw!important;
 }
 md-toolbar {
-  background: linear-gradient(to right, white 18%, #1e88e5 50% , #1e88e5)!important;
+  background: linear-gradient(to right, white 18%, #049ae5 50%, #049ae5) !important;
 }
 .toolbar-logo {
   background: url(/assets/img/logo_text.png);
@@ -168,4 +168,7 @@ md-toolbar {
   background-size: auto 100%;
   display: block;
   background-repeat: no-repeat;
+}
+.mat-elevation-z1 {
+  background: white;
 }

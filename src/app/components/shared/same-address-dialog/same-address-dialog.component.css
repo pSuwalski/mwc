@@ -10,3 +10,12 @@
     margin-bottom: 10px;
     font-weight: 600;
   }
+
+  .button-container {
+    padding-top: 16px;
+    text-align: right;
+  }
+
+  .button-container button {
+    margin-left: 12px;
+  }

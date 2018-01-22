@@ -1,0 +1,9 @@
+<md-select [(ngModel)]="selectedIndex" name="first" placeholder="WYBIERZ PEŁNOMOCNITWO">
+  <md-option *ngFor="let ad of authDatas; let i = index" (click)="selectedIndex = i" [value]="i">
+    {{ ad.name }}
+  </md-option>
+</md-select>
+<div class="button-container">
+  <button md-raised-button (click)="cancel()">Anuluj</button>
+  <button md-raised-button color="accent" [disabled]="!(selectedIndex >= 0)" (click)="save()">Zapisz</button>
+</div>

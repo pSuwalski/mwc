@@ -1,15 +1,15 @@
 import { Address, emptyAddress } from "./address";
-import { FinancialRecord } from "./payments";
+import { FinancialRecord, Fee } from "./payments";
 
 export class Owner {
   personalData: PersonalData;
   contactData: ContactData;
   authData: AuthData[];
   id: string;
-  historicSaldo: Saldo;
-  saldo?: Saldo;
+  saldos?: { [key: number]: Saldo };
   parcelsData?: ParcelDataFull[];
   payments?: FinancialRecord[];
+  fees?: Fee[];
   notes?: Note[];
 }
 
@@ -91,9 +91,9 @@ export interface Saldo {
 
 export function emptySaldo(): Saldo {
   return {
-    capital: null,
-    interest: null,
-    costs: null
+    capital: 0,
+    interest: 0,
+    costs: 0
   };
 }
 
@@ -107,6 +107,8 @@ export interface ParcelDataFull extends ParcelData {
   percent: number;
   from: string;
   to: string;
+  saldos: { [key: number]: Saldo };
+  area?: number;
 }
 
 export function emptyParcelData(): ParcelData {
@@ -122,6 +124,7 @@ export function emptyParcelDataFull(): ParcelDataFull {
     sectionId: null,
     companyId: null,
     from: null,
-    to: null
+    to: null,
+    saldos: {}
   };
 }

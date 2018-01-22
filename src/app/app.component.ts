@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { UserService } from './services/user.service';
+import { DateAdapter } from '@angular/material';
+import { myParser } from './date-parser';
 
 
 @Component({
@@ -9,7 +11,10 @@ import { UserService } from './services/user.service';
 })
 export class AppComponent {
   constructor(
-    private us: UserService
+    private us: UserService,
+    private dateAdapter: DateAdapter<Date>
   ) {
+    this.dateAdapter.setLocale('pl');
+    this.dateAdapter.parse = myParser;
   }
 }

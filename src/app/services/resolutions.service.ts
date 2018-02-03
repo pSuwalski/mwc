@@ -17,7 +17,7 @@ export class ResolutionsService {
   resolutions: Resolution[];
 
   constructor(
-    private db: AngularFirestore
+    public db: AngularFirestore
   ) {
   }
 

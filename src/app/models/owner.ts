@@ -11,19 +11,22 @@ export class Owner {
   payments?: FinancialRecord[];
   fees?: Fee[];
   notes?: Note[];
+  authDataAddress?: boolean;
 }
 
 export interface Note {
   id: string;
   text: string;
   date: string;
+  link: string;
 }
 
 export function emptyNote(): Note {
   return {
     id: null,
     text: null,
-    date: null
+    date: null,
+    link: null
   };
 }
 
@@ -109,6 +112,8 @@ export interface ParcelDataFull extends ParcelData {
   to: string;
   saldos: { [key: number]: Saldo };
   area?: number;
+  number?: number;
+  cityId?: string;
 }
 
 export function emptyParcelData(): ParcelData {

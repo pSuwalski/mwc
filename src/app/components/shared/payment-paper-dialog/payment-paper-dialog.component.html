@@ -1,0 +1,5 @@
+<mwc-payment-paper [paymentPaperData]="ds.inputData"></mwc-payment-paper>
+<div class="button-container">
+  <button md-raised-button (click)="cancel()">Anuluj</button>
+  <button md-raised-button color="accent" [disabled]="!ds.inputData.unionBankAccount || !ds.inputData.amount || !ds.inputData.surname || !ds.inputData.payersBankAccount || !ds.inputData.payerName || !ds.inputData.title " (click)="save()">Generuj</button>
+</div>

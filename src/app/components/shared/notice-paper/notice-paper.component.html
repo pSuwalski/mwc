@@ -1,0 +1,96 @@
+<div style="padding:16px;">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="header">
+        Podstawa wystawienia
+      </div>
+    </div>
+    <div class="col-md-2">
+      <md-select name="first" placeholder="SPÓŁKA">
+        <md-option *ngFor="let c of currentUser?.companies" (click)="setCompanyId(c.id)" [value]="c.id">
+          {{ c.name }}
+        </md-option>
+      </md-select>
+    </div>
+    <div class="col-md-2">
+      <md-select name="first" [disabled]="!resolutions.length" placeholder="UCHWAŁA" [(ngModel)]="noticePaperData.resolutionId">
+        <md-option *ngFor="let r of resolutions" [value]="r.id">
+          {{ r.number + ' na rok ' + r.year }}
+        </md-option>
+      </md-select>
+    </div>
+    <div class="col-md-6">
+      <md-form-field>
+        <input class="textbox" type="text" mdInput placeholder="STATUT NA PODSTAWIE KTÓREGO PODSTAWIE WYSTAWIANE JEST WEZWANIE" name="adres_korespondencji"
+          [(ngModel)]="noticePaperData.status">
+      </md-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="header">
+        Dane wystawiającego
+      </div>
+    </div>
+    <div class="col-md-2">
+      <md-form-field>
+        <input class="textbox" type="text" mdInput placeholder="IMIĘ*" name="imienazwisko" [(ngModel)]="noticePaperData.name">
+      </md-form-field>
+    </div>
+    <div class="col-md-2">
+      <md-form-field>
+        <input class="textbox" type="text" mdInput placeholder="NAZWISKO*" name="imienazwisko" [(ngModel)]="noticePaperData.surname">
+      </md-form-field>
+    </div>
+    <div class="col-md-2">
+      <md-form-field>
+        <input class="textbox" type="text" mdInput placeholder="STANOWISKO" name="pesel" [(ngModel)]="noticePaperData.position">
+      </md-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="header">
+        Szczegóły płatności
+      </div>
+    </div>
+    <div class="col-md-2">
+      <md-form-field>
+        <input class="textbox" type="text" mdInput placeholder="NAZWA" name="telefon" [(ngModel)]="noticePaperData.accountName">
+      </md-form-field>
+    </div>
+    <div class="col-md-4">
+      <md-form-field>
+        <input class="textbox" type="number" mdInput placeholder="NUMER KONTA" name="email" [(ngModel)]="noticePaperData.bankAccount">
+      </md-form-field>
+    </div>
+    <div class="col-md-6">
+      <md-form-field>
+        <input class="textbox" type="text" mdInput placeholder="ADRES" name="pesel" [(ngModel)]="noticePaperData.address">
+      </md-form-field>
+    </div>
+    <div class="col-md-2">
+      <md-form-field>
+        <input class="textbox" type="text" mdInput placeholder="TYTUŁ PRZELEWU" name="telefon" [(ngModel)]="noticePaperData.title">
+      </md-form-field>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="header">
+        Dane kontaktowe spółki
+      </div>
+    </div>
+    <div class="col-md-2">
+      <md-form-field>
+        <input class="textbox" type="text" mdInput placeholder="TELEFON KONTAKTOWY" name="adres_korespondencji" [(ngModel)]="noticePaperData.contactPhone">
+      </md-form-field>
+    </div>
+    <div class="col-md-2">
+      <md-form-field>
+        <input class="textbox" type="text" mdInput placeholder="EMAIL" name="adres_korespondencji" [(ngModel)]="noticePaperData.contactEmail">
+      </md-form-field>
+    </div>
+  </div>
+</div>

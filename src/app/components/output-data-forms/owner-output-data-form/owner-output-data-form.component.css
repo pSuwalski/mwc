@@ -53,3 +53,9 @@ button {
     margin-top: 0;
 }
 
+.year-container {
+  padding-bottom: 24px;
+  margin-bottom: 36px;
+  border-bottom: solid 1px #eAeaea;
+}
+

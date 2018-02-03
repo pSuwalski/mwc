@@ -1,0 +1,5 @@
+<mwc-call-paper [callPaperData]="ds.inputData"></mwc-call-paper>
+<div class="button-container">
+  <button md-raised-button (click)="cancel()">Anuluj</button>
+  <button md-raised-button color="accent" [disabled]="!ds.inputData.contactPhone || !ds.inputData.name || !ds.inputData.surname || !ds.inputData.position || !ds.inputData.bankName || !ds.inputData.bankAccount || !ds.inputData.cashAddress || !ds.inputData.contactPhone || !ds.inputData.contactEmail" (click)="save()">Generuj</button>
+</div>

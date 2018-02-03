@@ -9,7 +9,9 @@ import { Payment } from '../models/payments';
 export class YearPaymentsPipe implements PipeTransform {
 
   transform(value: Payment[], arg: string): any {
-    return value.filter((v)=> String(v.forYear) === String(arg) || !arg);
+    return value
+      .filter((v) => String(v.forYear) === String(arg) || !arg)
+      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
   }
 
 }

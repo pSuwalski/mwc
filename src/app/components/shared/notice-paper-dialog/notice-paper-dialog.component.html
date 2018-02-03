@@ -1,0 +1,5 @@
+<mwc-notice-paper [noticePaperData]="ds.inputData"></mwc-notice-paper>
+<div class="button-container">
+  <button md-raised-button (click)="cancel()">Anuluj</button>
+  <button md-raised-button color="accent" [disabled]="!ds.inputData.name || !ds.inputData.surname || !ds.inputData.position || !ds.inputData.accountName || !ds.inputData.bankAccount" (click)="save()">Generuj</button>
+</div>

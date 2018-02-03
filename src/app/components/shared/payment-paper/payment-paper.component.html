@@ -1,0 +1,41 @@
+<div style="padding:16px;">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="header">
+        Dane transakcji
+      </div>
+    </div>
+    <div class="col-md-2">
+      <md-form-field>
+        <input class="textbox" type="number" mdInput placeholder="KWOTA" name="telefon" [(ngModel)]="paymentPaperData.amount">
+      </md-form-field>
+    </div>
+    <div class="col-md-2">
+      <md-form-field>
+        <input class="textbox" type="text" mdInput placeholder="TYTUŁ PRZELEWU" name="pesel" [(ngModel)]="paymentPaperData.title">
+      </md-form-field>
+    </div>
+    <div class="col-md-4">
+      <md-form-field>
+        <input class="textbox" type="number" mdInput placeholder="NUMER KONTA" name="email" [(ngModel)]="paymentPaperData.unionBankAccount">
+      </md-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="header">
+        Dane płatnika
+      </div>
+    </div>
+    <div class="col-md-2">
+      <md-form-field>
+        <input class="textbox" type="text" mdInput placeholder="IMIĘ I NAZWISKO" name="imienazwisko" [(ngModel)]="paymentPaperData.payerName">
+      </md-form-field>
+    </div>
+    <div class="col-md-4">
+      <md-form-field>
+        <input class="textbox" type="number" mdInput placeholder="NUMER KONTA" name="imienazwisko" [(ngModel)]="paymentPaperData.payersBankAccount">
+      </md-form-field>
+    </div>
+  </div>
+</div>

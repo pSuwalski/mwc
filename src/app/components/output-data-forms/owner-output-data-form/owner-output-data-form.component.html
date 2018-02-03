@@ -19,9 +19,16 @@
             <div *ngIf="!editionDisabled || owner?.authData?.length > 0" class="header">
               Udzielone pełnomocnictwa
             </div>
-            <mwc-authorizations-data-form *ngFor="let auth of owner.authData" [editionDisabled]="editionDisabled" [authDataForm]="auth"></mwc-authorizations-data-form>
+            <div *ngFor="let auth of owner.authData">
+              <mwc-authorizations-data-form [editionDisabled]="editionDisabled" [authDataForm]="auth"></mwc-authorizations-data-form>
+              <div class="auth-button-container">
+                <button type="button" class="add-button accent" md-raised-button color="primary" (click)="generateAuthPaper(auth)">Drukuj pełnomocnictwo</button>
+              </div>
+            </div>
+
             <div class="auth-button-container">
               <button *ngIf="!editionDisabled" type="button" class="add-button accent" md-raised-button color="primary" (click)="addAuth()">Dodaj {{owner.authData?.length > 0 ? 'kolejne' : ''}} pełnomocnictwo</button>
+
               <button *ngIf="!editionDisabled" type="button" class="add-button accent" md-raised-button color="primary" [disabled]="owner?.authData?.length < 1"
                 (click)="removeAuth()">Wykasuj pełnomocnictwo</button>
             </div>
@@ -63,15 +70,14 @@
       </md-tab>
       <md-tab label="Finanse" (click)="editionDisabled = true">
         <div class="form-container">
-          <div *ngFor="let s of owner.saldos | values">
+          <div class="year-container" *ngFor="let s of owner.saldos | values">
             <div class="header">
               Saldo na rok {{ s.key }}
             </div>
             <div class="saldo">
               <div class="col-md-3 no-padding">
                 <md-form-field class="example-full-width">
-                  <input [disabled]="true" placeholder="ŁĄCZNIE" [value]="(s.capital || 0) + (s.cost || 0) + (s.interest || 0)"
-                    mdInput type="text">
+                  <input [disabled]="true" placeholder="ŁĄCZNIE" [value]="(s.capital || 0) + (s.cost || 0) + (s.interest || 0)" mdInput type="text">
                 </md-form-field>
               </div>
               <div class="col-md-3 no-padding">
@@ -90,13 +96,15 @@
                 </md-form-field>
               </div>
             </div>
+            <button type="button" class="add-button accent" style="margin-left: 0; float: left; margin-bottom: 16px;" md-raised-button
+              color="primary" (click)="addFinancialRecord()">Dodaj rekord finansowy</button>
             <div class="clearfix"></div>
             <div class="header">
               Rekordy Finansowe
             </div>
             <div class="row" *ngFor="let fr of owner.payments.concat(owner.fees) | yearPayments: s.key ">
               <mwc-payments-data-form [parcels]="owner?.parcelsData" [editionDisabled]="true" [financialRecord]="fr"></mwc-payments-data-form>
-              <div  [class.hidden]="fr.type === 'fee'" class="auth-button-container" style="margin-bottom: 16px; padding: 0 15px;">
+              <div [class.hidden]="fr.type === 'fee'" class="auth-button-container" style="margin-bottom: 16px; padding: 0 15px;">
                 <button type="button" class="add-button accent" md-raised-button color="primary" (click)="removePayment(fr)">Wykasuj rekord finansowy</button>
                 <button type="button" class="add-button accent" md-raised-button color="primary" (click)="editPayment(fr)">Edytuj rekord finansowy</button>
               </div>
@@ -104,12 +112,28 @@
             </div>
           </div>
           <div class="clearfix"></div>
-          <button type="button" class="add-button accent" style="margin-left: 0; float: left; margin-bottom: 16px;" md-raised-button
-            color="primary" (click)="addFinancialRecord()">Dodaj rekord finansowy</button>
         </div>
       </md-tab>
-      <md-tab label="Notatki">
+      <md-tab label="Notatki i dokumenty">
         <div class="form-container">
+          <div class="header">
+            Generuj dokumenty
+          </div>
+          <div style="float: left; width: 100%;">
+            <button type="button" class="add-button accent" style="margin-left: 0; float: left; margin-bottom: 16px;" md-raised-button
+              color="primary" (click)="openCallPaper()">Generuj wezwanie do zapłaty</button>
+            <button type="button" class="add-button accent" style="margin-left: 12px; float: left; margin-bottom: 16px;" md-raised-button
+              color="primary" (click)="openNoticePaper()">Generuj zawiadomienie</button>
+            <button type="button" class="add-button accent" style="margin-left: 12px; float: left; margin-bottom: 16px;" md-raised-button
+              color="primary" (click)="openPaymentPaper()">Generuj polecenie płatności</button>
+          </div>
+          <div style="float: left; width: 100%;">
+            <button type="button" class="add-button accent" style="margin-left: 0; float: left; margin-bottom: 16px;" md-raised-button
+              color="primary" (click)="addNote()">Dodaj notatkę</button>
+            <span style=" padding: 7px; float: left; margin-left: 12px; padding-right: 0; margin-right: -2px;">lub dodaj plik</span>
+            <input id="image-file" type="file" style="margin-left: 12px; float: left; margin-bottom: 16px; padding: 7px; width: 220px"
+              (change)="uploadPhoto($event)" />
+          </div>
           <div class="header">
             Notatki
           </div>
@@ -119,12 +143,11 @@
             <div class="auth-button-container" style="margin-bottom: 16px;">
               <button type="button" class="add-button accent" md-raised-button color="primary" (click)="removeNote(note)">Wykasuj notatkę</button>
               <button type="button" class="add-button accent" md-raised-button color="primary" (click)="editNote(note)">Edytuj notatkę</button>
+              <button *ngIf="note.link" type="button" (click)="openInNewTab(note.link)" class="add-button accent" md-raised-button color="primary">Pobierz dokument</button>
             </div>
             <div class="clearfix"></div>
           </div>
           <div class="clearfix"></div>
-          <button type="button" class="add-button accent" style="margin-left: 0; float: left; margin-bottom: 16px;" md-raised-button
-            color="primary" (click)="addNote()">Dodaj notatkę</button>
         </div>
       </md-tab>
     </md-tab-group>

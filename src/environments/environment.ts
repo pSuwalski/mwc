@@ -10,7 +10,7 @@ export const environment = {
     authDomain: 'melior-wc.firebaseapp.com',
     databaseURL: 'https://melior-wc.firebaseio.com',
     projectId: 'melior-wc',
-    storageBucket: '',
+    storageBucket: 'melior-wc.appspot.com',
     messagingSenderId: '149540076073'
   }
 };

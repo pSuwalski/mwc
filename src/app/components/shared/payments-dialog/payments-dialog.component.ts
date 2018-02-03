@@ -1,6 +1,6 @@
 import { CompanyService } from '../../../services/company.service';
 import { Component, Input, OnInit } from '@angular/core';
-import { ParcelData, emptyParcelData, emptyParcelDataFull } from '../../../models/owner';
+import { ParcelData, emptyParcelData, emptyParcelDataFull, ParcelDataFull } from '../../../models/owner';
 import { UserService } from '../../../services/user.service';
 import { User } from '../../../models/user';
 import { Parcel } from '../../../models/parcel';
@@ -24,12 +24,14 @@ export class PaymentsDialogComponent implements OnInit {
 
   financialRecord: any;
   editionDisabled = false;
+  parcels: ParcelDataFull;
 
   constructor(
     private dialogRef: MdDialogRef<PaymentsDataFormComponent>,
     private ds: DialogService
   ) {
-    this.financialRecord = this.ds.inputData;
+    this.financialRecord = this.ds.inputData.financialRecord;
+    this.parcels = this.ds.inputData.parcels;
   }
 
   ngOnInit() {

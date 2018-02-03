@@ -1,18 +1,18 @@
 <div>
-<mwc-navigation-toolbar>
-</mwc-navigation-toolbar>
-<div class="height">
-  <div class="card-container">
-    <div class="card mat-elevation-z1">
-      <md-tab-group>
-        <md-tab label="Lista Szablonów">
-          <div class="scrollable-container">
-          <mwc-templateslist></mwc-templateslist>
+  <mwc-navigation-toolbar>
+  </mwc-navigation-toolbar>
+  <div class="height">
+    <div class="card-container">
+      <div class="card mat-elevation-z1">
+        <div class="row" *ngFor="let d of documents">
+          <div class="col-md-8">{{ d.name }}</div>
+          <div class="col-md-4">
+            <a [href]="d.link">
+              <button type="button" class="add-button accent" style="margin-left: 12px; float: left; margin-bottom: 16px;"
+                md-raised-button color="primary" (click)="openPaymentPaper()">Idź do dokumentu</button>
+            </a>
           </div>
-        </md-tab>
-        <md-tab label="Generuj Masowo"></md-tab>
-        <md-tab label="Dodaj Szablon"></md-tab>
-      </md-tab-group>
+        </div>
+      </div>
     </div>
   </div>
-</div>

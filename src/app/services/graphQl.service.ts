@@ -13,12 +13,12 @@ export class GraphQlService {
     private http: Http
   ) {
   }
-  createQuery(query: string, variables: string) {
+  createQuery(query: string, variables?: string) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
     headers.append('Accept', 'application/json');
     return this.http.post(API_URL, {
-      query: query.replace(/\n/g, ' ').replace(/ +/g, ' '), variables: variables
+      query: query.replace(/\n/g, ' ').replace(/ +/g, ' '), variables: variables ? variables : '{}'
     }, { headers: headers }).map(res => res.json());
   }
 }

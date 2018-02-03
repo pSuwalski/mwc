@@ -1,0 +1,85 @@
+<div style="padding:16px;">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="header">
+        Podstawa wystawienia
+      </div>
+    </div>
+    <div class="col-md-2">
+      <md-select name="first" placeholder="SPÓŁKA" [(ngModel)]="callPaperData.companyId">
+        <md-option *ngFor="let c of currentUser?.companies" [value]="c.id">
+          {{ c.name }}
+        </md-option>
+      </md-select>
+    </div>
+    <div class="col-md-4">
+      <md-form-field>
+        <input class="textbox" type="text" mdInput placeholder="DECYZJA STAROSTY" name="adres_korespondencji"
+          [(ngModel)]="callPaperData.status">
+      </md-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="header">
+        Dane wystawiającego
+      </div>
+    </div>
+    <div class="col-md-2">
+      <md-form-field>
+        <input class="textbox" type="text" mdInput placeholder="IMIĘ*" name="imienazwisko" [(ngModel)]="callPaperData.name">
+      </md-form-field>
+    </div>
+    <div class="col-md-2">
+      <md-form-field>
+        <input class="textbox" type="text" mdInput placeholder="NAZWISKO*" name="imienazwisko" [(ngModel)]="callPaperData.surname">
+      </md-form-field>
+    </div>
+    <div class="col-md-2">
+      <md-form-field>
+        <input class="textbox" type="text" mdInput placeholder="STANOWISKO" name="pesel" [(ngModel)]="callPaperData.position">
+      </md-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="header">
+        Szegóły płatności
+      </div>
+    </div>
+    <div class="col-md-2">
+      <md-form-field>
+        <input class="textbox" type="text" mdInput placeholder="NAZWA BANKU" name="telefon" [(ngModel)]="callPaperData.bankName">
+      </md-form-field>
+    </div>
+    <div class="col-md-4">
+      <md-form-field>
+        <input class="textbox" type="number" mdInput placeholder="NUMER KONTA" name="email" [(ngModel)]="callPaperData.bankAccount">
+      </md-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <md-form-field>
+        <input class="textbox" type="text" mdInput placeholder="ADRES KASY" name="adres_korespondencji" [(ngModel)]="callPaperData.cashAddress">
+      </md-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="header">
+        Dane kontaktowe spółki
+      </div>
+    </div>
+    <div class="col-md-2">
+      <md-form-field>
+        <input class="textbox" type="text" mdInput placeholder="TELEFON KONTAKTOWY" name="adres_korespondencji" [(ngModel)]="callPaperData.contactPhone">
+      </md-form-field>
+    </div>
+    <div class="col-md-2">
+      <md-form-field>
+        <input class="textbox" type="text" mdInput placeholder="EMAIL" name="adres_korespondencji" [(ngModel)]="callPaperData.contactEmail">
+      </md-form-field>
+    </div>
+  </div>
+</div>

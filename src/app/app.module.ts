@@ -1,3 +1,4 @@
+import { NoticePaperDialogComponent } from './components/shared/notice-paper-dialog/notice-paper-dialog.component';
 import { CompanyService } from './services/company.service';
 import { SectionService } from './services/section.service';
 import { ResolutionsService } from './services/resolutions.service';
@@ -61,6 +62,7 @@ import { WorksdoneDataFormComponent } from './components/shared/worksdone-data-f
 import { CompanyDataFormComponent } from './components/shared/company-data-form/company-data-form.component';
 import { UserResolver } from './resolvers/user-resolver';
 import { UserService } from './services/user.service';
+import { DocumentService } from './services/document.service';
 import { DialogService } from './services/dialog.service';
 import { GraphQlService } from './services/graphQl.service';
 import { WorksService } from './services/works.service';
@@ -93,7 +95,11 @@ import { NotesFormComponent } from './components/shared/notes-form/notes-form.co
 import { SameAddressDialogComponent } from './components/shared/same-address-dialog/same-address-dialog.component';
 import { ValuesPipe } from './pipes/values.pipe';
 import { YearPaymentsPipe } from './pipes/year-payments.pipe';
-
+import { CallPaperComponent } from './components/shared/call-paper/call-paper.component';
+import { CallPaperDialogComponent } from './components/shared/call-paper-dialog/call-paper-dialog.component';
+import { NoticePaperComponent } from './components/shared/notice-paper/notice-paper.component';
+import { PaymentPaperDialogComponent } from './components/shared/payment-paper-dialog/payment-paper-dialog.component';
+import { PaymentPaperComponent } from './components/shared/payment-paper/payment-paper.component';
 
 
 
@@ -129,7 +135,13 @@ import { YearPaymentsPipe } from './pipes/year-payments.pipe';
     SearchWorksdoneComponent,
     WorksOutputDataFormComponent,
     ValuesPipe,
-    YearPaymentsPipe
+    YearPaymentsPipe,
+    CallPaperComponent,
+    CallPaperDialogComponent,
+    NoticePaperDialogComponent,
+    NoticePaperComponent,
+    PaymentPaperDialogComponent,
+    PaymentPaperComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
@@ -162,9 +174,9 @@ import { YearPaymentsPipe } from './pipes/year-payments.pipe';
     MdSelectModule,
   ],
   providers: [GraphQlService, DatabaseService, DialogService, UserResolver, UserService, ParcelService, OwnerService,
-    ResolutionsService, SectionService, WorksService, CompanyService],
+    ResolutionsService, SectionService, WorksService, CompanyService, DocumentService],
   entryComponents: [
-    AuthorizationsDialogComponent, ParcelDialogComponent, PaymentsDialogComponent, NotesDialogComponent, SameAddressDialogComponent
+    AuthorizationsDialogComponent, ParcelDialogComponent, PaymentsDialogComponent, NotesDialogComponent, SameAddressDialogComponent, CallPaperDialogComponent, NoticePaperDialogComponent, PaymentPaperDialogComponent
   ],
 
   bootstrap: [AppComponent]

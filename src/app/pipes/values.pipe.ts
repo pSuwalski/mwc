@@ -14,7 +14,7 @@ export class ValuesPipe implements PipeTransform {
         _.assign({ key: key }, value[key])
       );
     }
-    console.log(values)
+    values.sort((a, b) => b.key - a.key)
     return values;
   }
 
